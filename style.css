@@ -1,0 +1,72 @@
+/* style.css */
+:root {
+    --lima: #CCFF00;
+    --verde-check: #32D74B; /* El verde de tu logo */
+    --naranja: #FF6B00;
+    --negro: #0D0D0D;
+    --gris-d: #1A1A1A;
+    --blanco: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'DM Sans', sans-serif; }
+
+body { background: var(--negro); color: var(--blanco); overflow-x: hidden; }
+
+/* LOGO REPLICADO (HEXAGONO + CHECK) */
+.logo-master {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.hex-icon {
+    width: 42px;
+    height: 48px;
+    background-color: var(--verde-check);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check {
+    width: 12px;
+    height: 20px;
+    border-bottom: 5px solid white;
+    border-right: 5px solid white;
+    transform: rotate(45deg);
+    margin-top: -5px;
+}
+
+.logo-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+/* HEADER */
+.header-proveed {
+    background: var(--lima);
+    padding: 50px 20px 20px;
+    border-radius: 0 0 30px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* BOTON LIMA */
+.btn-lima {
+    background: var(--lima);
+    color: var(--negro);
+    border: none;
+    padding: 18px;
+    border-radius: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    width: 100%;
+    cursor: pointer;
+}
