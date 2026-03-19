@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROVEED — Confirmar Pedido</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#32CD32; --negro:#0E0E0E; --blanco:#F8F8F5; --gris:#F2F3F0; }
+  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:130px; }
+  .header{ background:var(--negro); color:var(--blanco); padding:48px 20px 22px; display:flex; align-items:center; gap:14px; border-radius:0 0 28px 28px; }
+  .back-btn{ width:36px; height:36px; border-radius:12px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .page-title{ font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:white; }
+  .section{ margin:16px 20px 0; }
+  .section-title{ font-family:'Syne',sans-serif; font-size:0.8rem; font-weight:800; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+  .card{ background:white; border-radius:20px; padding:18px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:0.72rem; font-weight:600; color:#aaa; text-transform:uppercase; letter-spacing:0.7px; margin-bottom:5px; }
+  .field input,.field select,.field textarea{ width:100%; padding:12px 14px; background:#f8f8f8; border:1.5px solid #eee; border-radius:13px; outline:none; font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--negro); transition:border-color 0.2s; box-sizing:border-box; }
+  .field input:focus,.field select:focus,.field textarea:focus{ border-color:var(--verde); }
+  .field textarea{ resize:none; height:70px; }
+  .items-list{ margin-top:4px; }
+  .order-item{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f5f5f5; font-size:0.88rem; }
+  .order-item:last-child{ border-bottom:none; }
+  .order-item-name{ color:var(--negro); font-weight:600; }
+  .order-item-price{ color:var(--verde); font-weight:700; }
+  .total-card{ background:var(--negro); color:white; border-radius:20px; padding:18px; margin:14px 20px; }
+  .total-row{ display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.88rem; color:#888; }
+  .total-final{ display:flex; justify-content:space-between; font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:white; margin-top:12px; }
+  .metodo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .metodo-btn{ padding:14px; border:2px solid #eee; border-radius:14px; background:white; cursor:pointer; text-align:center; font-weight:600; font-size:0.82rem; color:#666; transition:0.2s; }
+  .metodo-btn.active{ border-color:var(--negro); color:var(--negro); background:#f8f8f8; }
+  .metodo-btn svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; display:block; margin:0 auto 6px; }
+  .footer-fixed{ position:fixed; bottom:0; width:100%; background:white; padding:16px 20px 28px; box-shadow:0 -6px 24px rgba(0,0,0,0.06); }
+  .btn-confirmar{ width:100%; padding:18px; border:none; border-radius:18px; background:var(--verde); color:#000; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:0.2s; }
+  .btn-confirmar:active{ transform:scale(0.98); }
+  .btn-confirmar:disabled{ opacity:0.5; cursor:not-allowed; }
+  .success-screen{ display:none; position:fixed; inset:0; background:var(--negro); z-index:999; flex-direction:column; align-items:center; justify-content:center; padding:40px; text-align:center; }
+  .success-screen.show{ display:flex; }
+  .check-big{ width:100px; height:100px; border-radius:50%; background:rgba(50,205,50,0.15); border:2px solid rgba(50,205,50,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 28px; animation:popIn 0.5s ease; }
+  .check-path{ stroke-dasharray:60; stroke-dashoffset:60; animation:draw 0.5s ease forwards 0.6s; }
+  .success-title{ font-family:'Syne',sans-serif; font-size:2rem; font-weight:900; color:white; margin-bottom:8px; }
+  .success-sub{ color:#666; font-size:0.9rem; line-height:1.6; margin-bottom:36px; }
+  .num-pedido{ background:#1C1C1C; border-radius:14px; padding:14px 24px; font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--verde); margin-bottom:28px; }
+  .btn-volver{ padding:16px 36px; background:var(--verde); color:#000; border-radius:16px; border:none; font-family:'Syne',sans-serif; font-weight:800; cursor:pointer; font-size:0.95rem; }
+  @keyframes popIn{ from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="back-btn" onclick="history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+  <div class="page-title">Confirmar Pedido</div>
+</div>
+<div class="section">
+  <div class="section-title">Resumen</div>
+  <div class="card"><div class="items-list" id="items-list"></div></div>
+</div>
+<div class="total-card">
+  <div class="total-row"><span>Subtotal</span><span id="sub">$0.00</span></div>
+  <div class="total-row"><span>Envío</span><span>A coordinar con proveedor</span></div>
+  <div class="total-final"><span>Total</span><span id="tot">$0.00</span></div>
+</div>
+<div class="section">
+  <div class="section-title">Datos de entrega</div>
+  <div class="card">
+    <div class="field"><label>Nombre completo</label><input type="text" id="nombre-entrega" placeholder="Juan Manuel Torres"></div>
+    <div class="field"><label>Dirección de entrega</label><input type="text" id="direccion" placeholder="Calle, número, sector, ciudad"></div>
+    <div class="field"><label>Ciudad / Provincia</label><input type="text" id="ciudad" placeholder="Quito, Pichincha"></div>
+    <div class="field"><label>Notas (opcional)</label><textarea id="notas" placeholder="Color específico, medidas..."></textarea></div>
+  </div>
+</div>
+<div class="section" style="margin-top:14px;">
+  <div class="section-title">Método de pago</div>
+  <div class="metodo-grid">
+    <div class="metodo-btn active" id="m-transferencia" onclick="setMetodo('transferencia')">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Transferencia
+    </div>
+    <div class="metodo-btn" id="m-efectivo" onclick="setMetodo('efectivo')">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Efectivo
+    </div>
+  </div>
+</div>
+<div class="footer-fixed">
+  <button class="btn-confirmar" id="btn-confirmar" onclick="confirmar()">ENVIAR PEDIDO</button>
+</div>
+<div class="success-screen" id="success-screen">
+  <div class="check-big">
+    <svg width="56" height="56" viewBox="0 0 60 60">
+      <path class="check-path" d="M14 32 L26 44 L46 20" stroke="#32CD32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="success-title">¡Pedido enviado!</div>
+  <p class="success-sub">El proveedor recibió tu pedido y te contactará por el chat de PROVEED.</p>
+  <div class="num-pedido" id="num-pedido">#PV-000000</div>
+  <button class="btn-volver" onclick="window.location.href='dashboard.html'">VER MIS PEDIDOS →</button>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const app = initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+let currentUser=null;
+let metodoPago='transferencia';
+let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+onAuthStateChanged(auth, async(user)=>{
+  if(!user){window.location.href='login.html';return;}
+  currentUser=user;
+  const snap=await getDoc(doc(db,'usuarios',user.uid));
+  if(snap.exists()){
+    document.getElementById('nombre-entrega').value=snap.data().nombre||'';
+    document.getElementById('ciudad').value=snap.data().ciudad||'';
+  }
+  renderResumen();
+});
+function renderResumen(){
+  const lista=document.getElementById('items-list');
+  let subtotal=0;
+  lista.innerHTML='';
+  if(!carrito.length){lista.innerHTML='<p style="color:#aaa;font-size:0.85rem;text-align:center;padding:10px;">Carrito vacío</p>';return;}
+  carrito.forEach(item=>{
+    subtotal+=item.precio*item.cantidad;
+    const div=document.createElement('div');
+    div.className='order-item';
+    div.innerHTML=`<span class="order-item-name">${item.cantidad}x ${item.nombre}</span><span class="order-item-price">$${(item.precio*item.cantidad).toFixed(2)}</span>`;
+    lista.appendChild(div);
+  });
+  document.getElementById('sub').textContent='$'+subtotal.toFixed(2);
+  document.getElementById('tot').textContent='$'+subtotal.toFixed(2);
+}
+window.setMetodo=function(m){
+  metodoPago=m;
+  document.getElementById('m-transferencia').classList.toggle('active',m==='transferencia');
+  document.getElementById('m-efectivo').classList.toggle('active',m==='efectivo');
+};
+window.confirmar=async function(){
+  const nombre=document.getElementById('nombre-entrega').value.trim();
+  const direccion=document.getElementById('direccion').value.trim();
+  const ciudad=document.getElementById('ciudad').value.trim();
+  if(!nombre||!direccion||!ciudad){alert('Por favor completa los datos de entrega.');return;}
+  if(!carrito.length){alert('Tu carrito está vacío.');return;}
+  const btn=document.getElementById('btn-confirmar');
+  btn.disabled=true;btn.textContent='PROCESANDO...';
+  try{
+    const pedidoRef=await addDoc(collection(db,'pedidos'),{
+      emprendedorId:currentUser.uid,
+      items:carrito,
+      entrega:{nombre,direccion,ciudad},
+      metodoPago,
+      notas:document.getElementById('notas').value.trim(),
+      estado:'pendiente',
+      total:carrito.reduce((s,i)=>s+i.precio*i.cantidad,0),
+      creadoEn:serverTimestamp()
+    });
+    localStorage.removeItem('carrito_proveed');
+    document.getElementById('num-pedido').textContent='#PV-'+pedidoRef.id.slice(-6).toUpperCase();
+    document.getElementById('success-screen').classList.add('show');
+  }catch(e){
+    alert('Error al enviar el pedido. Intenta de nuevo.');
+    btn.disabled=false;btn.textContent='ENVIAR PEDIDO';
+  }
+};
+</script>
+</body>
+</html>
