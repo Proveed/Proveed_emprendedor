@@ -10,55 +10,49 @@
   :root{ --verde-lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; --blanco:#F8F8F5; --gris-fondo:#F8F8F5; --rojo:#FF4D4D; }
   body{ background:var(--gris-fondo); color:var(--negro); font-family:'DM Sans',sans-serif; min-height:100vh; padding-bottom:90px; }
   
-  /* BARRA VERDE LIMA DELGADA */
-  .header{ background:var(--verde-lima); color:var(--negro); padding:40px 22px 12px; border-radius:0 0 25px 25px; position:sticky; top:0; z-index:100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  /* HEADER LIMA DELGADO SEGÚN TU SOLICITUD */
+  .header{ background:var(--verde-lima); color:var(--negro); padding:40px 22px 15px; border-radius:0 0 25px 25px; position:sticky; top:0; z-index:100; }
   .header-row{ display:flex; align-items:center; justify-content:space-between; }
-  .greeting-name{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; letter-spacing:-0.5px; }
+  .greeting-name{ font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; }
   .header-actions{ display:flex; align-items:center; gap:12px; }
-  .icon-btn-h{ background:rgba(0,0,0,0.05); width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
-  .cart-badge{ position:absolute; top:-4px; right:-4px; background:var(--rojo); color:white; font-size:0.6rem; font-weight:800; padding:2px 5px; border-radius:8px; border:1.5px solid var(--verde-lima); }
+  .icon-btn-h{ background:rgba(0,0,0,0.05); width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
 
-  .search-section{ padding:12px 20px 0; }
-  .search-box{ background:white; display:flex; align-items:center; padding:10px 16px; border-radius:14px; gap:10px; border:1.5px solid #eee; }
-  .search-box input{ border:none; outline:none; flex:1; font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--negro); background:transparent; }
+  /* SECCIONES COMPACTAS PARA MÁS VISIBILIDAD DE PRODUCTOS */
+  .search-section{ padding:15px 20px 0; }
+  .search-box{ background:white; display:flex; align-items:center; padding:12px 16px; border-radius:16px; gap:10px; border:1.5px solid #eee; }
+  .search-box input{ border:none; outline:none; flex:1; font-family:'DM Sans',sans-serif; font-size:0.9rem; }
 
-  /* SECCIONES SUBIDAS (MÁS ESPACIO PARA PRODUCTOS) */
-  .section-head{ display:flex; justify-content:space-between; align-items:center; padding:12px 20px 6px; }
-  .section-head h3{ font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:800; text-transform: uppercase; color: #999; }
+  .section-head{ display:flex; justify-content:space-between; align-items:center; padding:15px 20px 8px; }
+  .section-head h3{ font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; text-transform: uppercase; color: #888; }
   
-  .cats-scroll{ display:flex; gap:8px; padding:0 20px 12px; overflow-x:auto; scrollbar-width:none; }
-  .cats-scroll::-webkit-scrollbar { display: none; }
-  .cat-chip{ padding:8px 16px; border-radius:14px; white-space:nowrap; cursor:pointer; border:1.5px solid #eee; background:white; font-size:0.75rem; font-weight:700; color:#555; }
+  .cats-scroll{ display:flex; gap:10px; padding:0 20px 15px; overflow-x:auto; scrollbar-width:none; }
+  .cat-chip{ padding:9px 18px; border-radius:15px; white-space:nowrap; cursor:pointer; border:1.5px solid #eee; background:white; font-size:0.8rem; font-weight:700; color:#555; }
   .cat-chip.active{ background:var(--negro); color:white; border-color:var(--negro); }
 
-  /* PRODUCTOS DESDE DATABASE */
+  /* GRID DE PRODUCTOS DINÁMICOS */
   .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 20px 20px; }
-  .prod-card{ background:white; border-radius:20px; overflow:hidden; border: 1.5px solid #f0f0f0; cursor:pointer; }
-  .prod-img{ width:100%; height:150px; background:#f9f9f9; display:flex; align-items:center; justify-content:center; }
+  .prod-card{ background:white; border-radius:22px; overflow:hidden; border: 1.5px solid #f0f0f0; cursor:pointer; transition: 0.2s; }
+  .prod-card:active { transform: scale(0.96); }
+  .prod-img{ width:100%; height:155px; background:#f9f9f9; display:flex; align-items:center; justify-content:center; }
   .prod-img img{ width:100%; height:100%; object-fit:cover; }
-  .prod-info{ padding:10px; }
-  .prod-name{ font-size:0.8rem; font-weight:700; margin-bottom:4px; height: 32px; overflow: hidden; line-height:1.2; }
-  .prod-precio{ font-size:0.95rem; font-weight:800; color:var(--verde); }
+  .prod-info{ padding:12px; }
+  .prod-name{ font-size:0.85rem; font-weight:700; margin-bottom:4px; height: 36px; overflow: hidden; }
+  .prod-precio{ font-size:1rem; font-weight:800; color:var(--verde); }
 
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 20px; border-top:1px solid #eee; z-index:200; }
+  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 25px; border-top:1px solid #eee; z-index:200; }
   .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; color:#bbb; text-decoration:none; }
   .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; }
-  .tab span{ font-size:0.6rem; font-weight:700; }
+  .tab svg{ width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:2; }
 </style>
 </head>
 <body>
 
 <header class="header">
   <div class="header-row">
-    <div class="greeting-name" id="user-greeting">Hola...</div>
+    <div class="greeting-name" id="user-greeting">Hola, ...</div>
     <div class="header-actions">
-      <div class="icon-btn-h" onclick="window.location.href='chat.html'">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
       <div class="icon-btn-h" onclick="window.location.href='carrito.html'">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <div class="cart-badge" id="cart-badge">0</div>
       </div>
     </div>
   </div>
@@ -66,81 +60,98 @@
 
 <div class="search-section">
   <div class="search-box">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <input type="text" placeholder="Buscar productos...">
+    <input type="text" placeholder="¿Qué stock buscas?">
   </div>
 </div>
 
 <div class="section-head"><h3>Categorías</h3></div>
-<div class="cats-scroll">
-  <div class="cat-chip active" onclick="cargarProductos('todos')">Todo</div>
-  <div class="cat-chip" onclick="cargarProductos('textiles')">Textiles</div>
-  <div class="cat-chip" onclick="cargarProductos('tecnologia')">Tecnología</div>
+<div class="cats-scroll" id="cat-container">
+  <div class="cat-chip active" data-cat="todos">Todo</div>
+  <div class="cat-chip" data-cat="textiles">Textiles</div>
+  <div class="cat-chip" data-cat="tecnologia">Tecnología</div>
 </div>
 
-<div class="section-head"><h3>Destacados</h3></div>
+<div class="section-head"><h3>Explorar</h3></div>
 <div class="products-grid" id="products-grid"></div>
 
 <nav class="tab-bar">
-  <a class="tab active" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></a>
-  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
-  <a class="tab" href="perfil.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+  <a class="tab active" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a>
+  <a class="tab" href="perfil.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
 </nav>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, query, where, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-const app = initializeApp({
-  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-  authDomain:"proveed-8cb7c.firebaseapp.com",
-  projectId:"proveed-8cb7c",
-  storageBucket:"proveed-8cb7c.firebasestorage.app",
-  messagingSenderId:"235073250367",
-  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain: "proveed-8cb7c.firebaseapp.com",
+  projectId: "proveed-8cb7c",
+  storageBucket: "proveed-8cb7c.firebasestorage.app",
+  messagingSenderId: "235073250367",
+  appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
+};
+
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 onAuthStateChanged(auth, async (user) => {
-  if(!user){ window.location.href='login.html'; return; }
-  const snap = await getDoc(doc(db,'usuarios',user.uid));
-  if(snap.exists()) document.getElementById('user-greeting').textContent = "Hola, " + snap.data().nombre.split(' ')[0];
-  cargarProductos('todos');
+  if (user) {
+    const userSnap = await getDoc(doc(db, "usuarios", user.uid));
+    if (userSnap.exists()) {
+      document.getElementById('user-greeting').textContent = `Hola, ${userSnap.data().nombre || 'Usuario'}`;
+    }
+    cargarProductos('todos');
+  } else {
+    window.location.href = 'login.html';
+  }
 });
 
-async function cargarProductos(cat) {
+async function cargarProductos(categoria) {
   const grid = document.getElementById('products-grid');
-  grid.innerHTML = '<div style="background:#eee; height:180px; border-radius:20px;"></div>'.repeat(4);
+  grid.innerHTML = '<p>Cargando...</p>';
   
-  let q = query(collection(db,'productos'), where('activo','==',true), limit(12));
-  if(cat !== 'todos') q = query(collection(db,'productos'), where('activo','==',true), where('categoria','==',cat), limit(12));
-  
-  const snap = await getDocs(q);
-  grid.innerHTML = '';
-  
-  snap.forEach(d => {
-    const p = d.data();
-    const div = document.createElement('div');
-    div.className = 'prod-card';
-    
-    // DETALLE DEL PRODUCTO (COMO ANTES)
-    div.onclick = () => { window.location.href = `producto.html?id=${d.id}`; };
+  let q = query(collection(db, "productos"), where("activo", "==", true));
+  if (categoria !== 'todos') {
+    q = query(collection(db, "productos"), where("activo", "==", true), where("categoria", "==", categoria));
+  }
 
-    div.innerHTML = `
+  const querySnapshot = await getDocs(q);
+  grid.innerHTML = '';
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const card = document.createElement('div');
+    card.className = 'prod-card';
+    
+    // REDIRECCIÓN DINÁMICA: Asegúrate de tener el archivo producto.html
+    card.onclick = () => {
+      window.location.href = `producto.html?id=${doc.id}`;
+    };
+
+    card.innerHTML = `
       <div class="prod-img">
-        <img src="${p.imagen || ''}" onerror="this.src='https://via.placeholder.com/150'">
+        <img src="${data.imagen || 'https://via.placeholder.com/150'}" alt="${data.nombre}">
       </div>
       <div class="prod-info">
-        <div class="prod-name">${p.nombre || 'Producto'}</div>
-        <div class="prod-precio">$${Number(p.precio || 0).toFixed(2)}</div>
+        <div class="prod-name">${data.nombre}</div>
+        <div class="prod-precio">$${parseFloat(data.precio).toFixed(2)}</div>
       </div>
     `;
-    grid.appendChild(div);
+    grid.appendChild(card);
   });
 }
-window.cargarProductos = cargarProductos;
+
+// Filtro de categorías
+document.querySelectorAll('.cat-chip').forEach(chip => {
+  chip.onclick = () => {
+    document.querySelector('.cat-chip.active').classList.remove('active');
+    chip.classList.add('active');
+    cargarProductos(chip.dataset.cat);
+  };
+});
 </script>
 </body>
 </html>
