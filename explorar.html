@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Catálogo Profesional</title>
+    <title>PROVEED — Catálogo Full</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -11,68 +11,96 @@
         
         body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-        /* HEADER LIMPIO */
+        /* HEADER */
         .header { background: var(--lima); padding: 50px 20px 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 1000; }
         .header h1 { font-family: 'Syne'; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 15px; }
         .search-bar { background: rgba(0,0,0,0.08); border-radius: 15px; padding: 12px 15px; border: none; width: 100%; font-weight: 600; outline: none; }
 
-        /* GRID DE PRODUCTOS */
+        /* GRID */
         #grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; padding-bottom: 100px; }
-        
-        .card { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; position: relative; border: 1px solid rgba(0,0,0,0.05); }
-        
-        /* ÁREA DE IMAGEN (CLIC PARA DETALLE) */
-        .img-area { width: 100%; height: 220px; background: #eee; cursor: pointer; position: relative; }
+        .card { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.05); }
+        .img-area { width: 100%; height: 220px; position: relative; cursor: pointer; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; }
-        .tag { position: absolute; top: 10px; left: 10px; background: white; padding: 4px 8px; border-radius: 8px; font-size: 0.6rem; font-weight: 800; display: flex; align-items: center; gap: 4px; }
-
-        /* ÁREA DE TEXTO Y ACCIONES */
+        
         .info-area { padding: 12px; text-align: center; }
-        .name { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .name { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
         .price { color: #2bb12b; font-weight: 800; font-size: 1.1rem; margin-bottom: 12px; }
 
-        /* BOTONES INDEPENDIENTES Y FUNCIONALES */
+        /* ICONOS ELEGANTES SVG */
         .actions { display: flex; justify-content: center; gap: 8px; }
-        .btn { border: none; width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
-        
-        .btn-add { background: var(--negro); }
-        .btn-add svg { fill: var(--lima); width: 20px; }
-        
-        .btn-chat { background: #f2f3f0; }
-        .btn-chat svg { fill: #333; width: 18px; }
+        .btn-icon { border: none; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .btn-add-quick { background: var(--negro); }
+        .btn-add-quick svg { fill: var(--lima); width: 20px; }
+        .btn-chat-quick { background: #f2f3f0; }
+        .btn-chat-quick svg { fill: #333; width: 18px; }
 
-        .btn:active { transform: scale(0.9); opacity: 0.8; }
-
-        /* MODAL DETALLE */
-        #modal { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; }
+        /* MODAL DETALLES ANTERIOR */
+        #modal { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slide 0.3s ease-out; }
+        @keyframes slide { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
         .close-btn { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10; font-size: 20px; }
+        
+        .det-body { padding: 25px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; }
+        .det-title { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 5px; }
+        .det-price { color: #2bb12b; font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
+        
+        /* SELECTORES B2B */
+        .grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .opt label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #999; display: block; margin-bottom: 5px; }
+        .opt select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #eee; background: #f9f9f9; font-weight: 600; }
+
+        /* CONTADOR */
+        .qty-box { background: #f7f7f7; border-radius: 18px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
+        .qty-ctrl { display: flex; align-items: center; gap: 15px; }
+        .btn-q { width: 35px; height: 35px; border-radius: 10px; border: 1px solid #ddd; background: white; font-weight: 800; }
+
+        /* BOTONES GRANDES */
+        .btn-main { width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; text-transform: uppercase; border: none; margin-bottom: 10px; font-size: 0.9rem; }
+        .btn-black { background: var(--negro); color: white; }
+        .btn-border { background: white; border: 2.5px solid var(--negro); color: var(--negro); }
     </style>
 </head>
 <body>
 
 <div class="header">
     <h1>Explorar</h1>
-    <input type="text" class="search-bar" placeholder="¿Qué buscas para tu negocio?">
+    <input type="text" class="search-bar" placeholder="Buscar productos...">
 </div>
 
 <div id="grid"></div>
 
 <div id="modal">
     <button class="close-btn" onclick="cerrar()">✕</button>
-    <div id="modal-content"></div>
+    <div id="modal-img-container"></div>
+    <div class="det-body">
+        <h2 id="det-nom" class="det-title"></h2>
+        <p id="det-pre" class="det-price"></p>
+        
+        <div class="grid-options">
+            <div class="opt"><label>Talla</label><select><option>S</option><option>M</option><option>L</option></select></div>
+            <div class="opt"><label>Color</label><select><option>Negro</option><option>Blanco</option></select></div>
+            <div class="opt" style="grid-column: span 2;"><label>Material</label><select><option>Algodón 100%</option><option>Poliéster Pro</option></select></div>
+        </div>
+
+        <div class="qty-box">
+            <div style="font-size: 0.7rem;">📦 Pedido mínimo: <br><b>12 unidades</b></div>
+            <div class="qty-ctrl">
+                <button class="btn-q">-</button>
+                <span style="font-weight: 800;">12</span>
+                <button class="btn-q">+</button>
+            </div>
+        </div>
+
+        <button class="btn-main btn-black">Añadir al pedido</button>
+        <button class="btn-main btn-border" id="btn-negociar">Chat con proveedor</button>
+    </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-    const config = {
-        apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-        projectId: "proveed-8cb7c",
-        storageBucket: "proveed-8cb7c.firebasestorage.app"
-    };
-
-    const app = initializeApp(config);
+    const app = initializeApp({ apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" });
     const db = getFirestore(app);
 
     async function cargar() {
@@ -82,45 +110,33 @@
 
         snap.forEach(doc => {
             const p = doc.data();
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `
-                <div class="img-area" onclick="verDetalle('${p.nombre}', '${p.precio}', '${p.imagenes?.[0] || p.imagen}')">
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="img-area" onclick="verDetalle('${p.nombre}', '${p.precio}', '${p.imagenes?.[0] || p.imagen}', '${p.nombreProveedor}')">
                     <img src="${p.imagenes?.[0] || p.imagen}">
-                    <div class="tag">📦 ${p.nombreProveedor || 'SOW'}</div>
                 </div>
                 <div class="info-area">
                     <p class="name">${p.nombre}</p>
                     <p class="price">$${p.precio}</p>
                     <div class="actions">
-                        <button class="btn btn-add" onclick="alert('Añadido: ${p.nombre}')">
-                            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                        </button>
-                        <button class="btn btn-chat" onclick="alert('Chat con: ${p.nombreProveedor}')">
-                            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-                        </button>
+                        <button class="btn-icon btn-add-quick" onclick="alert('Añadido')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
+                        <button class="btn-icon btn-chat-quick" onclick="alert('Chat')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/></svg></button>
                     </div>
-                </div>
-            `;
-            grid.appendChild(div);
+                </div>`;
+            grid.appendChild(card);
         });
     }
 
-    window.verDetalle = (nom, pre, img) => {
-        const modal = document.getElementById('modal');
-        document.getElementById('modal-content').innerHTML = `
-            <img src="${img}" style="width:100%; height:400px; object-fit:cover;">
-            <div style="padding:25px;">
-                <h2 style="font-family:'Syne'; font-size:1.8rem; margin-bottom:10px;">${nom}</h2>
-                <p style="color:#2bb12b; font-size:1.5rem; font-weight:800; margin-bottom:20px;">$${pre}</p>
-                <button style="width:100%; padding:18px; background:black; color:white; border-radius:15px; border:none; font-weight:800; text-transform:uppercase;">Añadir al carrito</button>
-            </div>
-        `;
-        modal.style.display = 'flex';
+    window.verDetalle = (nom, pre, img, prov) => {
+        document.getElementById('modal-img-container').innerHTML = `<img src="${img}" style="width:100%; height:450px; object-fit:cover;">`;
+        document.getElementById('det-nom').innerText = nom;
+        document.getElementById('det-pre').innerText = `$${pre}`;
+        document.getElementById('btn-negociar').onclick = () => alert('Chat con ' + prov);
+        document.getElementById('modal').style.display = 'flex';
     };
 
     window.cerrar = () => document.getElementById('modal').style.display = 'none';
-
     cargar();
 </script>
 </body>
