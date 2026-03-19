@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Explorar</title>
+    <title>PROVEED — Explorar Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        :root { --lima: #CCFF00; --negro: #0E0E0E; --blanco: #FFFFFF; --gris-f: #F2F3F0; }
+        :root { --lima: #CCFF00; --negro: #0E0E0E; --blanco: #FFFFFF; --gris-f: #F2F3F0; --verde-precio: #2bb12b; }
+        
         body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
 
-        .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 25px 25px; z-index: 10; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* HEADER PRINCIPAL */
+        .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 25px 25px; z-index: 10; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; }
         .header h1 { font-family: 'Syne'; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
         .search-wrap { background: rgba(0,0,0,0.06); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; border: 1px solid rgba(0,0,0,0.05); }
-        .search-wrap input { background: transparent; border: none; outline: none; width: 100%; font-size: 0.9rem; font-weight: 500; }
+        .search-wrap input { background: transparent; border: none; outline: none; width: 100%; font-size: 0.9rem; font-weight: 500; color: var(--negro); }
+        .search-wrap input::placeholder { color: rgba(0,0,0,0.4); }
 
-        #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; overflow-y: auto; padding-bottom: 80px; }
-        .prod-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #eee; transition: 0.2s; position: relative; }
+        /* CONTENEDOR PRINCIPAL CON SCROLL */
+        #main-content { flex: 1; overflow-y: auto; padding-bottom: 100px; scroll-behavior: smooth; }
+
+        /* SECCIÓN CATEGORÍAS (RESTAURADA) */
+        .section-head { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 10px; }
+        .section-head h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--negro); }
+        
+        .cats-scroll { display: flex; gap: 10px; padding: 0 20px 5px; overflow-x: auto; scrollbar-width: none; }
+        .cats-scroll::-webkit-scrollbar { display: none; }
+        .cat-chip { padding: 9px 18px; border-radius: 20px; white-space: nowrap; cursor: pointer; border: 1.5px solid #eee; background: white; font-size: 0.8rem; font-weight: 700; color: #666; transition: 0.2s; }
+        .cat-chip.active { background: var(--negro); color: white; border-color: var(--negro); }
+
+        /* GRID CATALOGO PRINCIPAL */
+        #grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px 20px; }
+        .prod-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #eee; transition: 0.2s; position: relative; cursor: pointer; }
+        .prod-card:active { transform: scale(0.98); }
         .prod-img-min { width: 100%; height: 180px; background: #fafafa; }
         .prod-img-min img { width: 100%; height: 100%; object-fit: cover; }
-        .prod-info-min { padding: 10px; text-align: center; }
-        .prod-info-min h3 { font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; color: var(--negro); }
-        .prod-info-min p { color: #2bb12b; font-weight: 800; font-size: 1rem; }
+        .prod-info-min { padding: 12px; text-align: center; }
+        .prod-info-min h3 { font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--negro); height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .prod-info-min p { color: var(--verde-precio); font-weight: 800; font-size: 1.1rem; }
 
+        /* MODAL DETALLE (PÁGINA DE PRODUCTO COMPLETA) */
         #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.4s cubic-bezier(0, 0, 0.2, 1); }
-        .btn-atras { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 100; font-size: 1.2rem; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; }
+        .btn-atras { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 100; font-size: 1.2rem; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; cursor: pointer; }
         
+        /* CARRUSEL PRO */
         .carrusel-container { width: 100%; height: 55vh; position: relative; overflow: hidden; background: #000; }
         .carrusel-track { display: flex; height: 100%; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
         .carrusel-item { min-width: 100%; height: 100%; }
@@ -34,25 +53,42 @@
         .punto { width: 7px; height: 7px; background: rgba(255,255,255,0.3); border-radius: 50%; transition: 0.3s; }
         .punto.activo { background: var(--lima); width: 18px; border-radius: 10px; }
 
+        /* CUERPO DEL DETALLE */
         .detalle-body { padding: 25px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; z-index: 5; }
         .det-titulo { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 5px; color: var(--negro); }
-        .det-precio { color: #2bb12b; font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
+        .det-precio { color: var(--verde-precio); font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
         
+        /* SELECTORES DINÁMICOS */
         .opciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .opcion-item label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #999; display: block; margin-bottom: 6px; }
-        .opcion-item select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #eee; background: #f9f9f9; font-family: 'DM Sans'; font-weight: 600; font-size: 0.85rem; outline: none; }
+        .opcion-item select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #eee; background: #f9f9f9; font-family: 'DM Sans'; font-weight: 600; font-size: 0.85rem; outline: none; -webkit-appearance: none; appearance: none; }
 
+        /* CONTADOR Y LOGÍSTICA */
         .contador-wrap { background: #f7f7f7; border-radius: 18px; padding: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
         .info-envio { font-size: 0.7rem; color: #666; line-height: 1.4; }
+        .info-envio b { color: var(--negro); }
         .controles { display: flex; align-items: center; gap: 15px; }
         .btn-qty { background: white; border: 1.5px solid #eee; width: 38px; height: 38px; border-radius: 12px; font-weight: 800; font-size: 1.2rem; cursor: pointer; color: var(--negro); }
-        #qty-val { font-weight: 800; font-size: 1.1rem; min-width: 25px; text-align: center; }
+        .btn-qty:active { background: #f0f0f0; }
+        #qty-val { font-weight: 800; font-size: 1.1rem; min-width: 25px; text-align: center; color: var(--negro); }
 
+        /* BOTONES DE ACCIÓN */
         .btn-style { width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; text-transform: uppercase; font-size: 0.95rem; border: none; cursor: pointer; transition: 0.2s; }
-        .btn-negro { background: var(--negro); color: white; margin-bottom: 40px; }
+        .btn-negro { background: var(--negro); color: white; margin-bottom: 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-negro:active { transform: scale(0.98); }
 
-        .chat-float { position: fixed; bottom: 30px; right: 20px; background: var(--negro); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 3000; border: 2px solid var(--lima); }
+        /* RECOMENDACIONES INFINITAS (RESTAURADAS CON ESTILO ORIGINAL) */
+        .reco-header { font-family: 'Syne'; font-size: 1.1rem; padding: 10px 25px 15px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--negro); }
+        #reco-infinito { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 50px; }
+
+        /* CHAT FLOTANTE GHOST (CONECTADO) */
+        .chat-float { position: fixed; bottom: 30px; right: 20px; background: var(--negro); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 3000; border: 2px solid var(--lima); cursor: pointer; transition: 0.2s; }
+        .chat-float:active { transform: scale(0.9); }
         .chat-float svg { width: 24px; fill: var(--lima); }
+
+        /* SKELETON LOADING */
+        .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
+        @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     </style>
@@ -62,35 +98,70 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" id="busqueda" placeholder="¿Qué buscas para tu negocio?" oninput="renderizarGridPrincipal()">
     </div>
 </header>
 
-<div id="grid"></div>
+<div id="main-content">
+    <div class="section-head">
+        <h3>Categorías</h3>
+    </div>
+    <div class="cats-scroll" id="cats-scroll">
+        <div class="cat-chip active" data-cat="todos">Todos</div>
+        <div class="cat-chip" data-cat="textiles">Textiles</div>
+        <div class="cat-chip" data-cat="tecnologia">Tecnología</div>
+        <div class="cat-chip" data-cat="accesorios">Accesorios</div>
+    </div>
+
+    <div class="section-head">
+        <h3>Catálogo</h3>
+    </div>
+    <div id="grid">
+        <div class="prod-card skeleton" style="height: 250px;"></div>
+        <div class="prod-card skeleton" style="height: 250px;"></div>
+    </div>
+</div>
 
 <div id="modal-detalle">
     <button class="btn-atras" onclick="cerrarDetalle()">←</button>
+    
     <div class="carrusel-container">
         <div class="carrusel-track" id="track"></div>
         <div class="indicadores" id="puntos"></div>
     </div>
     
     <div class="detalle-body">
-        <h2 class="det-titulo" id="det-nom"></h2>
-        <p class="det-precio" id="det-pre"></p>
+        <h2 class="det-titulo" id="det-nom">Cargando...</h2>
+        <p class="det-precio" id="det-pre">$0.00</p>
 
         <div class="opciones-grid">
-            <div class="opcion-item"><label>Talla</label><select id="sel-talla"><option>S</option><option>M</option><option>L</option><option>XL</option><option>Única</option></select></div>
-            <div class="opcion-item"><label>Color</label><select id="sel-color"><option>Negro</option><option>Blanco</option><option>Azul</option></select></div>
+            <div class="opcion-item">
+                <label>Talla / Tamaño</label>
+                <select id="sel-talla"><option>S</option><option>M</option><option>L</option></select>
+            </div>
+            <div class="opcion-item">
+                <label>Color</label>
+                <select id="sel-color"><option>Negro</option><option>Blanco</option></select>
+            </div>
         </div>
 
         <div class="contador-wrap">
-            <div class="info-envio">📦 Mínimo: <b id="min-qty">12</b> und.<br>🚚 Entrega: <b>3-5 días hábiles</b></div>
-            <div class="controles"><button class="btn-qty" onclick="changeQty(-1)">-</button><span id="qty-val">12</span><button class="btn-qty" onclick="changeQty(1)">+</button></div>
+            <div class="info-envio">
+                📦 Mínimo: <b id="min-qty">12</b> und.<br>
+                🚚 Entrega: <b>3-5 días hábiles</b>
+            </div>
+            <div class="controles">
+                <button class="btn-qty" onclick="changeQty(-1)">-</button>
+                <span id="qty-val">12</span>
+                <button class="btn-qty" onclick="changeQty(1)">+</button>
+            </div>
         </div>
         
         <button class="btn-style btn-negro" onclick="alert('Pedido añadido')">Añadir al pedido</button>
-        <div id="reco-infinito" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding-bottom: 100px;"></div>
+
+        <h3 class="reco-header">Sigue explorando</h3>
+        <div id="reco-infinito"></div>
     </div>
 
     <div class="chat-float" id="btn-chat-directo">
@@ -100,10 +171,10 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, where, orderBy, limit, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-    const config = {
+    const firebaseConfig = {
         apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
         authDomain: "proveed-8cb7c.firebaseapp.com",
         projectId: "proveed-8cb7c",
@@ -112,68 +183,235 @@
         appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
     };
 
-    const app = initializeApp(config);
+    const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
     let productos = [];
+    let categoriaActual = 'todos';
+    let minActual = 12;
 
-    // --- LOGICA DE CONTACTO REAL ---
-    window.contactarYa = async (p) => {
-        const user = auth.currentUser;
-        if(!user) { window.location.href='login.html'; return; }
+    // --- CARGA INICIAL Y AUTENTICACIÓN ---
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            cargarProductos();
+        } else {
+            // Opcional: Redirigir a login si no está autenticado
+            // window.location.href = 'login.html';
+        }
+    });
 
-        const pId = p.proveedorId || "PROV_SISTEMA";
-        const pNom = p.proveedorNombre || "Proveedor Oficial";
+    // --- CARGAR DATOS REALES ---
+    async function cargarProductos() {
+        const grid = document.getElementById('grid');
+        try {
+            // Consulta real a Firebase (limitada para performance inicial)
+            const q = query(collection(db, "productos"), where("activo", "==", true), orderBy("creadoEn", "desc"), limit(20));
+            const snap = await getDocs(q);
+            productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            
+            renderizarGridPrincipal();
+        } catch (error) {
+            console.error("Error cargando productos reales:", error);
+            grid.innerHTML = '<p style="padding:20px; color:#999; text-align:center;">Error de conexión. Intenta de nuevo.</p>';
+        }
+    }
 
-        // Buscar o crear chat
-        const q = query(collection(db, "chats"), where("emprendedorId", "==", user.uid), where("proveedorId", "==", pId));
-        const snap = await getDocs(q);
-        let chatId = snap.empty ? (await addDoc(collection(db, "chats"), {
-            emprendedorId: user.uid,
-            proveedorId: pId,
-            proveedorNombre: pNom,
-            ultimoMensaje: "Interés: " + p.nombre,
-            ultimoMensajeEn: serverTimestamp()
-        })).id : snap.docs[0].id;
-
-        // Saltar al chat con la referencia preparada
-        const params = new URLSearchParams({
-            chatId: chatId,
-            nombre: pNom,
-            refMsg: `Hola, me interesa el producto: ${p.nombre}`,
-            refImg: p.imagenes ? p.imagenes[0] : (p.imagen || "")
+    // --- RENDERIZADO GRID PRINCIPAL (RESTAURADO ESTILO ORIGINAL) ---
+    window.renderizarGridPrincipal = function() {
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('busqueda').value.toLowerCase();
+        grid.innerHTML = '';
+        
+        let prodsFiltrados = productos.filter(p => {
+            const matchesSearch = (p.nombre || '').toLowerCase().includes(search);
+            const matchesCat = categoriaActual === 'todos' || p.categoria === categoriaActual;
+            return matchesSearch && matchesCat;
         });
-        window.location.href = `chat.html?${params.toString()}`;
+
+        if(prodsFiltrados.length === 0) {
+            grid.innerHTML = '<p style="grid-column:1/-1; padding:40px; color:#999; text-align:center;">No encontramos productos.</p>';
+            return;
+        }
+
+        prodsFiltrados.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'prod-card';
+            card.onclick = () => abrirDetalle(p);
+            card.innerHTML = `
+                <div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen || 'placeholder.jpg'}"></div>
+                <div class="prod-info-min">
+                    <h3>${p.nombre || 'Producto sin nombre'}</h3>
+                    <p>$${Number(p.precio || 0).toFixed(2)}</p>
+                </div>`;
+            grid.appendChild(card);
+        });
+    }
+
+    // --- LÓGICA DE CATEGORÍAS (RESTAURADA) ---
+    document.querySelectorAll('.cat-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            categoriaActual = chip.dataset.cat;
+            renderizarGridPrincipal();
+        });
+    });
+
+    // --- FUNCIÓN MAESTRA: INICIO DE CHAT INSTANTÁNEO CON DATOS REALES ---
+    window.irAlChatConReferencia = async (p) => {
+        const usuarioActual = auth.currentUser;
+        if (!usuarioActual) {
+            alert("Debes iniciar sesión para contactar al proveedor.");
+            // window.location.href = 'login.html';
+            return;
+        }
+
+        // Usar datos reales del producto (asegúrate que existan en tu DB)
+        const provId = p.proveedorId || "PROV_SISTEMA_GENERICO"; 
+        const provNom = p.proveedorNombre || "Proveedor Proveed";
+
+        try {
+            // 1. Buscar si ya existe el chat entre emprendedor y proveedor
+            const chatsRef = collection(db, "chats");
+            const q = query(chatsRef, 
+                where("emprendedorId", "==", usuarioActual.uid),
+                where("proveedorId", "==", provId)
+            );
+            
+            const querySnapshot = await getDocs(q);
+            let chatIdFinal;
+
+            if (!querySnapshot.empty) {
+                // Ya existe, usamos ese ID
+                chatIdFinal = querySnapshot.docs[0].id;
+            } else {
+                // No existe, creamos el documento del chat automáticamente
+                const nuevoChatRef = await addDoc(chatsRef, {
+                    emprendedorId: usuarioActual.uid,
+                    proveedorId: provId,
+                    proveedorNombre: provNom,
+                    ultimoMensaje: "Interés en producto...",
+                    ultimoMensajeEn: serverTimestamp(),
+                    noLeidos: 0,
+                    creadoEn: serverTimestamp()
+                });
+                chatIdFinal = nuevoChatRef.id;
+            }
+
+            // 2. Preparar los datos de referencia del producto para la URL
+            const mensajePredefinido = `Hola, estoy interesado en este producto: ${p.nombre}`;
+            const imagenReferencia = p.imagenes ? p.imagenes[0] : (p.imagen || "");
+
+            const params = new URLSearchParams({
+                chatId: chatIdFinal, // ID Real de Firebase
+                nombre: provNom,
+                refMsg: mensajePredefinido,
+                refImg: imagenReferencia
+            });
+
+            // 3. Redirección INMEDIATA a chat.html
+            window.location.href = `chat.html?${params.toString()}`;
+
+        } catch (error) {
+            console.error("Error al iniciar chat directo:", error);
+            alert("Hubo un problema al conectar con el proveedor.");
+        }
     };
 
+    // --- MODAL DETALLE (RESTAURADO COMPLETO Y CONECTADO) ---
     window.abrirDetalle = (p) => {
         const modal = document.getElementById('modal-detalle');
-        document.getElementById('btn-chat-directo').onclick = () => window.contactarYa(p);
         
-        document.getElementById('det-nom').innerText = p.nombre;
-        document.getElementById('det-pre').innerText = `$${Number(p.precio).toFixed(2)}`;
-        document.getElementById('track').innerHTML = (p.imagenes || [p.imagen]).map(f => `<div class="carrusel-item"><img src="${f}"></div>`).join('');
+        // GESTIÓN DE NAVEGACIÓN (BOTÓN ATRÁS NATIVO)
+        history.pushState({ modalAbierto: true }, "");
+        window.onpopstate = () => cerrarDetalle(false);
+
+        // --- CONEXIÓN DE CHAT DIRECTO ---
+        // Asignamos la función maestra al click del botón flotante
+        const btnChat = document.getElementById('btn-chat-directo');
+        btnChat.onclick = () => window.irAlChatConReferencia(p);
+
+        // --- RENDERIZADO VISUAL ---
+        // Datos básicos
+        document.getElementById('det-nom').innerText = p.nombre || 'Producto';
+        document.getElementById('det-pre').innerText = `$${Number(p.precio || 0).toFixed(2)}`;
         
+        // Logística y Cantidades
+        minActual = p.cantidadMinima || 12;
+        document.getElementById('qty-val').innerText = minActual;
+        document.getElementById('min-qty').innerText = minActual;
+
+        // Carrusel (Touch Enabled)
+        const track = document.getElementById('track');
+        const puntos = document.getElementById('puntos');
+        const fotos = p.imagenes && p.imagenes.length > 0 ? p.imagenes : [p.imagen || 'placeholder.jpg'];
+        
+        track.innerHTML = fotos.map(f => `<div class="carrusel-item"><img src="${f}"></div>`).join('');
+        puntos.innerHTML = fotos.map((_, i) => `<div class="punto ${i===0?'activo':''}"></div>`).join('');
+        
+        let index = 0;
+        track.style.transform = `translateX(0)`;
+        
+        // Control Carrusel Touch (Tu lógica original)
+        track.ontouchstart = (e) => {
+            let startX = e.touches[0].clientX;
+            track.ontouchend = (ev) => {
+                let endX = ev.changedTouches[0].clientX;
+                if(startX - endX > 50 && index < fotos.length - 1) index++;
+                if(startX - endX < -50 && index > 0) index--;
+                track.style.transform = `translateX(-${index * 100}%)`;
+                Array.from(puntos.children).forEach((pt, i) => pt.className = `punto ${i===index?'activo':''}`);
+            }
+        };
+
+      // --- RENDERIZADO SUGERENCIAS (RESTAURADO ORIGINAL) ---
+        const recoGrid = document.getElementById('reco-infinito');
+        recoGrid.innerHTML = '';
+        
+        // Tomamos productos aleatorios de la lista cargada
+        let sugerencias = [...productos]
+            .filter(item => item.id !== p.id) // No mostrar el actual
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 6); // Mostrar 6 sugerencias
+
+        if(sugerencias.length > 0) {
+            sugerencias.forEach(r => {
+                const item = document.createElement('div');
+                item.className = 'prod-card';
+                item.onclick = (e) => { 
+                    e.stopPropagation(); 
+                    abrirDetalle(r); // Re-abrir modal con la sugerencia
+                    modal.scrollTo({ top: 0, behavior: 'smooth' }); 
+                };
+                item.innerHTML = `
+                    <div class="prod-img-min" style="height:140px"><img src="${r.imagenes?.[0] || r.imagen || 'placeholder.jpg'}"></div>
+                    <div style="padding:12px; font-size:0.75rem; text-align:center;">
+                        <b style="display:block; margin-bottom:4px; height:32px; overflow:hidden;">${r.nombre}</b>
+                        <span style="color:var(--verde-precio); font-weight:800; font-size:1rem;">$${Number(r.precio).toFixed(2)}</span>
+                    </div>`;
+                recoGrid.appendChild(item);
+            });
+        } else {
+            recoGrid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:#999; padding:20px;">Cargando más productos...</p>';
+        }
+
+        // Mostrar Modal y Reset Scroll
         modal.style.display = 'flex';
         modal.scrollTop = 0;
-    };
+    }
 
-    window.cerrarDetalle = () => document.getElementById('modal-detalle').style.display = 'none';
+    // --- FUNCIONES AUXILIARES (RESTAURADAS) ---
+    window.cerrarDetalle = (debeIrAtras = true) => {
+        document.getElementById('modal-detalle').style.display = 'none';
+        if (debeIrAtras && window.history.state?.modalAbierto) history.back();
+    }
 
-    // Carga inicial
-    const snap = await getDocs(collection(db, "productos"));
-    productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    
-    window.renderizarGridPrincipal = () => {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = productos.map(p => `
-            <div class="prod-card" onclick="abrirDetalle(${JSON.stringify(p).replace(/"/g, '&quot;')})">
-                <div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen}"></div>
-                <div class="prod-info-min"><h3>${p.nombre}</h3><p>$${Number(p.precio).toFixed(2)}</p></div>
-            </div>
-        `).join('');
-    };
-    renderizarGridPrincipal();
+    window.changeQty = (val) => {
+        let el = document.getElementById('qty-val');
+        let current = parseInt(el.innerText);
+        if(current + val >= minActual) el.innerText = current + val;
+    }
+
 </script>
 </body>
 </html>
