@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Explorar Premium</title>
+    <title>PROVEED — Explorar</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -11,32 +11,32 @@
         body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
 
         /* HEADER */
-        .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 25px 25px; z-index: 10; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 25px 25px; z-index: 10; }
         .header h1 { font-family: 'Syne'; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
-        .search-wrap { background: rgba(0,0,0,0.06); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; border: 1px solid rgba(0,0,0,0.05); }
+        .search-wrap { background: rgba(0,0,0,0.06); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; }
         .search-wrap input { background: transparent; border: none; outline: none; width: 100%; font-size: 0.9rem; font-weight: 500; }
 
         #main-scroll { flex: 1; overflow-y: auto; padding-bottom: 100px; }
 
-        /* CATEGORIAS */
-        .section-title { font-family: 'Syne'; font-size: 1rem; padding: 20px 20px 10px; text-transform: uppercase; color: var(--negro); }
-        .cats-scroll { display: flex; gap: 10px; padding: 0 20px 15px; overflow-x: auto; scrollbar-width: none; }
-        .cats-scroll::-webkit-scrollbar { display: none; }
-        .cat-chip { padding: 8px 18px; border-radius: 20px; background: white; border: 1px solid #eee; font-size: 0.8rem; font-weight: 700; color: #666; white-space: nowrap; }
+        /* CATEGORIAS DINÁMICAS */
+        .section-title { font-family: 'Syne'; font-size: 0.9rem; padding: 20px 20px 10px; text-transform: uppercase; color: var(--negro); opacity: 0.8; }
+        #cats-container { display: flex; gap: 10px; padding: 0 20px 15px; overflow-x: auto; scrollbar-width: none; }
+        #cats-container::-webkit-scrollbar { display: none; }
+        .cat-chip { padding: 8px 18px; border-radius: 20px; background: white; border: 1px solid #eee; font-size: 0.75rem; font-weight: 700; color: #666; white-space: nowrap; cursor: pointer; }
         .cat-chip.active { background: var(--negro); color: white; border-color: var(--negro); }
 
-        /* GRID */
+        /* GRID CATALOGO */
         #grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
-        .prod-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #eee; transition: 0.2s; cursor: pointer; }
+        .prod-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #eee; transition: 0.2s; position: relative; }
         .prod-img-min { width: 100%; height: 170px; background: #fafafa; }
         .prod-img-min img { width: 100%; height: 100%; object-fit: cover; }
         .prod-info-min { padding: 12px; text-align: center; }
         .prod-info-min h3 { font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; color: var(--negro); height: 32px; overflow: hidden; }
         .prod-info-min p { color: var(--verde-precio); font-weight: 800; font-size: 1rem; }
 
-        /* MODAL */
+        /* MODAL DETALLE */
         #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.3s ease; }
-        .btn-atras { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 100; font-size: 1.2rem; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; }
+        .btn-atras { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 100; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .carrusel-container { width: 100%; height: 50vh; position: relative; overflow: hidden; background: #000; }
         .carrusel-track { display: flex; height: 100%; transition: transform 0.3s ease; }
         .carrusel-item { min-width: 100%; height: 100%; }
@@ -46,16 +46,10 @@
         .det-titulo { font-family: 'Syne'; font-size: 1.5rem; color: var(--negro); margin-bottom: 5px; }
         .det-precio { color: var(--verde-precio); font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; }
         
-        .opciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .opcion-item label { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #999; margin-bottom: 5px; display: block; }
-        .opcion-item select { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #eee; background: #f9f9f9; font-weight: 600; font-size: 0.8rem; outline: none; }
-
-        .contador-wrap { background: #f7f7f7; border-radius: 18px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .info-envio { font-size: 0.65rem; color: #666; }
+        .contador-wrap { background: #f7f7f7; border-radius: 18px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
         .btn-qty { background: white; border: 1px solid #eee; width: 35px; height: 35px; border-radius: 10px; font-weight: 800; }
 
         .btn-negro { background: var(--negro); color: white; width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; border: none; margin-bottom: 30px; }
-        #reco-infinito { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 50px; }
 
         .chat-float { position: fixed; bottom: 30px; right: 20px; background: var(--negro); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 3000; border: 2px solid var(--lima); }
         .chat-float svg { width: 24px; fill: var(--lima); }
@@ -68,42 +62,37 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
-        <input type="text" id="busqueda" placeholder="Buscar gorras, relojes..." oninput="renderizarGrid()">
+        <input type="text" id="busqueda" placeholder="Buscar en el catálogo..." oninput="renderizarGrid()">
     </div>
 </header>
 
 <div id="main-scroll">
     <h3 class="section-title">Categorías</h3>
-    <div class="cats-scroll">
-        <div class="cat-chip active">Todo</div>
-        <div class="cat-chip">Gorras</div>
-        <div class="cat-chip">Relojes</div>
-        <div class="cat-chip">Premium</div>
-    </div>
+    <div id="cats-container">
+        </div>
 
-    <h3 class="section-title">Catálogo</h3>
-    <div id="grid"></div>
+    <h3 class="section-title">Para ti</h3>
+    <div id="grid">
+        </div>
 </div>
 
 <div id="modal-detalle">
     <button class="btn-atras" onclick="cerrarDetalle()">←</button>
-    <div class="carrusel-container">
-        <div class="carrusel-track" id="track"></div>
-    </div>
+    <div class="carrusel-container"><div class="carrusel-track" id="track"></div></div>
     <div class="detalle-body">
         <h2 class="det-titulo" id="det-nom"></h2>
         <p class="det-precio" id="det-pre"></p>
-        <div class="opciones-grid">
-            <div class="opcion-item"><label>Talla</label><select><option>Única</option><option>S</option><option>M</option></select></div>
-            <div class="opcion-item"><label>Color</label><select><option>Negro</option><option>Original</option></select></div>
-        </div>
         <div class="contador-wrap">
-            <div class="info-envio">📦 Mínimo: <b id="min-qty">12</b> und.<br>🚚 Entrega: <b>3-5 días</b></div>
-            <div class="controles"><button class="btn-qty" onclick="changeQty(-1)">-</button> <span id="qty-val">12</span> <button class="btn-qty" onclick="changeQty(1)">+</button></div>
+            <div style="font-size: 0.7rem; color: #666;">📦 Mínimo: <b id="min-qty">--</b> und.</div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button class="btn-qty" onclick="changeQty(-1)">-</button>
+                <span id="qty-val" style="font-weight: 800;">1</span>
+                <button class="btn-qty" onclick="changeQty(1)">+</button>
+            </div>
         </div>
-        <button class="btn-negro">Añadir al Pedido</button>
-        <h3 style="font-family:'Syne'; font-size:1rem; margin-bottom:15px;">Sugerencias</h3>
-        <div id="reco-infinito"></div>
+        <button class="btn-negro">Añadir al pedido</button>
+        <h3 style="font-family:'Syne'; font-size:1rem; margin-bottom:15px;">Otros productos</h3>
+        <div id="reco-infinito" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 50px;"></div>
     </div>
     <div class="chat-float" id="btn-chat-directo">
         <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
@@ -128,81 +117,96 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
     let productos = [];
+    let catSeleccionada = "Todos";
 
-    // --- CARGA DE DATOS (CON RESPALDO POR SI FIREBASE ESTÁ VACÍO) ---
-    async function cargar() {
-        const grid = document.getElementById('grid');
-        try {
-            const snap = await getDocs(collection(db, "productos"));
-            productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    async function cargarDB() {
+        const snap = await getDocs(collection(db, "productos"));
+        productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        
+        actualizarCategorias();
+        renderizarGrid();
+    }
 
-            // Si no hay productos en Firebase, cargamos datos de prueba para que no se vea vacío
-            if (productos.length === 0) {
-                productos = [
-                    { nombre: "Gorra Goorin Bros Lion", precio: 25.00, imagen: "https://m.media-amazon.com/images/I/81W8U5zK5EL._AC_SX679_.jpg", proveedorId: "PROV1", proveedorNombre: "Gorra Store" },
-                    { nombre: "Invicta Pro Diver Gold", precio: 85.00, imagen: "https://m.media-amazon.com/images/I/71e06vK1S3L._AC_UY1000_.jpg", proveedorId: "PROV2", proveedorNombre: "Premium Watch" }
-                ];
-            }
-            renderizarGrid();
-        } catch (e) {
-            console.error(e);
-        }
+    function actualizarCategorias() {
+        const container = document.getElementById('cats-container');
+        // Extrae categorías únicas de tus productos reales
+        const cats = ["Todos", ...new Set(productos.map(p => p.categoria).filter(c => c))];
+        
+        container.innerHTML = cats.map(c => `
+            <div class="cat-chip ${c === catSeleccionada ? 'active' : ''}" onclick="filtrarCat('${c}')">${c}</div>
+        `).join('');
+    }
+
+    window.filtrarCat = (cat) => {
+        catSeleccionada = cat;
+        actualizarCategorias();
+        renderizarGrid();
     }
 
     window.renderizarGrid = () => {
         const grid = document.getElementById('grid');
-        const txt = document.getElementById('busqueda').value.toLowerCase();
-        grid.innerHTML = productos.filter(p => p.nombre.toLowerCase().includes(txt)).map(p => `
-            <div class="prod-card" onclick='abrirDetalle(${JSON.stringify(p)})'>
+        const busqueda = document.getElementById('busqueda').value.toLowerCase();
+        
+        const filtrados = productos.filter(p => {
+            const coincideBusqueda = p.nombre.toLowerCase().includes(busqueda);
+            const coincideCat = catSeleccionada === "Todos" || p.categoria === catSeleccionada;
+            return coincideBusqueda && coincideCat;
+        });
+
+        grid.innerHTML = filtrados.length > 0 ? filtrados.map(p => `
+            <div class="prod-card" onclick='abrirDetalle(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
                 <div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen}"></div>
                 <div class="prod-info-min"><h3>${p.nombre}</h3><p>$${Number(p.precio).toFixed(2)}</p></div>
             </div>
-        `).join('');
-    };
+        `).join('') : '<p style="grid-column:1/-1; text-align:center; padding:50px; color:#999;">No hay productos en esta selección.</p>';
+    }
 
     window.abrirDetalle = (p) => {
         const modal = document.getElementById('modal-detalle');
         document.getElementById('det-nom').innerText = p.nombre;
         document.getElementById('det-pre').innerText = `$${Number(p.precio).toFixed(2)}`;
+        document.getElementById('min-qty').innerText = p.cantidadMinima || 1;
+        document.getElementById('qty-val').innerText = p.cantidadMinima || 1;
         document.getElementById('track').innerHTML = (p.imagenes || [p.imagen]).map(img => `<div class="carrusel-item"><img src="${img}"></div>`).join('');
         
-        // CONEXIÓN CHAT
         document.getElementById('btn-chat-directo').onclick = async () => {
             const user = auth.currentUser;
-            if(!user) return alert("Inicia sesión");
+            if(!user) return alert("Inicia sesión para contactar");
             
+            // Lógica de chat real
             const q = query(collection(db, "chats"), where("emprendedorId", "==", user.uid), where("proveedorId", "==", p.proveedorId || "SISTEMA"));
             const snap = await getDocs(q);
             let chatId = snap.empty ? (await addDoc(collection(db, "chats"), {
                 emprendedorId: user.uid,
                 proveedorId: p.proveedorId || "SISTEMA",
                 proveedorNombre: p.proveedorNombre || "Proveedor",
-                ultimoMensaje: "Me interesa: " + p.nombre,
+                ultimoMensaje: "Referencia: " + p.nombre,
                 ultimoMensajeEn: serverTimestamp()
             })).id : snap.docs[0].id;
 
             window.location.href = `chat.html?chatId=${chatId}&nombre=${p.proveedorNombre}&refMsg=Hola, me interesa: ${p.nombre}`;
         };
 
-        // SUGERENCIAS
-        document.getElementById('reco-infinito').innerHTML = productos.slice(0, 4).map(r => `
-            <div class="prod-card" onclick='abrirDetalle(${JSON.stringify(r)})'>
+        // Recomendaciones basadas en tu DB
+        document.getElementById('reco-infinito').innerHTML = productos.filter(x => x.id !== p.id).slice(0, 4).map(r => `
+            <div class="prod-card" onclick='abrirDetalle(${JSON.stringify(r).replace(/'/g, "&apos;")})'>
                 <div class="prod-img-min" style="height:120px"><img src="${r.imagenes?.[0] || r.imagen}"></div>
                 <div style="padding:10px; font-size:0.7rem; text-align:center;"><b>${r.nombre}</b></div>
             </div>
         `).join('');
 
         modal.style.display = 'flex';
+        modal.scrollTop = 0;
     };
 
     window.cerrarDetalle = () => document.getElementById('modal-detalle').style.display = 'none';
     window.changeQty = (v) => {
         let q = document.getElementById('qty-val');
         let val = parseInt(q.innerText) + v;
-        if(val >= 12) q.innerText = val;
+        if(val >= 1) q.innerText = val;
     };
 
-    cargar();
+    cargarDB();
 </script>
 </body>
 </html>
