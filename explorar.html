@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Explorar Premium</title>
+    <title>PROVEED — Explorar</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :root { --lima: #CCFF00; --negro: #0E0E0E; --blanco: #FFFFFF; --gris-f: #F2F3F0; }
-        
         body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
 
-        /* HEADER PRINCIPAL */
         .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 25px 25px; z-index: 10; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .header h1 { font-family: 'Syne'; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
         .search-wrap { background: rgba(0,0,0,0.06); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; border: 1px solid rgba(0,0,0,0.05); }
         .search-wrap input { background: transparent; border: none; outline: none; width: 100%; font-size: 0.9rem; font-weight: 500; }
 
-        /* GRID CATALOGO PRINCIPAL */
         #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; overflow-y: auto; padding-bottom: 80px; }
         .prod-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #eee; transition: 0.2s; position: relative; }
         .prod-img-min { width: 100%; height: 180px; background: #fafafa; }
@@ -26,11 +23,9 @@
         .prod-info-min h3 { font-size: 0.8rem; font-weight: 700; margin-bottom: 4px; color: var(--negro); }
         .prod-info-min p { color: #2bb12b; font-weight: 800; font-size: 1rem; }
 
-        /* MODAL DETALLE (PÁGINA DE PRODUCTO COMPLETA) */
         #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.4s cubic-bezier(0, 0, 0.2, 1); }
         .btn-atras { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 100; font-size: 1.2rem; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; }
         
-        /* CARRUSEL PRO */
         .carrusel-container { width: 100%; height: 55vh; position: relative; overflow: hidden; background: #000; }
         .carrusel-track { display: flex; height: 100%; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
         .carrusel-item { min-width: 100%; height: 100%; }
@@ -39,34 +34,23 @@
         .punto { width: 7px; height: 7px; background: rgba(255,255,255,0.3); border-radius: 50%; transition: 0.3s; }
         .punto.activo { background: var(--lima); width: 18px; border-radius: 10px; }
 
-        /* CUERPO DEL DETALLE */
         .detalle-body { padding: 25px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; z-index: 5; }
         .det-titulo { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 5px; color: var(--negro); }
         .det-precio { color: #2bb12b; font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
         
-        /* SELECTORES DINÁMICOS */
         .opciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .opcion-item label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #999; display: block; margin-bottom: 6px; }
         .opcion-item select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #eee; background: #f9f9f9; font-family: 'DM Sans'; font-weight: 600; font-size: 0.85rem; outline: none; }
 
-        /* CONTADOR Y LOGÍSTICA */
         .contador-wrap { background: #f7f7f7; border-radius: 18px; padding: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
         .info-envio { font-size: 0.7rem; color: #666; line-height: 1.4; }
-        .info-envio b { color: var(--negro); }
         .controles { display: flex; align-items: center; gap: 15px; }
         .btn-qty { background: white; border: 1.5px solid #eee; width: 38px; height: 38px; border-radius: 12px; font-weight: 800; font-size: 1.2rem; cursor: pointer; color: var(--negro); }
         #qty-val { font-weight: 800; font-size: 1.1rem; min-width: 25px; text-align: center; }
 
-        /* BOTONES DE ACCIÓN */
         .btn-style { width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; text-transform: uppercase; font-size: 0.95rem; border: none; cursor: pointer; transition: 0.2s; }
-        .btn-negro { background: var(--negro); color: white; margin-bottom: 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .btn-negro:active { transform: scale(0.98); }
+        .btn-negro { background: var(--negro); color: white; margin-bottom: 40px; }
 
-        /* RECOMENDACIONES INFINITAS */
-        .reco-header { font-family: 'Syne'; font-size: 1.1rem; padding: 0 25px 15px; text-transform: uppercase; letter-spacing: 0.5px; }
-        #reco-infinito { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px 100px; }
-
-        /* CHAT FLOTANTE GHOST */
         .chat-float { position: fixed; bottom: 30px; right: 20px; background: var(--negro); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 3000; border: 2px solid var(--lima); }
         .chat-float svg { width: 24px; fill: var(--lima); }
 
@@ -86,8 +70,7 @@
 
 <div id="modal-detalle">
     <button class="btn-atras" onclick="cerrarDetalle()">←</button>
-    
-    <div class="carrusel-container" id="carrusel">
+    <div class="carrusel-container">
         <div class="carrusel-track" id="track"></div>
         <div class="indicadores" id="puntos"></div>
     </div>
@@ -97,48 +80,30 @@
         <p class="det-precio" id="det-pre"></p>
 
         <div class="opciones-grid">
-            <div class="opcion-item">
-                <label>Talla / Tamaño</label>
-                <select id="sel-talla"><option>S</option><option>M</option><option>L</option><option>XL</option><option>Única</option></select>
-            </div>
-            <div class="opcion-item">
-                <label>Color</label>
-                <select id="sel-color"><option>Negro</option><option>Blanco</option><option>Rojo</option><option>Azul</option></select>
-            </div>
-            <div class="opcion-item" style="grid-column: span 2;">
-                <label>Tipo de Textil / Material</label>
-                <select id="sel-textil"><option>Algodón Premium</option><option>Poliéster G5</option><option>Seda Fría</option></select>
-            </div>
+            <div class="opcion-item"><label>Talla</label><select id="sel-talla"><option>S</option><option>M</option><option>L</option><option>XL</option><option>Única</option></select></div>
+            <div class="opcion-item"><label>Color</label><select id="sel-color"><option>Negro</option><option>Blanco</option><option>Azul</option></select></div>
         </div>
 
         <div class="contador-wrap">
-            <div class="info-envio">
-                📦 Mínimo: <b id="min-qty">12</b> und.<br>
-                🚚 Entrega: <b>3-5 días hábiles</b>
-            </div>
-            <div class="controles">
-                <button class="btn-qty" onclick="changeQty(-1)">-</button>
-                <span id="qty-val">12</span>
-                <button class="btn-qty" onclick="changeQty(1)">+</button>
-            </div>
+            <div class="info-envio">📦 Mínimo: <b id="min-qty">12</b> und.<br>🚚 Entrega: <b>3-5 días hábiles</b></div>
+            <div class="controles"><button class="btn-qty" onclick="changeQty(-1)">-</button><span id="qty-val">12</span><button class="btn-qty" onclick="changeQty(1)">+</button></div>
         </div>
         
-        <button class="btn-style btn-negro" onclick="alert('Pedido añadido al carrito')">Añadir al pedido</button>
-
-        <h3 class="reco-header">Sigue explorando productos</h3>
-        <div id="reco-infinito"></div>
+        <button class="btn-style btn-negro" onclick="alert('Pedido añadido')">Añadir al pedido</button>
+        <div id="reco-infinito" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding-bottom: 100px;"></div>
     </div>
 
-    <div class="chat-float" onclick="alert('Iniciando chat con el proveedor...')">
+    <div class="chat-float" id="btn-chat-directo">
         <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, addDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-    const firebaseConfig = {
+    const config = {
         apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
         authDomain: "proveed-8cb7c.firebaseapp.com",
         projectId: "proveed-8cb7c",
@@ -147,111 +112,68 @@
         appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
     };
 
-    const app = initializeApp(firebaseConfig);
+    const app = initializeApp(config);
     const db = getFirestore(app);
+    const auth = getAuth(app);
     let productos = [];
-    let minActual = 12;
 
-    async function cargar() {
-        const snap = await getDocs(collection(db, "productos"));
-        productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        renderizarGridPrincipal();
-    }
+    // --- LOGICA DE CONTACTO REAL ---
+    window.contactarYa = async (p) => {
+        const user = auth.currentUser;
+        if(!user) { window.location.href='login.html'; return; }
 
-    window.renderizarGridPrincipal = function() {
-        const grid = document.getElementById('grid');
-        const search = document.getElementById('busqueda').value.toLowerCase();
-        grid.innerHTML = '';
-        
-        productos.filter(p => (p.nombre || '').toLowerCase().includes(search)).forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'prod-card';
-            card.onclick = () => abrirDetalle(p);
-            card.innerHTML = `
-                <div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen}"></div>
-                <div class="prod-info-min">
-                    <h3>${p.nombre}</h3>
-                    <p>$${Number(p.precio).toFixed(2)}</p>
-                </div>`;
-            grid.appendChild(card);
+        const pId = p.proveedorId || "PROV_SISTEMA";
+        const pNom = p.proveedorNombre || "Proveedor Oficial";
+
+        // Buscar o crear chat
+        const q = query(collection(db, "chats"), where("emprendedorId", "==", user.uid), where("proveedorId", "==", pId));
+        const snap = await getDocs(q);
+        let chatId = snap.empty ? (await addDoc(collection(db, "chats"), {
+            emprendedorId: user.uid,
+            proveedorId: pId,
+            proveedorNombre: pNom,
+            ultimoMensaje: "Interés: " + p.nombre,
+            ultimoMensajeEn: serverTimestamp()
+        })).id : snap.docs[0].id;
+
+        // Saltar al chat con la referencia preparada
+        const params = new URLSearchParams({
+            chatId: chatId,
+            nombre: pNom,
+            refMsg: `Hola, me interesa el producto: ${p.nombre}`,
+            refImg: p.imagenes ? p.imagenes[0] : (p.imagen || "")
         });
-    }
+        window.location.href = `chat.html?${params.toString()}`;
+    };
 
     window.abrirDetalle = (p) => {
         const modal = document.getElementById('modal-detalle');
+        document.getElementById('btn-chat-directo').onclick = () => window.contactarYa(p);
         
-        // --- LÓGICA DE NAVEGACIÓN NATIVA (BOTÓN ATRÁS DEL TELÉFONO) ---
-        history.pushState({ modalAbierto: true }, "");
-        window.onpopstate = () => cerrarDetalle(false);
-        // ---------------------------------------------------------------------------------
-
-        // Reset Carrusel
-        const track = document.getElementById('track');
-        const puntos = document.getElementById('puntos');
-        const fotos = p.imagenes || [p.imagen];
-        
-        track.innerHTML = fotos.map(f => `<div class="carrusel-item"><img src="${f}"></div>`).join('');
-        puntos.innerHTML = fotos.map((_, i) => `<div class="punto ${i===0?'activo':''}"></div>`).join('');
-        
-        let index = 0;
-        track.style.transform = `translateX(0)`;
-        
-        // Control Carrusel Touch
-        track.ontouchstart = (e) => {
-            let startX = e.touches[0].clientX;
-            track.ontouchend = (ev) => {
-                let endX = ev.changedTouches[0].clientX;
-                if(startX - endX > 50 && index < fotos.length - 1) index++;
-                if(startX - endX < -50 && index > 0) index--;
-                track.style.transform = `translateX(-${index * 100}%)`;
-                Array.from(puntos.children).forEach((pt, i) => pt.className = `punto ${i===index?'activo':''}`);
-            }
-        };
-
-        // Datos del Producto
         document.getElementById('det-nom').innerText = p.nombre;
         document.getElementById('det-pre').innerText = `$${Number(p.precio).toFixed(2)}`;
-        minActual = p.cantidadMinima || 12;
-        document.getElementById('qty-val').innerText = minActual;
-        document.getElementById('min-qty').innerText = minActual;
-
-        // Grid Infinito de Recomendaciones
-        const recoGrid = document.getElementById('reco-infinito');
-        recoGrid.innerHTML = '';
+        document.getElementById('track').innerHTML = (p.imagenes || [p.imagen]).map(f => `<div class="carrusel-item"><img src="${f}"></div>`).join('');
         
-        // Simulamos miles de productos aleatorizando la lista cargada
-        [...productos].sort(() => Math.random() - 0.5).forEach(r => {
-            const item = document.createElement('div');
-            item.className = 'prod-card';
-            item.onclick = (e) => { 
-                e.stopPropagation(); 
-                abrirDetalle(r); 
-                modal.scrollTo({ top: 0, behavior: 'smooth' }); 
-            };
-            item.innerHTML = `
-                <div class="prod-img-min" style="height:140px"><img src="${r.imagenes?.[0] || r.imagen}"></div>
-                <div style="padding:10px; font-size:0.75rem; text-align:center;">
-                    <b>${r.nombre}</b><br><span style="color:#2bb12b; font-weight:800">$${Number(r.precio).toFixed(2)}</span>
-                </div>`;
-            recoGrid.appendChild(item);
-        });
-
         modal.style.display = 'flex';
         modal.scrollTop = 0;
-    }
+    };
 
-    window.cerrarDetalle = (debeIrAtras = true) => {
-        document.getElementById('modal-detalle').style.display = 'none';
-        if (debeIrAtras && window.history.state?.modalAbierto) history.back();
-    }
+    window.cerrarDetalle = () => document.getElementById('modal-detalle').style.display = 'none';
 
-    window.changeQty = (val) => {
-        let el = document.getElementById('qty-val');
-        let current = parseInt(el.innerText);
-        if(current + val >= minActual) el.innerText = current + val;
-    }
-
-    cargar();
+    // Carga inicial
+    const snap = await getDocs(collection(db, "productos"));
+    productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    
+    window.renderizarGridPrincipal = () => {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = productos.map(p => `
+            <div class="prod-card" onclick="abrirDetalle(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                <div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen}"></div>
+                <div class="prod-info-min"><h3>${p.nombre}</h3><p>$${Number(p.precio).toFixed(2)}</p></div>
+            </div>
+        `).join('');
+    };
+    renderizarGridPrincipal();
 </script>
 </body>
 </html>
