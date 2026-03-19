@@ -11,9 +11,9 @@
   body{ background:var(--gris-fondo); color:var(--negro); font-family:'DM Sans',sans-serif; min-height:100vh; padding-bottom:90px; }
   
   /* HEADER LIMA DELGADO */
-  .header{ background:var(--verde-lima); color:var(--negro); padding:40px 22px 15px; border-radius:0 0 25px 25px; position:sticky; top:0; z-index:100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  .header{ background:var(--verde-lima); color:var(--negro); padding:40px 22px 15px; border-radius:0 0 25px 25px; position:sticky; top:0; z-index:100; }
   .header-row{ display:flex; align-items:center; justify-content:space-between; }
-  .greeting-name{ font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; letter-spacing:-0.5px; }
+  .greeting-name{ font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; }
   .header-actions{ display:flex; align-items:center; gap:12px; }
   .icon-btn-h{ background:rgba(0,0,0,0.05); width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
   .cart-badge{ position:absolute; top:-4px; right:-4px; background:var(--rojo); color:white; font-size:0.6rem; font-weight:800; padding:2px 5px; border-radius:8px; border:1.5px solid var(--verde-lima); }
@@ -22,6 +22,7 @@
   .search-box{ background:white; display:flex; align-items:center; padding:12px 16px; border-radius:16px; gap:10px; border:1.5px solid #eee; }
   .search-box input{ border:none; outline:none; flex:1; font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--negro); background:transparent; }
 
+  /* CATEGORÍAS SUBIDAS (MENOS ESPACIO) */
   .section-head{ display:flex; justify-content:space-between; align-items:center; padding:15px 20px 8px; }
   .section-head h3{ font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; text-transform: uppercase; color: #888; }
   
@@ -31,9 +32,9 @@
 
   /* GRID DE PRODUCTOS */
   .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 20px 20px; }
-  .prod-card{ background:white; border-radius:22px; overflow:hidden; border: 1.5px solid #f0f0f0; cursor:pointer; transition: transform 0.2s; }
-  .prod-card:active { transform: scale(0.96); }
-  .prod-img{ width:100%; height:155px; background:#f9f9f9; display:flex; align-items:center; justify-content:center; position: relative; }
+  .prod-card{ background:white; border-radius:22px; overflow:hidden; border: 1.5px solid #f0f0f0; cursor:pointer; transition: transform 0.1s; }
+  .prod-card:active { transform: scale(0.97); }
+  .prod-img{ width:100%; height:155px; background:#f9f9f9; display:flex; align-items:center; justify-content:center; }
   .prod-img img{ width:100%; height:100%; object-fit:cover; }
   .prod-info{ padding:12px; }
   .prod-name{ font-size:0.85rem; font-weight:700; margin-bottom:4px; height: 36px; overflow: hidden; }
@@ -44,9 +45,6 @@
   .tab.active{ color:var(--negro); }
   .tab svg{ width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:2; }
   .tab span{ font-size:0.65rem; font-weight:700; }
-
-  .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:20px; }
-  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
 </style>
 </head>
 <body>
@@ -94,16 +92,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebas
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, collection, query, where, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-const config = {
+const app = initializeApp({
   apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
   authDomain:"proveed-8cb7c.firebaseapp.com",
   projectId:"proveed-8cb7c",
   storageBucket:"proveed-8cb7c.firebasestorage.app",
   messagingSenderId:"235073250367",
   appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-};
-
-const app = initializeApp(config);
+});
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -118,47 +114,4 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 function actualizarBadge() {
-  const carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-  document.getElementById('cart-badge').textContent = carrito.reduce((s,i)=>s+i.cantidad,0);
-}
-
-// CARGA DE PRODUCTOS CON CLICK FUNCIONAL
-async function cargarProductos(cat) {
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = '<div class="skeleton" style="height:180px;"></div>'.repeat(4);
-  
-  let q = query(collection(db,'productos'), where('activo','==',true), limit(12));
-  if(cat !== 'todos') {
-    q = query(collection(db,'productos'), where('activo','==',true), where('categoria','==',cat), limit(12));
-  }
-  
-  const snap = await getDocs(q);
-  grid.innerHTML = '';
-  
-  snap.forEach(d => {
-    const p = d.data();
-    const div = document.createElement('div');
-    div.className = 'prod-card';
-    
-    // Al hacer click en cualquier parte de la tarjeta (imagen o texto), se abre el producto
-    div.onclick = () => {
-        window.location.href = `producto.html?id=${d.id}`;
-    };
-
-    div.innerHTML = `
-      <div class="prod-img">
-        <img src="${p.imagen || ''}" onerror="this.src='https://via.placeholder.com/150'">
-      </div>
-      <div class="prod-info">
-        <div class="prod-name">${p.nombre || 'Producto'}</div>
-        <div class="prod-precio">$${Number(p.precio || 0).toFixed(2)}</div>
-      </div>
-    `;
-    grid.appendChild(div);
-  });
-}
-
-window.cargarProductos = cargarProductos;
-</script>
-</body>
-</html>
+  const carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'
