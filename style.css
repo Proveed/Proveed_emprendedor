@@ -1,94 +1,32 @@
-/* style.css - Edición Minimalista Blanca */
+/* style.css - ADN PROVEED PROFESIONAL */
 :root {
     --lima: #CCFF00;
     --verde-check: #32D74B;
     --naranja: #FF6B00;
     --negro: #0D0D0D;
-    --gris-fondo: #F7F8F5; /* Gris muy claro tipo Alibaba */
+    --gris-fondo: #F8F9FA;
     --blanco: #FFFFFF;
+    --fuente-titulo: 'Syne', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'DM Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-body { background: var(--gris-fondo); color: var(--negro); overflow-x: hidden; }
+body { background: var(--gris-fondo); color: var(--negro); }
 
-/* LOGO PROVEED PEQUEÑO Y ELEGANTE */
-.logo-master {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
+/* LOGO HEXAGONAL REPLICADO */
+.logo-master { display: flex; align-items: center; gap: 8px; }
 .hex-icon {
-    width: 24px;
-    height: 28px;
-    background-color: var(--verde-check);
+    width: 24px; height: 28px; background: var(--verde-check);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
 }
+.check-svg { width: 12px; stroke: white; stroke-width: 4; fill: none; }
+.logo-text { font-family: var(--fuente-titulo); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: -0.5px; }
 
-.check {
-    width: 6px;
-    height: 12px;
-    border-bottom: 3px solid white;
-    border-right: 3px solid white;
-    transform: rotate(45deg);
-    margin-top: -3px;
-}
+/* ICONOS SVG GENERALES */
+.icon-pro { width: 22px; height: 22px; stroke: #999; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: 0.3s; }
+.active .icon-pro { stroke: var(--negro); }
 
-.logo-text {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
-    color: var(--negro);
-}
-
-/* HEADER LIMPIO */
-.header-proveed {
-    background: var(--blanco);
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid #eee;
-}
-
-/* TARJETAS ESTILO ALIBABA */
-.product-card {
-    background: var(--blanco);
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-
-.product-img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    background: #f9f9f9;
-}
-
-.product-info {
-    padding: 10px;
-}
-
-.price-tag {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--negro);
-}
-
-.moq-tag {
-    font-size: 0.65rem;
-    color: #888;
-    margin-bottom: 4px;
-}
+/* BOTONES */
+.btn-lima { background: var(--lima); color: var(--negro); border: none; padding: 16px; border-radius: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; }
+.btn-naranja { background: var(--naranja); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; }
