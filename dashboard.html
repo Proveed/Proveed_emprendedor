@@ -2,36 +2,88 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PROVEED — Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Ajustes de Layout para 5 iconos */
+        body { background: #F8F9FA; padding-bottom: 100px; }
+        
+        .header-fixed {
+            background: white; padding: 15px 20px; display: flex; 
+            justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #eee; position: sticky; top:0; z-index:100;
+        }
+
+        .search-area { padding: 15px 20px; background: white; border-bottom: 1px solid #eee; }
+        .search-box {
+            background: #f1f1f1; border-radius: 12px; padding: 10px 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .search-box input { border: none; background: transparent; outline: none; width: 100%; font-size: 0.9rem; }
+
+        /* Iconos de Navegación */
+        .nav-bar {
+            position: fixed; bottom: 0; width: 100%; background: white; 
+            display: flex; padding: 12px 0 25px; border-top: 1px solid #eee; 
+            justify-content: space-around; z-index: 1000;
+        }
+        .nav-item { text-align: center; flex: 1; cursor: pointer; text-decoration: none; color: #999; }
+        .nav-item.active { color: #000; }
+        .nav-item p { font-size: 0.55rem; font-weight: 800; margin-top: 4px; text-transform: uppercase; }
+
+        .icon-svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
 </head>
 <body>
-    <header style="background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top:0; z-index:100;">
+
+    <header class="header-fixed">
         <div class="logo-master">
-            <div class="hex-icon"><svg class="check-svg" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="hex-icon">
+                <svg viewBox="0 0 24 24" style="width:12px; stroke:white; stroke-width:4; fill:none;"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
             <h1 class="logo-text">PROVEED</h1>
         </div>
-        <svg class="icon-pro" style="stroke: #000;" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        <svg class="icon-svg" style="stroke:#000;" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
     </header>
 
-    <div id="product-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px 15px 100px;"></div>
+    <div class="search-area">
+        <div class="search-box">
+            <svg class="icon-svg" style="width:18px; stroke:#999;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" placeholder="Buscar productos mayoristas...">
+        </div>
+    </div>
 
-    <nav style="position: fixed; bottom: 0; width: 100%; background: white; display: flex; padding: 15px 0 25px; border-top: 1px solid #eee; justify-content: space-around;">
-        <div class="active" style="text-align:center;">
-            <svg class="icon-pro" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            <p style="font-size: 0.6rem; font-weight:800; margin-top:4px;">EXPLORAR</p>
-        </div>
-        <div onclick="location.href='perfil.html'" style="text-align:center; cursor:pointer;">
-            <svg class="icon-pro" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <p style="font-size: 0.6rem; color:#999; margin-top:4px;">MI CENTRO</p>
-        </div>
+    <main id="product-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px;"></main>
+
+    <nav class="nav-bar">
+        <a href="dashboard.html" class="nav-item active">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <p>Inicio</p>
+        </a>
+        <a href="tips.html" class="nav-item">
+            <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            <p>Tips</p>
+        </a>
+        <a href="messenger.html" class="nav-item">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"></path></svg>
+            <p>Chats</p>
+        </a>
+        <a href="carrito.html" class="nav-item">
+            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <p>Pedidos</p>
+        </a>
+        <a href="perfil.html" class="nav-item">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <p>Perfil</p>
+        </a>
     </nav>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+        
         const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -42,12 +94,12 @@
             grid.innerHTML = snap.docs.map(doc => {
                 const p = doc.data();
                 return `
-                    <div onclick="location.href='detalle.html?id=${doc.id}'" style="background:white; border-radius:15px; overflow:hidden; border:1px solid #eee;">
+                    <div onclick="location.href='detalle.html?id=${doc.id}'" style="background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
                         <img src="${p.imagen}" style="width:100%; aspect-ratio:1/1; object-fit:cover;">
                         <div style="padding:10px;">
-                            <p style="font-size:0.6rem; color:#888;">Mín. ${p.cantidadMinima || 12} uds</p>
+                            <p style="font-size:0.6rem; color:#888; font-weight:700;">MOQ: ${p.cantidadMinima || 12} uds</p>
                             <p style="font-weight:800; font-size:1.1rem; margin:2px 0;">$${p.precio}</p>
-                            <p style="font-size:0.75rem; color:#444; overflow:hidden; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;">${p.nombre}</p>
+                            <p style="font-size:0.75rem; color:#444; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;">${p.nombre}</p>
                         </div>
                     </div>
                 `;
