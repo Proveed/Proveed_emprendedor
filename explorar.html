@@ -1,182 +1,181 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Chat</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#32CD32; --negro:#0E0E0E; --blanco:#F8F8F5; --gris:#F2F3F0; --rojo:#FF4D4D; }
-  
-  /* Evitamos que el scroll del body interfiera con el teclado */
-  body{ 
-    background:var(--gris); 
-    font-family:'DM Sans',sans-serif; 
-    height:100vh; 
-    display:flex; 
-    flex-direction:column; 
-    overflow:hidden; 
-    position: fixed; /* Mantiene la pantalla fija */
-    width: 100%;
-  }
-  
-  /* HEADER */
-  .conv-header{ 
-    background:var(--negro); 
-    color:var(--blanco); 
-    padding:55px 20px 20px; 
-    display:flex; 
-    align-items:center; 
-    gap:14px; 
-    z-index: 100;
-  }
-  .back-btn{ width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; cursor:pointer; }
-  .back-btn svg{ width:20px; height:20px; stroke:white; fill:none; stroke-width:2.5; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROVEED — Explorar y Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root { --verde: #32CD32; --negro: #0E0E0E; --blanco: #F8F8F5; --gris: #F2F3F0; }
+        
+        /* Permitimos scroll normal para que veas todos los productos */
+        body { background: var(--gris); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+        
+        /* HEADER ORIGINAL */
+        .header { background: var(--negro); color: white; padding: 50px 20px 25px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 15px; }
+        .search-wrap { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 10px; }
+        .search-wrap input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 1rem; }
 
-  /* AREA DE MENSAJES */
-  #mensajes{ 
-    flex:1; 
-    overflow-y:auto; 
-    padding:20px; 
-    display:flex; 
-    flex-direction:column; 
-    gap:12px; 
-    background: var(--gris);
-    -webkit-overflow-scrolling: touch;
-  }
+        /* CATEGORÍAS (Funcionales) */
+        .filtros { display: flex; gap: 10px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: var(--gris); }
+        .filtro { padding: 10px 20px; border-radius: 20px; background: white; font-size: 0.85rem; font-weight: 700; white-space: nowrap; cursor: pointer; border: 1px solid #eee; }
+        .filtro.active { background: var(--negro); color: white; }
 
-  .burbuja{ max-width:80%; padding:12px 16px; border-radius:20px; font-size:0.92rem; line-height:1.4; position: relative; }
-  .burbuja.enviado{ background:var(--verde); color:#000; align-self:flex-end; border-bottom-right-radius:4px; font-weight:500; }
-  .burbuja.recibido{ background:white; color:var(--negro); align-self:flex-start; border-bottom-left-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        /* GRID DE PRODUCTOS */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 120px; }
+        .prod-card { background: white; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .prod-img { width: 100%; height: 160px; background: #eee; position: relative; }
+        .prod-img img { width: 100%; height: 100%; object-fit: cover; }
+        .tag-cat { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 8px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
+        .prod-body { padding: 12px; }
+        .prod-nombre { font-size: 0.9rem; font-weight: 700; color: var(--negro); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.1rem; }
+        .prod-min { font-size: 0.7rem; color: #888; }
 
-  /* BARRA DE ENTRADA CON MARGEN DE SEGURIDAD */
-  .input-area { 
-    background: white; 
-    /* Subimos la barra para que no choques con el botón de 'Home' del celular */
-    padding: 15px 15px 50px 15px; 
-    display: flex; 
-    gap: 10px; 
-    align-items: flex-end; 
-    border-top: 1px solid #eee; 
-    position: relative;
-    z-index: 100;
-  }
+        /* MODAL DE DETALLE */
+        #modal-detalle { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-cont { background: white; width: 100%; max-width: 420px; border-radius: 30px; overflow: hidden; max-height: 90vh; overflow-y: auto; }
+        #m-img-box { width: 100%; height: 300px; background: #000; cursor: zoom-in; }
+        #m-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        #m-img-box.fullscreen { height: 450px; }
+        .m-info { padding: 25px; }
+        #m-desc { color: #666; font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        #m-desc.expandido { -webkit-line-clamp: unset; }
+        .leer-mas { color: var(--negro); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: inline-block; margin-top: 5px; text-decoration: underline; }
 
-  .input-wrap { 
-    flex:1; 
-    background:var(--gris); 
-    border-radius:22px; 
-    padding: 12px 18px; 
-    display:flex; 
-    align-items:center; 
-  }
+        /* BARRA DE CHAT (Dentro del Modal o vista separada) */
+        .modal-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn-m { padding: 16px; border-radius: 15px; border: none; font-weight: 700; cursor: pointer; }
+        .btn-negro { background: var(--negro); color: white; }
+        .btn-outline { background: white; border: 2.5px solid var(--negro); color: var(--negro); }
 
-  #msg-input { 
-    flex:1; 
-    border:none; 
-    background:transparent; 
-    outline:none; 
-    font-family:'DM Sans',sans-serif; 
-    font-size:1rem; 
-    max-height:120px; 
-    color:var(--negro); 
-    resize: none;
-    line-height: 1.4;
-  }
+        /* TOAST */
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--negro); color: white; padding: 12px 25px; border-radius: 50px; font-weight: 600; opacity: 0; transition: 0.3s; z-index: 3000; }
+        #toast.show { opacity: 1; bottom: 50px; }
 
-  .send-btn { 
-    width: 50px; 
-    height: 50px; 
-    border-radius: 18px; 
-    background: var(--negro); 
-    border: none; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    cursor: pointer;
-    transition: transform 0.1s ease;
-  }
-  .send-btn:active { transform: scale(0.92); }
-  .send-btn svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2.5; }
-
-  /* BANNER DE SEGURIDAD */
-  .bloqueo-banner{ 
-    background:rgba(255,77,77,0.1); 
-    border:1px solid var(--rojo); 
-    border-radius:12px; 
-    padding:12px; 
-    margin:0 15px 12px; 
-    display:none; 
-    color:var(--rojo); 
-    font-size:0.8rem; 
-    font-weight:700; 
-    text-align: center;
-  }
-</style>
+        /* ESPACIO DE SEGURIDAD PARA CELULARES (Evita salir de la app) */
+        .safe-bottom { height: 40px; width: 100%; }
+    </style>
 </head>
 <body>
 
-<div class="conv-header">
-  <div class="back-btn" onclick="window.history.back()">
-    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-  </div>
-  <div style="flex:1;">
-    <div class="proveedor-nombre" id="conv-nombre" style="font-family:'Syne';">Cargando...</div>
-    <div style="font-size:0.7rem; color:var(--verde); font-weight:700;">● Chat Protegido</div>
-  </div>
+<header class="header">
+    <h1>Explorar</h1>
+    <div class="search-wrap">
+        <input type="text" id="busqueda" placeholder="Buscar productos..." oninput="renderizar()">
+    </div>
+</header>
+
+<div class="filtros">
+    <div class="filtro active" onclick="filtrar('todos', this)">Todos</div>
+    <div class="filtro" onclick="filtrar('textiles', this)">Textiles</div>
+    <div class="filtro" onclick="filtrar('tecnologia', this)">Tecnología</div>
 </div>
 
-<div id="mensajes">
-  </div>
+<div class="grid" id="grid"></div>
 
-<div class="bloqueo-banner" id="bloqueo-banner">
-  ⚠️ No compartas números o redes sociales.
+<div id="modal-detalle" onclick="this.style.display='none'">
+    <div class="modal-cont" onclick="event.stopPropagation()">
+        <div id="m-img-box" onclick="this.classList.toggle('fullscreen')"></div>
+        <div class="m-info">
+            <h2 id="m-nombre" style="font-family:'Syne';"></h2>
+            <div id="m-precio" style="font-size:1.5rem; font-weight:800; color:var(--verde);"></div>
+            <p id="m-desc" style="margin:10px 0;"></p>
+            <span id="btn-leer" class="leer-mas" onclick="toggleTexto()">Leer más</span>
+
+            <div class="modal-footer">
+                <button onclick="cerrarModal()" class="btn-m btn-negro">Añadir</button>
+                <button id="btn-chat-directo" class="btn-m btn-outline">Chat</button>
+            </div>
+            <div class="safe-bottom"></div>
+        </div>
+    </div>
 </div>
 
-<div class="input-area">
-  <div class="input-wrap">
-    <textarea id="msg-input" placeholder="Escribe tu mensaje..." rows="1" onfocus="scrollFix()"></textarea>
-  </div>
-  <button class="send-btn" onclick="enviarMensaje()">
-    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-  </button>
-</div>
+<div id="toast"></div>
 
 <script type="module">
-  // Configuración de Firebase y lógica de mensajería (mantenla igual que la tenías)
-  
-  // FUNCIÓN PARA FIX DEL TECLADO
-  function scrollFix() {
-    // Retraso para que el teclado suba primero
-    setTimeout(() => {
-      const msgs = document.getElementById('mensajes');
-      msgs.scrollTop = msgs.scrollHeight;
-      // Forzamos al navegador a no desplazarse fuera de lugar
-      window.scrollTo(0, 0);
-      document.body.scrollTop = 0;
-    }, 300);
-  }
-  window.scrollFix = scrollFix;
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-  // AUTO-CRECIMIENTO DEL INPUT
-  const tx = document.getElementById('msg-input');
-  tx.addEventListener("input", function() {
-    this.style.height = "auto";
-    this.style.height = (this.scrollHeight) + "px";
-    if(this.scrollHeight > 50) {
-        document.getElementById('mensajes').scrollTop = document.getElementById('mensajes').scrollHeight;
-    }
-  });
+    const firebaseConfig = {
+        apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+        authDomain: "proveed-8cb7c.firebaseapp.com",
+        projectId: "proveed-8cb7c",
+        storageBucket: "proveed-8cb7c.firebasestorage.app",
+        messagingSenderId: "235073250367",
+        appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
+    };
 
-  // Manejo de envío con Enter
-  tx.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      // Llama a tu función enviarMensaje()
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    let productos = [], catActiva = 'todos';
+
+    async function cargar() {
+        const snap = await getDocs(collection(db, "productos"));
+        productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderizar();
     }
-  });
+
+    window.renderizar = function() {
+        const grid = document.getElementById('grid');
+        const busq = document.getElementById('busqueda').value.toLowerCase();
+        grid.innerHTML = '';
+
+        productos.filter(p => {
+            const c = catActiva === 'todos' || (p.categoria || '').toLowerCase() === catActiva;
+            const b = (p.nombre || '').toLowerCase().includes(busq);
+            return c && b;
+        }).forEach(p => {
+            const img = p.imagenes?.[0] || p.imagen || '';
+            const card = document.createElement('div');
+            card.className = 'prod-card';
+            card.onclick = () => verDetalle(p);
+            card.innerHTML = `
+                <div class="prod-img"><img src="${img}"><div class="tag-cat">${p.categoria || 'Gral'}</div></div>
+                <div class="prod-body">
+                    <div class="prod-nombre">${p.nombre}</div>
+                    <div class="prod-precio">$${Number(p.precio).toFixed(2)}</div>
+                    <div class="prod-min">Mín: ${p.minimo || 1} und.</div>
+                </div>`;
+            grid.appendChild(card);
+        });
+    }
+
+    window.verDetalle = function(p) {
+        const img = p.imagenes?.[0] || p.imagen || '';
+        document.getElementById('m-img-box').innerHTML = `<img src="${img}">`;
+        document.getElementById('m-nombre').textContent = p.nombre;
+        document.getElementById('m-precio').textContent = `$${Number(p.precio).toFixed(2)}`;
+        document.getElementById('m-desc').textContent = p.descripcion || 'Sin descripción.';
+        
+        document.getElementById('btn-chat-directo').onclick = () => {
+            const pId = p.proveedorId || p.userId || 'admin';
+            const pNom = encodeURIComponent(p.nombreProveedor || 'Proveedor');
+            window.location.href = `chat.html?proveedorId=${pId}&nombre=${pNom}`;
+        };
+
+        document.getElementById('modal-detalle').style.display = 'flex';
+    }
+
+    window.filtrar = function(cat, el) {
+        document.querySelectorAll('.filtro').forEach(f => f.classList.remove('active'));
+        el.classList.add('active');
+        catActiva = cat;
+        renderizar();
+    }
+
+    window.toggleTexto = () => {
+        const d = document.getElementById('m-desc');
+        d.classList.toggle('expandido');
+        document.getElementById('btn-leer').textContent = d.classList.contains('expandido') ? "Leer menos" : "Leer más";
+    }
+
+    window.cerrarModal = () => document.getElementById('modal-detalle').style.display = 'none';
+
+    cargar();
 </script>
-
 </body>
 </html>
