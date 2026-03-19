@@ -11,14 +11,14 @@
         
         body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
 
-        /* HEADER SLIM LIMA */
+        /* HEADER */
         .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 25px 25px; z-index: 10; }
-        .header h1 { font-family: 'Syne'; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; }
-        .search-wrap { background: rgba(0,0,0,0.06); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; border: 1px solid rgba(0,0,0,0.05); }
+        .header h1 { font-family: 'Syne'; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; }
+        .search-wrap { background: rgba(0,0,0,0.06); border-radius: 12px; padding: 10px 15px; display: flex; align-items: center; }
         .search-wrap input { background: transparent; border: none; outline: none; width: 100%; font-size: 0.9rem; }
 
         /* GRID CATALOGO */
-        #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; overflow-y: auto; }
+        #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; overflow-y: auto; padding-bottom: 80px; }
         .prod-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #eee; }
         .prod-img-min { width: 100%; height: 180px; }
         .prod-img-min img { width: 100%; height: 100%; object-fit: cover; }
@@ -28,33 +28,44 @@
 
         /* MODAL DETALLE PRODUCTO */
         #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.4s ease; }
-        .btn-atras { position: absolute; top: 40px; left: 20px; background: var(--negro); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10; }
+        .btn-atras { position: absolute; top: 40px; left: 20px; background: var(--negro); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10; font-size: 1.2rem; }
         
         .detalle-img { width: 100%; height: 35vh; background: #eee; }
         .detalle-img img { width: 100%; height: 100%; object-fit: cover; }
 
         .detalle-body { padding: 20px; }
-        .det-titulo { font-family: 'Syne'; font-size: 1.8rem; margin-bottom: 5px; }
-        .det-precio { color: #2bb12b; font-size: 1.5rem; font-weight: 800; margin-bottom: 15px; }
+        .det-titulo { font-family: 'Syne'; font-size: 1.6rem; margin-bottom: 5px; }
+        .det-precio { color: #2bb12b; font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; }
         
-        /* OPCIONES DINÁMICAS */
-        .opciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .opcion-item { display: flex; flex-direction: column; gap: 5px; }
-        .opcion-item label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #888; }
-        .opcion-item select { padding: 10px; border-radius: 10px; border: 1px solid #ddd; font-family: 'DM Sans'; font-weight: 600; background: #f9f9f9; }
+        /* OPCIONES */
+        .opciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .opcion-item { display: flex; flex-direction: column; gap: 4px; }
+        .opcion-item label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #888; }
+        .opcion-item select { padding: 10px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; font-size: 0.85rem; }
 
-        /* CONTADOR DE UNIDADES */
-        .contador-wrap { background: #f4f4f4; border-radius: 15px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .info-envio { font-size: 0.75rem; color: #555; }
-        .info-envio b { color: var(--negro); }
-        .controles { display: flex; align-items: center; gap: 15px; }
-        .btn-qty { background: var(--blanco); border: 1px solid #ddd; width: 35px; height: 35px; border-radius: 10px; font-weight: 800; cursor: pointer; }
-        #qty-val { font-weight: 800; font-size: 1.1rem; }
+        /* CONTADOR */
+        .contador-wrap { background: #f4f4f4; border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .info-envio { font-size: 0.7rem; color: #555; line-height: 1.3; }
+        .controles { display: flex; align-items: center; gap: 12px; }
+        .btn-qty { background: white; border: 1px solid #ddd; width: 32px; height: 32px; border-radius: 8px; font-weight: 800; }
+        #qty-val { font-weight: 800; font-size: 1rem; }
 
-        /* BOTONES ACCIÓN PREFERIDOS */
-        .btn-style { width: 100%; padding: 16px; border-radius: 14px; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; border: none; cursor: pointer; margin-bottom: 10px; }
-        .btn-negro { background: var(--negro); color: white; }
-        .btn-borde { background: white; color: var(--negro); border: 2.5px solid var(--negro); }
+        /* BOTÓN AÑADIR (FIJO AL FINAL PARA NO TAPAR) */
+        .btn-style { width: 100%; padding: 16px; border-radius: 14px; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; border: none; cursor: pointer; }
+        .btn-negro { background: var(--negro); color: white; margin-bottom: 30px; }
+
+        /* RECOMENDACIONES HORIZONTALES */
+        .reco-section { padding: 0 20px 60px; }
+        .reco-section h4 { font-family: 'Syne'; font-size: 1rem; margin-bottom: 12px; text-transform: uppercase; }
+        .reco-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .reco-scroll::-webkit-scrollbar { display: none; }
+        .reco-card { min-width: 130px; background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; }
+        .reco-card img { width: 100%; height: 110px; object-fit: cover; }
+        .reco-info { padding: 8px; font-size: 0.7rem; text-align: center; }
+
+        /* ICONO DE CHAT FLOTANTE (MINIMALISTA) */
+        .chat-float { position: fixed; bottom: 25px; right: 20px; background: var(--negro); color: var(--lima); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 3000; border: 2px solid var(--lima); }
+        .chat-float svg { width: 24px; height: 24px; fill: var(--lima); }
 
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     </style>
@@ -64,11 +75,15 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
-        <input type="text" id="busqueda" placeholder="Buscar..." oninput="renderizar()">
+        <input type="text" id="busqueda" placeholder="¿Qué buscas hoy?" oninput="renderizar()">
     </div>
 </header>
 
 <div id="grid"></div>
+
+<div id="chat-btn-global" class="chat-float" onclick="abrirChatGlobal()" style="display:none;">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+</div>
 
 <div id="modal-detalle">
     <button class="btn-atras" onclick="cerrarDetalle()">←</button>
@@ -80,30 +95,21 @@
 
         <div class="opciones-grid">
             <div class="opcion-item">
-                <label>Talla / Tamaño</label>
-                <select id="sel-talla">
-                    <option>Única</option><option>S</option><option>M</option><option>L</option><option>XL</option>
-                </select>
+                <label>Talla</label>
+                <select id="sel-talla"><option>S</option><option>M</option><option>L</option></select>
             </div>
             <div class="opcion-item">
                 <label>Color</label>
-                <select id="sel-color">
-                    <option>Negro</option><option>Blanco</option><option>Rojo</option><option>Verde</option>
-                </select>
+                <select id="sel-color"><option>Negro</option><option>Blanco</option></select>
             </div>
             <div class="opcion-item" style="grid-column: span 2;">
-                <label>Material / Textil</label>
-                <select id="sel-textil">
-                    <option>Algodón Premium</option><option>Poliéster</option><option>Lino</option>
-                </select>
+                <label>Textil</label>
+                <select id="sel-textil"><option>Algodón</option><option>Sintético</option></select>
             </div>
         </div>
 
         <div class="contador-wrap">
-            <div class="info-envio">
-                📦 Mínimo: <b id="min-qty">12 und.</b><br>
-                🚚 Llega en: <b>3-5 días</b>
-            </div>
+            <div class="info-envio">📦 Mínimo: <b id="min-qty">12</b><br>🚚 Entrega: <b>3-5 días</b></div>
             <div class="controles">
                 <button class="btn-qty" onclick="changeQty(-1)">-</button>
                 <span id="qty-val">12</span>
@@ -111,8 +117,12 @@
             </div>
         </div>
         
-        <button class="btn-style btn-negro" onclick="alert('Pedido añadido')">Añadir al pedido</button>
-        <button class="btn-style btn-borde" onclick="abrirChat()">Chat con proveedor</button>
+        <button class="btn-style btn-negro" onclick="alert('Pedido añadido')">Añadir al carrito</button>
+
+        <div class="reco-section">
+            <h4>Más para tu negocio</h4>
+            <div class="reco-scroll" id="reco-box"></div>
+        </div>
     </div>
 </div>
 
@@ -144,11 +154,10 @@
         const grid = document.getElementById('grid');
         grid.innerHTML = '';
         productos.forEach(p => {
-            const img = p.imagenes?.[0] || p.imagen || '';
             const card = document.createElement('div');
             card.className = 'prod-card';
             card.onclick = () => abrirDetalle(p);
-            card.innerHTML = `<div class="prod-img-min"><img src="${img}"></div>
+            card.innerHTML = `<div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen}"></div>
                 <div class="prod-info-min"><h3>${p.nombre}</h3><p>$${p.precio}</p></div>`;
             grid.appendChild(card);
         });
@@ -158,9 +167,21 @@
         document.getElementById('det-img').innerHTML = `<img src="${p.imagenes?.[0] || p.imagen}">`;
         document.getElementById('det-nom').innerText = p.nombre;
         document.getElementById('det-pre').innerText = `$${p.precio}`;
-        minActual = p.cantidadMinima || 12; // Valor por defecto
-        document.getElementById('min-qty').innerText = `${minActual} und.`;
+        minActual = p.cantidadMinima || 12;
         document.getElementById('qty-val').innerText = minActual;
+        document.getElementById('chat-btn-global').style.display = 'flex';
+        
+        // Cargar recomendaciones
+        const box = document.getElementById('reco-box');
+        box.innerHTML = '';
+        productos.filter(x => x.id !== p.id).slice(0,5).forEach(r => {
+            const rc = document.createElement('div');
+            rc.className = 'reco-card';
+            rc.onclick = (e) => { e.stopPropagation(); abrirDetalle(r); document.getElementById('modal-detalle').scrollTop = 0; };
+            rc.innerHTML = `<img src="${r.imagenes?.[0] || r.imagen}"><div class="reco-info"><b>${r.nombre}</b><br>$${r.precio}</div>`;
+            box.appendChild(rc);
+        });
+
         document.getElementById('modal-detalle').style.display = 'flex';
     }
 
@@ -170,7 +191,13 @@
         if(current + val >= minActual) el.innerText = current + val;
     }
 
-    window.cerrarDetalle = () => document.getElementById('modal-detalle').style.display = 'none';
+    window.cerrarDetalle = () => {
+        document.getElementById('modal-detalle').style.display = 'none';
+        document.getElementById('chat-btn-global').style.display = 'none';
+    }
+
+    window.abrirChatGlobal = () => alert('Iniciando chat con el proveedor...');
+
     cargar();
 </script>
 </body>
