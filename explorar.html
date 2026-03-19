@@ -6,47 +6,57 @@
     <title>PROVEED — Explorar</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* ESTILOS ORIGINALES PROVEED */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :root { --verde: #32CD32; --negro: #0E0E0E; --blanco: #F8F8F5; --gris: #F2F3F0; }
         
         body { background: var(--gris); font-family: 'DM Sans', sans-serif; padding-bottom: 100px; }
         
+        /* HEADER FIJO */
         .header { background: var(--negro); color: white; padding: 50px 20px 25px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; }
         .header h1 { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 15px; }
-        
         .search-wrap { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 10px; }
         .search-wrap input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 1rem; }
 
+        /* FILTROS */
         .filtros { display: flex; gap: 10px; padding: 20px; overflow-x: auto; scrollbar-width: none; }
         .filtro { padding: 10px 20px; border-radius: 20px; background: white; font-size: 0.85rem; font-weight: 700; white-space: nowrap; cursor: pointer; border: 1px solid #eee; }
         .filtro.active { background: var(--negro); color: white; border-color: var(--negro); }
 
-        /* GRID Y TARJETAS */
+        /* GRID DE PRODUCTOS */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
-        .prod-card { background: white; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .prod-card { background: white; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.03); cursor: pointer; }
         .prod-img { width: 100%; height: 160px; background: #eee; position: relative; }
         .prod-img img { width: 100%; height: 100%; object-fit: cover; }
         
         .tag-cat { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 8px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
         
         .prod-body { padding: 12px; }
-        .prod-nombre { font-size: 0.9rem; font-weight: 700; color: var(--negro); margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .prod-nombre { font-size: 0.9rem; font-weight: 700; color: var(--negro); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.1rem; }
         .prod-min { font-size: 0.7rem; color: #888; font-weight: 500; }
 
-        .add-btn { width: 34px; height: 34px; border-radius: 10px; background: var(--negro); border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .add-btn { width: 34px; height: 34px; border-radius: 10px; background: var(--negro); border: none; color: white; font-size: 1.2rem; cursor: pointer; }
 
-        /* MODAL DETALLE */
-        #modal-detalle { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-cont { background: white; width: 100%; max-width: 400px; border-radius: 30px; overflow: hidden; animation: up 0.3s ease; }
-        @keyframes up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* MODAL DE DETALLE MEJORADO */
+        #modal-detalle { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-cont { background: white; width: 100%; max-width: 420px; border-radius: 30px; overflow: hidden; position: relative; max-height: 90vh; overflow-y: auto; }
         
-        .btn-modal { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 700; font-size: 1rem; cursor: pointer; margin-top: 10px; font-family: 'DM Sans'; }
-        .btn-negro { background: var(--negro); color: white; }
-        .btn-outline { background: white; border: 2.5px solid var(--negro); color: var(--negro); }
+        #m-img-box { width: 100%; height: 300px; background: #000; cursor: zoom-in; transition: 0.3s; }
+        #m-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        #m-img-box.fullscreen { height: 450px; } /* Se expande al tocarlo */
 
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--negro); color: white; padding: 12px 25px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; opacity: 0; transition: 0.3s; z-index: 3000; }
+        .m-info { padding: 25px; }
+        #m-desc { color: #666; font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        #m-desc.expandido { -webkit-line-clamp: unset; }
+        
+        .leer-mas { color: var(--negro); font-weight: 800; font-size: 0.8rem; cursor: pointer; display: inline-block; margin-top: 5px; text-decoration: underline; }
+
+        .modal-footer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn-m { padding: 16px; border-radius: 15px; border: none; font-weight: 700; cursor: pointer; font-family: 'DM Sans'; }
+        .btn-negro { background: var(--negro); color: white; }
+        .btn-outline { background: white; border: 2px solid var(--negro); color: var(--negro); }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--negro); color: white; padding: 12px 25px; border-radius: 50px; font-weight: 600; opacity: 0; transition: 0.3s; z-index: 3000; }
         #toast.show { opacity: 1; bottom: 50px; }
     </style>
 </head>
@@ -55,30 +65,35 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="busqueda" placeholder="Buscar productos o proveedores...">
+        <input type="text" id="busqueda" placeholder="Buscar productos...">
     </div>
 </header>
 
 <div class="filtros">
-    <div class="filtro active" onclick="filtrar('todos', this)">Todos</div>
-    <div class="filtro" onclick="filtrar('textiles', this)">Textiles</div>
-    <div class="filtro" onclick="filtrar('tecnologia', this)">Tecnología</div>
-    <div class="filtro" onclick="filtrar('hogar', this)">Hogar</div>
+    <div class="filtro active" data-cat="todos">Todos</div>
+    <div class="filtro" data-cat="textiles">Textiles</div>
+    <div class="filtro" data-cat="tecnologia">Tecnología</div>
 </div>
 
 <div class="grid" id="grid"></div>
 
 <div id="modal-detalle" onclick="this.style.display='none'">
     <div class="modal-cont" onclick="event.stopPropagation()">
-        <div id="m-img" style="width:100%; height:260px; background:#eee;"></div>
-        <div style="padding:25px;">
-            <h2 id="m-nombre" style="font-family:'Syne'; font-size:1.4rem;"></h2>
-            <div id="m-precio" style="font-size:1.6rem; font-weight:800; color:var(--verde); margin:5px 0;"></div>
-            <p id="m-desc" style="color:#666; font-size:0.9rem; line-height:1.5; margin-bottom:20px;"></p>
+        <div id="m-img-box" onclick="toggleImg()"></div>
+        <div class="m-info">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <h2 id="m-nombre" style="font-family:'Syne'; flex:1;"></h2>
+                <div id="m-precio" style="font-size:1.5rem; font-weight:800; color:var(--verde); margin-left:10px;"></div>
+            </div>
+            <div id="m-prov" style="font-size:0.7rem; color:#aaa; font-weight:700; margin:10px 0;"></div>
             
-            <button id="btn-add-carrito" class="btn-modal btn-negro">Añadir al Carrito</button>
-            <button id="btn-ir-chat" class="btn-modal btn-outline">Chat con Proveedor</button>
+            <p id="m-desc"></p>
+            <span id="btn-leer" class="leer-mas" onclick="toggleTexto()">Leer más</span>
+
+            <div class="modal-footer">
+                <button id="btn-add" class="btn-m btn-negro">Añadir</button>
+                <button id="btn-chat" class="btn-m btn-outline">Chat</button>
+            </div>
         </div>
     </div>
 </div>
@@ -100,33 +115,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+let productos = [], catActiva = 'todos';
 
-let productosRaw = [];
-let catActual = 'todos';
-
-async function cargarProductos() {
-    const grid = document.getElementById('grid');
-    grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px; color:#999;">Cargando catálogo...</p>';
-    
-    try {
-        const snap = await getDocs(collection(db, "productos"));
-        productosRaw = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        renderizar();
-    } catch (e) {
-        grid.innerHTML = '<p>Error al cargar.</p>';
-    }
+async function cargar() {
+    const snap = await getDocs(collection(db, "productos"));
+    productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderizar();
 }
 
 function renderizar() {
     const grid = document.getElementById('grid');
+    const busq = document.getElementById('busqueda').value.toLowerCase();
     grid.innerHTML = '';
-    
-    const textoBusqueda = document.getElementById('busqueda').value.toLowerCase();
 
-    const filtrados = productosRaw.filter(p => {
-        const cumpleCat = catActual === 'todos' || (p.categoria || '').toLowerCase() === catActual;
-        const cumpleTxt = (p.nombre || '').toLowerCase().includes(textoBusqueda);
-        return cumpleCat && cumpleTxt;
+    const filtrados = productos.filter(p => {
+        const c = catActiva === 'todos' || (p.categoria || '').toLowerCase() === catActiva;
+        const b = (p.nombre || '').toLowerCase().includes(busq);
+        return c && b;
     });
 
     filtrados.forEach(p => {
@@ -134,11 +139,10 @@ function renderizar() {
         const card = document.createElement('div');
         card.className = 'prod-card';
         card.onclick = () => verDetalle(p);
-        
         card.innerHTML = `
             <div class="prod-img">
                 <img src="${img}">
-                <div class="tag-cat">${p.categoria || 'General'}</div>
+                <div class="tag-cat">${p.categoria || 'Gral'}</div>
             </div>
             <div class="prod-body">
                 <div class="prod-nombre">${p.nombre}</div>
@@ -149,64 +153,79 @@ function renderizar() {
                     </div>
                     <button class="add-btn" onclick="event.stopPropagation(); agregar(event, '${p.id}', '${p.nombre}', ${p.precio}, '${img}')">+</button>
                 </div>
-            </div>
-        `;
+            </div>`;
         grid.appendChild(card);
     });
 }
 
 function verDetalle(p) {
     const img = p.imagenes?.[0] || p.imagen || '';
-    document.getElementById('m-img').innerHTML = `<img src="${img}" style="width:100%; height:100%; object-fit:cover;">`;
+    const desc = document.getElementById('m-desc');
+    const btnL = document.getElementById('btn-leer');
+    
+    // Reset modal
+    desc.classList.remove('expandido');
+    document.getElementById('m-img-box').classList.remove('fullscreen');
+    
+    document.getElementById('m-img-box').innerHTML = `<img src="${img}">`;
     document.getElementById('m-nombre').textContent = p.nombre;
     document.getElementById('m-precio').textContent = `$${Number(p.precio).toFixed(2)}`;
-    document.getElementById('m-desc').textContent = p.descripcion || 'Sin descripción.';
-    
-    // Acción Carrito
-    document.getElementById('btn-add-carrito').onclick = (e) => {
+    document.getElementById('m-prov').textContent = `PROVEEDOR: ${p.nombreProveedor || 'Verificado'}`;
+    desc.textContent = p.descripcion || 'Sin descripción disponible.';
+
+    // Mostrar/Ocultar "Leer más"
+    setTimeout(() => {
+        btnL.style.display = desc.scrollHeight > desc.clientHeight ? 'inline-block' : 'none';
+        btnL.textContent = "Leer más";
+    }, 50);
+
+    document.getElementById('btn-add').onclick = (e) => {
         agregar(e, p.id, p.nombre, p.precio, img);
         document.getElementById('modal-detalle').style.display = 'none';
     };
 
-    // ACCIÓN CLAVE: IR AL CHAT
-    document.getElementById('btn-ir-chat').onclick = () => {
-        // Redirige a tu chat.html con los parámetros que tu archivo ya lee
-        const provId = p.proveedorId || p.userId || 'admin';
-        const provNombre = encodeURIComponent(p.nombreProveedor || 'Proveedor');
-        window.location.href = `chat.html?proveedorId=${provId}&nombre=${provNombre}`;
+    document.getElementById('btn-chat').onclick = () => {
+        const pId = p.proveedorId || p.userId || 'admin';
+        const pNom = encodeURIComponent(p.nombreProveedor || 'Proveedor');
+        window.location.href = `chat.html?proveedorId=${pId}&nombre=${pNom}`;
     };
 
     document.getElementById('modal-detalle').style.display = 'flex';
 }
 
-window.agregar = function(e, id, nombre, precio, img) {
+window.toggleTexto = () => {
+    const d = document.getElementById('m-desc');
+    const b = document.getElementById('btn-leer');
+    d.classList.toggle('expandido');
+    b.textContent = d.classList.contains('expandido') ? "Leer menos" : "Leer más";
+};
+
+window.toggleImg = () => document.getElementById('m-img-box').classList.toggle('fullscreen');
+
+window.agregar = (e, id, nombre, precio, img) => {
     e.stopPropagation();
     let carrito = JSON.parse(localStorage.getItem('carrito_proveed') || '[]');
-    const existe = carrito.find(item => item.id === id);
-    if(existe) existe.cantidad++;
-    else carrito.push({ id, nombre, precio, img, cantidad: 1 });
+    const ex = carrito.find(i => i.id === id);
+    if(ex) ex.cantidad++; else carrito.push({id, nombre, precio, img, cantidad:1});
     localStorage.setItem('carrito_proveed', JSON.stringify(carrito));
     
-    showToast(`✓ ${nombre} añadido`);
-}
-
-function showToast(msg) {
     const t = document.getElementById('toast');
-    t.textContent = msg;
+    t.textContent = `✓ ${nombre} en carrito`;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2000);
-}
+};
 
-window.filtrar = function(cat, el) {
-    document.querySelectorAll('.filtro').forEach(f => f.classList.remove('active'));
-    el.classList.add('active');
-    catActual = cat;
-    renderizar();
-}
+document.querySelectorAll('.filtro').forEach(f => {
+    f.onclick = () => {
+        document.querySelectorAll('.filtro').forEach(x => x.classList.remove('active'));
+        f.classList.add('active');
+        catActiva = f.dataset.cat;
+        renderizar();
+    };
+});
 
 document.getElementById('busqueda').oninput = renderizar;
-
-cargarProductos();
+cargar();
 </script>
 </body>
 </html>
