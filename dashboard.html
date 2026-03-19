@@ -1,152 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>PROVEED — Dashboard Interactivo</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --lima:#CCFF00; --negro:#0E0E0E; --gris-f:#F2F3F0; --verde:#00a650; }
-  body{ background:var(--gris-f); font-family:'DM Sans',sans-serif; padding-bottom:100px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>PROVEED — Super App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET Y ESTILOS BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root { --lima: #CCFF00; --negro: #0E0E0E; --gris-f: #F7F8F5; --verde-ok: #00a650; --rojo: #FF3B30; }
+        body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; height: 100vh; overflow: hidden; }
 
-  /* HEADER PROVEED */
-  .header{ background:var(--lima); padding:45px 20px 15px; border-radius:0 0 24px 24px; position:sticky; top:0; z-index:100; }
-  .greeting{ font-family:'Syne'; font-weight:800; font-size:1.1rem; }
+        /* NAVEGACIÓN DE VISTAS (PANTALLAS) */
+        .view { display: none; height: 100vh; overflow-y: auto; padding-bottom: 90px; }
+        .view.active { display: block; }
 
-  /* GRID DE PRODUCTOS (ESTILO ALIBABA/REFERENCIA) */
-  .section-title{ padding:15px 20px; font-family:'Syne'; font-size:1rem; }
-  .grid-container{ display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:0 20px; }
-  .prod-card{ background:white; border-radius:15px; overflow:hidden; border:1px solid #eee; }
-  .prod-img{ width:100%; height:140px; object-fit:cover; background:#f9f9f9; }
-  .prod-info{ padding:10px; }
-  .price{ color:var(--negro); font-weight:800; font-size:1.1rem; }
-  .name{ font-size:0.75rem; color:#666; margin-top:4px; height:32px; overflow:hidden; }
+        /* HEADER DINÁMICO */
+        .app-header { background: var(--lima); padding: 50px 20px 15px; border-radius: 0 0 25px 25px; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .app-header h1 { font-family: 'Syne'; font-size: 1.2rem; text-transform: uppercase; letter-spacing: -0.5px; }
 
-  /* --- MODAL DE CONSULTA (ESTILO VIDEO 0:54) --- */
-  #overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:flex-end; }
-  .modal-consulta { 
-    background:white; width:100%; border-radius:24px 24px 0 0; padding:20px; 
-    transform:translateY(100%); transition:transform 0.3s ease;
-  }
-  .modal-consulta.show { transform:translateY(0); }
-  
-  .user-badge { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-  .user-img { width:45px; height:45px; border-radius:50%; object-fit:cover; background:#eee; }
-  
-  .consulta-box { 
-    background:#f8f8f8; border-radius:16px; padding:15px; border:1px solid #eee;
-    display:flex; gap:12px; align-items:center; margin-bottom:20px;
-  }
-  .preview-img { width:60px; height:60px; border-radius:10px; object-fit:cover; }
-  .preview-info { flex:1; }
-  .preview-price { font-weight:800; font-size:0.9rem; }
-  
-  .input-area { display:flex; gap:10px; align-items:center; background:#eee; padding:5px 5px 5px 15px; border-radius:30px; }
-  .input-area input { flex:1; border:none; background:transparent; outline:none; font-size:0.9rem; }
-  .btn-send { background:var(--negro); color:var(--lima); border:none; padding:10px 20px; border-radius:25px; font-weight:700; }
+        /* --- VISTA: HOME (EXPLORAR) --- */
+        .search-container { padding: 15px 20px; }
+        .search-bar { background: white; border-radius: 30px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; border: 1px solid #eee; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .search-bar input { border: none; outline: none; flex: 1; font-size: 0.9rem; }
+        
+        .prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px; }
+        .prod-card { background: white; border-radius: 18px; overflow: hidden; border: 1px solid #eee; }
+        .prod-card img { width: 100%; height: 155px; object-fit: cover; background: #f9f9f9; }
+        .prod-info { padding: 10px; }
+        .prod-price { font-weight: 800; font-size: 1.1rem; color: var(--negro); }
 
-  /* BOTONES INFERIORES DEL MODAL */
-  .modal-actions { display:flex; gap:10px; margin-top:10px; }
-  .btn-outline { flex:1; padding:12px; border-radius:12px; border:1px solid #ddd; background:white; font-size:0.8rem; font-weight:700; text-align:center; }
-</style>
+        /* --- VISTA: PERFIL (GESTIÓN DE PEDIDOS) --- */
+        .perfil-card { background: var(--lima); padding: 30px 20px 50px; text-align: left; }
+        .order-status-row { background: white; margin: -30px 20px 20px; border-radius: 22px; padding: 20px 10px; display: flex; justify-content: space-around; box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+        .status-box { text-align: center; position: relative; }
+        .status-box svg { width: 26px; height: 26px; margin-bottom: 6px; stroke: #444; fill: none; stroke-width: 2; }
+        .status-box span { font-size: 0.65rem; font-weight: 700; color: #777; }
+        .badge { position: absolute; top: -5px; right: 0px; background: var(--rojo); color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; font-weight: 800; border: 2px solid white; }
+
+        /* --- TAB BAR INFERIOR (ESTILO VIDEO) --- */
+        .tab-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; height: 85px; border-top: 1px solid #eee; z-index: 2000; padding-bottom: 20px; }
+        .tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ccc; }
+        .tab-btn.active { color: var(--negro); }
+        .tab-btn svg { width: 24px; height: 24px; margin-bottom: 4px; }
+        .tab-btn span { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
+
+        /* MODAL DE CONSULTA (COMO EL VIDEO 0:54) */
+        #modal-consulta { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3000; align-items: flex-end; }
+        .modal-sheet { background: white; width: 100%; border-radius: 25px 25px 0 0; padding: 25px; transform: translateY(100%); transition: 0.3s ease; }
+        .modal-sheet.up { transform: translateY(0); }
+    </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="greeting" id="user-greeting">Hola, Emprendedor</div>
-</header>
+    <div id="view-home" class="view active">
+        <header class="app-header"><h1>Explorar</h1></header>
+        <div class="search-container">
+            <div class="search-bar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" placeholder="Buscar productos real...">
+            </div>
+        </div>
+        <div class="prod-grid" id="main-feed">
+            </div>
+    </div>
 
-<h2 class="section-title">Recomendado para ti</h2>
-<div class="grid-container" id="main-grid">
-  </div>
-
-<div id="overlay" onclick="closeModal(event)">
-  <div class="modal-consulta" id="modal-content">
-    <div class="user-badge">
-        <img src="https://via.placeholder.com/50" class="user-img" id="prov-img">
-        <div>
-            <p style="font-size:0.9rem; font-weight:800;" id="prov-name">Proveedor</p>
-            <p style="font-size:0.7rem; color:var(--verde);">● En línea ahora</p>
+    <div id="view-chats" class="view">
+        <header class="app-header"><h1>Mensajes</h1></header>
+        <div id="lista-chats-real" style="padding: 20px;">
+            <p style="text-align: center; color: #999; margin-top: 50px;">Cargando tus conversaciones...</p>
         </div>
     </div>
 
-    <div class="consulta-box">
-      <img src="" class="preview-img" id="modal-prod-img">
-      <div class="preview-info">
-        <p class="preview-price" id="modal-prod-price"></p>
-        <p style="font-size:0.7rem; color:#888;">Certificado por Proveed Seg</p>
-      </div>
-      <button class="btn-send" id="final-send">Enviar</button>
-    </div>
-
-    <div class="input-area">
-      <input type="text" placeholder="Escribe tu consulta..." id="mensaje-input">
-    </div>
-
-    <div class="modal-actions">
-        <div class="btn-outline" onclick="window.location.href='explorar.html'">Ver detalles</div>
-        <div class="btn-outline">Similares</div>
-    </div>
-  </div>
-</div>
-
-<script type="module">
-  // Configuración de Firebase (asegúrate que sea la tuya)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
-  const app = initializeApp({
-    apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-    projectId: "proveed-8cb7c",
-    // ... resto de tu config
-  });
-  const db = getFirestore(app);
-
-  async function init() {
-    const snap = await getDocs(collection(db, "productos"));
-    const productos = snap.docs.map(d => ({id:d.id, ...d.data()}));
-    
-    document.getElementById('main-grid').innerHTML = productos.map(p => `
-      <div class="prod-card" onclick='openModal(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
-        <img src="${p.imagen}" class="prod-img">
-        <div class="prod-info">
-          <p class="price">$${Number(p.precio).toFixed(2)}</p>
-          <p class="name">${p.nombre}</p>
+    <div id="view-perfil" class="view">
+        <div class="perfil-card">
+            <h2 id="userName" style="font-family:'Syne';">Luis Alejandro</h2>
+            <p style="font-size: 0.75rem; font-weight: 700; opacity: 0.6;">Socio PROVEED Gold</p>
         </div>
-      </div>
-    `).join('');
-  }
+        
+        <div class="order-status-row">
+            <div class="status-box">
+                <div class="badge" id="badge-pagos">0</div>
+                <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                <span>Por pagar</span>
+            </div>
+            <div class="status-box">
+                <svg viewBox="0 0 24 24"><path d="M10 17h4V5H2v12h3m15 0h1v-4h-3l-3-4h-5v8h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                <span>Por enviar</span>
+            </div>
+            <div class="status-box">
+                <svg viewBox="0 0 24 24"><path d="M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3m18 0v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8m18 0-9 6-9-6"/></svg>
+                <span>En camino</span>
+            </div>
+        </div>
+    </div>
 
-  let selectedProd = null;
+    <nav class="tab-bar">
+        <div class="tab-btn active" onclick="switchView('home')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Home</span>
+        </div>
+        <div class="tab-btn" onclick="switchView('chats')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Chats</span>
+        </div>
+        <div class="tab-btn" onclick="switchView('perfil')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Perfil</span>
+        </div>
+    </nav>
 
-  window.openModal = (p) => {
-    selectedProd = p;
-    document.getElementById('modal-prod-img').src = p.imagen;
-    document.getElementById('modal-prod-price').innerText = `$${Number(p.precio).toFixed(2)}`;
-    document.getElementById('prov-name').innerText = p.proveedorNombre || "Socio Proveed";
-    
-    const overlay = document.getElementById('overlay');
-    const content = document.getElementById('modal-content');
-    overlay.style.display = 'flex';
-    setTimeout(() => content.classList.add('show'), 10);
-  };
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-  window.closeModal = (e) => {
-    if(e.target.id === 'overlay') {
-        const content = document.getElementById('modal-content');
-        content.classList.remove('show');
-        setTimeout(() => document.getElementById('overlay').style.display = 'none', 300);
-    }
-  };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+            projectId: "proveed-8cb7c",
+            // ... resto de tu config
+        };
 
-  document.getElementById('final-send').onclick = () => {
-    const msg = document.getElementById('mensaje-input').value || "Me interesa este producto";
-    // Aquí rediriges al chat real con los datos
-    window.location.href = `chat.html?chatId=NUEVO&refMsg=${msg}&refImg=${selectedProd.imagen}`;
-  };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-  init();
-</script>
+        // NAVEGACIÓN ENTRE PANTALLAS (SIN RECARGAR)
+        window.switchView = (viewId) => {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        };
+
+        // CARGA DE PRODUCTOS (Lógica de explorar.html integrada)
+        async function loadFeed() {
+            const snap = await getDocs(collection(db, "productos"));
+            const feed = document.getElementById('main-feed');
+            feed.innerHTML = snap.docs.map(doc => {
+                const p = doc.data();
+                return `
+                    <div class="prod-card">
+                        <img src="${p.imagen}">
+                        <div class="prod-info">
+                            <p class="prod-price">$${Number(p.precio).toFixed(2)}</p>
+                            <p style="font-size:0.7rem; color:#888;">${p.nombre}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        loadFeed();
+    </script>
 </body>
 </html>
