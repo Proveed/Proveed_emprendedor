@@ -3,75 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Dashboard Oficial</title>
+    <title>PROVEED — Full Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         :root { --lima: #D9FF66; --negro: #1A1A1A; --gris-f: #FBFBFA; --blanco: #FFFFFF; }
         
-        body { background: var(--gris-f); color: var(--negro); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background: var(--gris-f); color: var(--negro); font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
 
-        /* HEADER ORIGINAL [Restaurado] */
-        .header { background: var(--lima); padding: 50px 20px 20px; border-radius: 0 0 25px 25px; position: sticky; top: 0; z-index: 1000; }
+        /* HEADER ORIGINAL RECONSTRUIDO */
+        .header { background: var(--lima); padding: 50px 20px 20px; border-radius: 0 0 25px 25px; position: sticky; top: 0; z-index: 1000; flex-shrink: 0; }
         .header-row { display: flex; justify-content: space-between; align-items: center; }
         .greeting-name { font-size: 1.2rem; font-weight: 700; }
         
         .header-actions { display: flex; gap: 12px; }
-        .icon-btn { background: rgba(0,0,0,0.05); width: 42px; height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center; position: relative; border: none; }
-        
-        /* BUSCADOR ORIGINAL [Restaurado] */
-        .search-container { padding: 15px 20px; }
-        .search-input { width: 100%; background: white; padding: 14px; border-radius: 15px; border: 1px solid #eee; font-family: 'Inter'; outline: none; }
+        .icon-btn { background: rgba(0,0,0,0.05); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; position: relative; border: none; cursor: pointer; }
+        .badge { position: absolute; top: -2px; right: -2px; background: #FF3B30; color: white; font-size: 0.6rem; font-weight: 700; padding: 2px 5px; border-radius: 10px; border: 2px solid var(--lima); }
 
-        /* CATEGORÍAS: CORRECCIÓN DE MOVIMIENTO Y CAPAS */
+        /* CONTENEDOR DE VISTAS (TIENDA VS MENSAJES) */
+        .view-container { flex: 1; position: relative; overflow: hidden; }
+        .view { position: absolute; top:0; left:0; width:100%; height:100%; display: none; flex-direction: column; overflow-y: auto; background: var(--gris-f); padding-bottom: 100px; }
+        .view.active { display: flex; }
+
+        /* VISTA TIENDA: BUSCADOR Y CATEGORÍAS */
+        .search-container { padding: 15px 20px; }
+        .search-input { width: 100%; background: white; padding: 14px; border-radius: 15px; border: 1px solid #eee; outline: none; }
+        
         .section-title { padding: 10px 22px; font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; }
         
-        .cat-wrapper { 
-            position: relative; 
-            z-index: 50; /* Capa superior para que no lo tape el contenido de abajo */
-            overflow: hidden;
-        }
-
-        .cat-row { 
-            display: flex; 
-            gap: 10px; 
-            padding: 5px 20px 20px; 
-            overflow-x: auto; 
-            -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; 
-        }
+        .cat-row { display: flex; gap: 10px; padding: 5px 20px 20px; overflow-x: auto; scrollbar-width: none; }
         .cat-row::-webkit-scrollbar { display: none; }
-        
-        .chip { 
-            background: white; 
-            padding: 10px 22px; 
-            border-radius: 14px; 
-            font-size: 0.85rem; 
-            font-weight: 600; 
-            border: 1px solid #eee; 
-            white-space: nowrap; 
-            flex-shrink: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .chip.active { background: var(--negro); color: white; border-color: var(--negro); }
-
-        /* EXPLORAR / GRID: CORRECCIÓN DE POSICIÓN */
-        .grid-container { 
-            position: relative; 
-            z-index: 10; /* Capa inferior para que no se encime a las categorías */
-            padding-bottom: 100px;
-        }
+        .chip { background: white; padding: 10px 20px; border-radius: 14px; font-size: 0.85rem; font-weight: 600; border: 1px solid #eee; white-space: nowrap; flex-shrink: 0; }
+        .chip.active { background: var(--negro); color: white; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; }
         .card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #f0f0f0; }
-        .card-img { width: 100%; height: 160px; object-fit: cover; background: #f9f9f9; }
+        .card-img { width: 100%; height: 150px; object-fit: cover; }
         .card-body { padding: 12px; }
-        .p-name { font-size: 0.85rem; font-weight: 500; color: #333; margin-bottom: 5px; height: 34px; overflow: hidden; }
-        .p-price { color: #2bb12b; font-weight: 700; font-size: 1rem; }
+        .p-price { color: #2bb12b; font-weight: 700; }
 
-        /* NAV BAR ORIGINAL [Restaurado] */
+        /* VISTA MENSAJES: LISTA COMPLETA */
+        .chat-item { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f2f2f2; background: white; cursor: pointer; }
+        .chat-avatar { width: 50px; height: 50px; border-radius: 15px; background: var(--lima); margin-right: 15px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        .chat-info { flex: 1; }
+        .chat-name { font-weight: 600; font-size: 0.95rem; }
+        .chat-last { font-size: 0.8rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* NAV BAR ORIGINAL */
         .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #f2f2f2; z-index: 1000; }
-        .nav-item { color: #ccc; border: none; background: none; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; text-transform: uppercase; font-size: 0.6rem; }
+        .nav-item { color: #ccc; border: none; background: none; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; text-transform: uppercase; font-size: 0.6rem; cursor: pointer; }
         .nav-item.active { color: var(--negro); }
     </style>
 </head>
@@ -81,8 +61,9 @@
     <div class="header-row">
         <div class="greeting-name" id="user-display">Hola, ...</div>
         <div class="header-actions">
-            <button class="icon-btn" onclick="abrirMensajes()">
+            <button class="icon-btn" onclick="showView('messages')">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <div class="badge" id="msg-count" style="display:none">0</div>
             </button>
             <button class="icon-btn" onclick="location.href='carrito.html'">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -91,36 +72,35 @@
     </div>
 </header>
 
-<div class="search-container">
-    <input type="text" class="search-input" placeholder="¿Qué stock buscas?">
-</div>
-
-<div class="cat-wrapper">
-    <div class="section-title">Categorías</div>
-    <div class="cat-row" id="cat-list">
-        <div class="chip active">Todo</div>
-        <div class="chip">Textiles</div>
-        <div class="chip">Tecnología</div>
-        <div class="chip">Calzado</div>
-        <div class="chip">Relojería</div>
-        <div class="chip">Accesorios</div>
-    </div>
-</div>
-
-<div class="grid-container">
-    <div class="section-title">Explorar</div>
-    <div class="grid" id="product-grid">
+<div class="view-container">
+    <main id="view-home" class="view active">
+        <div class="search-container"><input type="text" class="search-input" placeholder="¿Qué stock buscas?"></div>
+        <div class="section-title">Categorías</div>
+        <div class="cat-row">
+            <div class="chip active">Todo</div>
+            <div class="chip">Textiles</div>
+            <div class="chip">Tecnología</div>
+            <div class="chip">Zapatos</div>
         </div>
+        <div class="section-title">Explorar Productos</div>
+        <div class="grid" id="product-grid"></div>
+    </main>
+
+    <section id="view-messages" class="view">
+        <div class="section-title">Bandeja de Entrada</div>
+        <div id="chats-list-container">
+            </div>
+    </section>
 </div>
 
 <nav class="nav">
-    <button class="nav-item active"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></button>
+    <button class="nav-item active" id="nav-home" onclick="showView('home')"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></button>
     <button class="nav-item" onclick="location.href='perfil.html'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></button>
 </nav>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getFirestore, collection, onSnapshot, query, where, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
     const config = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
@@ -128,34 +108,56 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
+    let currentUid = null;
+
     onAuthStateChanged(auth, user => {
         if(user) {
-            document.getElementById('user-display').innerText = "Hola, " + (user.displayName?.split(' ')[0] || "Usuario");
+            currentUid = user.uid;
+            document.getElementById('user-display').innerText = "Hola, " + user.displayName?.split(' ')[0];
             loadProducts();
+            loadChatsList();
         } else { location.href = 'login.html'; }
     });
 
+    // CAMBIO DE VISTAS (TIENDA <-> MENSAJES)
+    window.showView = (v) => {
+        document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+        document.getElementById('view-' + v).classList.add('active');
+        document.getElementById('nav-home').classList.toggle('active', v === 'home');
+    };
+
     async function loadProducts() {
         const snap = await getDocs(collection(db, "productos"));
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = snap.docs.map(doc => {
+        document.getElementById('product-grid').innerHTML = snap.docs.map(doc => {
             const p = doc.data();
-            return `
-                <div class="card" onclick="location.href='producto.html?id=${doc.id}'">
-                    <img src="${p.imagenes?.[0] || p.imagen}" class="card-img">
-                    <div class="card-body">
-                        <p class="p-name">${p.nombre}</p>
-                        <p class="p-price">$${Number(p.precio).toFixed(2)}</p>
-                    </div>
-                </div>`;
+            return `<div class="card" onclick="location.href='producto.html?id=${doc.id}'">
+                <img src="${p.imagenes?.[0] || p.imagen}" class="card-img">
+                <div class="card-body">
+                    <p style="font-size:0.8rem;">${p.nombre}</p>
+                    <p class="p-price">$${Number(p.precio).toFixed(2)}</p>
+                </div>
+            </div>`;
         }).join('');
     }
 
-    window.abrirMensajes = () => {
-        // Tu función de chat original
-        console.log("Abriendo mensajes...");
-        location.href = 'mensajes.html'; // O el modal que uses
-    };
+    function loadChatsList() {
+        const q = query(collection(db, "chats"), where("usuarios", "array-contains", currentUid), orderBy("timestamp", "desc"));
+        onSnapshot(q, snap => {
+            const container = document.getElementById('chats-list-container');
+            container.innerHTML = '';
+            snap.forEach(d => {
+                const chat = d.data();
+                container.innerHTML += `
+                    <div class="chat-item" onclick="location.href='chat_detalle.html?id=${d.id}'">
+                        <div class="chat-avatar">${chat.nombreRemitente ? chat.nombreRemitente[0] : 'P'}</div>
+                        <div class="chat-info">
+                            <div class="chat-name">${chat.nombreRemitente}</div>
+                            <div class="chat-last">${chat.ultimoMensaje || 'Enviar mensaje...'}</div>
+                        </div>
+                    </div>`;
+            });
+        });
+    }
 </script>
 </body>
 </html>
