@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROVEED — Dashboard</title>
+    <title>PROVEED — Mayoristas</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header class="header-proveed">
         <div class="logo-master">
             <div class="hex-icon"><div class="check"></div></div>
-            <h1 class="logo-text" style="color: var(--negro);">PROVEED</h1>
+            <h1 class="logo-text">PROVEED</h1>
         </div>
+        <div style="background: var(--lima); padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">ECUADOR</div>
     </header>
 
-    <div id="product-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px;">
+    <div style="padding: 15px 20px;">
+        <div style="background: white; border: 1.5px solid #eee; border-radius: 25px; padding: 12px 20px; display: flex; align-items: center; gap: 10px;">
+            <span style="opacity: 0.3;">🔍</span>
+            <input type="text" placeholder="Buscar en Proveed..." style="border: none; outline: none; width: 100%; font-size: 0.9rem;">
         </div>
+    </div>
+
+    <main id="product-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px 100px;">
+        </main>
+
+    <nav style="position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; display: flex; padding: 15px 0 25px; justify-content: space-around; z-index: 1000;">
+        <div style="text-align: center; color: var(--negro); font-size: 0.6rem; font-weight: 800;">EXPLORAR</div>
+        <div style="text-align: center; color: #ccc; font-size: 0.6rem; font-weight: 800;">MESSENGER</div>
+        <div style="text-align: center; color: #ccc; font-size: 0.6rem; font-weight: 800;">MI CENTRO</div>
+    </nav>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
@@ -32,11 +47,12 @@
             grid.innerHTML = snap.docs.map(doc => {
                 const p = doc.data();
                 return `
-                    <div style="background: var(--gris-d); border-radius: 20px; overflow: hidden; border: 1px solid #333;">
-                        <img src="${p.imagen}" style="width: 100%; height: 150px; object-fit: cover;">
-                        <div style="padding: 12px;">
-                            <p style="color: var(--lima); font-weight: 800;">$${p.precio}</p>
-                            <p style="font-size: 0.7rem; color: #aaa;">${p.nombre}</p>
+                    <div class="product-card">
+                        <img src="${p.imagen}" class="product-img">
+                        <div class="product-info">
+                            <p class="moq-tag">Mín. ${p.cantidadMinima || '12'} unidades</p>
+                            <p class="price-tag">$${p.precio}</p>
+                            <p style="font-size: 0.75rem; color: #444; margin-top: 2px;">${p.nombre}</p>
                         </div>
                     </div>
                 `;
