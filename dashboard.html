@@ -2,96 +2,48 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PROVEED — Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        :root { --verde-lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; --blanco:#F8F8F5; --gris-fondo:#F8F8F5; --rojo:#FF4D4D; }
-        body { background:var(--gris-fondo); color:var(--negro); font-family:'DM Sans',sans-serif; min-height:100vh; padding-bottom:100px; }
-
-        /* DISEÑO ORIGINAL RESTAURADO */
-        .header { background:var(--verde-lima); color:var(--negro); padding:45px 22px 18px; border-radius:0 0 28px 28px; position:sticky; top:0; z-index:100; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .header-row { display:flex; align-items:center; justify-content:space-between; }
-        .greeting-name { font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800; letter-spacing:-0.5px; }
-        .header-actions { display:flex; align-items:center; gap:12px; }
-        .icon-btn-h { background:rgba(0,0,0,0.06); width:42px; height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
-        .cart-badge { position:absolute; top:-5px; right:-5px; background:var(--rojo); color:white; font-size:0.65rem; font-weight:800; padding:2px 6px; border-radius:10px; border:2px solid var(--verde-lima); }
-
-        .search-section { padding:18px 20px 0; }
-        .search-box { background:white; display:flex; align-items:center; padding:14px 18px; border-radius:18px; gap:12px; border:1px solid #eee; }
-        .search-box input { border:none; outline:none; flex:1; font-family:'DM Sans',sans-serif; font-size:0.95rem; background:transparent; }
-
-        .section-head { display:flex; justify-content:space-between; align-items:center; padding:20px 22px 10px; }
-        .section-head h3 { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; text-transform: uppercase; color: #999; letter-spacing: 0.5px; }
-        
-        .cats-scroll { display:flex; gap:12px; padding:0 20px 20px; overflow-x:auto; scrollbar-width:none; }
-        .cats-scroll::-webkit-scrollbar { display:none; }
-        .cat-chip { padding:10px 20px; border-radius:16px; white-space:nowrap; cursor:pointer; border:1px solid #eee; background:white; font-size:0.85rem; font-weight:700; color:#555; transition: 0.2s; }
-        .cat-chip.active { background:var(--negro); color:white; border-color:var(--negro); }
-
-        /* GRID DE PRODUCTOS EXTRACCIÓN REAL */
-        .products-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; padding:0 20px 20px; }
-        .prod-card { background:white; border-radius:24px; overflow:hidden; border: 1px solid #f0f0f0; cursor:pointer; transition: transform 0.2s; position: relative; }
-        .prod-card:active { transform: scale(0.96); }
-        .prod-img { width:100%; height:160px; background:#f9f9f9; display:flex; align-items:center; justify-content:center; }
-        .prod-img img { width:100%; height:100%; object-fit:cover; }
-        .prod-info { padding:14px; }
-        .prod-name { font-size:0.85rem; font-weight:700; margin-bottom:6px; height: 38px; overflow: hidden; line-height:1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .prod-precio { font-size:1.1rem; font-weight:800; color:var(--verde); }
-
-        /* TAB BAR ORIGINAL */
-        .tab-bar { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:12px 0 32px; border-top:1px solid #eee; z-index:200; }
-        .tab { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; color:#bbb; text-decoration:none; }
-        .tab.active { color:var(--negro); }
-        .tab svg { width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:2.2; }
-        .tab span { font-size:0.7rem; font-weight:700; }
+        /* TU DISEÑO ORIGINAL */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root { --lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; }
+        body { background:#F8F8F5; font-family:'DM Sans',sans-serif; padding-bottom:100px; }
+        .header { background:var(--lima); padding:45px 20px 15px; border-radius:0 0 25px 25px; }
+        .greeting { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; }
+        .search-area { padding:15px 20px; }
+        .search-input { width:100%; padding:12px; border-radius:15px; border:1px solid #eee; outline:none; }
+        .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:20px; }
+        .card { background:white; border-radius:20px; padding:10px; border:1px solid #eee; cursor:pointer; }
+        .card img { width:100%; height:140px; object-fit:cover; border-radius:15px; }
+        .p-name { font-weight:700; font-size:0.8rem; margin:5px 0; }
+        .p-price { color:var(--verde); font-weight:800; }
+        .nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:15px 0 30px; border-top:1px solid #eee; }
     </style>
 </head>
 <body>
 
 <header class="header">
-    <div class="header-row">
-        <div class="greeting-name" id="user-greeting">Hola...</div>
-        <div class="header-actions">
-            <div class="icon-btn-h" onclick="location.href='chat.html'">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <div class="icon-btn-h" onclick="location.href='carrito.html'">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                <div class="cart-badge" id="cart-badge">0</div>
-            </div>
-        </div>
-    </div>
+    <div class="greeting" id="user-greeting">Hola, ...</div>
 </header>
 
-<div class="search-section">
-    <div class="search-box">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" placeholder="¿Qué stock buscas?" id="search-input">
+<div class="search-area">
+    <input type="text" class="search-input" placeholder="Buscar stock...">
+</div>
+
+<div id="products-grid" class="grid">
     </div>
-</div>
 
-<div class="section-head"><h3>Categorías</h3></div>
-<div class="cats-scroll">
-    <div class="cat-chip active" onclick="filtrar('todos')">Todo</div>
-    <div class="cat-chip" onclick="filtrar('textiles')">Textiles</div>
-    <div class="cat-chip" onclick="filtrar('tecnologia')">Tecnología</div>
-</div>
-
-<div class="section-head"><h3>Explorar productos</h3></div>
-<div class="products-grid" id="products-grid"></div>
-
-<nav class="tab-bar">
-    <a class="tab active" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></a>
-    <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
-    <a class="tab" href="perfil.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+<nav class="nav">
+    <a href="dashboard.html">Inicio</a>
+    <a href="perfil.html">Perfil</a>
 </nav>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
@@ -106,67 +58,42 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-            const userSnap = await getDoc(doc(db, "usuarios", user.uid));
-            if (userSnap.exists()) {
-                document.getElementById('user-greeting').textContent = "Hola, " + userSnap.data().nombre.split(' ')[0];
-            }
-            cargarProductos('todos');
+            document.getElementById('user-greeting').innerText = "Hola, " + (user.displayName || "Usuario");
+            cargar();
         } else {
             window.location.href = 'login.html';
         }
     });
 
-    async function cargarProductos(categoria) {
+    async function cargar() {
         const grid = document.getElementById('products-grid');
-        grid.innerHTML = '';
-
+        grid.innerHTML = '<p>Cargando productos...</p>';
+        
         try {
-            // Consulta basada en tu base de datos real
-            let q = query(collection(db, "productos"), where("activo", "==", true));
-            if (categoria !== 'todos') {
-                q = query(collection(db, "productos"), where("activo", "==", true), where("categoria", "==", categoria));
-            }
-
+            // Consulta directa a la colección que vimos en tu captura
+            const q = query(collection(db, "productos"), where("activo", "==", true));
             const snap = await getDocs(q);
             
-            if (snap.empty) {
-                grid.innerHTML = '<p style="grid-column: 1/3; text-align:center; padding:40px; color:#999;">No hay productos disponibles.</p>';
-                return;
-            }
-
-            snap.forEach(documento => {
-                const p = documento.data();
-                const card = document.createElement('div');
-                card.className = 'prod-card';
-                
-                // SOLUCIÓN AL 404: El archivo de destino es producto.html
-                card.onclick = () => location.href = `producto.html?id=${documento.id}`;
-
-                card.innerHTML = `
-                    <div class="prod-img">
-                        <img src="${p.imagen || 'https://via.placeholder.com/150'}" onerror="this.src='https://via.placeholder.com/150'">
-                    </div>
-                    <div class="prod-info">
-                        <div class="prod-name">${p.nombre || 'Producto Proveed'}</div>
-                        <div class="prod-precio">$${Number(p.precio || 0).toFixed(2)}</div>
-                    </div>
+            grid.innerHTML = '';
+            snap.forEach(doc => {
+                const p = doc.data();
+                const item = document.createElement('div');
+                item.className = 'card';
+                // El error NOT_FOUND se quita creando este archivo:
+                item.onclick = () => window.location.href = `producto.html?id=${doc.id}`;
+                item.innerHTML = `
+                    <img src="${p.imagen}">
+                    <div class="p-name">${p.nombre}</div>
+                    <div class="p-price">$${p.precio}</div>
                 `;
-                grid.appendChild(card);
+                grid.appendChild(item);
             });
         } catch (e) {
-            console.error("Error:", e);
-            grid.innerHTML = '<p style="grid-column: 1/3; text-align:center;">Error al cargar productos.</p>';
+            grid.innerHTML = '<p>Error de conexión: ' + e.message + '</p>';
         }
     }
-
-    // Funciones globales para los clics
-    window.filtrar = (cat) => {
-        document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-        event.target.classList.add('active');
-        cargarProductos(cat);
-    };
 </script>
 </body>
 </html>
