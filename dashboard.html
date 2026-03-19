@@ -3,41 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROVEED — Dashboard</title>
+    <title>PROVEED — App</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* TU DISEÑO ORIGINAL */
-        * { margin:0; padding:0; box-sizing:border-box; }
-        :root { --lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; }
-        body { background:#F8F8F5; font-family:'DM Sans',sans-serif; padding-bottom:100px; }
-        .header { background:var(--lima); padding:45px 20px 15px; border-radius:0 0 25px 25px; }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        :root { --lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; --gris:#F8F8F5; }
+        body { background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:100px; }
+
+        /* HEADER LIMA */
+        .header { background:var(--lima); padding:45px 20px 15px; border-radius:0 0 25px 25px; position: sticky; top: 0; z-index: 10; }
         .greeting { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; }
-        .search-area { padding:15px 20px; }
-        .search-input { width:100%; padding:12px; border-radius:15px; border:1px solid #eee; outline:none; }
+
+        /* GRID PRODUCTOS */
         .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:20px; }
         .card { background:white; border-radius:20px; padding:10px; border:1px solid #eee; cursor:pointer; }
         .card img { width:100%; height:140px; object-fit:cover; border-radius:15px; }
-        .p-name { font-weight:700; font-size:0.8rem; margin:5px 0; }
+        .p-name { font-weight:700; font-size:0.85rem; margin:8px 0; height: 34px; overflow: hidden; }
         .p-price { color:var(--verde); font-weight:800; }
-        .nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:15px 0 30px; border-top:1px solid #eee; }
+
+        /* EL "DETALLE" QUE NO NECESITA OTRO HTML */
+        #detalle-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 1000; display: none; padding: 25px;
+            overflow-y: auto; animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        .btn-cerrar { background:var(--lima); padding:10px 20px; border-radius:12px; display:inline-block; font-weight:800; margin-bottom:20px; cursor:pointer; }
+        .det-img { width:100%; border-radius:20px; margin-bottom:15px; }
+        .det-price { color:var(--verde); font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+
+        .nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:15px 0 30px; border-top:1px solid #eee; z-index: 5; }
     </style>
 </head>
 <body>
 
-<header class="header">
+<div class="header">
     <div class="greeting" id="user-greeting">Hola, ...</div>
-</header>
-
-<div class="search-area">
-    <input type="text" class="search-input" placeholder="Buscar stock...">
 </div>
 
-<div id="products-grid" class="grid">
-    </div>
+<div id="grid" class="grid">
+    <p style="grid-column: 1/3; text-align:center; padding:20px;">Cargando inventario...</p>
+</div>
+
+<div id="detalle-overlay">
+    <div class="btn-cerrar" onclick="cerrarDetalle()">← VOLVER</div>
+    <div id="det-content"></div>
+</div>
 
 <nav class="nav">
-    <a href="dashboard.html">Inicio</a>
-    <a href="perfil.html">Perfil</a>
+    <div onclick="location.reload()" style="font-weight:bold;">INICIO</div>
+    <div onclick="alert('Perfil')" style="color:#999;">PERFIL</div>
 </nav>
 
 <script type="module">
@@ -45,7 +61,7 @@
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
     import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-    const firebaseConfig = {
+    const config = {
         apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
         authDomain: "proveed-8cb7c.firebaseapp.com",
         projectId: "proveed-8cb7c",
@@ -54,46 +70,52 @@
         appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
     };
 
-    const app = initializeApp(firebaseConfig);
+    const app = initializeApp(config);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            document.getElementById('user-greeting').innerText = "Hola, " + (user.displayName || "Usuario");
+            document.getElementById('user-greeting').innerText = "Hola, " + (user.displayName || "Emprendedor");
             cargar();
-        } else {
-            window.location.href = 'login.html';
-        }
+        } else { window.location.href = 'login.html'; }
     });
 
     async function cargar() {
-        const grid = document.getElementById('products-grid');
-        grid.innerHTML = '<p>Cargando productos...</p>';
-        
+        const grid = document.getElementById('grid');
         try {
-            // Consulta directa a la colección que vimos en tu captura
             const q = query(collection(db, "productos"), where("activo", "==", true));
             const snap = await getDocs(q);
-            
             grid.innerHTML = '';
+            
             snap.forEach(doc => {
                 const p = doc.data();
-                const item = document.createElement('div');
-                item.className = 'card';
-                // El error NOT_FOUND se quita creando este archivo:
-                item.onclick = () => window.location.href = `producto.html?id=${doc.id}`;
-                item.innerHTML = `
+                const card = document.createElement('div');
+                card.className = 'card';
+                // Aquí llamamos a la función que abre el detalle sin cambiar de archivo
+                card.onclick = () => mostrarDetalle(p);
+                card.innerHTML = `
                     <img src="${p.imagen}">
                     <div class="p-name">${p.nombre}</div>
-                    <div class="p-price">$${p.precio}</div>
+                    <div class="p-price">$${Number(p.precio).toFixed(2)}</div>
                 `;
-                grid.appendChild(item);
+                grid.appendChild(card);
             });
-        } catch (e) {
-            grid.innerHTML = '<p>Error de conexión: ' + e.message + '</p>';
-        }
+        } catch (e) { grid.innerHTML = '<p>Error de conexión.</p>'; }
     }
+
+    function mostrarDetalle(p) {
+        document.getElementById('det-content').innerHTML = `
+            <img src="${p.imagen}" class="det-img">
+            <h1 style="font-family:Syne; margin-bottom:10px;">${p.nombre}</h1>
+            <div class="det-price">$${Number(p.precio).toFixed(2)}</div>
+            <p style="color:#555; line-height:1.5;">${p.descripcion || 'Sin descripción.'}</p>
+            <button style="width:100%; background:black; color:white; padding:18px; border-radius:15px; border:none; font-weight:800; margin-top:30px;">SOLICITAR STOCK</button>
+        `;
+        document.getElementById('detalle-overlay').style.display = 'block';
+    }
+
+    window.cerrarDetalle = () => { document.getElementById('detalle-overlay').style.display = 'none'; };
 </script>
 </body>
 </html>
