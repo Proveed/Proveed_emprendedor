@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Super App</title>
+    <title>PROVEED — Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -22,57 +22,67 @@
 
         /* CONTENEDOR DE VISTAS */
         .view-container { flex: 1; position: relative; overflow: hidden; }
-        .view { position: absolute; top:0; left:0; width:100%; height:100%; display: none; flex-direction: column; overflow-y: auto; background: var(--gris-f); padding-bottom: 90px; }
-        .view.active { display: flex; animation: slideIn 0.25s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .view { position: absolute; top:0; left:0; width:100%; height:100%; display: none; flex-direction: column; overflow-y: auto; background: var(--gris-f); padding-bottom: 100px; }
+        .view.active { display: flex; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* TIENDA */
+        /* BUSCADOR Y CATEGORÍAS (CORREGIDO) */
         .search-area { padding: 15px 20px 5px; }
-        .search-bar { background: white; padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid #eee; }
+        .search-bar { background: white; padding: 12px 14px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid #eee; }
         .search-bar input { border: none; outline: none; width: 100%; font-size: 0.85rem; font-family: 'Inter'; }
         
         .section-title { padding: 18px 22px 10px; font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .cat-row { display: flex; gap: 8px; padding: 0 20px 15px; overflow-x: auto; scrollbar-width: none; }
+        /* SCROLL LATERAL FLUIDO */
+        .cat-row { 
+            display: flex; 
+            gap: 10px; 
+            padding: 5px 20px 20px; 
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none; 
+        }
         .cat-row::-webkit-scrollbar { display: none; }
-        .chip { background: white; padding: 7px 15px; border-radius: 10px; font-size: 0.75rem; font-weight: 500; border: 1px solid #eee; white-space: nowrap; }
+        
+        .chip { 
+            background: white; 
+            padding: 9px 18px; 
+            border-radius: 12px; 
+            font-size: 0.8rem; 
+            font-weight: 500; 
+            border: 1px solid #eee; 
+            white-space: nowrap; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
         .chip.active { background: var(--negro); color: white; border-color: var(--negro); }
 
+        /* GRID PRODUCTOS */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
-        .card { background: white; border-radius: 18px; overflow: hidden; border: 1px solid #f0f0f0; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
-        .card-img { width: 100%; height: 140px; object-fit: cover; background: #f9f9f9; }
+        .card { background: white; border-radius: 18px; overflow: hidden; border: 1px solid #f0f0f0; }
+        .card-img { width: 100%; height: 140px; object-fit: cover; }
         .card-body { padding: 10px; }
-        .p-name { font-size: 0.8rem; font-weight: 500; height: 34px; overflow: hidden; margin-bottom: 4px; color: #333; }
+        .p-name { font-size: 0.8rem; font-weight: 500; height: 34px; overflow: hidden; margin-bottom: 4px; }
         .p-price { color: var(--verde-ok); font-weight: 600; font-size: 1rem; }
 
-        /* LISTA DE CHATS (WHATSAPP STYLE) */
-        .chat-list { background: white; min-height: 100%; }
-        .chat-item { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f5f5f5; cursor: pointer; }
-        .chat-avatar { width: 52px; height: 52px; border-radius: 18px; background: var(--lima); margin-right: 14px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.1rem; color: var(--negro); }
+        /* CHATS LISTA */
+        .chat-item { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f5f5f5; background: white; }
+        .chat-avatar { width: 50px; height: 50px; border-radius: 15px; background: var(--lima); margin-right: 14px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
         .chat-info { flex: 1; min-width: 0; }
-        .chat-top { display: flex; justify-content: space-between; margin-bottom: 3px; }
         .chat-name { font-weight: 600; font-size: 0.95rem; }
-        .chat-time { font-size: 0.65rem; color: #bbb; }
         .chat-preview { font-size: 0.8rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* VENTANA DE CHAT ACTIVA (FULLSCREEN OVERLAY) */
-        #chat-detail-view { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gris-f); z-index: 2000; display: none; flex-direction: column; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
+        /* OVERLAY CHAT DETALLE */
+        #chat-detail-view { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--gris-f); z-index: 2000; display: none; flex-direction: column; }
         .chat-header-active { background: var(--negro); color: white; padding: 50px 20px 15px; display: flex; align-items: center; gap: 15px; }
-        .back-circle { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; border:none; color:white; }
-        
         #messages-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .bubble { max-width: 80%; padding: 12px 16px; border-radius: 20px; font-size: 0.9rem; line-height: 1.4; position: relative; }
-        .bubble.sent { background: var(--lima); align-self: flex-end; border-bottom-right-radius: 4px; color: var(--negro); font-weight: 500; }
-        .bubble.received { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .bubble { max-width: 80%; padding: 12px 16px; border-radius: 20px; font-size: 0.9rem; }
+        .bubble.sent { background: var(--lima); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .bubble.received { background: white; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
-        .bloqueo-msg { background: rgba(255,77,77,0.1); color: var(--rojo); font-size: 0.7rem; padding: 8px; text-align: center; display: none; font-weight: 600; }
-
-        .input-bar { background: white; padding: 12px 15px 35px; display: flex; gap: 10px; align-items: flex-end; border-top: 1px solid #eee; }
-        .input-field { flex: 1; background: #f2f2f2; border-radius: 22px; padding: 10px 18px; }
-        #msg-input { width: 100%; border: none; background: transparent; outline: none; font-family: 'Inter'; font-size: 0.95rem; resize: none; max-height: 100px; }
-        .btn-send { background: var(--negro); width: 46px; height: 46px; border-radius: 15px; display: flex; align-items: center; justify-content: center; border: none; color: white; cursor: pointer; }
+        .input-bar { background: white; padding: 12px 15px 35px; display: flex; gap: 10px; border-top: 1px solid #eee; }
+        .input-field { flex: 1; background: #f2f2f2; border-radius: 20px; padding: 10px 15px; }
+        #msg-input { width: 100%; border: none; background: transparent; outline: none; font-family: 'Inter'; resize: none; }
+        .btn-send { background: var(--negro); width: 45px; height: 45px; border-radius: 15px; display: flex; align-items: center; justify-content: center; border: none; color: white; }
 
         /* NAV BAR */
         .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0 30px; border-top: 1px solid #f2f2f2; z-index: 1000; }
@@ -85,11 +95,11 @@
 
 <header class="header">
     <div class="header-row">
-        <div class="greeting-name" id="app-title">PROVEED</div>
+        <div class="greeting-name" id="app-title">Cargando...</div>
         <div class="header-actions">
             <button class="icon-btn" onclick="showView('chats')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <div class="badge" id="global-badge" style="display:none">0</div>
+                <div class="badge" id="chat-badge" style="display:none">0</div>
             </button>
             <button class="icon-btn" onclick="location.href='carrito.html'">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -100,44 +110,41 @@
 
 <div class="view-container">
     <main id="view-home" class="view active">
-        <div class="search-area"><div class="search-bar"><input type="text" placeholder="¿Qué stock buscas hoy?"></div></div>
+        <div class="search-area"><div class="search-bar"><input type="text" placeholder="¿Qué buscas hoy?"></div></div>
         <div class="section-title">Categorías</div>
         <div class="cat-row">
             <div class="chip active">Todo</div>
             <div class="chip">Textiles</div>
             <div class="chip">Tecnología</div>
-            <div class="chip">Zapatos</div>
+            <div class="chip">Calzado</div>
+            <div class="chip">Accesorios</div>
+            <div class="chip">Hogar</div>
+            <div class="chip">Relojes</div>
         </div>
-        <div class="section-title">Explorar Catálogo</div>
+        <div class="section-title">Nuevos Ingresos</div>
         <div class="grid" id="product-grid"></div>
     </main>
 
     <section id="view-chats" class="view">
-        <div class="section-title">Bandeja de Entrada</div>
-        <div class="chat-list" id="chats-list">
-            </div>
+        <div class="section-title">Mensajes</div>
+        <div id="chats-list"></div>
     </section>
 </div>
 
 <div id="chat-detail-view">
     <div class="chat-header-active">
-        <button class="back-circle" onclick="closeChat()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-        <div>
-            <div id="active-chat-name" style="font-weight:600; font-size:1rem;">Proveedor</div>
-            <div style="font-size:0.7rem; color:var(--lima);">En línea ahora</div>
-        </div>
+        <button onclick="closeChat()" style="background:none; border:none; color:white;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+        <div id="active-chat-name" style="font-weight:600;">Proveedor</div>
     </div>
     <div id="messages-container"></div>
-    <div class="bloqueo-msg" id="alert-bloqueo">🔒 Información de contacto bloqueada por seguridad.</div>
     <div class="input-bar">
-        <div class="input-field"><textarea id="msg-input" placeholder="Escribe tu mensaje..." rows="1"></textarea></div>
-        <button class="btn-send" onclick="sendNewMsg()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        <div class="input-field"><textarea id="msg-input" placeholder="Escribe..." rows="1"></textarea></div>
+        <button class="btn-send" onclick="sendMsg()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
     </div>
 </div>
 
 <nav class="nav">
-    <button class="nav-item active" id="nav-home" onclick="showView('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></button>
-    <button class="nav-item" onclick="location.href='explorar.html'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></button>
+    <button class="nav-item active" id="btn-home" onclick="showView('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></button>
     <button class="nav-item" onclick="location.href='perfil.html'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></button>
 </nav>
 
@@ -152,32 +159,29 @@
     const auth = getAuth(app);
 
     let currentUid = null;
-    let currentChatId = null;
-    let unsubMsgs = null;
-
-    // PATRONES DE BLOQUEO SEGÚN TU REGLAMENTO
-    const BLACKLIST = [/whatsapp/i, /wsp/i, /\d{7,}/, /@/, /\.com/i, /llámame/i, /escríbeme/i];
+    let chatId = null;
+    let unsub = null;
 
     onAuthStateChanged(auth, user => {
         if(user) {
             currentUid = user.uid;
             document.getElementById('app-title').innerText = "Hola, " + user.displayName?.split(' ')[0];
-            initStore();
-            initChatList();
+            loadProducts();
+            listenChats();
         } else { location.href = 'login.html'; }
     });
 
     window.showView = (v) => {
         document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
         document.getElementById('view-' + v).classList.add('active');
-        document.getElementById('nav-home').classList.toggle('active', v === 'home');
+        document.getElementById('btn-home').classList.toggle('active', v === 'home');
     };
 
-    async function initStore() {
+    async function loadProducts() {
         const snap = await getDocs(collection(db, "productos"));
         document.getElementById('product-grid').innerHTML = snap.docs.map(d => {
             const p = d.data();
-            return `<div class="card" onclick="location.href='explorar.html?id=${d.id}'">
+            return `<div class="card" onclick="location.href='producto.html?id=${d.id}'">
                 <img src="${p.imagenes?.[0] || p.imagen}" class="card-img">
                 <div class="card-body">
                     <p class="p-name">${p.nombre}</p>
@@ -187,71 +191,57 @@
         }).join('');
     }
 
-    function initChatList() {
+    function listenChats() {
         const q = query(collection(db, "chats"), where("usuarios", "array-contains", currentUid), orderBy("timestamp", "desc"));
         onSnapshot(q, snap => {
             const list = document.getElementById('chats-list');
             list.innerHTML = '';
-            let unreadTotal = 0;
             snap.forEach(d => {
                 const c = d.data();
-                if(c.unread) unreadTotal++;
-                list.innerHTML += `
-                    <div class="chat-item" onclick="openChat('${d.id}', '${c.nombreRemitente}')">
-                        <div class="chat-avatar">${c.nombreRemitente[0]}</div>
-                        <div class="chat-info">
-                            <div class="chat-top"><span class="chat-name">${c.nombreRemitente}</span><span class="chat-time">Ahora</span></div>
-                            <div class="chat-preview">${c.ultimoMensaje || 'Sin mensajes'}</div>
-                        </div>
-                    </div>`;
+                list.innerHTML += `<div class="chat-item" onclick="openChat('${d.id}', '${c.nombreRemitente}')">
+                    <div class="chat-avatar">${c.nombreRemitente[0]}</div>
+                    <div class="chat-info">
+                        <div class="chat-name">${c.nombreRemitente}</div>
+                        <div class="chat-preview">${c.ultimoMensaje || 'Enviar mensaje...'}</div>
+                    </div>
+                </div>`;
             });
-            document.getElementById('global-badge').innerText = unreadTotal;
-            document.getElementById('global-badge').style.display = unreadTotal > 0 ? 'block' : 'none';
         });
     }
 
     window.openChat = (id, nombre) => {
-        currentChatId = id;
+        chatId = id;
         document.getElementById('chat-detail-view').style.display = 'flex';
         document.getElementById('active-chat-name').innerText = nombre;
-        if(unsubMsgs) unsubMsgs();
-
+        if(unsub) unsub();
         const q = query(collection(db, 'chats', id, 'mensajes'), orderBy('enviadoEn', 'asc'));
-        unsubMsgs = onSnapshot(q, snap => {
-            const box = document.getElementById('messages-container');
-            box.innerHTML = '';
+        unsub = onSnapshot(q, snap => {
+            const container = document.getElementById('messages-container');
+            container.innerHTML = '';
             snap.forEach(m => {
                 const msg = m.data();
                 const type = msg.remitenteId === currentUid ? 'sent' : 'received';
-                box.innerHTML += `<div class="bubble ${type}">${msg.texto}</div>`;
+                container.innerHTML += `<div class="bubble ${type}">${msg.texto}</div>`;
             });
-            box.scrollTop = box.scrollHeight;
+            container.scrollTop = container.scrollHeight;
         });
     };
 
     window.closeChat = () => {
         document.getElementById('chat-detail-view').style.display = 'none';
-        if(unsubMsgs) unsubMsgs();
+        if(unsub) unsub();
     };
 
-    window.sendNewMsg = async () => {
+    window.sendMsg = async () => {
         const input = document.getElementById('msg-input');
-        const val = input.value.trim();
-        if(!val || !currentChatId) return;
-
-        if(BLACKLIST.some(p => p.test(val))) {
-            const alert = document.getElementById('alert-bloqueo');
-            alert.style.display = 'block';
-            setTimeout(() => alert.style.display = 'none', 3000);
-            input.value = ''; return;
-        }
-
+        const text = input.value.trim();
+        if(!text) return;
         input.value = '';
-        await addDoc(collection(db, 'chats', currentChatId, 'mensajes'), {
-            texto: val, remitenteId: currentUid, enviadoEn: serverTimestamp()
+        await addDoc(collection(db, 'chats', chatId, 'mensajes'), {
+            texto: text, remitenteId: currentUid, enviadoEn: serverTimestamp()
         });
-        await updateDoc(doc(db, 'chats', currentChatId), {
-            ultimoMensaje: val, timestamp: serverTimestamp()
+        await updateDoc(doc(db, 'chats', chatId), {
+            ultimoMensaje: text, timestamp: serverTimestamp()
         });
     };
 </script>
