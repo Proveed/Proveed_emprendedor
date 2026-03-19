@@ -3,54 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Dashboard</title>
+    <title>PROVEED</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ESTILOS ORIGINALES */
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        :root { --lima: #D9FF66; --negro: #1A1A1A; --gris-f: #FBFBFA; --blanco: #FFFFFF; }
+        :root { --lima: #D9FF66; --negro: #1A1A1A; --gris-f: #FBFBFA; }
         
-        body { background: var(--gris-f); color: var(--negro); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background: var(--gris-f); color: var(--negro); font-family: 'Inter', sans-serif; }
 
-        /* HEADER ORIGINAL RE-ESTABLECIDO */
+        /* HEADER LIMA SLIM */
         .header { background: var(--lima); padding: 50px 20px 20px; border-radius: 0 0 25px 25px; position: sticky; top: 0; z-index: 1000; }
         .header-row { display: flex; justify-content: space-between; align-items: center; }
-        .greeting-name { font-size: 1.2rem; font-weight: 700; }
+        .greeting-name { font-size: 1.15rem; font-weight: 700; }
         
         .header-actions { display: flex; gap: 12px; }
-        .icon-btn { background: rgba(0,0,0,0.05); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; position: relative; border: none; cursor: pointer; }
+        .icon-btn { background: rgba(0,0,0,0.05); width: 42px; height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
 
         /* BUSCADOR */
         .search-container { padding: 15px 20px; }
-        .search-input { width: 100%; background: white; padding: 14px; border-radius: 15px; border: 1px solid #eee; outline: none; font-family: 'Inter'; }
+        .search-input { width: 100%; background: white; padding: 14px; border-radius: 15px; border: 1px solid #eee; outline: none; font-size: 0.9rem; }
 
-        /* CATEGORÍAS (CORREGIDO EL BLOQUEO SIN QUITAR ICONOS) */
-        .section-title { padding: 10px 22px; font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; }
-        
-        .cat-row { 
-            display: flex; 
-            gap: 10px; 
-            padding: 5px 20px 20px; 
-            overflow-x: auto; 
-            -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; 
-            position: relative;
-            z-index: 50; /* Para que sea deslizable siempre */
-        }
+        /* CATEGORÍAS */
+        .section-title { padding: 10px 22px; font-size: 0.8rem; font-weight: 700; color: #999; text-transform: uppercase; }
+        .cat-row { display: flex; gap: 10px; padding: 5px 20px 20px; overflow-x: auto; scrollbar-width: none; }
         .cat-row::-webkit-scrollbar { display: none; }
-        .chip { background: white; padding: 10px 22px; border-radius: 14px; font-size: 0.85rem; font-weight: 600; border: 1px solid #eee; white-space: nowrap; flex-shrink: 0; }
+        .chip { background: white; padding: 10px 22px; border-radius: 14px; font-size: 0.85rem; font-weight: 600; border: 1px solid #eee; white-space: nowrap; }
         .chip.active { background: var(--negro); color: white; border-color: var(--negro); }
 
-        /* GRID PRODUCTOS (VUELVE A LA RUTA CORRECTA) */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px 100px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #f0f0f0; cursor: pointer; }
-        .card-img { width: 100%; height: 160px; object-fit: cover; background: #eee; }
+        /* GRID EXPLORAR */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 18px 100px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #f0f0f0; }
+        .card-img { width: 100%; height: 145px; object-fit: cover; background: #eee; }
         .card-body { padding: 12px; }
-        .p-name { font-size: 0.85rem; font-weight: 500; height: 34px; overflow: hidden; margin-bottom: 5px; }
+        .p-name { font-size: 0.85rem; font-weight: 500; height: 34px; overflow: hidden; margin-bottom: 4px; }
         .p-price { color: #2bb12b; font-weight: 700; font-size: 1rem; }
 
-        /* NAV BAR ORIGINAL */
-        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0 30px; border-top: 1px solid #f2f2f2; z-index: 1000; }
-        .nav-item { color: #ccc; border: none; background: none; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 700; text-transform: uppercase; font-size: 0.6rem; cursor: pointer; }
+        /* NAV ORIGINAL */
+        .nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0 30px; border-top: 1px solid #f2f2f2; z-index: 1000; }
+        .nav-item { color: #ccc; border: none; background: none; display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 700; text-transform: uppercase; font-size: 0.6rem; }
         .nav-item.active { color: var(--negro); }
     </style>
 </head>
@@ -60,7 +51,7 @@
     <div class="header-row">
         <div class="greeting-name" id="user-display">Hola, ...</div>
         <div class="header-actions">
-            <button class="icon-btn" onclick="location.href='chats.html'">
+            <button class="icon-btn" onclick="location.href='mensajes.html'">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </button>
             <button class="icon-btn" onclick="location.href='carrito.html'">
@@ -75,19 +66,18 @@
 </div>
 
 <div class="section-title">Categorías</div>
-<div class="cat-row" id="cat-list">
+<div class="cat-row">
     <div class="chip active">Todo</div>
     <div class="chip">Textiles</div>
     <div class="chip">Tecnología</div>
     <div class="chip">Zapatos</div>
-    <div class="chip">Relojería</div>
 </div>
 
 <div class="section-title">Explorar</div>
 <div class="grid" id="product-grid"></div>
 
 <nav class="nav">
-    <button class="nav-item active" onclick="location.href='dashboard.html'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></button>
+    <button class="nav-item active"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Inicio</span></button>
     <button class="nav-item" onclick="location.href='perfil.html'"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></button>
 </nav>
 
@@ -113,7 +103,7 @@
         const grid = document.getElementById('product-grid');
         grid.innerHTML = snap.docs.map(doc => {
             const p = doc.data();
-            // CORRECCIÓN DE RUTA: Volvemos a 'producto.html' que es el que usas
+            // RUTA RESTAURADA A producto.html
             return `
                 <div class="card" onclick="location.href='producto.html?id=${doc.id}'">
                     <img src="${p.imagenes?.[0] || p.imagen || ''}" class="card-img">
