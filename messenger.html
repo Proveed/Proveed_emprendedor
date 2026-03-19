@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>PROVEED — Messenger</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --lima: #CCFF00; --negro: #0E0E0E; --gris: #F7F8F5; }
+        body { background: white; font-family: 'DM Sans', sans-serif; }
+
+        /* HEADER ESTILO CHAT */
+        header { background: var(--lima); padding: 50px 20px 15px; border-radius: 0 0 25px 25px; position: sticky; top: 0; z-index: 100; }
+        header h1 { font-family: 'Syne'; font-size: 1.1rem; text-transform: uppercase; }
+
+        /* LISTA DE CHATS */
+        .chat-list { padding: 10px 0; }
+        .chat-item { display: flex; align-items: center; gap: 15px; padding: 15px 20px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+        .chat-item:active { background: #f9f9f9; }
+        
+        .avatar { width: 55px; height: 55px; border-radius: 18px; object-fit: cover; background: #eee; }
+        
+        .chat-info { flex: 1; }
+        .chat-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .chat-name { font-weight: 700; font-size: 0.95rem; color: var(--negro); }
+        .chat-time { font-size: 0.7rem; color: #aaa; }
+        
+        .chat-msg { font-size: 0.8rem; color: #777; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .unread-dot { width: 10px; height: 10px; background: var(--lima); border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(204, 255, 0, 0.5); }
+
+        /* TAB BAR INFERIOR (Copia exacta del Dashboard para consistencia) */
+        .tab-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; height: 85px; border-top: 1px solid #eee; padding-bottom: 25px; }
+        .tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ccc; text-decoration: none; }
+        .tab-btn.active { color: var(--negro); }
+        .tab-btn span { font-size: 0.55rem; font-weight: 800; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mis Negociaciones</h1>
+    </header>
+
+    <div class="chat-list" id="chats-container">
+        <div class="chat-item" onclick="location.href='chat_detalle.html'">
+            <img src="https://via.placeholder.com/100" class="avatar">
+            <div class="chat-info">
+                <div class="chat-top">
+                    <span class="chat-name">Ulises (Soporte Proveed)</span>
+                    <span class="chat-time">14:20</span>
+                </div>
+                <p class="chat-msg">Hola Luis, tu cotización por las 50 unidades ya fue aprobada por el proveedor.</p>
+            </div>
+            <div class="unread-dot"></div>
+        </div>
+
+        <div class="chat-item">
+            <img src="https://via.placeholder.com/101" class="avatar">
+            <div class="chat-info">
+                <div class="chat-top">
+                    <span class="chat-name">Distribuidora Global EC</span>
+                    <span class="chat-time">Ayer</span>
+                </div>
+                <p class="chat-msg">¿Te interesan los nuevos modelos de relojes Invicta que llegaron?</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="tab-bar">
+        <a href="dashboard.html" class="tab-btn"><span>Explorar</span></a>
+        <a href="#" class="tab-btn"><span>Tips</span></a>
+        <a href="messenger.html" class="tab-btn active"><span>Messenger</span></a>
+        <a href="#" class="tab-btn"><span>Carrito</span></a>
+        <a href="perfil.html" class="tab-btn"><span>Mi Centro</span></a>
+    </nav>
+
+</body>
+</html>
