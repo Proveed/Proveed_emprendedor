@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Explorar y Chat</title>
+    <title>PROVEED — Catálogo y Chat</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        :root { --verde: #32CD32; --negro: #0E0E0E; --blanco: #FFFFFF; --gris: #F2F3F0; --verde-bubble: #DCF8C6; }
+        :root { --verde: #32CD32; --negro: #0E0E0E; --blanco: #FFFFFF; --gris-f: #E5DDD5; --bubble-v: #DCF8C6; }
         
-        body { background: var(--gris); font-family: 'DM Sans', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        body { background: #F2F3F0; font-family: 'DM Sans', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
         /* HEADER */
         .header { background: var(--negro); color: white; padding: 55px 20px 20px; border-radius: 0 0 30px 30px; z-index: 10; }
@@ -17,76 +17,75 @@
         .search-wrap { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 10px; }
         .search-wrap input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 1rem; }
 
-        /* GRID: IMÁGENES PREDOMINANTES Y GRANDES */
-        #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; overflow-y: auto; padding-bottom: 100px; }
+        /* GRID: IMÁGENES PREDOMINANTES (280px) */
+        #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; overflow-y: auto; padding-bottom: 100px; }
         
         .prod-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; }
         
-        .prod-img { width: 100%; height: 260px; /* IMAGEN MUCHO MÁS GRANDE */ background: #fafafa; position: relative; }
+        .prod-img { width: 100%; height: 280px; background: #fafafa; position: relative; }
         .prod-img img { width: 100%; height: 100%; object-fit: cover; }
         
         .tag-cat { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
 
-        .prod-body { padding: 10px; text-align: center; }
-        .prod-nombre { font-size: 0.85rem; font-weight: 700; color: var(--negro); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .prod-body { padding: 12px; text-align: center; }
+        .prod-nombre { font-size: 0.85rem; font-weight: 700; color: var(--negro); margin-bottom: 2px; }
         .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.1rem; }
 
-        /* MODAL CHAT COMPACTO Y PROPORCIONAL */
+        /* MODAL DE CHAT: COMPACTO Y PROPORCIONAL */
         #modal-chat { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; flex-direction: column; justify-content: flex-end; }
         
         .chat-container { 
-            background: #E5DDD5; /* Fondo estilo chat clásico */
+            background: var(--gris-f); 
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
             width: 100%; 
             height: 85vh; 
             border-radius: 30px 30px 0 0; 
             display: flex; 
             flex-direction: column; 
             overflow: hidden; 
-            animation: slideUp 0.3s ease;
+            animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        .chat-header { background: var(--negro); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-header { background: var(--negro); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .chat-header h2 { font-family: 'Syne'; font-size: 1.1rem; }
-        .btn-cerrar { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .btn-cerrar { background: rgba(255,255,255,0.1); border: none; color: white; width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
 
-        /* BURBUJAS COMPACTAS (Solución al error visual) */
-        #mensajes { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 8px; }
+        /* BURBUJAS QUE SE AJUSTAN AL TEXTO */
+        #mensajes { flex: 1; overflow-y: auto; padding: 20px 15px; display: flex; flex-direction: column; gap: 8px; }
         
         .burbuja { 
-            padding: 8px 14px; 
-            border-radius: 15px; 
-            font-size: 0.9rem; 
+            padding: 10px 15px; 
+            border-radius: 18px; 
+            font-size: 0.92rem; 
             line-height: 1.4; 
-            width: fit-content; /* Se ajusta al texto */
-            max-width: 80%; /* No ocupa todo el ancho */
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            width: fit-content; /* Proporcional al texto */
+            max-width: 75%; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
             word-wrap: break-word;
         }
-        .enviado { align-self: flex-end; background: var(--verde-bubble); border-bottom-right-radius: 2px; }
-        .recibido { align-self: flex-start; background: white; border-bottom-left-radius: 2px; }
-        .hora { font-size: 0.65rem; color: #888; display: block; text-align: right; margin-top: 3px; }
+        .enviado { align-self: flex-end; background: var(--bubble-v); border-bottom-right-radius: 4px; color: #111; }
+        .recibido { align-self: flex-start; background: white; border-bottom-left-radius: 4px; color: #111; }
+        .hora { font-size: 0.6rem; color: #888; display: block; text-align: right; margin-top: 4px; }
 
-        /* BARRA DE ESCRITURA: MÁS ALTA Y ACCESIBLE */
+        /* BARRA DE ENTRADA: ALTA PARA COMODIDAD */
         .chat-input-area { 
             background: #F0F0F0; 
-            padding: 12px 15px 45px; /* Sube la barra para evitar el teclado/navegación */
+            padding: 12px 15px 45px; /* Sube la barra para que no estorbe */
             display: flex; 
             align-items: center; 
             gap: 10px; 
             border-top: 1px solid #ddd;
         }
         .input-box { flex: 1; background: white; border-radius: 25px; padding: 10px 18px; border: 1px solid #ccc; }
-        .input-box input { width: 100%; border: none; outline: none; font-size: 1rem; }
+        .input-box input { width: 100%; border: none; outline: none; font-size: 1rem; background: transparent; }
         
         .btn-enviar { 
-            width: 48px; height: 48px; background: var(--negro); border-radius: 50%; border: none; 
+            width: 50px; height: 50px; background: var(--negro); border-radius: 50%; border: none; 
             display: flex; align-items: center; justify-content: center; cursor: pointer; 
         }
         .btn-enviar svg { width: 22px; fill: white; margin-left: 3px; }
 
-        #toast { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); background: var(--negro); color: white; padding: 12px 25px; border-radius: 50px; opacity: 0; transition: 0.3s; z-index: 3000; font-weight: 700; }
-        #toast.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -94,7 +93,7 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
-        <input type="text" id="busqueda" placeholder="Buscar productos mayoristas..." oninput="renderizar()">
+        <input type="text" id="busqueda" placeholder="Buscar productos..." oninput="renderizar()">
     </div>
 </header>
 
@@ -107,9 +106,7 @@
             <button class="btn-cerrar" onclick="cerrarChat()">×</button>
         </header>
         
-        <div id="mensajes">
-            <div class="burbuja recibido">Hola, ¿buscas algo específico? <span class="hora">11:00 AM</span></div>
-        </div>
+        <div id="mensajes"></div>
 
         <div class="chat-input-area">
             <div class="input-box">
@@ -121,8 +118,6 @@
         </div>
     </div>
 </div>
-
-<div id="toast"></div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
@@ -140,7 +135,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     let productos = [];
-    const miUsuarioId = "user_demo";
+    const miID = "usuario_demo";
 
     async function cargar() {
         const snap = await getDocs(collection(db, "productos"));
@@ -171,26 +166,25 @@
         });
     }
 
-    // LÓGICA DEL CHAT COMPACTO
-    let chatActual = "";
+    let chatActivo = "";
+    let unsub = null;
+
     window.abrirChat = function(nombre, provId) {
         document.getElementById('chat-nombre').textContent = nombre;
         document.getElementById('modal-chat').style.display = 'flex';
-        chatActual = `${miUsuarioId}_${provId}`;
-        escucharMensajes(chatActual);
-    }
-
-    function escucharMensajes(chatId) {
-        const q = query(collection(db, "chats", chatId, "mensajes"), orderBy("fecha", "asc"));
-        onSnapshot(q, (snapshot) => {
+        chatActivo = `${miID}_${provId}`;
+        
+        if (unsub) unsub();
+        const q = query(collection(db, "chats", chatActivo, "mensajes"), orderBy("fecha", "asc"));
+        unsub = onSnapshot(q, (snapshot) => {
             const box = document.getElementById('mensajes');
             box.innerHTML = '';
             snapshot.forEach(doc => {
                 const m = doc.data();
-                const esMio = m.remitente === miUsuarioId;
+                const esMio = m.remitente === miID;
                 const div = document.createElement('div');
                 div.className = `burbuja ${esMio ? 'enviado' : 'recibido'}`;
-                div.innerHTML = `${m.texto} <span class="hora">Ahora</span>`;
+                div.innerHTML = `${m.texto} <span class="hora">Hoy</span>`;
                 box.appendChild(div);
             });
             box.scrollTop = box.scrollHeight;
@@ -199,16 +193,19 @@
 
     window.enviarMensaje = async function() {
         const inp = document.getElementById('msg-input');
-        if(!inp.value.trim() || !chatActual) return;
-        await addDoc(collection(db, "chats", chatActual, "mensajes"), {
+        if(!inp.value.trim()) return;
+        await addDoc(collection(db, "chats", chatActivo, "mensajes"), {
             texto: inp.value,
-            remitente: miUsuarioId,
+            remitente: miID,
             fecha: serverTimestamp()
         });
         inp.value = '';
     }
 
-    window.cerrarChat = () => document.getElementById('modal-chat').style.display = 'none';
+    window.cerrarChat = () => {
+        document.getElementById('modal-chat').style.display = 'none';
+        if (unsub) unsub();
+    };
 
     cargar();
 </script>
