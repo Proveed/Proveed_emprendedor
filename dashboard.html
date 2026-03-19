@@ -2,64 +2,107 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROVEED — App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>PROVEED — Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        :root { --lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; --gris:#F8F8F5; }
-        body { background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:100px; }
+        :root { --verde-lima:#CCFF00; --verde:#32CD32; --negro:#0E0E0E; --gris-fondo:#F8F8F5; --rojo:#FF4D4D; }
+        body { background:var(--gris-fondo); color:var(--negro); font-family:'DM Sans',sans-serif; min-height:100vh; padding-bottom:100px; overflow-x: hidden; }
 
-        /* HEADER LIMA */
-        .header { background:var(--lima); padding:45px 20px 15px; border-radius:0 0 25px 25px; position: sticky; top: 0; z-index: 10; }
-        .greeting { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; }
+        /* HEADER ORIGINAL */
+        .header { background:var(--verde-lima); color:var(--negro); padding:45px 22px 18px; border-radius:0 0 28px 28px; position:sticky; top:0; z-index:100; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .header-row { display:flex; align-items:center; justify-content:space-between; }
+        .greeting-name { font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800; letter-spacing:-0.5px; }
+        .header-actions { display:flex; align-items:center; gap:12px; }
+        .icon-btn-h { background:rgba(0,0,0,0.06); width:42px; height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
+        .cart-badge { position:absolute; top:-5px; right:-5px; background:var(--rojo); color:white; font-size:0.65rem; font-weight:800; padding:2px 6px; border-radius:10px; border:2px solid var(--verde-lima); }
+
+        /* BUSCADOR */
+        .search-section { padding:18px 20px 0; }
+        .search-box { background:white; display:flex; align-items:center; padding:14px 18px; border-radius:18px; gap:12px; border:1px solid #eee; }
+        .search-box input { border:none; outline:none; flex:1; font-family:'DM Sans',sans-serif; font-size:0.95rem; background:transparent; }
+
+        /* CATEGORÍAS */
+        .section-head { display:flex; justify-content:space-between; align-items:center; padding:20px 22px 10px; }
+        .section-head h3 { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; text-transform: uppercase; color: #999; }
+        .cats-scroll { display:flex; gap:12px; padding:0 20px 20px; overflow-x:auto; scrollbar-width:none; }
+        .cat-chip { padding:10px 20px; border-radius:16px; white-space:nowrap; cursor:pointer; border:1px solid #eee; background:white; font-size:0.85rem; font-weight:700; color:#555; }
+        .cat-chip.active { background:var(--negro); color:white; border-color:var(--negro); }
 
         /* GRID PRODUCTOS */
-        .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:20px; }
-        .card { background:white; border-radius:20px; padding:10px; border:1px solid #eee; cursor:pointer; }
-        .card img { width:100%; height:140px; object-fit:cover; border-radius:15px; }
-        .p-name { font-weight:700; font-size:0.85rem; margin:8px 0; height: 34px; overflow: hidden; }
-        .p-price { color:var(--verde); font-weight:800; }
+        .products-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; padding:0 20px 20px; }
+        .prod-card { background:white; border-radius:24px; overflow:hidden; border: 1px solid #f0f0f0; cursor:pointer; }
+        .prod-img { width:100%; height:160px; background:#f9f9f9; }
+        .prod-img img { width:100%; height:100%; object-fit:cover; }
+        .prod-info { padding:14px; }
+        .prod-name { font-size:0.85rem; font-weight:700; margin-bottom:6px; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .prod-precio { font-size:1.1rem; font-weight:800; color:var(--verde); }
 
-        /* EL "DETALLE" QUE NO NECESITA OTRO HTML */
-        #detalle-overlay {
+        /* VENTANA DE DETALLE (ELIMINA EL ERROR 404) */
+        #detalle-view {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 1000; display: none; padding: 25px;
-            overflow-y: auto; animation: slideUp 0.3s ease;
+            overflow-y: auto; animation: slideUp 0.3s ease-out;
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
-        .btn-cerrar { background:var(--lima); padding:10px 20px; border-radius:12px; display:inline-block; font-weight:800; margin-bottom:20px; cursor:pointer; }
-        .det-img { width:100%; border-radius:20px; margin-bottom:15px; }
-        .det-price { color:var(--verde); font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+        .btn-volver { background: var(--verde-lima); padding: 12px 20px; border-radius: 12px; display: inline-block; font-weight: 800; margin-bottom: 20px; cursor: pointer; }
 
-        .nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:15px 0 30px; border-top:1px solid #eee; z-index: 5; }
+        /* TAB BAR ORIGINAL */
+        .tab-bar { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:12px 0 32px; border-top:1px solid #eee; z-index:200; }
+        .tab { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; color:#bbb; text-decoration:none; }
+        .tab.active { color:var(--negro); }
+        .tab svg { width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:2.2; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="greeting" id="user-greeting">Hola, ...</div>
+<header class="header">
+    <div class="header-row">
+        <div class="greeting-name" id="user-greeting">Hola...</div>
+        <div class="header-actions">
+            <div class="icon-btn-h"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <div class="icon-btn-h">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <div class="cart-badge">0</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="search-section">
+    <div class="search-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="¿Qué stock buscas en Proveed?">
+    </div>
 </div>
 
-<div id="grid" class="grid">
-    <p style="grid-column: 1/3; text-align:center; padding:20px;">Cargando inventario...</p>
+<div class="section-head"><h3>Categorías</h3></div>
+<div class="cats-scroll">
+    <div class="cat-chip active">Todo</div>
+    <div class="cat-chip">Textiles</div>
+    <div class="cat-chip">Tecnología</div>
 </div>
 
-<div id="detalle-overlay">
-    <div class="btn-cerrar" onclick="cerrarDetalle()">← VOLVER</div>
-    <div id="det-content"></div>
+<div class="section-head"><h3>Explorar</h3></div>
+<div id="products-grid" class="products-grid">
+    </div>
+
+<div id="detalle-view">
+    <div class="btn-volver" onclick="cerrarDetalle()">← VOLVER</div>
+    <div id="detalle-render"></div>
 </div>
 
-<nav class="nav">
-    <div onclick="location.reload()" style="font-weight:bold;">INICIO</div>
-    <div onclick="alert('Perfil')" style="color:#999;">PERFIL</div>
+<nav class="tab-bar">
+    <a class="tab active" href="#"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a>
+    <a class="tab" href="#"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></a>
+    <a class="tab" href="#"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
 </nav>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, where, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
     const config = {
         apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
@@ -74,48 +117,48 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
-            document.getElementById('user-greeting').innerText = "Hola, " + (user.displayName || "Emprendedor");
+            const userSnap = await getDoc(doc(db, "usuarios", user.uid));
+            document.getElementById('user-greeting').innerText = "Hola, " + (userSnap.exists() ? userSnap.data().nombre.split(' ')[0] : "Usuario");
             cargar();
         } else { window.location.href = 'login.html'; }
     });
 
     async function cargar() {
-        const grid = document.getElementById('grid');
+        const grid = document.getElementById('products-grid');
         try {
             const q = query(collection(db, "productos"), where("activo", "==", true));
             const snap = await getDocs(q);
             grid.innerHTML = '';
-            
-            snap.forEach(doc => {
-                const p = doc.data();
+            snap.forEach(documento => {
+                const p = documento.data();
                 const card = document.createElement('div');
-                card.className = 'card';
-                // Aquí llamamos a la función que abre el detalle sin cambiar de archivo
-                card.onclick = () => mostrarDetalle(p);
+                card.className = 'prod-card';
+                card.onclick = () => verDetalle(p);
                 card.innerHTML = `
-                    <img src="${p.imagen}">
-                    <div class="p-name">${p.nombre}</div>
-                    <div class="p-price">$${Number(p.precio).toFixed(2)}</div>
-                `;
+                    <div class="prod-img"><img src="${p.imagen}"></div>
+                    <div class="prod-info">
+                        <div class="prod-name">${p.nombre}</div>
+                        <div class="prod-precio">$${Number(p.precio).toFixed(2)}</div>
+                    </div>`;
                 grid.appendChild(card);
             });
         } catch (e) { grid.innerHTML = '<p>Error de conexión.</p>'; }
     }
 
-    function mostrarDetalle(p) {
-        document.getElementById('det-content').innerHTML = `
-            <img src="${p.imagen}" class="det-img">
-            <h1 style="font-family:Syne; margin-bottom:10px;">${p.nombre}</h1>
-            <div class="det-price">$${Number(p.precio).toFixed(2)}</div>
-            <p style="color:#555; line-height:1.5;">${p.descripcion || 'Sin descripción.'}</p>
-            <button style="width:100%; background:black; color:white; padding:18px; border-radius:15px; border:none; font-weight:800; margin-top:30px;">SOLICITAR STOCK</button>
+    function verDetalle(p) {
+        document.getElementById('detalle-render').innerHTML = `
+            <img src="${p.imagen}" style="width:100%; border-radius:22px; height:340px; object-fit:cover; margin-bottom:20px;">
+            <h1 style="font-family:Syne; font-size:1.6rem; margin-bottom:10px;">${p.nombre}</h1>
+            <div style="color:var(--verde); font-size:2rem; font-weight:900; margin-bottom:15px;">$${Number(p.precio).toFixed(2)}</div>
+            <p style="color:#666; line-height:1.6;">${p.descripcion || 'Producto de alta calidad Proveed.'}</p>
+            <button style="width:100%; background:black; color:white; padding:20px; border-radius:18px; border:none; font-weight:800; margin-top:30px; font-size:1.1rem;">AÑADIR AL CARRITO</button>
         `;
-        document.getElementById('detalle-overlay').style.display = 'block';
+        document.getElementById('detalle-view').style.display = 'block';
     }
 
-    window.cerrarDetalle = () => { document.getElementById('detalle-overlay').style.display = 'none'; };
+    window.cerrarDetalle = () => { document.getElementById('detalle-view').style.display = 'none'; };
 </script>
 </body>
 </html>
