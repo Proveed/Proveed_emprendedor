@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Explorar Full</title>
+    <title>PROVEED — Explorar Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -17,39 +17,44 @@
         .search-wrap { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 10px; }
         .search-wrap input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 1rem; }
 
-        /* GRID: IMÁGENES GRANDES (280px) */
+        /* GRID: IMÁGENES GRANDES */
         #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; overflow-y: auto; padding-bottom: 100px; }
-        .prod-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; position: relative; display: flex; flex-direction: column; }
+        .prod-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid #eee; position: relative; display: flex; flex-direction: column; }
         
-        .prod-img { width: 100%; height: 280px; background: #fafafa; cursor: pointer; }
+        .prod-img { width: 100%; height: 280px; background: #fafafa; cursor: pointer; position: relative; }
         .prod-img img { width: 100%; height: 100%; object-fit: cover; }
 
         .prod-body { padding: 12px; }
-        .prod-prov { font-size: 0.65rem; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
-        .prod-nombre { font-size: 0.85rem; font-weight: 700; color: var(--negro); margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .prod-prov { font-size: 0.65rem; color: #999; text-transform: uppercase; font-weight: 800; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .prod-nombre { font-size: 0.85rem; font-weight: 700; color: var(--negro); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .prod-footer { display: flex; justify-content: space-between; align-items: center; }
-        .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.1rem; }
+        .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.15rem; }
 
-        /* BOTONES DE ACCIÓN RÁPIDA */
+        /* BOTONES DE ACCIÓN (SVG MODERNOS) */
         .prod-actions { display: flex; gap: 6px; }
-        .btn-act { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #eee; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
-        .btn-act:active { background: #f0f0f0; transform: scale(0.9); }
+        .btn-act { 
+            width: 34px; height: 34px; border-radius: 10px; border: none; 
+            background: #f8f8f8; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; transition: 0.2s; color: #444; 
+        }
+        .btn-act svg { width: 18px; height: 18px; fill: currentColor; }
+        .btn-act:active { background: #eee; transform: scale(0.9); }
+        .btn-plus { background: var(--negro); color: white; }
 
-        /* MODAL IMAGEN COMPLETA */
-        #modal-full { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; align-items: center; justify-content: center; }
-        #modal-full img { max-width: 95%; max-height: 80%; border-radius: 10px; object-fit: contain; }
-        .cerrar-full { position: absolute; top: 40px; right: 20px; color: white; font-size: 2.5rem; background: none; border: none; }
-
-        /* MODAL CHAT COMPACTO */
-        #modal-chat { display: none; position: fixed; bottom: 0; width: 100%; height: 85vh; background: var(--gris-f); z-index: 2000; border-radius: 30px 30px 0 0; flex-direction: column; box-shadow: 0 -5px 20px rgba(0,0,0,0.3); }
-        .chat-h { background: var(--negro); color: white; padding: 20px; border-radius: 30px 30px 0 0; display: flex; justify-content: space-between; }
-        #msgs { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 8px; }
-        .bub { padding: 8px 12px; border-radius: 15px; font-size: 0.9rem; width: fit-content; max-width: 80%; }
-        .mio { align-self: flex-end; background: var(--bubble-v); }
-        .otro { align-self: flex-start; background: white; }
-        .chat-i { background: #f0f0f0; padding: 10px 15px 40px; display: flex; gap: 10px; }
-        .chat-i input { flex: 1; padding: 12px; border-radius: 20px; border: 1px solid #ccc; outline: none; }
+        /* MODALES */
+        #modal-full { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 3000; align-items: center; justify-content: center; }
+        #modal-full img { max-width: 95%; max-height: 85%; object-fit: contain; }
+        
+        #modal-chat { display: none; position: fixed; bottom: 0; width: 100%; height: 85vh; background: var(--gris-f); z-index: 2000; border-radius: 35px 35px 0 0; flex-direction: column; }
+        .chat-h { background: var(--negro); color: white; padding: 22px; border-radius: 35px 35px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        #msgs { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .bub { padding: 10px 14px; border-radius: 18px; font-size: 0.92rem; width: fit-content; max-width: 80%; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .mio { align-self: flex-end; background: var(--bubble-v); border-bottom-right-radius: 4px; }
+        .otro { align-self: flex-start; background: white; border-bottom-left-radius: 4px; }
+        
+        .chat-i { background: #f9f9f9; padding: 12px 18px 45px; display: flex; gap: 12px; border-top: 1px solid #eee; }
+        .chat-i input { flex: 1; padding: 12px 18px; border-radius: 25px; border: 1px solid #ddd; outline: none; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -57,26 +62,27 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
-        <input type="text" id="busqueda" placeholder="Buscar productos..." oninput="renderizar()">
+        <input type="text" id="busqueda" placeholder="¿Qué estás buscando?" oninput="renderizar()">
     </div>
 </header>
 
 <div id="grid"></div>
 
 <div id="modal-full" onclick="this.style.display='none'">
-    <button class="cerrar-full">×</button>
     <img id="img-target" src="">
 </div>
 
 <div id="modal-chat">
     <div class="chat-h">
-        <h2 id="chat-t">Proveedor</h2>
-        <button onclick="cerrarChat()" style="color:white; background:none; border:none; font-size:1.5rem;">×</button>
+        <h2 id="chat-t" style="font-family:'Syne';">Proveedor</h2>
+        <button onclick="cerrarChat()" style="color:white; background:rgba(255,255,255,0.1); border:none; border-radius:50%; width:35px; height:35px; font-size:1.2rem;">×</button>
     </div>
     <div id="msgs"></div>
     <div class="chat-i">
-        <input type="text" id="msg-in" placeholder="Escribe mensaje...">
-        <button onclick="enviar()" style="background:var(--negro); color:white; border:none; border-radius:50%; width:45px;">></button>
+        <input type="text" id="msg-in" placeholder="Escribe un mensaje...">
+        <button onclick="enviar()" style="background:var(--negro); color:white; border:none; border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:20px; fill:white; margin-left:3px;" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
     </div>
 </div>
 
@@ -103,7 +109,7 @@
             const snap = await getDocs(collection(db, "productos"));
             productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
             renderizar();
-        } catch(e) { console.error("Error:", e); }
+        } catch(e) { console.error("Error cargando:", e); }
     }
 
     window.renderizar = function() {
@@ -120,14 +126,20 @@
                     <img src="${img}">
                 </div>
                 <div class="prod-body">
-                    <div class="prod-prov">👤 ${p.nombreProveedor || 'Proveedor'}</div>
+                    <div class="prod-prov">📦 ${p.nombreProveedor || 'Proveedor'}</div>
                     <div class="prod-nombre">${p.nombre}</div>
                     <div class="prod-footer">
                         <div class="prod-precio">$${Number(p.precio).toFixed(2)}</div>
                         <div class="prod-actions">
-                            <button class="btn-act" onclick="lanzarToast()">+</button>
-                            <button class="btn-act" onclick="abrirChat('${p.nombreProveedor}','${p.proveedorId}')">💬</button>
-                            <button class="btn-act" onclick="alert('Detalles de: ${p.nombre}')">ℹ️</button>
+                            <button class="btn-act btn-plus" onclick="alert('Añadido')">
+                                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            </button>
+                            <button class="btn-act" onclick="abrirChat('${p.nombreProveedor}','${p.proveedorId}')">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                            </button>
+                            <button class="btn-act" onclick="alert('Detalle: ${p.nombre}')">
+                                <svg viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/></svg>
+                            </button>
                         </div>
                     </div>
                 </div>`;
@@ -172,7 +184,6 @@
     };
 
     window.cerrarChat = () => document.getElementById('modal-chat').style.display = 'none';
-    window.lanzarToast = () => alert("Añadido al carrito");
 
     cargar();
 </script>
