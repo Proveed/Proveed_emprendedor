@@ -3,96 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PROVEED — Catálogo Full</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <title>PROVEED — Explorar Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        :root { --lima: #CCFF00; --negro: #0E0E0E; --gris-f: #F2F3F0; }
+        :root { --lima: #CCFF00; --negro: #0E0E0E; --blanco: #FFFFFF; --gris-f: #F2F3F0; }
         
-        body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
         /* HEADER */
-        .header { background: var(--lima); padding: 50px 20px 20px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 1000; }
-        .header h1 { font-family: 'Syne'; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 15px; }
-        .search-bar { background: rgba(0,0,0,0.08); border-radius: 15px; padding: 12px 15px; border: none; width: 100%; font-weight: 600; outline: none; }
+        .header { background: var(--lima); color: var(--negro); padding: 45px 20px 15px; border-radius: 0 0 30px 30px; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .header h1 { font-family: 'Syne'; font-size: 1.4rem; margin-bottom: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
+        .search-wrap { background: rgba(0,0,0,0.07); border-radius: 15px; padding: 12px 18px; display: flex; align-items: center; border: 1px solid rgba(0,0,0,0.03); }
+        .search-wrap input { background: transparent; border: none; color: var(--negro); outline: none; width: 100%; font-size: 0.95rem; font-weight: 600; }
 
-        /* GRID */
-        #grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; padding-bottom: 100px; }
-        .card { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.05); }
-        .img-area { width: 100%; height: 220px; position: relative; cursor: pointer; }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; }
+        /* GRID CATALOGO */
+        #grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; overflow-y: auto; padding-bottom: 100px; }
+        .prod-card { background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; position: relative; }
         
-        .info-area { padding: 12px; text-align: center; }
-        .name { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
-        .price { color: #2bb12b; font-weight: 800; font-size: 1.1rem; margin-bottom: 12px; }
-
-        /* ICONOS ELEGANTES SVG */
-        .actions { display: flex; justify-content: center; gap: 8px; }
-        .btn-icon { border: none; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .btn-add-quick { background: var(--negro); }
-        .btn-add-quick svg { fill: var(--lima); width: 20px; }
-        .btn-chat-quick { background: #f2f3f0; }
-        .btn-chat-quick svg { fill: #333; width: 18px; }
-
-        /* MODAL DETALLES ANTERIOR */
-        #modal { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slide 0.3s ease-out; }
-        @keyframes slide { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .prod-img { width: 100%; height: 260px; background: #fdfdfd; position: relative; cursor: pointer; }
+        .prod-img img { width: 100%; height: 100%; object-fit: cover; }
         
-        .close-btn { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.4); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10; font-size: 20px; }
-        
-        .det-body { padding: 25px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; }
-        .det-title { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 5px; }
-        .det-price { color: #2bb12b; font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
-        
-        /* SELECTORES B2B */
-        .grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .opt label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #999; display: block; margin-bottom: 5px; }
-        .opt select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #eee; background: #f9f9f9; font-weight: 600; }
+        .tag-prov { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.95); color: var(--negro); padding: 5px 12px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; z-index: 5; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(0,0,0,0.05); }
 
-        /* CONTADOR */
-        .qty-box { background: #f7f7f7; border-radius: 18px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
-        .qty-ctrl { display: flex; align-items: center; gap: 15px; }
-        .btn-q { width: 35px; height: 35px; border-radius: 10px; border: 1px solid #ddd; background: white; font-weight: 800; }
+        .prod-body { padding: 14px; text-align: center; }
+        .prod-nombre { font-size: 0.9rem; font-weight: 700; color: var(--negro); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .prod-precio { color: #2bb12b; font-weight: 800; font-size: 1.15rem; margin-bottom: 14px; }
 
-        /* BOTONES GRANDES */
-        .btn-main { width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; text-transform: uppercase; border: none; margin-bottom: 10px; font-size: 0.9rem; }
-        .btn-black { background: var(--negro); color: white; }
-        .btn-border { background: white; border: 2.5px solid var(--negro); color: var(--negro); }
+        /* ICONOS ELEGANTES (SVG) */
+        .prod-actions { display: flex; justify-content: center; gap: 8px; padding-bottom: 15px; }
+        .act-btn { background: #f2f3f0; border: none; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+        .act-btn svg { width: 18px; height: 18px; fill: #444; }
+        .act-btn:active { transform: scale(0.85); background: #e0e0e0; }
+        
+        .act-add { background: var(--negro); }
+        .act-add svg { fill: var(--lima); }
+
+        /* MODAL DETALLE */
+        #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .btn-atras { position: absolute; top: 40px; left: 20px; background: rgba(0,0,0,0.3); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; z-index: 100; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        
+        .carrusel-container { width: 100%; height: 55vh; position: relative; overflow: hidden; background: #000; }
+        .carrusel-track { display: flex; height: 100%; transition: transform 0.3s ease-out; }
+        .carrusel-item { min-width: 100%; height: 100%; }
+        .carrusel-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .detalle-body { padding: 25px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; z-index: 5; }
+        .opciones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .opcion-item label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #999; display: block; margin-bottom: 6px; }
+        .opcion-item select { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #eee; background: #f9f9f9; font-weight: 600; }
+
+        .contador-wrap { background: #f7f7f7; border-radius: 18px; padding: 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eee; }
+        .btn-qty { background: white; border: 1.5px solid #eee; width: 38px; height: 38px; border-radius: 12px; font-weight: 800; }
+
+        .btn-style { width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; text-transform: uppercase; border: none; cursor: pointer; margin-bottom: 12px; }
+        .btn-negro { background: var(--negro); color: white; }
+        .btn-borde { background: white; border: 2px solid var(--negro); color: var(--negro); }
+
+        #reco-infinito { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px 100px; }
+
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div class="header">
+<header class="header">
     <h1>Explorar</h1>
-    <input type="text" class="search-bar" placeholder="Buscar productos...">
-</div>
+    <div class="search-wrap">
+        <input type="text" id="busqueda" placeholder="Buscar productos para stock..." oninput="renderizarGridPrincipal()">
+    </div>
+</header>
 
 <div id="grid"></div>
 
-<div id="modal">
-    <button class="close-btn" onclick="cerrar()">✕</button>
-    <div id="modal-img-container"></div>
-    <div class="det-body">
-        <h2 id="det-nom" class="det-title"></h2>
-        <p id="det-pre" class="det-price"></p>
+<div id="modal-detalle">
+    <button class="btn-atras" onclick="cerrarDetalle()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </button>
+    
+    <div class="carrusel-container">
+        <div class="carrusel-track" id="track"></div>
+    </div>
+    
+    <div class="detalle-body">
+        <h2 class="det-titulo" id="det-nom"></h2>
+        <p class="det-precio" id="det-pre"></p>
+
+        <div class="opciones-grid">
+            <div class="opcion-item"><label>Talla</label><select id="sel-talla"><option>S</option><option>M</option><option>L</option></select></div>
+            <div class="opcion-item"><label>Color</label><select id="sel-color"><option>Negro</option><option>Blanco</option></select></div>
+            <div class="opcion-item" style="grid-column: span 2;"><label>Material</label><select id="sel-textil"><option>Algodón Premium</option><option>Poliéster</option></select></div>
+        </div>
+
+        <div class="contador-wrap">
+            <div style="font-size: 0.7rem;">📦 Mínimo: <b id="min-qty">12</b> und.<br>🚚 Entrega: <b>3-5 días</b></div>
+            <div class="controles"><button class="btn-qty" onclick="changeQty(-1)">-</button><span id="qty-val">12</span><button class="btn-qty" onclick="changeQty(1)">+</button></div>
+        </div>
         
-        <div class="grid-options">
-            <div class="opt"><label>Talla</label><select><option>S</option><option>M</option><option>L</option></select></div>
-            <div class="opt"><label>Color</label><select><option>Negro</option><option>Blanco</option></select></div>
-            <div class="opt" style="grid-column: span 2;"><label>Material</label><select><option>Algodón 100%</option><option>Poliéster Pro</option></select></div>
-        </div>
+        <button class="btn-style btn-negro" onclick="alert('Añadido')">Añadir al pedido</button>
+        <button class="btn-style btn-borde" id="btn-negociar-modal">Chat para negociar</button>
 
-        <div class="qty-box">
-            <div style="font-size: 0.7rem;">📦 Pedido mínimo: <br><b>12 unidades</b></div>
-            <div class="qty-ctrl">
-                <button class="btn-q">-</button>
-                <span style="font-weight: 800;">12</span>
-                <button class="btn-q">+</button>
-            </div>
-        </div>
-
-        <button class="btn-main btn-black">Añadir al pedido</button>
-        <button class="btn-main btn-border" id="btn-negociar">Chat con proveedor</button>
+        <h3 style="font-family:'Syne'; font-size:1.1rem; margin: 20px 0 15px; text-transform:uppercase;">Más productos</h3>
+        <div id="reco-infinito"></div>
     </div>
 </div>
 
@@ -100,43 +112,96 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-    const app = initializeApp({ apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" });
+    const firebaseConfig = {
+        apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+        authDomain: "proveed-8cb7c.firebaseapp.com",
+        projectId: "proveed-8cb7c",
+        storageBucket: "proveed-8cb7c.firebasestorage.app",
+        messagingSenderId: "235073250367",
+        appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
+    };
+
+    const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    let productos = [];
+    let minActual = 12;
 
     async function cargar() {
         const snap = await getDocs(collection(db, "productos"));
-        const grid = document.getElementById('grid');
-        grid.innerHTML = '';
+        productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderizarGridPrincipal();
+    }
 
-        snap.forEach(doc => {
-            const p = doc.data();
+    window.renderizarGridPrincipal = function() {
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('busqueda').value.toLowerCase();
+        grid.innerHTML = '';
+        
+        productos.filter(p => p.nombre.toLowerCase().includes(search)).forEach(p => {
             const card = document.createElement('div');
-            card.className = 'card';
+            card.className = 'prod-card';
             card.innerHTML = `
-                <div class="img-area" onclick="verDetalle('${p.nombre}', '${p.precio}', '${p.imagenes?.[0] || p.imagen}', '${p.nombreProveedor}')">
+                <div class="prod-img" onclick="abrirDetalle(p)">
                     <img src="${p.imagenes?.[0] || p.imagen}">
+                    <div class="tag-prov"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.43c-.16.09-.33.14-.5.14s-.34-.05-.5-.14l-7.97-4.43c-.32-.17-.53-.5-.53-.88v-9c0-.38.21-.71.53-.88l7.97-4.43c.16-.09.33-.14.5-.14s.34.05.5.14l7.97 4.43c.32.17.53.5.53.88v9z"/></svg> ${p.nombreProveedor || 'PROVEED'}</div>
                 </div>
-                <div class="info-area">
-                    <p class="name">${p.nombre}</p>
-                    <p class="price">$${p.precio}</p>
-                    <div class="actions">
-                        <button class="btn-icon btn-add-quick" onclick="alert('Añadido')"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
-                        <button class="btn-icon btn-chat-quick" onclick="alert('Chat')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/></svg></button>
+                <div class="prod-body">
+                    <div class="prod-nombre">${p.nombre}</div>
+                    <div class="prod-precio">$${Number(p.precio).toFixed(2)}</div>
+                    <div class="prod-actions">
+                        <button class="act-btn act-add"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
+                        <button class="act-btn" onclick="event.stopPropagation(); abrirChatNegociacion(p)"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/></svg></button>
+                        <button class="act-btn" onclick="event.stopPropagation(); abrirDetalle(p)"><svg viewBox="0 0 24 24"><path d="M12 16a1 1 0 1 0 1 1 1 1 0 0 0-1-1zm1-11h-2v7h2zm-1-3a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg></button>
                     </div>
                 </div>`;
             grid.appendChild(card);
         });
     }
 
-    window.verDetalle = (nom, pre, img, prov) => {
-        document.getElementById('modal-img-container').innerHTML = `<img src="${img}" style="width:100%; height:450px; object-fit:cover;">`;
-        document.getElementById('det-nom').innerText = nom;
-        document.getElementById('det-pre').innerText = `$${pre}`;
-        document.getElementById('btn-negociar').onclick = () => alert('Chat con ' + prov);
-        document.getElementById('modal').style.display = 'flex';
-    };
+    window.abrirDetalle = (p) => {
+        const modal = document.getElementById('modal-detalle');
+        history.pushState({ modalAbierto: true }, "");
+        window.onpopstate = () => cerrarDetalle(false);
 
-    window.cerrar = () => document.getElementById('modal').style.display = 'none';
+        const track = document.getElementById('track');
+        const fotos = p.imagenes || [p.imagen];
+        track.innerHTML = fotos.map(f => `<div class="carrusel-item"><img src="${f}"></div>`).join('');
+        
+        document.getElementById('det-nom').innerText = p.nombre;
+        document.getElementById('det-pre').innerText = `$${Number(p.precio).toFixed(2)}`;
+        minActual = p.cantidadMinima || 12;
+        document.getElementById('qty-val').innerText = minActual;
+        document.getElementById('btn-negociar-modal').onclick = () => abrirChatNegociacion(p);
+
+        const recoGrid = document.getElementById('reco-infinito');
+        recoGrid.innerHTML = '';
+        productos.sort(() => Math.random() - 0.5).forEach(r => {
+            const item = document.createElement('div');
+            item.className = 'prod-card';
+            item.onclick = (e) => { e.stopPropagation(); abrirDetalle(r); modal.scrollTo({ top: 0, behavior: 'smooth' }); };
+            item.innerHTML = `<div class="prod-img" style="height:150px"><img src="${r.imagenes?.[0] || r.imagen}"></div><div style="padding:10px; text-align:center;"><b style="font-size:0.75rem">${r.nombre}</b><br><span style="color:#2bb12b; font-weight:800">$${r.precio}</span></div>`;
+            recoGrid.appendChild(item);
+        });
+
+        modal.style.display = 'flex';
+    }
+
+    window.abrirChatNegociacion = (p) => {
+        const msg = `¡Hola! Me interesa negociar el stock de: ${p.nombre}. Precio base: $${p.precio}. ¿Qué descuento ofrecen por volumen?`;
+        alert("Enviando a chat: " + msg);
+    }
+
+    window.cerrarDetalle = (back = true) => {
+        document.getElementById('modal-detalle').style.display = 'none';
+        if (back && window.history.state?.modalAbierto) history.back();
+    }
+
+    window.changeQty = (val) => {
+        let el = document.getElementById('qty-val');
+        let current = parseInt(el.innerText);
+        if(current + val >= minActual) el.innerText = current + val;
+    }
+
     cargar();
 </script>
 </body>
