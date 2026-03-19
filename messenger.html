@@ -3,69 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROVEED — Mensajes</title>
+    <title>PROVEED — Mensajes Seguros</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { background: white; padding-bottom: 100px; }
+        
+        /* BANNER DE SEGURIDAD ANTIFRAUDE */
+        .security-banner {
+            background: #FFF8E6; border: 1px solid #FFE5A3;
+            margin: 15px 20px; padding: 12px 15px; border-radius: 12px;
+            display: flex; gap: 12px; align-items: flex-start;
+        }
+        .security-banner p { font-size: 0.75rem; color: #856404; line-height: 1.3; }
+        .security-banner b { color: #000; display: block; margin-bottom: 2px; }
+
         .chat-item {
-            display: flex; align-items: center; padding: 20px;
-            border-bottom: 1px solid #f5f5f5; text-decoration: none; color: black;
+            display: flex; align-items: center; padding: 18px 20px;
+            border-bottom: 1px solid #f8f8f8; text-decoration: none; color: black;
+            position: relative;
         }
         .chat-avatar {
-            width: 55px; height: 55px; border-radius: 18px;
-            background: var(--lima); margin-right: 15px;
+            width: 50px; height: 50px; border-radius: 15px;
+            background: #eee; margin-right: 15px;
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Syne'; font-weight: 800; font-size: 1.2rem;
+            font-family: 'Syne'; font-weight: 800; font-size: 1.1rem;
         }
         .chat-info { flex: 1; }
-        .chat-name { font-weight: 800; font-size: 1rem; margin-bottom: 3px; display: flex; justify-content: space-between; }
-        .chat-preview { font-size: 0.85rem; color: #888; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-        .chat-time { font-size: 0.7rem; color: #bbb; font-weight: 400; }
-        .unread-dot { width: 8px; height: 8px; background: var(--naranja); border-radius: 50%; }
+        .chat-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 2px; }
+        .chat-preview { font-size: 0.8rem; color: #888; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .verified-badge { background: var(--verde-check); color: white; font-size: 0.55rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
 
-        /* Iconos de Navegación */
-        .nav-bar {
-            position: fixed; bottom: 0; width: 100%; background: white; 
-            display: flex; padding: 12px 0 25px; border-top: 1px solid #eee; 
-            justify-content: space-around; z-index: 1000;
-        }
-        .nav-item { text-align: center; flex: 1; cursor: pointer; text-decoration: none; color: #999; }
+        /* Barra Inferior */
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; padding: 12px 0 28px; border-top: 1px solid #eee; justify-content: space-around; z-index: 1000; }
+        .nav-item { text-align: center; flex: 1; text-decoration: none; color: #999; }
         .nav-item.active { color: #000; }
-        .nav-item p { font-size: 0.55rem; font-weight: 800; margin-top: 4px; text-transform: uppercase; }
+        .nav-item p { font-size: 0.55rem; font-weight: 800; margin-top: 4px; }
         .icon-svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     </style>
 </head>
 <body>
 
-    <header style="padding: 30px 20px 10px; background: white; position: sticky; top:0; z-index:100;">
+    <header style="padding: 30px 20px 10px; background: white;">
         <h1 style="font-family: 'Syne'; font-size: 1.8rem; letter-spacing: -1px;">Mensajes</h1>
     </header>
 
-    <main>
-        <a href="https://wa.me/593987654321" class="chat-item">
-            <div class="chat-avatar" style="background: var(--naranja); color: white;">U</div>
-            <div class="chat-info">
-                <div class="chat-name">Ulises (Asesor Proveed) <span class="chat-time">Ahora</span></div>
-                <p class="chat-preview">Hola Luis, tu pedido de Esmeraldas ya está en aduana...</p>
-            </div>
-            <div class="unread-dot"></div>
-        </a>
+    <div class="security-banner">
+        <svg style="width:24px; height:24px; stroke:#856404; stroke-width:2; fill:none;" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <p>
+            <b>PROTECCIÓN PROVEED SEG</b>
+            Para evitar estafas y extorsiones, nunca compartas tu número de teléfono ni salgas de la plataforma. Todo negocio fuera de Proveed pierde la garantía antifraude.
+        </p>
+    </div>
 
+    <main>
         <div class="chat-item">
-            <div class="chat-avatar">G</div>
+            <div class="chat-avatar" style="background: var(--lima); color: var(--negro);">P</div>
             <div class="chat-info">
-                <div class="chat-name">Global Tech China <span class="chat-time">10:45 AM</span></div>
-                <p class="chat-preview">The MOQ for the smartwatches is 50 pieces.</p>
+                <div class="chat-name">Ulises (Importaciones) <span class="verified-badge">VERIFICADO</span></div>
+                <p class="chat-preview">Hola, el despacho para Esmeraldas está en revisión interna...</p>
             </div>
+            <div style="font-size: 0.7rem; color: #999;">12:30</div>
         </div>
 
         <div class="chat-item">
-            <div class="chat-avatar" style="background: #eee;">L</div>
+            <div class="chat-avatar" style="background: var(--negro); color: white;">A</div>
             <div class="chat-info">
-                <div class="chat-name">Logística Puerto <span class="chat-time">Ayer</span></div>
-                <p class="chat-preview">Contenedor #4456 liberado con éxito.</p>
+                <div class="chat-name">Ali Logistics <span class="verified-badge">VERIFICADO</span></div>
+                <p class="chat-preview">Confirmamos la recepción de las unidades en bodega.</p>
             </div>
+            <div style="font-size: 0.7rem; color: #999;">Ayer</div>
         </div>
     </main>
 
