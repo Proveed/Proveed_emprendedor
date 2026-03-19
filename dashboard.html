@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROVEED — Mayoristas</title>
+    <title>PROVEED — Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <header class="header-proveed">
+    <header style="background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top:0; z-index:100;">
         <div class="logo-master">
-            <div class="hex-icon"><div class="check"></div></div>
+            <div class="hex-icon"><svg class="check-svg" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
             <h1 class="logo-text">PROVEED</h1>
         </div>
-        <div style="background: var(--lima); padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">ECUADOR</div>
+        <svg class="icon-pro" style="stroke: #000;" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
     </header>
 
-    <div style="padding: 15px 20px;">
-        <div style="background: white; border: 1.5px solid #eee; border-radius: 25px; padding: 12px 20px; display: flex; align-items: center; gap: 10px;">
-            <span style="opacity: 0.3;">🔍</span>
-            <input type="text" placeholder="Buscar en Proveed..." style="border: none; outline: none; width: 100%; font-size: 0.9rem;">
+    <div id="product-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px 15px 100px;"></div>
+
+    <nav style="position: fixed; bottom: 0; width: 100%; background: white; display: flex; padding: 15px 0 25px; border-top: 1px solid #eee; justify-content: space-around;">
+        <div class="active" style="text-align:center;">
+            <svg class="icon-pro" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <p style="font-size: 0.6rem; font-weight:800; margin-top:4px;">EXPLORAR</p>
         </div>
-    </div>
-
-    <main id="product-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px 100px;">
-        </main>
-
-    <nav style="position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; display: flex; padding: 15px 0 25px; justify-content: space-around; z-index: 1000;">
-        <div style="text-align: center; color: var(--negro); font-size: 0.6rem; font-weight: 800;">EXPLORAR</div>
-        <div style="text-align: center; color: #ccc; font-size: 0.6rem; font-weight: 800;">MESSENGER</div>
-        <div style="text-align: center; color: #ccc; font-size: 0.6rem; font-weight: 800;">MI CENTRO</div>
+        <div onclick="location.href='perfil.html'" style="text-align:center; cursor:pointer;">
+            <svg class="icon-pro" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <p style="font-size: 0.6rem; color:#999; margin-top:4px;">MI CENTRO</p>
+        </div>
     </nav>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-
         const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -47,12 +42,12 @@
             grid.innerHTML = snap.docs.map(doc => {
                 const p = doc.data();
                 return `
-                    <div class="product-card">
-                        <img src="${p.imagen}" class="product-img">
-                        <div class="product-info">
-                            <p class="moq-tag">Mín. ${p.cantidadMinima || '12'} unidades</p>
-                            <p class="price-tag">$${p.precio}</p>
-                            <p style="font-size: 0.75rem; color: #444; margin-top: 2px;">${p.nombre}</p>
+                    <div onclick="location.href='detalle.html?id=${doc.id}'" style="background:white; border-radius:15px; overflow:hidden; border:1px solid #eee;">
+                        <img src="${p.imagen}" style="width:100%; aspect-ratio:1/1; object-fit:cover;">
+                        <div style="padding:10px;">
+                            <p style="font-size:0.6rem; color:#888;">Mín. ${p.cantidadMinima || 12} uds</p>
+                            <p style="font-weight:800; font-size:1.1rem; margin:2px 0;">$${p.precio}</p>
+                            <p style="font-size:0.75rem; color:#444; overflow:hidden; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;">${p.nombre}</p>
                         </div>
                     </div>
                 `;
