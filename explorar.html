@@ -6,36 +6,48 @@
     <title>PROVEED — Explorar</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* TU ESTILO ORIGINAL SIN CAMBIOS */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --verde: #32CD32; --negro: #0E0E0E; --gris: #F2F3F0; }
-        body { background: var(--gris); font-family: 'DM Sans', sans-serif; padding-bottom: 90px; }
+        /* ESTILOS ORIGINALES PROVEED */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root { --verde: #32CD32; --negro: #0E0E0E; --blanco: #F8F8F5; --gris: #F2F3F0; }
         
-        .header { background: var(--negro); color: white; padding: 40px 20px 25px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; }
-        .header h1 { font-family: 'Syne'; font-size: 1.6rem; margin-bottom: 15px; }
+        body { background: var(--gris); font-family: 'DM Sans', sans-serif; padding-bottom: 100px; }
+        
+        .header { background: var(--negro); color: white; padding: 50px 20px 25px; border-radius: 0 0 30px 30px; position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-family: 'Syne'; font-size: 1.7rem; margin-bottom: 15px; }
+        
         .search-wrap { background: rgba(255,255,255,0.1); border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 10px; }
         .search-wrap input { background: transparent; border: none; color: white; outline: none; width: 100%; font-size: 1rem; }
-        
-        .filtros-scroll { display: flex; gap: 12px; padding: 20px; overflow-x: auto; scrollbar-width: none; }
-        .filtro { padding: 10px 20px; border-radius: 25px; background: white; font-size: 0.85rem; font-weight: 700; cursor: pointer; border: 1px solid #eee; white-space: nowrap; }
-        .filtro.active { background: var(--negro); color: white; }
 
+        .filtros { display: flex; gap: 10px; padding: 20px; overflow-x: auto; scrollbar-width: none; }
+        .filtro { padding: 10px 20px; border-radius: 20px; background: white; font-size: 0.85rem; font-weight: 700; white-space: nowrap; cursor: pointer; border: 1px solid #eee; }
+        .filtro.active { background: var(--negro); color: white; border-color: var(--negro); }
+
+        /* GRID Y TARJETAS */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 20px; }
-        .prod-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); cursor: pointer; }
-        .prod-img { width: 100%; height: 160px; background: #eee; overflow: hidden; position: relative; }
+        .prod-card { background: white; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .prod-img { width: 100%; height: 160px; background: #eee; position: relative; }
         .prod-img img { width: 100%; height: 100%; object-fit: cover; }
-        .prod-body { padding: 12px; }
-        .prod-nombre { font-size: 0.95rem; font-weight: 700; color: var(--negro); margin-bottom: 5px; }
-        .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.2rem; }
-
-        /* MODAL DE DETALLE (Invisible hasta que haces clic) */
-        #modal-detalle { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-cont { background: white; width: 100%; max-width: 400px; border-radius: 30px; overflow: hidden; position: relative; animation: slide 0.3s; }
-        @keyframes slide { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
-        /* TOAST DE AVISO */
-        #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: var(--negro); color: white; padding: 12px 25px; border-radius: 50px; font-weight: 600; opacity: 0; transition: 0.3s; z-index: 3000; pointer-events: none; }
-        #toast.show { opacity: 1; bottom: 110px; }
+        .tag-cat { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 8px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
+        
+        .prod-body { padding: 12px; }
+        .prod-nombre { font-size: 0.9rem; font-weight: 700; color: var(--negro); margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .prod-precio { color: var(--verde); font-weight: 800; font-size: 1.1rem; }
+        .prod-min { font-size: 0.7rem; color: #888; font-weight: 500; }
+
+        .add-btn { width: 34px; height: 34px; border-radius: 10px; background: var(--negro); border: none; color: white; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* MODAL DETALLE */
+        #modal-detalle { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-cont { background: white; width: 100%; max-width: 400px; border-radius: 30px; overflow: hidden; animation: up 0.3s ease; }
+        @keyframes up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .btn-modal { width: 100%; padding: 16px; border-radius: 15px; border: none; font-weight: 700; font-size: 1rem; cursor: pointer; margin-top: 10px; font-family: 'DM Sans'; }
+        .btn-negro { background: var(--negro); color: white; }
+        .btn-outline { background: white; border: 2.5px solid var(--negro); color: var(--negro); }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--negro); color: white; padding: 12px 25px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; opacity: 0; transition: 0.3s; z-index: 3000; }
+        #toast.show { opacity: 1; bottom: 50px; }
     </style>
 </head>
 <body>
@@ -43,27 +55,30 @@
 <header class="header">
     <h1>Explorar</h1>
     <div class="search-wrap">
-        <input type="text" id="search-input" placeholder="Buscar productos...">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="busqueda" placeholder="Buscar productos o proveedores...">
     </div>
 </header>
 
-<div class="filtros-scroll">
-    <div class="filtro active" data-cat="todos">Todos</div>
-    <div class="filtro" data-cat="textiles">Textiles</div>
-    <div class="filtro" data-cat="tecnologia">Tecnología</div>
-    <div class="filtro" data-cat="otros">Otros</div>
+<div class="filtros">
+    <div class="filtro active" onclick="filtrar('todos', this)">Todos</div>
+    <div class="filtro" onclick="filtrar('textiles', this)">Textiles</div>
+    <div class="filtro" onclick="filtrar('tecnologia', this)">Tecnología</div>
+    <div class="filtro" onclick="filtrar('hogar', this)">Hogar</div>
 </div>
 
 <div class="grid" id="grid"></div>
 
 <div id="modal-detalle" onclick="this.style.display='none'">
     <div class="modal-cont" onclick="event.stopPropagation()">
-        <div id="modal-img-box" style="width:100%; height:250px; background:#eee;"></div>
+        <div id="m-img" style="width:100%; height:260px; background:#eee;"></div>
         <div style="padding:25px;">
-            <h2 id="modal-t" style="font-family:'Syne'; margin-bottom:10px;"></h2>
-            <p id="modal-p" style="font-size:1.6rem; font-weight:800; color:var(--verde); margin-bottom:15px;"></p>
-            <p id="modal-d" style="color:#666; font-size:0.9rem; margin-bottom:25px; line-height:1.5;"></p>
-            <button id="modal-add" style="width:100%; background:var(--negro); color:white; border:none; padding:18px; border-radius:18px; font-weight:700; font-size:1rem;">Añadir al Carrito</button>
+            <h2 id="m-nombre" style="font-family:'Syne'; font-size:1.4rem;"></h2>
+            <div id="m-precio" style="font-size:1.6rem; font-weight:800; color:var(--verde); margin:5px 0;"></div>
+            <p id="m-desc" style="color:#666; font-size:0.9rem; line-height:1.5; margin-bottom:20px;"></p>
+            
+            <button id="btn-add-carrito" class="btn-modal btn-negro">Añadir al Carrito</button>
+            <button id="btn-ir-chat" class="btn-modal btn-outline">Chat con Proveedor</button>
         </div>
     </div>
 </div>
@@ -85,91 +100,113 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-let todosProductos = [], catActiva = 'todos', busqueda = '';
 
-async function cargar() {
+let productosRaw = [];
+let catActual = 'todos';
+
+async function cargarProductos() {
     const grid = document.getElementById('grid');
-    grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:50px; color:#888;">Cargando...</p>';
+    grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px; color:#999;">Cargando catálogo...</p>';
+    
     try {
-        const snap = await getDocs(collection(db, 'productos'));
-        todosProductos = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        todosProductos.sort((a, b) => (b.creadoEn?.seconds || 0) - (a.creadoEn?.seconds || 0));
+        const snap = await getDocs(collection(db, "productos"));
+        productosRaw = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         renderizar();
     } catch (e) {
-        grid.innerHTML = `<p>Error de conexión</p>`;
+        grid.innerHTML = '<p>Error al cargar.</p>';
     }
 }
 
 function renderizar() {
     const grid = document.getElementById('grid');
-    let lista = [...todosProductos];
-
-    if (catActiva !== 'todos') lista = lista.filter(p => (p.categoria || '').toLowerCase() === catActiva);
-    if (busqueda) lista = lista.filter(p => (p.nombre || '').toLowerCase().includes(busqueda));
-
     grid.innerHTML = '';
     
-    lista.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'prod-card';
-        const img = p.imagenes?.[0] || p.imagen || p.foto || '';
-        
-        // ACCIÓN: Abre el detalle al tocar la tarjeta
-        div.onclick = () => {
-            document.getElementById('modal-img-box').innerHTML = img ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">` : '';
-            document.getElementById('modal-t').textContent = p.nombre;
-            document.getElementById('modal-p').textContent = "$" + Number(p.precio).toFixed(2);
-            document.getElementById('modal-d').textContent = p.descripcion || 'Sin descripción disponible.';
-            document.getElementById('modal-add').onclick = (e) => {
-                agregarAlCarrito(e, p.id, p.nombre, p.precio, img);
-                document.getElementById('modal-detalle').style.display = 'none';
-            };
-            document.getElementById('modal-detalle').style.display = 'flex';
-        };
+    const textoBusqueda = document.getElementById('busqueda').value.toLowerCase();
 
-        div.innerHTML = `
-            <div class="prod-img">${img ? `<img src="${img}">` : ''}</div>
+    const filtrados = productosRaw.filter(p => {
+        const cumpleCat = catActual === 'todos' || (p.categoria || '').toLowerCase() === catActual;
+        const cumpleTxt = (p.nombre || '').toLowerCase().includes(textoBusqueda);
+        return cumpleCat && cumpleTxt;
+    });
+
+    filtrados.forEach(p => {
+        const img = p.imagenes?.[0] || p.imagen || '';
+        const card = document.createElement('div');
+        card.className = 'prod-card';
+        card.onclick = () => verDetalle(p);
+        
+        card.innerHTML = `
+            <div class="prod-img">
+                <img src="${img}">
+                <div class="tag-cat">${p.categoria || 'General'}</div>
+            </div>
             <div class="prod-body">
-                <div class="prod-nombre">${p.nombre || 'Producto'}</div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div class="prod-precio">$${Number(p.precio || 0).toFixed(2)}</div>
-                    <button onclick="event.stopPropagation(); agregarAlCarrito(event, '${p.id}', '${p.nombre}', ${p.precio}, '${img}')" style="width:32px; height:32px; border-radius:10px; background:var(--negro); border:none; color:white; font-weight:bold;">+</button>
+                <div class="prod-nombre">${p.nombre}</div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div class="prod-precio">$${Number(p.precio).toFixed(2)}</div>
+                        <div class="prod-min">Mín: ${p.minimo || 1} und.</div>
+                    </div>
+                    <button class="add-btn" onclick="event.stopPropagation(); agregar(event, '${p.id}', '${p.nombre}', ${p.precio}, '${img}')">+</button>
                 </div>
-            </div>`;
-        grid.appendChild(div);
+            </div>
+        `;
+        grid.appendChild(card);
     });
 }
 
-window.agregarAlCarrito = function(e, id, nombre, precio, imagen) {
+function verDetalle(p) {
+    const img = p.imagenes?.[0] || p.imagen || '';
+    document.getElementById('m-img').innerHTML = `<img src="${img}" style="width:100%; height:100%; object-fit:cover;">`;
+    document.getElementById('m-nombre').textContent = p.nombre;
+    document.getElementById('m-precio').textContent = `$${Number(p.precio).toFixed(2)}`;
+    document.getElementById('m-desc').textContent = p.descripcion || 'Sin descripción.';
+    
+    // Acción Carrito
+    document.getElementById('btn-add-carrito').onclick = (e) => {
+        agregar(e, p.id, p.nombre, p.precio, img);
+        document.getElementById('modal-detalle').style.display = 'none';
+    };
+
+    // ACCIÓN CLAVE: IR AL CHAT
+    document.getElementById('btn-ir-chat').onclick = () => {
+        // Redirige a tu chat.html con los parámetros que tu archivo ya lee
+        const provId = p.proveedorId || p.userId || 'admin';
+        const provNombre = encodeURIComponent(p.nombreProveedor || 'Proveedor');
+        window.location.href = `chat.html?proveedorId=${provId}&nombre=${provNombre}`;
+    };
+
+    document.getElementById('modal-detalle').style.display = 'flex';
+}
+
+window.agregar = function(e, id, nombre, precio, img) {
     e.stopPropagation();
     let carrito = JSON.parse(localStorage.getItem('carrito_proveed') || '[]');
-    const idx = carrito.findIndex(i => i.id === id);
-    if (idx >= 0) carrito[idx].cantidad++;
-    else carrito.push({ id, nombre, precio, imagen, cantidad: 1 });
+    const existe = carrito.find(item => item.id === id);
+    if(existe) existe.cantidad++;
+    else carrito.push({ id, nombre, precio, img, cantidad: 1 });
     localStorage.setItem('carrito_proveed', JSON.stringify(carrito));
     
-    const toast = document.getElementById('toast');
-    toast.textContent = `✓ ${nombre} en carrito`;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
-};
+    showToast(`✓ ${nombre} añadido`);
+}
 
-document.querySelectorAll('.filtro').forEach(f => {
-    f.addEventListener('click', () => {
-        document.querySelectorAll('.filtro').forEach(x => x.classList.remove('active'));
-        f.classList.add('active');
-        catActiva = f.dataset.cat;
-        renderizar();
-    });
-});
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+}
 
-document.getElementById('search-input').addEventListener('input', e => {
-    busqueda = e.target.value.toLowerCase().trim();
+window.filtrar = function(cat, el) {
+    document.querySelectorAll('.filtro').forEach(f => f.classList.remove('active'));
+    el.classList.add('active');
+    catActual = cat;
     renderizar();
-});
+}
 
-cargar();
+document.getElementById('busqueda').oninput = renderizar;
+
+cargarProductos();
 </script>
-
 </body>
 </html>
