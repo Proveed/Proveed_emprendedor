@@ -8,7 +8,7 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{ --verde:#32CD32; --negro:#0E0E0E; --blanco:#F8F8F5; --gris:#F2F3F0; }
-  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:90px; }
+  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
   .header{ background:var(--negro); color:var(--blanco); padding:48px 20px 20px; position:sticky; top:0; z-index:100; border-radius:0 0 28px 28px; }
   .header-top{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
   .back-btn{ width:36px; height:36px; border-radius:12px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; }
@@ -17,7 +17,7 @@
   .search-wrap{ background:rgba(255,255,255,0.1); border-radius:14px; padding:11px 14px; display:flex; align-items:center; gap:10px; }
   .search-wrap input{ flex:1; background:transparent; border:none; outline:none; color:white; font-family:'DM Sans',sans-serif; font-size:0.92rem; }
   .search-wrap input::placeholder{ color:#888; }
-  .search-wrap svg{ width:17px; height:17px; stroke:#888; fill:none; stroke-width:2.5; }
+  .search-wrap svg{ width:17px; height:17px; stroke:#888; fill:none; stroke-width:2.5; flex-shrink:0; }
   .filtros-scroll{ display:flex; gap:8px; padding:14px 20px; overflow-x:auto; scrollbar-width:none; }
   .filtro{ padding:8px 16px; border-radius:20px; white-space:nowrap; border:1.5px solid #e0e0e0; background:white; font-size:0.78rem; font-weight:600; color:#666; cursor:pointer; transition:0.2s; display:flex; align-items:center; gap:6px; }
   .filtro.active{ background:var(--negro); color:white; border-color:var(--negro); }
@@ -30,15 +30,16 @@
   .prod-card:active{ transform:scale(0.97); }
   .prod-img{ width:100%; height:150px; background:#f5f5f5; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
   .prod-img img{ width:100%; height:100%; object-fit:cover; }
-  .prod-img .no-img{ width:44px; height:44px; stroke:#ddd; fill:none; stroke-width:1.5; }
+  .no-img{ width:44px; height:44px; stroke:#ddd; fill:none; stroke-width:1.5; }
   .cat-tag{ position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.55); color:white; font-size:0.58rem; font-weight:700; padding:3px 8px; border-radius:8px; text-transform:uppercase; }
+  .video-tag{ position:absolute; top:10px; right:10px; background:rgba(50,205,50,0.9); color:white; font-size:0.58rem; font-weight:700; padding:3px 8px; border-radius:8px; }
   .prod-body{ padding:12px; }
-  .prod-nombre{ font-size:0.85rem; font-weight:700; margin-bottom:3px; line-height:1.3; }
-  .prod-empresa{ font-size:0.7rem; color:#bbb; margin-bottom:8px; }
+  .prod-nombre{ font-size:0.88rem; font-weight:700; margin-bottom:3px; line-height:1.3; color:var(--negro); }
+  .prod-empresa{ font-size:0.72rem; color:#bbb; margin-bottom:8px; }
   .prod-row{ display:flex; align-items:center; justify-content:space-between; }
   .prod-precio{ font-size:1rem; font-weight:800; color:var(--verde); }
   .prod-min{ font-size:0.62rem; color:#ccc; margin-top:1px; }
-  .add-btn{ width:32px; height:32px; border-radius:10px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; }
+  .add-btn{ width:32px; height:32px; border-radius:10px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
   .add-btn:active{ transform:scale(0.85); }
   .add-btn svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2.5; }
   .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:10px; }
@@ -49,6 +50,7 @@
   .skel-l.s{ width:55%; height:9px; margin:0 12px 12px; }
   .empty{ grid-column:1/-1; text-align:center; padding:48px 20px; color:#aaa; }
   .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin-bottom:14px; display:block; margin-left:auto; margin-right:auto; }
+  .empty p{ font-size:0.88rem; }
   .toast{ position:fixed; bottom:85px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:11px 20px; border-radius:28px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
   .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
@@ -69,16 +71,19 @@
     <input type="text" id="search-input" placeholder="Buscar productos, marcas...">
   </div>
 </header>
+
 <div class="filtros-scroll">
   <div class="filtro active" data-cat="todos"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Todos</div>
   <div class="filtro" data-cat="textiles"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>Textiles</div>
-  <div class="filtro" data-cat="tecnologia"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><path d="M12 18h.01"/></svg>Tecnología</div>
+  <div class="filtro" data-cat="tecnologia"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Tecnología</div>
   <div class="filtro" data-cat="alimentos"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>Alimentos</div>
   <div class="filtro" data-cat="maquinaria"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Maquinaria</div>
   <div class="filtro" data-cat="cosmeticos"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>Cosméticos</div>
   <div class="filtro" data-cat="construccion"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Construcción</div>
   <div class="filtro" data-cat="agricultura"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="5"/><path d="M12 22V12"/></svg>Agricultura</div>
+  <div class="filtro" data-cat="automotriz"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="9" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>Automotriz</div>
 </div>
+
 <div class="orden-bar">
   <span id="total-count">Cargando...</span>
   <select class="orden-select" id="orden-select" onchange="renderizar()">
@@ -87,7 +92,14 @@
     <option value="precio-desc">Mayor precio</option>
   </select>
 </div>
-<div class="grid" id="grid"></div>
+
+<div class="grid" id="grid">
+  <div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>
+  <div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>
+  <div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>
+  <div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>
+</div>
+
 <nav class="tab-bar">
   <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
   <a class="tab active" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
@@ -95,12 +107,15 @@
   <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span></a>
   <a class="tab" href="perfil.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
 </nav>
+
 <div class="toast" id="toast"></div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-const app = initializeApp({
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const app=initializeApp({
   apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
   authDomain:"proveed-8cb7c.firebaseapp.com",
   projectId:"proveed-8cb7c",
@@ -108,61 +123,94 @@ const app = initializeApp({
   messagingSenderId:"235073250367",
   appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
 });
-const auth = getAuth(app);
-const db = getFirestore(app);
-let catActiva='todos', busqueda='', todosProductos=[];
-onAuthStateChanged(auth, user=>{ if(!user){window.location.href='login.html';return;} cargar(); });
+const auth=getAuth(app);
+const db=getFirestore(app);
+let catActiva='todos',busqueda='',todosProductos=[];
+
+onAuthStateChanged(auth,user=>{
+  if(!user){window.location.href='login.html';return;}
+  cargar();
+});
+
 document.querySelectorAll('.filtro').forEach(f=>{
   f.addEventListener('click',()=>{
     document.querySelectorAll('.filtro').forEach(x=>x.classList.remove('active'));
-    f.classList.add('active'); catActiva=f.dataset.cat; renderizar();
+    f.classList.add('active');
+    catActiva=f.dataset.cat;
+    renderizar();
   });
 });
-document.getElementById('search-input').addEventListener('input',e=>{ busqueda=e.target.value.toLowerCase(); renderizar(); });
-window.renderizar = renderizar;
+
+document.getElementById('search-input').addEventListener('input',e=>{
+  busqueda=e.target.value.toLowerCase().trim();
+  renderizar();
+});
+
+window.renderizar=renderizar;
+
 async function cargar(){
   const grid=document.getElementById('grid');
-  grid.innerHTML=Array(6).fill(`<div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>`).join('');
+  grid.innerHTML=Array(4).fill(`<div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>`).join('');
   try{
-    const q=query(collection(db,'productos'),where('activo','==',true),orderBy('creadoEn','desc'),limit(60));
+    // Query simple sin índice compuesto
+    const q=query(collection(db,'productos'),where('activo','==',true));
     const snap=await getDocs(q);
     todosProductos=snap.docs.map(d=>({id:d.id,...d.data()}));
+    // Ordenar por fecha en cliente
+    todosProductos.sort((a,b)=>(b.creadoEn?.toMillis?.()||0)-(a.creadoEn?.toMillis?.()||0));
     renderizar();
-  }catch(e){ grid.innerHTML=`<div class="empty"><p>Error al cargar.</p></div>`; }
+  }catch(e){
+    grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><p>Error al cargar: ${e.message}</p></div>`;
+  }
 }
+
 function renderizar(){
   const orden=document.getElementById('orden-select').value;
   let lista=[...todosProductos];
   if(catActiva!=='todos') lista=lista.filter(p=>p.categoria===catActiva);
-  if(busqueda) lista=lista.filter(p=>(p.nombre||'').toLowerCase().includes(busqueda)||(p.nombreProveedor||'').toLowerCase().includes(busqueda));
+  if(busqueda) lista=lista.filter(p=>
+    (p.nombre||'').toLowerCase().includes(busqueda)||
+    (p.nombreProveedor||'').toLowerCase().includes(busqueda)||
+    (p.descripcion||'').toLowerCase().includes(busqueda)
+  );
   if(orden==='precio-asc') lista.sort((a,b)=>(a.precio||0)-(b.precio||0));
   if(orden==='precio-desc') lista.sort((a,b)=>(b.precio||0)-(a.precio||0));
   document.getElementById('total-count').textContent=`${lista.length} producto${lista.length!==1?'s':''}`;
   const grid=document.getElementById('grid');
-  if(!lista.length){grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Sin resultados</div>`;return;}
+  if(!lista.length){
+    grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><p>${busqueda?'Sin resultados para "'+busqueda+'"':'Sin productos en esta categoría aún'}</p></div>`;
+    return;
+  }
   grid.innerHTML='';
   lista.forEach(p=>grid.appendChild(tarjeta(p)));
 }
+
 function tarjeta(p){
   const div=document.createElement('div');
   div.className='prod-card';
+  const img=p.imagenes?.[0]||p.imagen||'';
   div.innerHTML=`
     <div class="prod-img">
-      ${p.imagen?`<img src="${p.imagen}" alt="${p.nombre}" loading="lazy">`:`<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
+      ${img?`<img src="${img}" alt="${p.nombre||''}" loading="lazy">`:`<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
       ${p.categoria?`<div class="cat-tag">${p.categoria}</div>`:''}
+      ${p.videoURL?`<div class="video-tag">▶ VIDEO</div>`:''}
     </div>
     <div class="prod-body">
       <div class="prod-nombre">${p.nombre||'Producto'}</div>
       <div class="prod-empresa">${p.nombreProveedor||'Proveedor'}</div>
       <div class="prod-row">
-        <div><div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div><div class="prod-min">Mín: ${p.minimo||1} und.</div></div>
-        <button class="add-btn" onclick="agregar(event,'${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}',${p.precio||0},${p.minimo||1},'${p.imagen||''}','${(p.nombreProveedor||'').replace(/'/g,"\\'")}')">
+        <div>
+          <div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div>
+          <div class="prod-min">Mín: ${p.minimo||1} und.</div>
+        </div>
+        <button class="add-btn" onclick="agregar(event,'${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}',${p.precio||0},${p.minimo||1},'${img}','${(p.nombreProveedor||'').replace(/'/g,"\\'")}')">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
       </div>
     </div>`;
   return div;
 }
+
 window.agregar=function(e,id,nombre,precio,minimo,imagen,proveedor){
   e.stopPropagation();
   let c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
@@ -171,7 +219,8 @@ window.agregar=function(e,id,nombre,precio,minimo,imagen,proveedor){
   else c.push({id,nombre,precio,cantidad:minimo,minimo,imagen,proveedor});
   localStorage.setItem('carrito_proveed',JSON.stringify(c));
   const t=document.getElementById('toast');
-  t.textContent=`✓ ${nombre} añadido`;t.classList.add('show');
+  t.textContent=`✓ ${nombre} añadido`;
+  t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2000);
 };
 </script>
