@@ -153,7 +153,7 @@ async function cargar(){
   grid.innerHTML=Array(4).fill(`<div class="skel-c"><div class="skel-img skeleton"></div><div class="skel-l skeleton"></div><div class="skel-l s skeleton"></div></div>`).join('');
   try{
     // Query simple sin índice compuesto
-    const q=query(collection(db,'productos'),where('activo','==',true));
+    const snap=await getDocs(collection(db,'productos'));
     const snap=await getDocs(q);
     todosProductos=snap.docs.map(d=>({id:d.id,...d.data()}));
     // Ordenar por fecha en cliente
