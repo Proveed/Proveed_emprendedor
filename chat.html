@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROVEED — Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#32CD32; --negro:#0E0E0E; --blanco:#F8F8F5; --gris:#F2F3F0; --rojo:#FF4D4D; }
+  body{ background:var(--gris); font-family:'DM Sans',sans-serif; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  #lista-view{ display:flex; flex-direction:column; height:100%; }
+  .chat-header{ background:var(--negro); color:var(--blanco); padding:48px 20px 18px; display:flex; align-items:center; gap:14px; }
+  .back-btn{ width:36px; height:36px; border-radius:12px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .chat-title{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; }
+  .chat-sub{ font-size:0.72rem; color:#888; margin-top:1px; }
+  #lista-chats{ flex:1; overflow-y:auto; padding:12px; }
+  .aviso-chat{ background:#fff8e1; border-radius:12px; padding:10px 14px; margin-bottom:10px; font-size:0.72rem; color:#a07c00; line-height:1.5; display:flex; align-items:flex-start; gap:8px; }
+  .aviso-chat svg{ width:16px; height:16px; stroke:#a07c00; fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
+  .chat-item{ display:flex; align-items:center; gap:14px; background:white; border-radius:20px; padding:16px; margin-bottom:10px; cursor:pointer; transition:0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .chat-item:active{ transform:scale(0.98); }
+  .chat-avatar{ width:50px; height:50px; border-radius:16px; background:var(--verde); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:#000; }
+  .chat-info{ flex:1; min-width:0; }
+  .chat-nombre{ font-weight:700; font-size:0.92rem; }
+  .chat-preview{ font-size:0.78rem; color:#aaa; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chat-meta{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+  .chat-hora{ font-size:0.65rem; color:#bbb; }
+  .chat-badge{ background:var(--verde); color:#000; font-size:0.6rem; font-weight:800; padding:2px 6px; border-radius:8px; }
+  #vista-chat{ display:none; flex:1; flex-direction:column; overflow:hidden; }
+  .conv-header{ background:var(--negro); color:var(--blanco); padding:48px 20px 16px; display:flex; align-items:center; gap:14px; }
+  .proveedor-nombre{ font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; }
+  .proveedor-estado{ font-size:0.7rem; color:var(--verde); margin-top:2px; }
+  #mensajes{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
+  .burbuja{ max-width:78%; padding:12px 16px; border-radius:20px; font-size:0.88rem; line-height:1.5; word-break:break-word; }
+  .burbuja.enviado{ background:var(--verde); color:#000; align-self:flex-end; border-bottom-right-radius:4px; font-weight:500; }
+  .burbuja.recibido{ background:white; color:var(--negro); align-self:flex-start; border-bottom-left-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .burbuja .hora{ font-size:0.62rem; opacity:0.5; margin-top:4px; text-align:right; }
+  .bloqueo-banner{ background:rgba(255,77,77,0.1); border:1px solid rgba(255,77,77,0.25); border-radius:12px; padding:10px 14px; margin:0 16px; display:none; align-items:center; gap:10px; }
+  .bloqueo-banner.visible{ display:flex; animation:shake 0.4s ease; }
+  .bloqueo-banner svg{ width:18px; height:18px; stroke:var(--rojo); fill:none; stroke-width:2; flex-shrink:0; }
+  .bloqueo-txt{ font-size:0.78rem; color:var(--rojo); font-weight:600; }
+  .input-area{ background:white; padding:12px 16px 24px; display:flex; gap:10px; align-items:flex-end; border-top:1px solid #eee; }
+  .input-wrap{ flex:1; background:var(--gris); border-radius:20px; padding:10px 16px; display:flex; align-items:center; }
+  #msg-input{ flex:1; border:none; background:transparent; outline:none; font-family:'DM Sans',sans-serif; font-size:0.92rem; resize:none; max-height:100px; color:var(--negro); }
+  #msg-input::placeholder{ color:#bbb; }
+  .send-btn{ width:44px; height:44px; border-radius:14px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
+  .send-btn:active{ transform:scale(0.90); }
+  .send-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .empty-state{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#bbb; padding:40px; }
+  .empty-state svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin-bottom:16px; }
+  .empty-state b{ color:#999; font-size:0.9rem; margin-bottom:4px; }
+  .empty-state p{ font-size:0.78rem; text-align:center; line-height:1.5; }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+</style>
+</head>
+<body>
+<div id="lista-view">
+  <div class="chat-header">
+    <div class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+    <div><div class="chat-title">Mensajes</div><div class="chat-sub">Chat seguro con proveedores</div></div>
+  </div>
+  <div id="lista-chats">
+    <div class="aviso-chat">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Todos los mensajes son monitoreados. Compartir datos de contacto externos está <strong>estrictamente prohibido</strong>.</span>
+    </div>
+    <div id="chats-lista-content">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <b>Sin conversaciones aún</b>
+        <p>Cuando contactes a un proveedor aparecerá aquí</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="vista-chat">
+  <div class="conv-header">
+    <div class="back-btn" onclick="volverLista()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+    <div style="flex:1;">
+      <div class="proveedor-nombre" id="conv-nombre">Proveedor</div>
+      <div class="proveedor-estado">● En línea</div>
+    </div>
+  </div>
+  <div id="mensajes"></div>
+  <div class="bloqueo-banner" id="bloqueo-banner">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div class="bloqueo-txt" id="bloqueo-txt">Mensaje bloqueado</div>
+  </div>
+  <div class="input-area">
+    <div class="input-wrap">
+      <textarea id="msg-input" placeholder="Escribe tu mensaje..." rows="1" oninput="autoResize(this)"></textarea>
+    </div>
+    <button class="send-btn" onclick="enviarMensaje()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, query, where, orderBy, onSnapshot, addDoc, doc, getDoc, getDocs, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const app = initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+let currentUser=null, chatActivoId=null, unsubMensajes=null;
+const PATRONES=[
+  /\b09\d[\s.\-_]?\d{2}[\s.\-_]?\d{2}[\s.\-_]?\d{2}\b/i,
+  /\d[\s.\-_]?\d[\s.\-_]?\d[\s.\-_]?\d[\s.\-_]?\d[\s.\-_]?\d/,
+  /w[\s._\-]*[ha4][\s._\-]*[ps5]/i,/whatsapp/i,/wsp/i,/w\.a\./i,
+  /telegr[ae]m/i,/t\.me/i,
+  /inst[a4]gr[a4]m/i,/\bIG\b/i,/\binsta\b/i,
+  /f[a4]cebook/i,/\bfb\b/i,/messenger/i,
+  /tiktok/i,/snapchat/i,
+  /[a-zA-Z0-9._%+\-]+\s*@\s*[a-zA-Z0-9.\-]+\s*\.\s*[a-zA-Z]{2,}/,
+  /\barroba\b/i,/\bcorreo\b/i,/\bemail\b/i,/\bgmail\b/i,/\bhotmail\b/i,
+  /https?:\/\//i,/www\./i,/\.com/i,/\.ec/i,
+  /escr[ií]be(me|nos)/i,/ll[aá]ma(me|nos)/i,/cont[aá]ct(a|o)(me|nos)?/i,
+  /directamente/i,/en\s*privado/i,/por\s*otro\s*(canal|medio)/i,
+  /\btel[eé]fono\b/i,/\bcel(ular)?\b/i,/\bn[uú]mero\b/i,/\bDM\b/i,/\bPM\b/i
+];
+function permitido(t){ return !PATRONES.some(p=>p.test(t)); }
+function motivo(t){
+  const s=t.toLowerCase();
+  if(/whatsapp|wsp|w\.a\./i.test(s)) return 'No se permite compartir WhatsApp.';
+  if(/telegram/i.test(s)) return 'No se permite compartir Telegram.';
+  if(/instagram|facebook|tiktok/i.test(s)) return 'No se permiten redes sociales.';
+  if(/\d[\s.\-_]?\d[\s.\-_]?\d[\s.\-_]?\d[\s.\-_]?\d[\s.\-_]?\d/.test(s)) return 'No se permiten números de teléfono.';
+  if(/escr[ií]be|ll[aá]ma|cont[aá]ct/i.test(s)) return 'No se permite invitar a salir de PROVEED.';
+  if(/@|correo|email|gmail/i.test(s)) return 'No se permiten correos electrónicos.';
+  if(/https?|www\.|\.com/i.test(s)) return 'No se permiten enlaces externos.';
+  return 'Mensaje bloqueado: información no permitida.';
+}
+onAuthStateChanged(auth, async(user)=>{
+  if(!user){window.location.href='login.html';return;}
+  currentUser=user;
+  cargarChats();
+  const params=new URLSearchParams(window.location.search);
+  const chatId=params.get('chatId');
+  const provId=params.get('proveedorId');
+  const nombre=params.get('nombre');
+  if(chatId) abrirChat(chatId,nombre||'Proveedor');
+  else if(provId) iniciarOAbrirChat(provId,nombre||'Proveedor');
+});
+function cargarChats(){
+  const q=query(collection(db,'chats'),where('emprendedorId','==',currentUser.uid),orderBy('ultimoMensajeEn','desc'));
+  onSnapshot(q,snap=>{
+    const cont=document.getElementById('chats-lista-content');
+    if(snap.empty){cont.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b>Sin conversaciones</b><p>Cuando contactes a un proveedor aparecerá aquí</p></div>`;return;}
+    cont.innerHTML='';
+    snap.forEach(d=>{
+      const c=d.data();
+      const div=document.createElement('div');
+      div.className='chat-item';
+      div.innerHTML=`<div class="chat-avatar">${(c.proveedorNombre||'P')[0].toUpperCase()}</div>
+        <div class="chat-info"><div class="chat-nombre">${c.proveedorNombre||'Proveedor'}</div><div class="chat-preview">${c.ultimoMensaje||'Inicia la conversación'}</div></div>
+        <div class="chat-meta"><div class="chat-hora">${c.ultimoMensajeEn?new Date(c.ultimoMensajeEn.toDate()).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):''}</div>${c.noLeidos>0?`<div class="chat-badge">${c.noLeidos}</div>`:''}</div>`;
+      div.onclick=()=>abrirChat(d.id,c.proveedorNombre||'Proveedor');
+      cont.appendChild(div);
+    });
+  });
+}
+window.iniciarOAbrirChat=async function(proveedorId,proveedorNombre){
+  const q=query(collection(db,'chats'),where('emprendedorId','==',currentUser.uid),where('proveedorId','==',proveedorId));
+  const snap=await getDocs(q);
+  if(!snap.empty){abrirChat(snap.docs[0].id,proveedorNombre);return;}
+  const ref=await addDoc(collection(db,'chats'),{emprendedorId:currentUser.uid,proveedorId,proveedorNombre,ultimoMensaje:'',ultimoMensajeEn:serverTimestamp(),noLeidos:0});
+  abrirChat(ref.id,proveedorNombre);
+};
+function abrirChat(chatId,nombre){
+  chatActivoId=chatId;
+  document.getElementById('lista-view').style.display='none';
+  document.getElementById('vista-chat').style.display='flex';
+  document.getElementById('conv-nombre').textContent=nombre;
+  document.getElementById('mensajes').innerHTML='';
+  if(unsubMensajes) unsubMensajes();
+  const q=query(collection(db,'chats',chatId,'mensajes'),orderBy('enviadoEn','asc'));
+  unsubMensajes=onSnapshot(q,snap=>{
+    snap.docChanges().forEach(change=>{
+      if(change.type==='added'){
+        const m=change.doc.data();
+        agregarBurbuja(m.texto,m.remitenteId===currentUser.uid?'enviado':'recibido',m.enviadoEn);
+      }
+    });
+  });
+}
+function volverLista(){
+  if(unsubMensajes) unsubMensajes();
+  chatActivoId=null;
+  document.getElementById('lista-view').style.display='flex';
+  document.getElementById('vista-chat').style.display='none';
+}
+window.volverLista=volverLista;
+function agregarBurbuja(texto,tipo,timestamp){
+  const div=document.createElement('div');
+  div.className=`burbuja ${tipo}`;
+  const hora=timestamp?new Date(timestamp.toDate()).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
+  div.innerHTML=`${texto}<div class="hora">${hora}</div>`;
+  document.getElementById('mensajes').appendChild(div);
+  document.getElementById('mensajes').scrollTop=99999;
+}
+window.enviarMensaje=async function(){
+  const input=document.getElementById('msg-input');
+  const texto=input.value.trim();
+  if(!texto||!chatActivoId) return;
+  if(!permitido(texto)){
+    const banner=document.getElementById('bloqueo-banner');
+    document.getElementById('bloqueo-txt').textContent='🔒 '+motivo(texto);
+    banner.classList.add('visible');
+    setTimeout(()=>banner.classList.remove('visible'),5000);
+    input.value='';return;
+  }
+  input.value='';
+  document.getElementById('bloqueo-banner').classList.remove('visible');
+  await addDoc(collection(db,'chats',chatActivoId,'mensajes'),{texto,remitenteId:currentUser.uid,tipo:'emprendedor',enviadoEn:serverTimestamp()});
+  await updateDoc(doc(db,'chats',chatActivoId),{ultimoMensaje:texto.length>40?texto.slice(0,40)+'...':texto,ultimoMensajeEn:serverTimestamp()});
+};
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+window.autoResize=autoResize;
+document.getElementById('msg-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();window.enviarMensaje();}});
+</script>
+</body>
+</html>
