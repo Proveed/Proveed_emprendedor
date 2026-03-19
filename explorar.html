@@ -7,147 +7,160 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        :root { --lima: #CCFF00; --negro: #0E0E0E; --naranja: #ff6a00; --verde-ok: #00a650; --gris-borde: #f0f0f0; }
-        body { background: #fff; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+        :root { --lima: #CCFF00; --negro: #0E0E0E; --naranja: #ff6a00; --verde-ok: #00a650; --gris-borde: #f0f0f0; --gris-f: #f5f5f5; }
+        body { background: var(--gris-f); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-        /* GRID CATALOGO (Se mantiene igual para no romper el flujo) */
-        #grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px; }
-        .prod-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--gris-borde); }
-        .prod-img-min { width: 100%; height: 160px; background: #f9f9f9; }
+        /* GRID PRINCIPAL */
+        #grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; padding-top: 100px; }
+        .prod-card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--gris-borde); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .prod-img-min { width: 100%; height: 160px; background: #eee; }
         .prod-img-min img { width: 100%; height: 100%; object-fit: cover; }
+        .prod-info-min { padding: 10px; text-align: left; }
+        .prod-info-min h3 { font-size: 0.75rem; color: #444; height: 32px; overflow: hidden; margin-bottom: 5px; font-weight: 500; }
+        .prod-info-min p { color: var(--negro); font-weight: 800; font-size: 1rem; }
 
-        /* --- MODAL ESTILO MARKETPLACE (COMO LA IMAGEN) --- */
-        #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.3s ease-out; }
+        /* HEADER EXPLORAR */
+        .main-header { position: fixed; top: 0; width: 100%; background: var(--lima); padding: 40px 20px 15px; z-index: 1000; border-radius: 0 0 20px 20px; }
+        .main-header h1 { font-family: 'Syne'; font-size: 1.2rem; text-transform: uppercase; }
+
+        /* MODAL ESTILO MARKETPLACE (COMO TU IMAGEN) */
+        #modal-detalle { display: none; position: fixed; inset: 0; background: white; z-index: 2000; flex-direction: column; overflow-y: auto; animation: slideUp 0.3s ease; }
         
-        /* Header Flotante sobre imagen */
-        .modal-header-actions { position: fixed; top: 0; left: 0; width: 100%; padding: 45px 15px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 100; pointer-events: none; }
-        .btn-action { background: rgba(0,0,0,0.3); color: white; border: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); pointer-events: auto; }
-        .btn-action svg { width: 20px; height: 20px; fill: none; stroke: white; stroke-width: 2.5; }
+        .modal-header-actions { position: fixed; top: 0; left: 0; width: 100%; padding: 45px 15px 15px; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+        .btn-action { background: rgba(0,0,0,0.3); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .btn-chat-top { background: var(--lima); color: var(--negro); }
 
-        /* Carrusel Principal */
-        .carrusel-full { width: 100%; height: 60vh; background: #f2f2f2; position: relative; }
+        .carrusel-full { width: 100%; height: 55vh; background: #f2f2f2; position: relative; }
         .carrusel-full img { width: 100%; height: 100%; object-fit: cover; }
-        .img-counter { position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.4); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; }
 
-        /* Información del Producto */
-        .info-container { padding: 15px; padding-bottom: 120px; }
+        .info-container { padding: 20px; padding-bottom: 120px; }
+        .status-row { display: flex; gap: 8px; margin-bottom: 10px; font-size: 0.75rem; font-weight: 700; color: var(--verde-ok); }
+        .prod-title { font-size: 1.1rem; font-weight: 500; color: #333; margin-bottom: 15px; line-height: 1.4; }
         
-        /* Tags superiores */
-        .status-row { display: flex; gap: 10px; margin-bottom: 12px; font-size: 0.75rem; color: var(--verde-ok); font-weight: 700; }
-        .tag-green { display: flex; align-items: center; gap: 4px; }
+        .price-section { margin-bottom: 25px; }
+        .old-price { font-size: 0.9rem; text-decoration: line-through; color: #999; }
+        .main-price-row { display: flex; align-items: baseline; gap: 5px; margin-top: 2px; }
+        .currency { font-size: 1.2rem; font-weight: 800; }
+        .price-amount { font-size: 2.2rem; font-weight: 800; }
+        .promo-tag { background: #fff5ed; color: var(--naranja); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 800; margin-left: 10px; }
 
-        .prod-title { font-size: 1.1rem; font-weight: 500; color: #333; line-height: 1.4; margin-bottom: 10px; }
-        
-        /* Precios Estilo Imagen */
-        .price-section { margin-bottom: 20px; }
-        .old-price { font-size: 0.9rem; text-decoration: line-through; color: #999; margin-bottom: 4px; display: block; }
-        .main-price-row { display: flex; align-items: baseline; gap: 8px; }
-        .currency { font-size: 1.1rem; font-weight: 800; color: var(--negro); }
-        .price-amount { font-size: 1.8rem; font-weight: 800; color: var(--negro); }
-        .promo-tag { background: #fff5ed; color: var(--naranja); padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 800; border: 1px solid #ffe6d5; }
+        .option-section { border-top: 1px solid #eee; padding-top: 20px; }
+        .qty-selector { display: flex; align-items: center; justify-content: space-between; background: #f8f8f8; padding: 15px; border-radius: 15px; margin-top: 10px; }
+        .btn-qty { background: white; border: 1px solid #ddd; width: 40px; height: 40px; border-radius: 10px; font-size: 1.5rem; font-weight: 300; }
 
-        /* Selectores de Cantidad y Opciones */
-        .option-section { border-top: 1px solid var(--gris-borde); padding-top: 20px; margin-top: 10px; }
-        .option-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; color: #666; }
-        
-        .qty-selector { display: flex; align-items: center; justify-content: space-between; background: #f8f8f8; padding: 12px 18px; border-radius: 12px; }
-        .btn-qty { background: transparent; border: none; font-size: 1.4rem; width: 40px; height: 40px; color: var(--negro); font-weight: 700; }
-
-        /* --- BARRA FIJA INFERIOR (COMPRAR) --- */
-        .fixed-bottom { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px 20px 35px; border-top: 1px solid var(--gris-borde); z-index: 150; }
-        .btn-buy { background: var(--naranja); color: white; width: 100%; padding: 16px; border-radius: 30px; border: none; font-size: 1rem; font-weight: 700; text-transform: none; }
-        .btn-buy span { display: block; font-size: 0.65rem; font-weight: 400; opacity: 0.9; }
+        /* BARRA FIJA INFERIOR */
+        .fixed-bottom { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px 20px 35px; border-top: 1px solid #eee; z-index: 150; }
+        .btn-buy { background: var(--naranja); color: white; width: 100%; padding: 18px; border-radius: 35px; border: none; font-size: 1.1rem; font-weight: 700; box-shadow: 0 5px 15px rgba(255,106,0,0.3); }
+        .btn-buy span { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
 
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+<header class="main-header">
+    <h1>Explorar</h1>
+</header>
+
 <div id="grid"></div>
 
 <div id="modal-detalle">
     <div class="modal-header-actions">
-        <button class="btn-action" onclick="cerrarDetalle()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 19l-7-7 7-7"/></svg>
+        <button class="btn-action" onclick="cerrarDetalle()">✕</button>
+        <button class="btn-action btn-chat-top" id="btn-chat-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         </button>
-        <div style="display: flex; gap: 10px;">
-            <button class="btn-action" id="btn-chat-header" style="background: var(--lima);">
-                <svg viewBox="0 0 24 24" style="stroke: var(--negro);"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </button>
-            <button class="btn-action">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8m-16 0l8-8 8 8m-8-8v16"/></svg>
-            </button>
-        </div>
     </div>
 
-    <div class="carrusel-full">
-        <img id="main-img" src="" alt="">
-        <div class="img-counter">1/8</div>
-    </div>
+    <div class="carrusel-full"><img id="main-img" src=""></div>
 
     <div class="info-container">
-        <div class="status-row">
-            <span class="tag-green">✓ Envío gratis</span>
-            <span style="color: #999;">|</span>
-            <span style="color: var(--naranja);">⚡ ÚLTIMO DÍA</span>
-        </div>
-
-        <h2 class="prod-title" id="det-nom">Cargando...</h2>
-
+        <div class="status-row"><span>✓ Envío gratis</span><span style="color:var(--naranja)">⚡ OFERTA</span></div>
+        <h2 class="prod-title" id="det-nom"></h2>
+        
         <div class="price-section">
-            <span class="old-price" id="old-p">$0.00</span>
+            <span class="old-price" id="old-p"></span>
             <div class="main-price-row">
                 <span class="currency">$</span>
-                <span class="price-amount" id="det-pre">0.00</span>
-                <span class="promo-tag" id="discount">-50% OFF</span>
+                <span class="price-amount" id="det-pre"></span>
+                <span class="promo-tag">-30% OFF</span>
             </div>
         </div>
 
         <div class="option-section">
-            <p class="option-title">Cantidad mínima requerida</p>
+            <p style="font-size:0.8rem; font-weight:700; color:#666;">CANTIDAD MÍNIMA</p>
             <div class="qty-selector">
                 <button class="btn-qty" onclick="changeQty(-1)">−</button>
-                <span id="qty-val" style="font-weight: 800; font-size: 1.1rem;">12</span>
+                <span id="qty-val" style="font-weight:800; font-size:1.2rem;">12</span>
                 <button class="btn-qty" onclick="changeQty(1)">+</button>
             </div>
         </div>
-
-        <h3 style="font-size: 0.9rem; margin-top: 30px; margin-bottom: 15px; color: #666;">También te puede interesar</h3>
-        <div id="reco-infinito" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
     </div>
 
     <div class="fixed-bottom">
-        <button class="btn-buy" onclick="alert('Añadido al pedido')">
-            Añadir al pedido
-            <span>Llega a EC en 3-5 DÍAS HÁBILES</span>
-        </button>
+        <button class="btn-buy">Añadir al pedido <span>Llega en 3-5 días hábiles</span></button>
     </div>
 </div>
 
 <script type="module">
-    // (Mantén tus importaciones de Firebase y lógica de cargarDB igual)
-    // ... lógica anterior ...
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+        authDomain: "proveed-8cb7c.firebaseapp.com",
+        projectId: "proveed-8cb7c",
+        storageBucket: "proveed-8cb7c.firebasestorage.app",
+        messagingSenderId: "235073250367",
+        appId: "1:235073250367:web:89ec59fea5f0b8a347448a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    async function cargar() {
+        const grid = document.getElementById('grid');
+        try {
+            const snap = await getDocs(collection(db, "productos"));
+            const productos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            
+            grid.innerHTML = productos.map(p => `
+                <div class="prod-card" onclick='abrirDetalle(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+                    <div class="prod-img-min"><img src="${p.imagenes?.[0] || p.imagen}"></div>
+                    <div class="prod-info-min"><h3>${p.nombre}</h3><p>$${Number(p.precio).toFixed(2)}</p></div>
+                </div>
+            `).join('');
+        } catch (e) { console.error(e); }
+    }
 
     window.abrirDetalle = (p) => {
         const modal = document.getElementById('modal-detalle');
         const img = p.imagenes?.[0] || p.imagen;
-        
         document.getElementById('main-img').src = img;
         document.getElementById('det-nom').innerText = p.nombre;
         document.getElementById('det-pre').innerText = Number(p.precio).toFixed(2);
-        
-        // Simulación de precio anterior (estilo marketing)
-        document.getElementById('old-p').innerText = `$${(Number(p.precio) * 1.5).toFixed(2)}`;
-        
+        document.getElementById('old-p').innerText = `$${(Number(p.precio) * 1.3).toFixed(2)}`;
         document.getElementById('qty-val').innerText = p.cantidadMinima || 12;
-        
-        // Chat con imagen de referencia
-        document.getElementById('btn-chat-header').onclick = () => {
-             window.location.href = `chat.html?nombre=${p.proveedorNombre}&refImg=${encodeURIComponent(img)}&refMsg=Referencia: ${p.nombre}`;
+
+        document.getElementById('btn-chat-header').onclick = async () => {
+            const user = auth.currentUser;
+            if(!user) return alert("Inicia sesión");
+            const q = query(collection(db, "chats"), where("emprendedorId", "==", user.uid), where("proveedorId", "==", p.proveedorId || "SISTEMA"));
+            const snap = await getDocs(q);
+            let chatId = snap.empty ? (await addDoc(collection(db, "chats"), {
+                emprendedorId: user.uid,
+                proveedorId: p.proveedorId || "SISTEMA",
+                proveedorNombre: p.proveedorNombre || "Proveedor",
+                ultimoMensaje: "Referencia: " + p.nombre,
+                ultimoMensajeEn: serverTimestamp()
+            })).id : snap.docs[0].id;
+
+            window.location.href = `chat.html?chatId=${chatId}&refImg=${encodeURIComponent(img)}&refMsg=Hola, me interesa: ${p.nombre}`;
         };
 
         modal.style.display = 'flex';
-        modal.scrollTop = 0;
     };
 
     window.cerrarDetalle = () => document.getElementById('modal-detalle').style.display = 'none';
@@ -156,8 +169,9 @@
         let val = parseInt(q.innerText) + v;
         if(val >= 1) q.innerText = val;
     };
-    
-    // cargarDB(); // Iniciar carga
+
+    // Esto activa la carga apenas abre el archivo
+    cargar();
 </script>
 </body>
 </html>
