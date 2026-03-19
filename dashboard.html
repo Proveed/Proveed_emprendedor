@@ -26,14 +26,14 @@
         .view.active { display: flex; animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* BUSCADOR Y CATEGORÍAS (CORREGIDO) */
-        .search-area { padding: 15px 20px 5px; }
+        /* BUSCADOR */
+        .search-area { padding: 15px 20px 10px; z-index: 10; }
         .search-bar { background: white; padding: 12px 14px; border-radius: 12px; display: flex; align-items: center; gap: 10px; border: 1px solid #eee; }
         .search-bar input { border: none; outline: none; width: 100%; font-size: 0.85rem; font-family: 'Inter'; }
         
-        .section-title { padding: 18px 22px 10px; font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-title { padding: 10px 22px 8px; font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* SCROLL LATERAL FLUIDO */
+        /* CATEGORÍAS CORREGIDAS: PRIORIDAD DE TOQUE */
         .cat-row { 
             display: flex; 
             gap: 10px; 
@@ -41,30 +41,33 @@
             overflow-x: auto; 
             -webkit-overflow-scrolling: touch; 
             scrollbar-width: none; 
+            position: relative;
+            z-index: 20; /* Asegura que esté sobre el grid */
         }
         .cat-row::-webkit-scrollbar { display: none; }
         
         .chip { 
             background: white; 
-            padding: 9px 18px; 
+            padding: 10px 20px; 
             border-radius: 12px; 
             font-size: 0.8rem; 
             font-weight: 500; 
             border: 1px solid #eee; 
             white-space: nowrap; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            flex-shrink: 0;
         }
         .chip.active { background: var(--negro); color: white; border-color: var(--negro); }
 
         /* GRID PRODUCTOS */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; position: relative; z-index: 5; }
         .card { background: white; border-radius: 18px; overflow: hidden; border: 1px solid #f0f0f0; }
-        .card-img { width: 100%; height: 140px; object-fit: cover; }
+        .card-img { width: 100%; height: 140px; object-fit: cover; background: #eee; }
         .card-body { padding: 10px; }
         .p-name { font-size: 0.8rem; font-weight: 500; height: 34px; overflow: hidden; margin-bottom: 4px; }
         .p-price { color: var(--verde-ok); font-weight: 600; font-size: 1rem; }
 
-        /* CHATS LISTA */
+        /* LISTA CHATS */
         .chat-item { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f5f5f5; background: white; }
         .chat-avatar { width: 50px; height: 50px; border-radius: 15px; background: var(--lima); margin-right: 14px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
         .chat-info { flex: 1; min-width: 0; }
@@ -95,7 +98,7 @@
 
 <header class="header">
     <div class="header-row">
-        <div class="greeting-name" id="app-title">Cargando...</div>
+        <div class="greeting-name" id="app-title">PROVEED</div>
         <div class="header-actions">
             <button class="icon-btn" onclick="showView('chats')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -110,18 +113,17 @@
 
 <div class="view-container">
     <main id="view-home" class="view active">
-        <div class="search-area"><div class="search-bar"><input type="text" placeholder="¿Qué buscas hoy?"></div></div>
+        <div class="search-area"><div class="search-bar"><input type="text" placeholder="¿Qué stock buscas?"></div></div>
         <div class="section-title">Categorías</div>
         <div class="cat-row">
             <div class="chip active">Todo</div>
             <div class="chip">Textiles</div>
             <div class="chip">Tecnología</div>
             <div class="chip">Calzado</div>
+            <div class="chip">Relojería</div>
             <div class="chip">Accesorios</div>
-            <div class="chip">Hogar</div>
-            <div class="chip">Relojes</div>
         </div>
-        <div class="section-title">Nuevos Ingresos</div>
+        <div class="section-title">Explorar</div>
         <div class="grid" id="product-grid"></div>
     </main>
 
@@ -153,8 +155,14 @@
     import { getFirestore, collection, onSnapshot, query, where, orderBy, addDoc, serverTimestamp, doc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-    const config = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
-    const app = initializeApp(config);
+    // USA TUS CREDENCIALES COMPLETAS AQUÍ
+    const firebaseConfig = { 
+        apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", 
+        projectId: "proveed-8cb7c",
+        authDomain: "proveed-8cb7c.firebaseapp.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
 
@@ -179,10 +187,11 @@
 
     async function loadProducts() {
         const snap = await getDocs(collection(db, "productos"));
-        document.getElementById('product-grid').innerHTML = snap.docs.map(d => {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = snap.docs.map(d => {
             const p = d.data();
             return `<div class="card" onclick="location.href='producto.html?id=${d.id}'">
-                <img src="${p.imagenes?.[0] || p.imagen}" class="card-img">
+                <img src="${p.imagenes?.[0] || p.imagen || ''}" class="card-img">
                 <div class="card-body">
                     <p class="p-name">${p.nombre}</p>
                     <p class="p-price">$${Number(p.precio).toFixed(2)}</p>
@@ -199,7 +208,7 @@
             snap.forEach(d => {
                 const c = d.data();
                 list.innerHTML += `<div class="chat-item" onclick="openChat('${d.id}', '${c.nombreRemitente}')">
-                    <div class="chat-avatar">${c.nombreRemitente[0]}</div>
+                    <div class="chat-avatar">${c.nombreRemitente ? c.nombreRemitente[0] : 'P'}</div>
                     <div class="chat-info">
                         <div class="chat-name">${c.nombreRemitente}</div>
                         <div class="chat-preview">${c.ultimoMensaje || 'Enviar mensaje...'}</div>
@@ -235,7 +244,7 @@
     window.sendMsg = async () => {
         const input = document.getElementById('msg-input');
         const text = input.value.trim();
-        if(!text) return;
+        if(!text || !chatId) return;
         input.value = '';
         await addDoc(collection(db, 'chats', chatId, 'mensajes'), {
             texto: text, remitenteId: currentUid, enviadoEn: serverTimestamp()
