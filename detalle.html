@@ -3,62 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Detalle Real — PROVEED</title>
+    <title>PROVEED — Detalle Real</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --verde: #32D74B; --negro: #000; --fondo: #ffffff; }
-        body { background: var(--fondo); margin: 0; font-family: 'DM Sans', sans-serif; color: var(--negro); display: none; /* Oculto hasta que cargue BD */ }
+        :root { --verde: #32D74B; --negro: #000; }
+        body { background: #fff; margin: 0; font-family: 'DM Sans', sans-serif; color: var(--negro); }
         
-        header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 10; }
-        .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 0 15px 0 0; }
+        /* HEADER LIMPIO */
+        header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; background: white; position: sticky; top: 0; z-index: 10; }
+        .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding-right: 15px; }
 
-        .product-visual { width: 100%; height: 350px; background: #fdfdfd; display: flex; align-items: center; justify-content: center; }
-        .product-visual img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        /* CONTENEDOR DE IMAGEN */
+        .img-box { width: 100%; height: 350px; background: #fdfdfd; display: flex; align-items: center; justify-content: center; }
+        #p-img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        .main-content { padding: 25px 20px; }
-        .tag-status { background: #e8fdf0; color: #15803d; font-size: 0.7rem; font-weight: 800; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; }
+        /* INFORMACIÓN DINÁMICA */
+        .main-info { padding: 25px 20px; }
         .price { font-size: 2.5rem; font-weight: 800; margin: 0; letter-spacing: -2px; }
-        .product-title { font-family: 'Syne'; font-size: 1.2rem; margin: 10px 0 25px; text-transform: uppercase; }
+        .title { font-family: 'Syne'; font-size: 1.2rem; margin: 10px 0 25px; text-transform: uppercase; }
 
-        /* RECUADRO DEL PROVEEDOR - SIN DATOS FALSOS */
-        .provider-card { border: 2px solid #f0f0f0; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; }
-        .avatar-real { width: 50px; height: 50px; background: var(--negro); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 1.2rem; }
-        .provider-info h4 { margin: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .provider-info p { margin: 3px 0 0; font-size: 0.7rem; color: var(--verde); font-weight: 700; text-transform: uppercase; }
+        /* CUADRO PROVEEDOR - TODO VIENE DE LA BD */
+        .provider-row { border: 1px solid #eee; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 50px; height: 50px; background: var(--negro); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 1.2rem; }
+        .p-details h4 { margin: 0; font-size: 0.9rem; text-transform: uppercase; }
+        .p-details p { margin: 3px 0 0; font-size: 0.7rem; color: var(--verde); font-weight: 700; }
 
-        .footer-nav { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; padding: 20px; display: flex; gap: 10px; box-sizing: border-box; }
-        .btn-main { flex: 2; background: var(--negro); color: white; border: none; padding: 18px; border-radius: 15px; font-family: 'Syne'; font-weight: 700; cursor: pointer; }
-        .btn-chat { flex: 1; background: #f0f0f0; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
+        /* ACCIONES INFERIORES */
+        .actions { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; padding: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 10px; box-sizing: border-box; }
+        .btn-chat { background: #f0f0f0; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
+        .btn-order { background: var(--negro); color: white; border: none; padding: 18px; border-radius: 15px; font-family: 'Syne'; font-weight: 700; cursor: pointer; }
+
+        /* PANTALLA DE CARGA */
+        #loader-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 0.8rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
+    <div id="loader-screen">CARGANDO DATOS REALES...</div>
+
     <header>
         <button class="back-btn" onclick="location.href='dashboard.html'">←</button>
-        <div style="font-family: 'Syne'; font-size: 0.8rem; font-weight: 800;">VERIFICACIÓN TÉCNICA</div>
+        <div style="font-family: 'Syne'; font-size: 0.8rem; font-weight: 800;">VERIFICACIÓN PROVEED</div>
     </header>
 
-    <div class="product-visual">
-        <img id="db-image" src="" alt="">
+    <div class="img-box">
+        <img id="p-img" src="" alt="">
     </div>
 
-    <div class="main-content">
-        <div id="db-minimo" class="tag-status">VERIFICANDO STOCK...</div>
-        <h1 id="db-precio" class="price">$0.00</h1>
-        <h2 id="db-titulo" class="product-title">CARGANDO PRODUCTO...</h2>
+    <div class="main-info">
+        <h1 id="p-price" class="price"></h1>
+        <h2 id="p-title" class="title"></h2>
 
-        <div class="provider-card">
-            <div id="db-avatar" class="avatar-real">?</div>
-            <div class="provider-info">
-                <h4 id="db-nombre-proveedor">BUSCANDO EN BASE DE DATOS...</h4>
-                <p>● PROVEEDOR REGISTRADO</p>
+        <div class="provider-row">
+            <div id="p-avatar" class="avatar">?</div>
+            <div class="p-details">
+                <h4 id="p-prov-name"></h4>
+                <p>● PROVEEDOR VERIFICADO</p>
             </div>
         </div>
     </div>
 
-    <div class="footer-nav">
-        <button class="btn-chat" onclick="abrirChat()">CHAT</button>
-        <button class="btn-main">ORDENAR AHORA</button>
+    <div class="actions">
+        <button class="btn-chat" onclick="location.href='messenger.html'">CHAT</button>
+        <button class="btn-order">AÑADIR AL PEDIDO</button>
     </div>
 
     <script type="module">
@@ -69,64 +76,47 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 1. OBTENER IDENTIFICADORES REALES
+        // LEER IDs DESDE EL DASHBOARD
         const productID = localStorage.getItem('lastSelectedProdID');
-        const provEmail = localStorage.getItem('currentProveedor'); // Este viene del Dashboard
+        const provNombreReal = localStorage.getItem('currentProveedorNombre');
 
-        async function conectarBaseDeDatos() {
+        async function cargarPagina() {
             if (!productID) {
-                alert("Error: No se seleccionó un producto válido.");
+                alert("Selecciona un producto real.");
                 location.href = 'dashboard.html';
                 return;
             }
 
             try {
-                // 2. CONSULTA REAL AL PRODUCTO
-                const docRef = doc(db, "productos", productID);
-                const docSnap = await getDoc(docRef);
+                // CONSULTA A TU COLECCIÓN 'productos'
+                const snap = await getDoc(doc(db, "productos", productID));
 
-                if (docSnap.exists()) {
-                    const p = docSnap.data();
+                if (snap.exists()) {
+                    const data = snap.data();
                     
-                    // 3. INYECTAR DATOS DE FIREBASE
-                    document.getElementById('db-image').src = p.imagen || p.imageUrl;
-                    document.getElementById('db-precio').innerText = `$${p.precio}`;
-                    document.getElementById('db-titulo').innerText = p.titulo || p.nombre;
-                    document.getElementById('db-minimo').innerText = `MÍNIMO: ${p.minimo || 1} UNIDADES`;
-
-                    // 4. BUSCAR EL NOMBRE DEL PROVEEDOR (SIN FANTASÍAS)
-                    // Buscamos en la colección usuarios usando el email asociado al producto
-                    const userRef = doc(db, "usuarios", provEmail); 
-                    // Nota: Si usas el email como ID de documento, esto funcionará. 
-                    // Si no, el Dashboard ya debería habernos pasado el nombre real.
+                    // INYECTAR SOLO DATOS DE TU BASE DE DATOS
+                    document.getElementById('p-img').src = data.imagen || data.imageUrl;
+                    document.getElementById('p-price').innerText = `$${data.precio || data.price}`;
+                    document.getElementById('p-title').innerText = data.titulo || data.nombre;
                     
-                    const nombreReal = localStorage.getItem('currentProveedorNombre');
-                    
-                    if (nombreReal && nombreReal !== "Global Smart") {
-                        document.getElementById('db-nombre-proveedor').innerText = nombreReal;
-                        document.getElementById('db-avatar').innerText = nombreReal.charAt(0).toUpperCase();
-                    } else {
-                        document.getElementById('db-nombre-proveedor').innerText = "PROVEEDOR NO IDENTIFICADO";
-                    }
+                    // USAR EL NOMBRE QUE VIENE DE TU COLECCIÓN USUARIOS (PASADO POR EL DASHBOARD)
+                    const nombreFinal = provNombreReal || "Proveedor Oficial";
+                    document.getElementById('p-prov-name').innerText = nombreFinal;
+                    document.getElementById('p-avatar').innerText = nombreFinal.charAt(0).toUpperCase();
 
-                    // MOSTRAR PÁGINA SOLO CUANDO TODO ES REAL
-                    document.body.style.display = 'block';
-
+                    // QUITAR CARGADOR
+                    document.getElementById('loader-screen').style.display = 'none';
                 } else {
-                    alert("El producto no existe en la base de datos real.");
+                    alert("Este producto no existe en tu base de datos.");
                     location.href = 'dashboard.html';
                 }
             } catch (e) {
-                console.error("Error crítico:", e);
+                console.error(e);
                 location.href = 'dashboard.html';
             }
         }
 
-        window.abrirChat = () => {
-            location.href = "messenger.html";
-        };
-
-        conectarBaseDeDatos();
+        cargarPagina();
     </script>
 </body>
 </html>
