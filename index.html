@@ -2,17 +2,90 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROVEED</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bienvenido — PROVEED</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #000; color: white; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 30px; }
+        
+        .hero-section { text-align: center; margin-bottom: 40px; }
+        .logo-large { font-family: 'Syne'; font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
+        
+        .auth-card { background: #1A1A1A; padding: 25px; border-radius: 24px; border: 1px solid #333; }
+        
+        .input-group { margin-bottom: 15px; }
+        label { font-size: 0.65rem; text-transform: uppercase; color: #888; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        
+        input, select { 
+            width: 100%; background: #0D0D0D; border: 1px solid #333; padding: 15px; 
+            border-radius: 12px; color: white; font-family: 'DM Sans'; outline: none;
+        }
+        
+        input:focus { border-color: var(--verde-pro); }
+
+        .btn-login { 
+            background: var(--verde-pro); color: #000; border: none; width: 100%; 
+            padding: 18px; border-radius: 14px; font-weight: 800; font-family: 'Syne'; 
+            font-size: 1rem; cursor: pointer; margin-top: 10px; text-transform: uppercase;
+        }
+        
+        .footer-text { text-align: center; margin-top: 25px; font-size: 0.8rem; color: #666; }
+        .footer-text b { color: var(--verde-pro); cursor: pointer; }
+    </style>
 </head>
-<body style="background: white; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px;">
-    <div class="logo-master" style="margin-bottom: 10px;">
-        <div class="hex-icon"><svg class="check-svg" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <h1 class="logo-text">PROVEED</h1>
+<body>
+
+    <div class="hero-section">
+        <div class="hex-icon" style="width: 50px; height: 55px; margin: 0 auto 15px;">
+            <svg width="20" viewBox="0 0 24 24" style="stroke:white; stroke-width:4; fill:none;"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h1 class="logo-large">PROVEED</h1>
+        <p style="color: #888; font-size: 0.9rem;">La red de negocios #1 de Ecuador</p>
     </div>
-    <p style="color: #888; font-size: 0.9rem; margin-bottom: 50px;">Mayoristas en la palma de tu mano</p>
-    <button class="btn-lima" onclick="location.href='dashboard.html'">Entrar al Mercado</button>
+
+    <div class="auth-card">
+        <div class="input-group">
+            <label>Tu Correo de Negocios</label>
+            <input type="email" id="email" placeholder="ejemplo@negocio.com">
+        </div>
+
+        <div class="input-group">
+            <label>Ciudad de Operación</label>
+            <select id="ciudad">
+                <option value="Esmeraldas">Esmeraldas</option>
+                <option value="Guayaquil">Guayaquil</option>
+                <option value="Quito">Quito</option>
+                <option value="Manta">Manta</option>
+                <option value="Santo Domingo">Santo Domingo</option>
+                <option value="Cuenca">Cuenca</option>
+            </select>
+        </div>
+
+        <button class="btn-login" id="btn-entrar">Empezar a Negociar</button>
+    </div>
+
+    <p class="footer-text">Al entrar aceptas la protección <b>PROVEED SEG</b></p>
+
+    <script type="module">
+        // Lógica simple para guardar al usuario localmente y entrar
+        document.getElementById('btn-entrar').onclick = () => {
+            const email = document.getElementById('email').value;
+            const ciudad = document.getElementById('ciudad').value;
+
+            if(email === "") {
+                alert("Por favor ingresa tu correo");
+                return;
+            }
+
+            // Guardamos en el navegador quién es este usuario
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userCiudad', ciudad);
+
+            // Redirigimos al Dashboard
+            location.href = "dashboard.html";
+        };
+    </script>
+
 </body>
 </html>
