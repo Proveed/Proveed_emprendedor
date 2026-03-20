@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Comunidad — PROVEED</title>
+    <title>PROVEED — Comunidad Segura</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { background: white; padding-bottom: 110px; margin: 0; }
         
-        /* HEADER */
-        .header-social {
-            padding: 20px; display: flex; justify-content: space-between; 
+        /* CABECERA CON MARCA PROVEED (Actualizada) */
+        .header-main {
+            padding: 15px 20px; display: flex; justify-content: space-between; 
             align-items: center; border-bottom: 1px solid #eee;
             position: sticky; top: 0; background: white; z-index: 100;
         }
+        
+        /* Estilos del Logo Hexagonal (Consistentes) */
+        .logo-wrapper { display: flex; align-items: center; gap: 8px; }
+        .hex-icon {
+            width: 22px; height: 26px; background: #32D74B; 
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .check-svg { width: 10px; stroke: white; stroke-width: 4; fill: none; stroke-linecap: round; }
+        .logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: -0.5px; margin: 0; color: #000; }
 
-        /* POST ESTILO RED SOCIAL */
+        /* POST */
         .post { border-bottom: 8px solid #f8f8f8; }
         .post-user { display: flex; align-items: center; gap: 12px; padding: 15px; }
         .user-avatar { width: 38px; height: 38px; border-radius: 12px; background: #FF6B00; object-fit: cover; }
@@ -27,11 +37,11 @@
         .post-media img { width: 100%; height: 100%; object-fit: cover; }
         .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.9; }
 
-        /* INTERACCIÓN (ICONOS LINEALES) */
+        /* INTERACCIÓN */
         .post-bar { display: flex; gap: 20px; padding: 15px; align-items: center; }
-        .action-icon { background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.85rem; }
+        .action-icon { background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.85rem; color: #333; }
         
-        /* NAVEGACIÓN INFERIOR (ICONOS CORREGIDOS) */
+        /* NAVEGACIÓN INFERIOR (Arreglada) */
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; padding: 12px 0 28px; border-top: 1px solid #eee; justify-content: space-around; z-index: 1000; }
         .nav-item { text-align: center; flex: 1; text-decoration: none; color: #AAA; display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .nav-item.active { color: #000; }
@@ -41,8 +51,13 @@
 </head>
 <body>
 
-    <header class="header-social">
-        <h1 style="font-family:'Syne'; font-size:1.4rem; margin:0;">Comunidad</h1>
+    <header class="header-main">
+        <div class="logo-wrapper">
+            <div class="hex-icon">
+                <svg class="check-svg" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h1 class="logo-text">PROVEED</h1>
+        </div>
         <svg class="icon-pro" style="color:#000;" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
     </header>
 
