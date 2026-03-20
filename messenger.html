@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Negociación Directa — PROVEED</title>
+    <title>Chat Real — PROVEED</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --verde-pro: #32D74B; --negro: #000; --gris: #111; }
+        :root { --verde-pro: #32D74B; --negro: #000; }
         body { background: white; height: 100vh; display: flex; flex-direction: column; margin: 0; font-family: 'DM Sans', sans-serif; }
         
-        /* HEADER */
         .chat-header { 
             padding: 15px 20px; border-bottom: 1px solid #eee; 
-            display: flex; align-items: center; gap: 12px; background: white; position: sticky; top: 0; z-index: 10;
+            display: flex; align-items: center; gap: 12px; background: white; 
         }
         .status-dot { width: 8px; height: 8px; background: var(--verde-pro); border-radius: 50%; }
 
-        /* MENSAJES */
-        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #F9F9F9; }
-        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.4; position: relative; }
+        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #F8F9FA; }
+        
+        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.4; }
         .msg.sent { align-self: flex-end; background: var(--negro); color: white; border-bottom-right-radius: 4px; }
         .msg.received { align-self: flex-start; background: white; color: #333; border: 1px solid #ddd; border-bottom-left-radius: 4px; }
-        .user-label { font-size: 0.6rem; font-weight: 800; display: block; margin-bottom: 4px; opacity: 0.6; text-transform: uppercase; }
+        
+        .label-name { font-size: 0.6rem; font-weight: 800; display: block; margin-bottom: 4px; opacity: 0.6; text-transform: uppercase; }
 
-        /* INPUT */
-        .input-area { padding: 15px 20px 35px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; }
-        #message-input { flex: 1; background: #f2f2f2; border: none; padding: 14px 18px; border-radius: 25px; outline: none; font-size: 0.95rem; }
-        .btn-send { background: var(--negro); color: white; border: none; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .input-area { padding: 15px 20px 35px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        #message-input { flex: 1; background: #f2f2f2; border: none; padding: 14px 18px; border-radius: 25px; outline: none; }
+        .btn-send { background: var(--negro); color: white; border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -36,27 +35,24 @@
             <svg width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </a>
         <div style="flex:1;">
-            <h2 style="font-size: 1rem; margin: 0; font-family: 'Syne';">CANAL DE NEGOCIACIÓN</h2>
+            <h2 id="display-proveedor-name" style="font-size: 1rem; margin: 0; font-family: 'Syne'; text-transform: uppercase;">Cargando...</h2>
             <div style="display: flex; align-items: center; gap: 5px;">
                 <div class="status-dot"></div>
-                <span style="font-size: 0.7rem; color: #888;">Seguridad PROVEED Activada</span>
+                <span id="display-proveedor-status" style="font-size: 0.7rem; color: #888;">Verificando proveedor...</span>
             </div>
         </div>
     </header>
 
-    <div id="chat-container">
-        </div>
+    <div id="chat-container"></div>
 
     <div class="input-area">
-        <input type="text" id="message-input" placeholder="Escribe tu propuesta comercial...">
-        <button class="btn-send" id="send-btn">
-            <svg width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-        </button>
+        <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
+        <button class="btn-send" id="send-btn">➤</button>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where, or } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
         const app = initializeApp(firebaseConfig);
@@ -64,66 +60,69 @@
 
         const chatContainer = document.getElementById('chat-container');
         const messageInput = document.getElementById('message-input');
+        const nameHeader = document.getElementById('display-proveedor-name');
 
-        // DATOS DE SESIÓN
         const userEmail = localStorage.getItem('userEmail');
-        const proveedorEmail = localStorage.getItem('currentProveedor') || "soporte@proveed.com";
+        // Este ID lo debemos recibir desde el Dashboard o Detalle
+        const proveedorEmail = localStorage.getItem('currentProveedor'); 
 
-        if (!userEmail) {
-            alert("Debes iniciar sesión primero.");
-            location.href = "index.html";
+        // --- FUNCIÓN PARA TRAER EL NOMBRE REAL DEL ÚNICO PROVEEDOR ---
+        async function cargarDatosProveedor() {
+            if (!proveedorEmail) {
+                nameHeader.innerText = "PROVEEDOR GENERAL";
+                return;
+            }
+
+            const q = query(collection(db, "usuarios"), where("email", "==", proveedorEmail));
+            const querySnapshot = await getDocs(q);
+            
+            if (!querySnapshot.empty) {
+                const data = querySnapshot.docs[0].data();
+                // Usamos el campo 'nombres' que creamos en el registro robusto
+                nameHeader.innerText = data.nombres + " " + data.apellidos;
+                document.getElementById('display-proveedor-status').innerText = "Proveedor Verificado de " + data.ciudad;
+            } else {
+                nameHeader.innerText = "PROVEEDOR NO IDENTIFICADO";
+            }
         }
+        cargarDatosProveedor();
 
-        // --- 1. ESCUCHAR MENSAJES (Sincronizado entre Emprendedor y Proveedor) ---
-        // Filtramos para ver solo la conversación entre estas dos personas específicas
-        const q = query(
-            collection(db, "chats"),
-            orderBy("timestamp", "asc")
-        );
-
-        onSnapshot(q, (snapshot) => {
+        // --- ESCUCHAR CHAT EN TIEMPO REAL ---
+        const qChat = query(collection(db, "chats"), orderBy("timestamp", "asc"));
+        onSnapshot(qChat, (snapshot) => {
             chatContainer.innerHTML = '';
             snapshot.forEach((doc) => {
                 const data = doc.data();
-                
-                // Solo mostrar mensajes que pertenezcan a esta relación (Emprendedor <-> Proveedor)
+                // Solo mostrar la conversación correcta
                 if ((data.remitente === userEmail && data.destinatario === proveedorEmail) || 
                     (data.remitente === proveedorEmail && data.destinatario === userEmail)) {
                     
                     const isMine = data.remitente === userEmail;
                     const msgDiv = document.createElement('div');
                     msgDiv.className = `msg ${isMine ? 'sent' : 'received'}`;
-                    msgDiv.innerHTML = `
-                        <span class="user-label">${isMine ? 'Tú' : 'Proveedor'}</span>
-                        ${data.text}
-                    `;
+                    msgDiv.innerHTML = `<span class="label-name">${isMine ? 'Tú' : nameHeader.innerText}</span>${data.text}`;
                     chatContainer.appendChild(msgDiv);
                 }
             });
             chatContainer.scrollTop = chatContainer.scrollHeight;
         });
 
-        // --- 2. ENVIAR MENSAJE ---
-        async function sendMessage() {
+        // --- ENVIAR ---
+        window.sendMessage = async () => {
             const text = messageInput.value.trim();
-            if (text === "") return;
+            if (!text || !userEmail || !proveedorEmail) return;
 
-            try {
-                await addDoc(collection(db, "chats"), {
-                    text: text,
-                    remitente: userEmail,
-                    destinatario: proveedorEmail,
-                    timestamp: serverTimestamp()
-                });
-                messageInput.value = "";
-            } catch (e) {
-                console.error("Error al enviar:", e);
-                alert("Error de conexión. Verifica las reglas de Firebase.");
-            }
-        }
+            await addDoc(collection(db, "chats"), {
+                text: text,
+                remitente: userEmail,
+                destinatario: proveedorEmail,
+                timestamp: serverTimestamp()
+            });
+            messageInput.value = "";
+        };
 
-        document.getElementById('send-btn').onclick = sendMessage;
-        messageInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+        document.getElementById('send-btn').onclick = window.sendMessage;
+        messageInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') window.sendMessage(); });
     </script>
 </body>
 </html>
