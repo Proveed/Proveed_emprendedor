@@ -2,43 +2,156 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Emprendedor</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; }
-  body{ background:var(--negro); font-family:'DM Sans',sans-serif; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; }
-  body::before{ content:''; position:fixed; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 0%, rgba(168,230,61,0.15) 0%, transparent 70%); pointer-events:none; }
-  .logo-wrap{ display:flex; flex-direction:column; align-items:center; gap:20px; animation:emergeUp 1s cubic-bezier(0.16,1,0.3,1) both; }
-  .logo-hex{ width:100px; height:100px; animation:pulse 3s ease-in-out infinite 1.2s; }
-  .brand{ font-family:'Syne',sans-serif; font-size:3rem; font-weight:900; letter-spacing:-2px; color:var(--blanco); }
+  :root{
+    --verde:#A8E63D;
+    --naranja:#FF8C00;
+    --negro:#111111;
+    --blanco:#FFFFFF;
+  }
+  html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+  }
+  body{
+    background:var(--negro);
+    font-family:'DM Sans',sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100svh;
+    padding:24px;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(168,230,61,0.13) 0%, transparent 65%);
+    pointer-events:none;
+  }
+
+  .wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:clamp(12px, 3vw, 24px);
+    width:100%;
+    max-width:360px;
+    animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* LOGO HEX */
+  .logo-hex{
+    width:clamp(72px, 20vw, 110px);
+    height:clamp(72px, 20vw, 110px);
+    animation:pulse 3s ease-in-out infinite 1.4s;
+    flex-shrink:0;
+  }
+  .logo-hex svg{ width:100%; height:100%; }
+
+  /* MARCA */
+  .brand-block{ text-align:center; }
+  .brand{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(2rem, 10vw, 3.2rem);
+    font-weight:900;
+    letter-spacing:-2px;
+    color:var(--blanco);
+    line-height:1;
+  }
   .brand span{ color:var(--verde); }
-  .tagline{ font-size:0.82rem; color:#666; letter-spacing:3px; text-transform:uppercase; margin-top:-10px; }
-  .loader-track{ width:160px; height:3px; background:rgba(255,255,255,0.08); border-radius:3px; margin-top:48px; overflow:hidden; }
-  .loader-bar{ height:100%; width:0%; background:linear-gradient(90deg,var(--verde),var(--naranja)); border-radius:3px; animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.8s; }
-  .status{ font-size:0.7rem; color:#444; margin-top:14px; letter-spacing:1px; }
-  @keyframes emergeUp{ from{opacity:0;transform:translateY(40px);} to{opacity:1;transform:translateY(0);} }
-  @keyframes pulse{ 0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));} 50%{filter:drop-shadow(0 0 24px rgba(168,230,61,0.5));} }
-  @keyframes loadFill{ 0%{width:0%;} 60%{width:70%;} 80%{width:88%;} 100%{width:100%;} }
+  .tagline{
+    font-size:clamp(0.6rem, 2.5vw, 0.78rem);
+    color:#555;
+    letter-spacing:clamp(1px, 0.5vw, 3px);
+    text-transform:uppercase;
+    margin-top:6px;
+    font-weight:400;
+  }
+
+  /* LOADER */
+  .loader-wrap{
+    width:100%;
+    max-width:180px;
+    margin-top:clamp(24px, 6vw, 48px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+  }
+  .loader-track{
+    width:100%;
+    height:3px;
+    background:rgba(255,255,255,0.07);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .loader-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--verde), var(--naranja));
+    border-radius:3px;
+    animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.6s;
+  }
+  .status{
+    font-size:clamp(0.62rem, 2vw, 0.72rem);
+    color:#444;
+    letter-spacing:1px;
+    text-align:center;
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(32px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes pulse{
+    0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));}
+    50%{filter:drop-shadow(0 0 22px rgba(168,230,61,0.5));}
+  }
+  @keyframes loadFill{
+    0%{width:0%;}
+    60%{width:70%;}
+    85%{width:88%;}
+    100%{width:100%;}
+  }
 </style>
 </head>
 <body>
-<div class="logo-wrap">
+
+<div class="wrap">
   <div class="logo-hex">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A8E63D"/><stop offset="100%" style="stop-color:#7BC820"/></linearGradient></defs>
+      <defs>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#A8E63D"/>
+          <stop offset="100%" style="stop-color:#7BC820"/>
+        </linearGradient>
+      </defs>
       <path d="M50 4 L93 28 V72 L50 96 L7 72 V28 Z" fill="url(#g1)"/>
       <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
   </div>
-  <div>
+
+  <div class="brand-block">
     <div class="brand">PRO<span>VEED</span></div>
     <div class="tagline">Mercado Mayorista Ecuador</div>
   </div>
+
+  <div class="loader-wrap">
+    <div class="loader-track">
+      <div class="loader-bar"></div>
+    </div>
+    <div class="status">Conectando con proveedores...</div>
+  </div>
 </div>
-<div class="loader-track"><div class="loader-bar"></div></div>
-<div class="status">Conectando con proveedores...</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
