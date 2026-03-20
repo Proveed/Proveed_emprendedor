@@ -3,69 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROVEED — Detalle Real</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>Detalle Profesional — PROVEED</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --verde: #32D74B; --negro: #000; }
-        body { background: #fff; margin: 0; font-family: 'DM Sans', sans-serif; color: var(--negro); }
+        :root { --verde: #32D74B; --negro: #000; --gris-claro: #f4f4f4; --borde: #eeeeee; }
+        body { background: #fff; margin: 0; font-family: 'DM Sans', sans-serif; color: var(--negro); padding-bottom: 120px; }
         
-        /* HEADER LIMPIO */
-        header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; background: white; position: sticky; top: 0; z-index: 10; }
+        /* HEADER */
+        header { padding: 15px 20px; border-bottom: 1px solid var(--borde); display: flex; align-items: center; background: white; position: sticky; top: 0; z-index: 100; }
         .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding-right: 15px; }
 
-        /* CONTENEDOR DE IMAGEN */
-        .img-box { width: 100%; height: 350px; background: #fdfdfd; display: flex; align-items: center; justify-content: center; }
-        #p-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        /* GALERÍA */
+        .main-img { width: 100%; height: 380px; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--borde); }
+        .main-img img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
-        /* INFORMACIÓN DINÁMICA */
-        .main-info { padding: 25px 20px; }
-        .price { font-size: 2.5rem; font-weight: 800; margin: 0; letter-spacing: -2px; }
-        .title { font-family: 'Syne'; font-size: 1.2rem; margin: 10px 0 25px; text-transform: uppercase; }
+        .container { padding: 20px; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .price { font-size: 2.5rem; font-weight: 700; letter-spacing: -2px; }
+        .title { font-family: 'Syne'; font-size: 1.4rem; text-transform: uppercase; margin: 0 0 20px 0; line-height: 1.2; }
 
-        /* CUADRO PROVEEDOR - TODO VIENE DE LA BD */
-        .provider-row { border: 1px solid #eee; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 50px; height: 50px; background: var(--negro); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 1.2rem; }
-        .p-details h4 { margin: 0; font-size: 0.9rem; text-transform: uppercase; }
-        .p-details p { margin: 3px 0 0; font-size: 0.7rem; color: var(--verde); font-weight: 700; }
+        /* SELECTOR DE UNIDADES */
+        .section-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; color: #666; display: block; }
+        .qty-selector { display: flex; align-items: center; gap: 20px; background: var(--gris-claro); padding: 10px 20px; border-radius: 15px; width: fit-content; margin-bottom: 25px; }
+        .qty-btn { background: none; border: none; font-size: 1.5rem; font-weight: 700; cursor: pointer; width: 30px; }
+        #qty-val { font-weight: 700; font-size: 1.2rem; min-width: 30px; text-align: center; }
 
-        /* ACCIONES INFERIORES */
-        .actions { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; padding: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 10px; box-sizing: border-box; }
-        .btn-chat { background: #f0f0f0; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
-        .btn-order { background: var(--negro); color: white; border: none; padding: 18px; border-radius: 15px; font-family: 'Syne'; font-weight: 700; cursor: pointer; }
+        /* VARIACIONES */
+        .variant-grid { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .variant-chip { padding: 10px 18px; border: 1px solid var(--borde); border-radius: 12px; font-size: 0.85rem; font-weight: 500; cursor: pointer; }
+        .variant-chip.active { background: var(--negro); color: white; border-color: var(--negro); }
 
-        /* PANTALLA DE CARGA */
-        #loader-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 0.8rem; letter-spacing: 2px; }
+        /* LOGÍSTICA */
+        .delivery-info { background: #f9f9f9; border-radius: 20px; padding: 15px; margin-bottom: 25px; border: 1px solid var(--borde); }
+        .delivery-item { display: flex; gap: 12px; align-items: center; font-size: 0.85rem; margin-bottom: 10px; }
+        .delivery-item:last-child { margin-bottom: 0; }
+
+        /* ACCIONES */
+        .footer-fixed { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid var(--borde); padding: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 12px; box-sizing: border-box; z-index: 1000; }
+        .btn-negociar { background: #fff; border: 1px solid var(--negro); border-radius: 15px; font-weight: 700; height: 60px; cursor: pointer; }
+        .btn-add { background: var(--negro); color: white; border: none; border-radius: 15px; font-family: 'Syne'; font-weight: 700; height: 60px; cursor: pointer; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <div id="loader-screen">CARGANDO DATOS REALES...</div>
-
     <header>
         <button class="back-btn" onclick="location.href='dashboard.html'">←</button>
-        <div style="font-family: 'Syne'; font-size: 0.8rem; font-weight: 800;">VERIFICACIÓN PROVEED</div>
+        <div style="font-family: 'Syne'; font-size: 0.8rem; font-weight: 800;">DETALLES DE IMPORTACIÓN</div>
     </header>
 
-    <div class="img-box">
-        <img id="p-img" src="" alt="">
+    <div class="main-img">
+        <img id="p-img" src="" alt="Cargando...">
     </div>
 
-    <div class="main-info">
-        <h1 id="p-price" class="price"></h1>
-        <h2 id="p-title" class="title"></h2>
+    <div class="container">
+        <div class="price-row">
+            <span id="p-price" class="price">$0.00</span>
+            <div id="p-min-tag" style="background: #e8fdf0; color: #15803d; font-size: 0.65rem; padding: 4px 8px; border-radius: 5px; font-weight: 700;">MIN. 1 UDS</div>
+        </div>
+        <h1 id="p-title" class="title">...</h1>
 
-        <div class="provider-row">
-            <div id="p-avatar" class="avatar">?</div>
-            <div class="p-details">
-                <h4 id="p-prov-name"></h4>
-                <p>● PROVEEDOR VERIFICADO</p>
+        <span class="section-title">Selecciona Unidades</span>
+        <div class="qty-selector">
+            <button class="qty-btn" onclick="updateQty(-1)">-</button>
+            <span id="qty-val">1</span>
+            <button class="qty-btn" onclick="updateQty(1)">+</button>
+        </div>
+
+        <span class="section-title">Variaciones Disponibles</span>
+        <div id="variant-container" class="variant-grid">
+            </div>
+
+        <span class="section-title">Logística y Garantía</span>
+        <div class="delivery-info">
+            <div class="delivery-item">
+                <span>🚚</span>
+                <div>
+                    <b id="p-delivery-time">Cargando tiempo...</b><br>
+                    <small style="color: #666;">Envío directo a tu provincia por Servientrega o Cooperativa.</small>
+                </div>
+            </div>
+            <div class="delivery-item">
+                <span>🛡️</span>
+                <div>
+                    <b>Protección PROVEED SEG</b><br>
+                    <small style="color: #666;">Tu dinero se libera al proveedor tras confirmar recepción.</small>
+                </div>
             </div>
         </div>
+
+        <span class="section-title">Ficha Técnica</span>
+        <p id="p-desc" style="font-size: 0.9rem; line-height: 1.6; color: #444; margin-bottom: 30px;">
+            Cargando especificaciones técnicas del proveedor...
+        </p>
     </div>
 
-    <div class="actions">
-        <button class="btn-chat" onclick="location.href='messenger.html'">CHAT</button>
-        <button class="btn-order">AÑADIR AL PEDIDO</button>
+    <div class="footer-fixed">
+        <button class="btn-negociar" onclick="location.href='messenger.html'">NEGOCIAR</button>
+        <button class="btn-add" onclick="confirmarPedido()">AÑADIR AL PEDIDO</button>
     </div>
 
     <script type="module">
@@ -76,47 +110,61 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // LEER IDs DESDE EL DASHBOARD
-        const productID = localStorage.getItem('lastSelectedProdID');
-        const provNombreReal = localStorage.getItem('currentProveedorNombre');
+        const prodID = localStorage.getItem('lastSelectedProdID');
+        let minUnits = 1;
+        let currentQty = 1;
 
-        async function cargarPagina() {
-            if (!productID) {
-                alert("Selecciona un producto real.");
-                location.href = 'dashboard.html';
-                return;
-            }
+        async function init() {
+            if (!prodID) return location.href = 'dashboard.html';
 
-            try {
-                // CONSULTA A TU COLECCIÓN 'productos'
-                const snap = await getDoc(doc(db, "productos", productID));
+            const snap = await getDoc(doc(db, "productos", prodID));
+            if (snap.exists()) {
+                const p = snap.data();
+                
+                // DATOS BÁSICOS
+                document.getElementById('p-img').src = p.imagen || p.imageUrl;
+                document.getElementById('p-price').innerText = `$${p.precio}`;
+                document.getElementById('p-title').innerText = p.titulo || p.nombre;
+                document.getElementById('p-desc').innerText = p.descripcion || "Sin descripción técnica disponible.";
+                
+                // MINIMO Y CANTIDAD
+                minUnits = p.minimo || 1;
+                currentQty = minUnits;
+                document.getElementById('qty-val').innerText = currentQty;
+                document.getElementById('p-min-tag').innerText = `MÍNIMO: ${minUnits} UDS`;
 
-                if (snap.exists()) {
-                    const data = snap.data();
-                    
-                    // INYECTAR SOLO DATOS DE TU BASE DE DATOS
-                    document.getElementById('p-img').src = data.imagen || data.imageUrl;
-                    document.getElementById('p-price').innerText = `$${data.precio || data.price}`;
-                    document.getElementById('p-title').innerText = data.titulo || data.nombre;
-                    
-                    // USAR EL NOMBRE QUE VIENE DE TU COLECCIÓN USUARIOS (PASADO POR EL DASHBOARD)
-                    const nombreFinal = provNombreReal || "Proveedor Oficial";
-                    document.getElementById('p-prov-name').innerText = nombreFinal;
-                    document.getElementById('p-avatar').innerText = nombreFinal.charAt(0).toUpperCase();
+                // LOGÍSTICA
+                document.getElementById('p-delivery-time').innerText = p.tiempoEntrega || "Entrega en 24h - 48h";
 
-                    // QUITAR CARGADOR
-                    document.getElementById('loader-screen').style.display = 'none';
-                } else {
-                    alert("Este producto no existe en tu base de datos.");
-                    location.href = 'dashboard.html';
-                }
-            } catch (e) {
-                console.error(e);
-                location.href = 'dashboard.html';
+                // VARIACIONES (Colores o Tallas desde Array en BD)
+                const container = document.getElementById('variant-container');
+                const variantes = p.variaciones || ["Única"];
+                variantes.forEach(v => {
+                    const chip = document.createElement('div');
+                    chip.className = 'variant-chip';
+                    chip.innerText = v;
+                    chip.onclick = () => {
+                        document.querySelectorAll('.variant-chip').forEach(c => c.classList.remove('active'));
+                        chip.classList.add('active');
+                    };
+                    container.appendChild(chip);
+                });
+                if(container.firstChild) container.firstChild.classList.add('active');
+
             }
         }
 
-        cargarPagina();
+        window.updateQty = (val) => {
+            currentQty += val;
+            if (currentQty < minUnits) currentQty = minUnits;
+            document.getElementById('qty-val').innerText = currentQty;
+        }
+
+        window.confirmarPedido = () => {
+            alert(`Añadido: ${currentQty} unidades. Total: $${currentQty * parseFloat(document.getElementById('p-price').innerText.replace('$',''))}`);
+        }
+
+        init();
     </script>
 </body>
 </html>
