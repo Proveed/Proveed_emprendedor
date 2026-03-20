@@ -10,40 +10,24 @@
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
   body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:80px; -webkit-font-smoothing:antialiased; }
 
-  /* HEADER */
   .header{ background:var(--negro); padding:44px 20px 16px; position:sticky; top:0; z-index:100; }
   .header-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .logo-row{ display:flex; align-items:center; gap:8px; }
   .logo-row svg{ width:28px; height:28px; }
   .logo-text{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:900; color:white; letter-spacing:-0.5px; }
   .logo-text span{ color:var(--verde); }
-  .header-icons{ display:flex; gap:12px; align-items:center; }
+  .header-icons{ display:flex; gap:10px; align-items:center; }
   .h-icon{ position:relative; cursor:pointer; width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; }
   .h-icon svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2; }
   .badge{ position:absolute; top:-4px; right:-4px; background:var(--rojo); color:white; font-size:0.55rem; font-weight:800; padding:2px 5px; border-radius:8px; border:2px solid var(--negro); display:none; }
-
-  /* SEARCH BAR */
-  .search-bar{
-    background:rgba(255,255,255,0.08);
-    border-radius:12px; padding:11px 14px;
-    display:flex; align-items:center; gap:10px;
-    cursor:pointer;
-  }
+  .search-bar{ background:rgba(255,255,255,0.08); border-radius:12px; padding:11px 14px; display:flex; align-items:center; gap:10px; cursor:pointer; }
   .search-bar svg{ width:16px; height:16px; stroke:#888; fill:none; stroke-width:2.5; flex-shrink:0; }
   .search-bar span{ font-size:0.88rem; color:#666; }
 
-  /* BANNER HERO */
-  .banner{
-    margin:14px 16px;
-    background:linear-gradient(135deg, var(--negro) 0%, #1a2a0a 100%);
-    border-radius:20px; padding:22px 20px;
-    position:relative; overflow:hidden;
-  }
-  .banner::before{
-    content:''; position:absolute; right:-20px; top:-20px;
-    width:140px; height:140px;
-    background:radial-gradient(circle, rgba(168,230,61,0.2) 0%, transparent 70%);
-  }
+  /* BANNER */
+  .banner{ margin:14px 16px; background:linear-gradient(135deg, var(--negro) 0%, #1a2a0a 100%); border-radius:20px; padding:22px 20px; position:relative; overflow:hidden; }
+  .banner::before{ content:''; position:absolute; right:-20px; top:-20px; width:140px; height:140px; background:radial-gradient(circle, rgba(168,230,61,0.2) 0%, transparent 70%); }
+  .banner::after{ content:''; position:absolute; right:20px; bottom:-30px; width:100px; height:100px; background:radial-gradient(circle, rgba(255,140,0,0.15) 0%, transparent 70%); }
   .banner-tag{ background:var(--verde); color:var(--negro); font-size:0.62rem; font-weight:800; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
   .banner-title{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:900; color:white; line-height:1.2; margin-bottom:6px; }
   .banner-sub{ font-size:0.78rem; color:#888; margin-bottom:16px; }
@@ -53,26 +37,16 @@
   .section-head{ display:flex; justify-content:space-between; align-items:center; padding:18px 16px 10px; }
   .section-head h3{ font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--negro); }
   .section-head a{ font-size:0.8rem; color:var(--naranja); text-decoration:none; font-weight:600; }
-
   .cats-scroll{ display:flex; gap:10px; padding:0 16px 4px; overflow-x:auto; scrollbar-width:none; }
   .cats-scroll::-webkit-scrollbar{ display:none; }
-  .cat-chip{
-    display:flex; flex-direction:column; align-items:center; gap:6px;
-    cursor:pointer; flex-shrink:0; min-width:64px;
-  }
-  .cat-icon{
-    width:56px; height:56px; border-radius:16px;
-    background:white; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:0.2s;
-    border:2px solid transparent;
-  }
+  .cat-chip{ display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; flex-shrink:0; min-width:64px; }
+  .cat-icon{ width:56px; height:56px; border-radius:16px; background:white; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:0.2s; border:2px solid transparent; }
   .cat-chip.active .cat-icon{ border-color:var(--verde); background:rgba(168,230,61,0.1); }
   .cat-icon svg{ width:24px; height:24px; stroke:var(--negro); fill:none; stroke-width:2; }
-  .cat-chip.active .cat-icon svg{ stroke:var(--negro); }
   .cat-label{ font-size:0.62rem; font-weight:600; color:#888; text-align:center; }
   .cat-chip.active .cat-label{ color:var(--negro); font-weight:700; }
 
-  /* PRODUCTOS GRID estilo Alibaba */
+  /* PRODUCTOS */
   .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:8px 16px; }
   .prod-card{ background:white; border-radius:16px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
   .prod-card:active{ transform:scale(0.97); }
@@ -80,6 +54,7 @@
   .prod-img img{ width:100%; height:100%; object-fit:cover; }
   .prod-img .no-img{ width:44px; height:44px; stroke:#ddd; fill:none; stroke-width:1.5; }
   .prod-badge{ position:absolute; top:8px; left:8px; background:var(--naranja); color:white; font-size:0.58rem; font-weight:800; padding:3px 8px; border-radius:6px; text-transform:uppercase; }
+  .video-badge{ position:absolute; top:8px; right:8px; background:rgba(168,230,61,0.9); color:var(--negro); font-size:0.56rem; font-weight:800; padding:2px 7px; border-radius:6px; }
   .prod-body{ padding:10px 12px 12px; }
   .prod-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); line-height:1.3; margin-bottom:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
   .prod-proveedor{ font-size:0.68rem; color:#bbb; margin-bottom:6px; }
@@ -98,16 +73,14 @@
   .skel-line{ height:10px; margin:12px 12px 6px; border-radius:6px; }
   .skel-line.s{ width:55%; height:8px; margin:0 12px 12px; }
 
-  /* TOAST */
   .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:11px 20px; border-radius:28px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
-  /* TAB BAR */
   .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
   .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; transition:0.2s; }
   .tab.active{ color:var(--negro); }
   .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
-  .tab span{ font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+  .tab span{ font-size:0.56rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
   .tab-dot{ width:5px; height:5px; background:var(--verde); border-radius:50%; margin-top:-2px; display:none; }
   .tab.active .tab-dot{ display:block; }
 </style>
@@ -131,20 +104,19 @@
       </div>
       <div class="h-icon" onclick="window.location.href='carrito.html'" style="position:relative;">
         <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <div class="badge" id="badge-cart" style="display:none;">0</div>
+        <div class="badge" id="badge-cart">0</div>
       </div>
       <div class="h-icon" onclick="window.location.href='perfil.html'">
         <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </div>
     </div>
   </div>
-  <div class="search-bar" onclick="window.location.href='explorar.html'">
+  <div class="search-bar" onclick="window.location.href='busqueda.html'">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <span>Buscar productos, proveedores...</span>
   </div>
 </header>
 
-<!-- BANNER HERO -->
 <div class="banner">
   <div class="banner-tag">🔥 Ofertas mayoristas</div>
   <div class="banner-title">Los mejores proveedores<br>del Ecuador en un solo lugar</div>
@@ -152,7 +124,6 @@
   <button class="banner-btn" onclick="window.location.href='explorar.html'">Explorar ahora →</button>
 </div>
 
-<!-- CATEGORÍAS -->
 <div class="section-head">
   <h3>Categorías</h3>
   <a href="explorar.html">Ver todo</a>
@@ -192,7 +163,6 @@
   </div>
 </div>
 
-<!-- PRODUCTOS -->
 <div class="section-head" style="padding-top:16px;">
   <h3 id="grid-title">Destacados</h3>
   <a href="explorar.html">Ver más</a>
@@ -207,32 +177,17 @@
 <div class="toast" id="toast"></div>
 
 <nav class="tab-bar">
-  <a class="tab active" href="dashboard.html">
-    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Inicio</span><div class="tab-dot"></div>
-  </a>
-  <a class="tab" href="explorar.html">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <span>Explorar</span><div class="tab-dot"></div>
-  </a>
-  <a class="tab" href="chat.html">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>Chat</span><div class="tab-dot"></div>
-  </a>
-  <a class="tab" href="carrito.html">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-    <span>Carrito</span><div class="tab-dot"></div>
-  </a>
-  <a class="tab" href="perfil.html">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Perfil</span><div class="tab-dot"></div>
-  </a>
+  <a class="tab active" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
+  <a class="tab" href="chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span><div class="tab-dot"></div></a>
+  <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
+  <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span><div class="tab-dot"></div></a>
 </nav>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const app=initializeApp({
   apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
@@ -245,8 +200,7 @@ const app=initializeApp({
 const auth=getAuth(app);
 const db=getFirestore(app);
 let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-let todosProds=[];
-let catActiva='todos';
+let todosProds=[], catActiva='todos';
 
 onAuthStateChanged(auth,async(user)=>{
   if(!user){window.location.href='login.html';return;}
@@ -281,10 +235,12 @@ function renderGrid(lista){
     const img=p.imagenes?.[0]||p.imagen||'';
     const div=document.createElement('div');
     div.className='prod-card';
+    div.onclick=()=>window.location.href=`producto.html?id=${p.id}`;
     div.innerHTML=`
       <div class="prod-img">
         ${img?`<img src="${img}" alt="${p.nombre||''}" loading="lazy">`:`<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
         ${p.categoria?`<div class="prod-badge">${p.categoria}</div>`:''}
+        ${p.videoURL?`<div class="video-badge">▶</div>`:''}
       </div>
       <div class="prod-body">
         <div class="prod-nombre">${p.nombre||'Producto'}</div>
@@ -330,7 +286,7 @@ function actualizarBadgeCart(){
   carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
   const total=carrito.reduce((s,i)=>s+i.cantidad,0);
   const badge=document.getElementById('badge-cart');
-  if(total>0){ badge.textContent=total; badge.style.display='block'; }
+  if(total>0){badge.textContent=total;badge.style.display='block';}
   else badge.style.display='none';
 }
 </script>
