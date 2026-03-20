@@ -3,109 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROVEED — Comunidad</title>
+    <title>Comunidad — PROVEED</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: white; padding-bottom: 110px; }
+        body { background: white; padding-bottom: 110px; margin: 0; }
         
-        .social-post {
-            background: white; border-bottom: 8px solid #f8f9fa;
-            margin-bottom: 5px;
+        /* HEADER */
+        .header-social {
+            padding: 20px; display: flex; justify-content: space-between; 
+            align-items: center; border-bottom: 1px solid #eee;
+            position: sticky; top: 0; background: white; z-index: 100;
         }
-        
-        /* HEADER DEL POST */
-        .post-header { display: flex; align-items: center; padding: 15px; justify-content: space-between; }
-        .provider-info { display: flex; align-items: center; gap: 10px; }
-        .provider-img { width: 35px; height: 35px; background: #eee; border-radius: 10px; object-fit: cover; }
-        .provider-name { font-weight: 800; font-size: 0.85rem; }
-        
-        /* VIDEO / IMAGEN */
-        .post-media { width: 100%; aspect-ratio: 4/5; background: #000; position: relative; overflow: hidden; }
+
+        /* POST ESTILO RED SOCIAL */
+        .post { border-bottom: 8px solid #f8f8f8; }
+        .post-user { display: flex; align-items: center; gap: 12px; padding: 15px; }
+        .user-avatar { width: 38px; height: 38px; border-radius: 12px; background: #FF6B00; object-fit: cover; }
+        .user-name { font-weight: 800; font-size: 0.9rem; }
+        .verified-dot { color: #32D74B; font-size: 0.7rem; margin-left: 4px; }
+
+        .post-media { width: 100%; aspect-ratio: 1/1; background: #000; position: relative; }
         .post-media img { width: 100%; height: 100%; object-fit: cover; }
-        .play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.9; }
 
-        /* ACCIONES SOCIALES */
-        .post-actions { display: flex; align-items: center; gap: 20px; padding: 12px 15px; }
-        .action-btn { background: none; border: none; display: flex; align-items: center; gap: 6px; cursor: pointer; color: #333; font-weight: 700; font-size: 0.8rem; }
-        .action-btn svg { width: 22px; height: 22px; stroke-width: 2; }
-
-        .post-description { padding: 0 15px 15px; font-size: 0.85rem; line-height: 1.4; color: #444; }
-        .post-description b { color: #000; }
-
-        /* Barra de Navegación */
+        /* INTERACCIÓN (ICONOS LINEALES) */
+        .post-bar { display: flex; gap: 20px; padding: 15px; align-items: center; }
+        .action-icon { background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.85rem; }
+        
+        /* NAVEGACIÓN INFERIOR (ICONOS CORREGIDOS) */
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; padding: 12px 0 28px; border-top: 1px solid #eee; justify-content: space-around; z-index: 1000; }
-        .nav-item { text-align: center; flex: 1; text-decoration: none; color: #999; }
+        .nav-item { text-align: center; flex: 1; text-decoration: none; color: #AAA; display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .nav-item.active { color: #000; }
-        .nav-item p { font-size: 0.55rem; font-weight: 800; margin-top: 4px; }
+        .icon-pro { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-item p { font-size: 0.55rem; font-weight: 800; margin: 0; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <header style="padding: 25px 20px 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee;">
-        <h1 style="font-family: 'Syne'; font-size: 1.4rem; letter-spacing: -0.5px;">Comunidad</h1>
-        <svg class="icon-pro" viewBox="0 0 24 24" style="stroke:#000;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+    <header class="header-social">
+        <h1 style="font-family:'Syne'; font-size:1.4rem; margin:0;">Comunidad</h1>
+        <svg class="icon-pro" style="color:#000;" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
     </header>
 
     <main>
-        <article class="social-post">
-            <div class="post-header">
-                <div class="provider-info">
-                    <div class="provider-img" style="background: var(--naranja);"></div>
-                    <div>
-                        <p class="provider-name">Global Smart China <span style="color:var(--verde-check); font-size:12px;">●</span></p>
-                        <p style="font-size: 0.65rem; color: #999;">Proveedor Verificado</p>
-                    </div>
+        <article class="post">
+            <div class="post-user">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?fit=crop&w=100" class="user-avatar">
+                <div>
+                    <div class="user-name">Global Smart China <span class="verified-dot">●</span></div>
+                    <div style="font-size:0.7rem; color:#999;">Proveedor Verificado</div>
                 </div>
-                <svg class="icon-pro" style="width:16px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
             </div>
 
             <div class="post-media">
-                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800">
-                <div class="play-overlay">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="white" style="opacity: 0.8;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?fit=crop&w=800">
+                <div class="play-btn">
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
             </div>
 
-            <div class="post-actions">
-                <button class="action-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    245
+            <div class="post-bar">
+                <button class="action-icon">
+                    <svg class="icon-pro" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <span>245</span>
                 </button>
-                <button class="action-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"></path></svg>
-                    12
-                </button>
-                <button class="action-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                <button class="action-icon">
+                    <svg class="icon-pro" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"></path></svg>
+                    <span>12</span>
                 </button>
             </div>
 
-            <div class="post-description">
-                <p><b>Global Smart China</b> Cómo empaquetamos tus pedidos para que lleguen seguros a Esmeraldas. ¡Protección total! 📦✈️</p>
+            <div style="padding: 0 15px 15px; font-size: 0.85rem; line-height: 1.4;">
+                <b>Global Smart China</b> Cómo protegemos tus envíos para que lleguen intactos a Esmeraldas. #ProveedSeg 🇪🇨
             </div>
         </article>
     </main>
 
     <nav class="nav-bar">
         <a href="dashboard.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             <p>Inicio</p>
         </a>
         <a href="tips.html" class="nav-item active">
-            <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
             <p>Tips</p>
         </a>
         <a href="messenger.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"></path></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"></path></svg>
             <p>Chats</p>
         </a>
         <a href="carrito.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             <p>Pedidos</p>
         </a>
         <a href="perfil.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             <p>Perfil</p>
         </a>
     </nav>
