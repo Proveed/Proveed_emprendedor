@@ -8,14 +8,16 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; }
-  html,body{ width:100%; height:100%; overflow:hidden; }
+  html{ height:100%; }
   body{
     background:var(--negro);
     font-family:'DM Sans',sans-serif;
+    height:100vh;
+    width:100vw;
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
-    min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
   body::before{
@@ -26,43 +28,47 @@
     pointer-events:none;
   }
   .wrap{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:14px;
-    padding:24px;
+    justify-content:center;
+    gap:12px;
     animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
   }
   .logo-hex{
-    width:72px;
-    height:72px;
+    width:70px;
+    height:70px;
     animation:pulse 3s ease-in-out infinite 1.4s;
   }
-  .logo-hex svg{ width:100%; height:100%; }
+  .logo-hex svg{ width:100%; height:100%; display:block; }
   .brand{
     font-family:'Syne',sans-serif;
-    font-size:1.9rem;
+    font-size:1.8rem;
     font-weight:800;
     color:white;
     letter-spacing:-0.5px;
     line-height:1;
-    text-align:center;
+    white-space:nowrap;
   }
   .brand span{ color:var(--verde); }
   .tagline{
-    font-size:0.62rem;
+    font-size:0.6rem;
     color:#555;
-    letter-spacing:2px;
+    letter-spacing:2.5px;
     text-transform:uppercase;
-    text-align:center;
+    white-space:nowrap;
   }
   .loader-track{
-    width:120px;
+    width:110px;
     height:2px;
     background:rgba(255,255,255,0.08);
     border-radius:2px;
     overflow:hidden;
-    margin-top:32px;
+    margin-top:28px;
   }
   .loader-bar{
     height:100%;
@@ -72,15 +78,15 @@
     animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.6s;
   }
   .status{
-    font-size:0.65rem;
+    font-size:0.62rem;
     color:#444;
     letter-spacing:1px;
-    margin-top:10px;
-    text-align:center;
+    margin-top:8px;
+    white-space:nowrap;
   }
   @keyframes fadeUp{
-    from{opacity:0;transform:translateY(24px);}
-    to{opacity:1;transform:translateY(0);}
+    from{opacity:0;transform:translate(-50%,calc(-50% + 24px));}
+    to{opacity:1;transform:translate(-50%,-50%);}
   }
   @keyframes pulse{
     0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));}
