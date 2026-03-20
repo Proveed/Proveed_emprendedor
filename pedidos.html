@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED — Mis Pedidos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; --azul:#007AFF; }
+  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
+
+  .header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
+  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .header-title{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:white; }
+
+  /* STATS */
+  .stats-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:14px 16px 0; }
+  .stat-box{ background:white; border-radius:16px; padding:14px 10px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .stat-val{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:900; }
+  .stat-val.naranja{ color:var(--naranja); }
+  .stat-val.verde{ color:var(--verde); }
+  .stat-val.negro{ color:var(--negro); }
+  .stat-lbl{ font-size:0.6rem; color:#bbb; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-top:3px; }
+
+  /* TABS */
+  .tabs{ display:flex; gap:8px; padding:14px 16px 4px; overflow-x:auto; scrollbar-width:none; }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .vtab{ padding:8px 16px; border-radius:20px; white-space:nowrap; border:1.5px solid #e0e0e0; background:white; font-size:0.78rem; font-weight:600; color:#888; cursor:pointer; transition:0.2s; }
+  .vtab.active{ background:var(--negro); color:white; border-color:var(--negro); }
+
+  /* PEDIDO CARD */
+  .pedidos-lista{ padding:8px 16px; }
+  .pedido-card{ background:white; border-radius:20px; margin-bottom:14px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+
+  /* HEADER PEDIDO */
+  .p-header{ padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f5f5f5; }
+  .p-num{ font-family:'Syne',sans-serif; font-weight:800; font-size:0.95rem; color:var(--negro); }
+  .p-fecha{ font-size:0.7rem; color:#bbb; margin-top:2px; }
+  .estado-badge{ font-size:0.65rem; font-weight:800; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }
+  .est-pendiente{ background:rgba(0,122,255,0.1); color:var(--azul); }
+  .est-proceso{ background:rgba(255,140,0,0.1); color:var(--naranja); }
+  .est-completado{ background:rgba(168,230,61,0.15); color:#5a9a00; }
+
+  /* TIMELINE ESTADO */
+  .timeline{ display:flex; align-items:center; padding:12px 16px; background:#fafafa; border-bottom:1px solid #f5f5f5; gap:0; }
+  .tl-step{ display:flex; flex-direction:column; align-items:center; flex:1; }
+  .tl-dot{ width:24px; height:24px; border-radius:50%; background:#e0e0e0; display:flex; align-items:center; justify-content:center; margin-bottom:4px; transition:0.3s; }
+  .tl-dot.done{ background:var(--verde); }
+  .tl-dot.active{ background:var(--naranja); }
+  .tl-dot svg{ width:12px; height:12px; stroke:white; fill:none; stroke-width:3; }
+  .tl-label{ font-size:0.58rem; font-weight:600; color:#bbb; text-align:center; }
+  .tl-label.done{ color:var(--negro); }
+  .tl-line{ flex:1; height:2px; background:#e0e0e0; margin-bottom:16px; transition:0.3s; }
+  .tl-line.done{ background:var(--verde); }
+
+  /* BODY PEDIDO */
+  .p-body{ padding:14px 16px; }
+  .p-proveedor{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .p-prov-avatar{ width:36px; height:36px; border-radius:10px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; color:var(--verde); flex-shrink:0; }
+  .p-prov-nombre{ font-weight:700; font-size:0.88rem; color:var(--negro); }
+  .p-prov-sub{ font-size:0.7rem; color:#bbb; margin-top:1px; }
+
+  /* ITEMS */
+  .p-items{ background:var(--gris); border-radius:12px; padding:10px 12px; margin-bottom:12px; }
+  .p-item{ display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px solid rgba(0,0,0,0.04); }
+  .p-item:last-child{ border-bottom:none; }
+  .p-item-img{ width:40px; height:40px; border-radius:8px; background:white; overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .p-item-img img{ width:100%; height:100%; object-fit:cover; }
+  .p-item-img svg{ width:16px; height:16px; stroke:#ddd; fill:none; stroke-width:1.5; }
+  .p-item-info{ flex:1; }
+  .p-item-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); }
+  .p-item-cant{ font-size:0.7rem; color:#aaa; }
+  .p-item-precio{ font-size:0.85rem; font-weight:700; color:var(--naranja); }
+
+  /* ENTREGA */
+  .p-entrega{ display:flex; align-items:flex-start; gap:8px; font-size:0.78rem; color:#888; margin-bottom:12px; }
+  .p-entrega svg{ width:14px; height:14px; stroke:#aaa; fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
+
+  /* TOTALES */
+  .p-totales{ border-top:1px solid #f5f5f5; padding-top:10px; }
+  .p-total-row{ display:flex; justify-content:space-between; font-size:0.82rem; color:#aaa; margin-bottom:4px; }
+  .p-total-final{ display:flex; justify-content:space-between; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--negro); margin-top:8px; }
+  .p-total-final span:last-child{ color:var(--naranja); }
+
+  /* ACCIONES */
+  .p-actions{ display:flex; gap:8px; margin-top:12px; }
+  .p-btn{ flex:1; padding:11px; border-radius:12px; border:none; font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; transition:0.2s; }
+  .p-btn-chat{ background:var(--gris); color:var(--negro); display:flex; align-items:center; justify-content:center; gap:5px; }
+  .p-btn-chat svg{ width:14px; height:14px; stroke:var(--negro); fill:none; stroke-width:2.5; }
+  .p-btn-reordenar{ background:var(--negro); color:white; }
+  .p-btn-reseña{ background:rgba(168,230,61,0.1); color:var(--negro); border:1px solid rgba(168,230,61,0.3); }
+
+  .empty{ text-align:center; padding:48px 20px; color:#bbb; }
+  .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 14px; display:block; }
+  .empty p{ font-size:0.88rem; margin-bottom:16px; }
+  .btn-explorar-link{ display:inline-block; padding:12px 24px; background:var(--negro); color:white; border-radius:14px; font-family:'Syne',sans-serif; font-weight:800; font-size:0.85rem; text-decoration:none; }
+
+  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
+  .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
+  .tab.active{ color:var(--negro); }
+  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
+  .tab span{ font-size:0.58rem; font-weight:700; text-transform:uppercase; }
+  .tab-dot{ width:5px; height:5px; background:var(--verde); border-radius:50%; margin-top:-2px; display:none; }
+  .tab.active .tab-dot{ display:block; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="back-btn" onclick="window.location.href='dashboard.html'">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </div>
+  <div class="header-title">Mis Pedidos</div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-box"><div class="stat-val naranja" id="st-total">0</div><div class="stat-lbl">Total</div></div>
+  <div class="stat-box"><div class="stat-val negro" id="st-pendientes">0</div><div class="stat-lbl">Pendientes</div></div>
+  <div class="stat-box"><div class="stat-val verde" id="st-gastado">$0</div><div class="stat-lbl">Gastado</div></div>
+</div>
+
+<div class="tabs">
+  <div class="vtab active" data-estado="todos" onclick="filtrar('todos',this)">Todos</div>
+  <div class="vtab" data-estado="pendiente" onclick="filtrar('pendiente',this)">Pendientes</div>
+  <div class="vtab" data-estado="proceso" onclick="filtrar('proceso',this)">En proceso</div>
+  <div class="vtab" data-estado="completado" onclick="filtrar('completado',this)">Completados</div>
+</div>
+
+<div class="pedidos-lista" id="pedidos-lista">
+  <div class="empty">
+    <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+    <p>Cargando pedidos...</p>
+  </div>
+</div>
+
+<nav class="tab-bar">
+  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
+  <a class="tab" href="chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span><div class="tab-dot"></div></a>
+  <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
+  <a class="tab active" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span><div class="tab-dot"></div></a>
+</nav>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const app=initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+let currentUser=null, todosPedidos=[], filtroActual='todos';
+
+onAuthStateChanged(auth,async(user)=>{
+  if(!user){window.location.href='login.html';return;}
+  currentUser=user;
+  cargarPedidos();
+});
+
+async function cargarPedidos(){
+  try{
+    const snap=await getDocs(query(collection(db,'pedidos'),where('emprendedorId','==',currentUser.uid)));
+    todosPedidos=snap.docs.map(d=>({id:d.id,...d.data()}));
+    todosPedidos.sort((a,b)=>(b.creadoEn?.toMillis?.()||0)-(a.creadoEn?.toMillis?.()||0));
+    const pendientes=todosPedidos.filter(p=>p.estado==='pendiente').length;
+    const gastado=todosPedidos.reduce((s,p)=>s+(p.total||0),0);
+    document.getElementById('st-total').textContent=todosPedidos.length;
+    document.getElementById('st-pendientes').textContent=pendientes;
+    document.getElementById('st-gastado').textContent='$'+gastado.toFixed(0);
+    renderLista(todosPedidos);
+  }catch(e){
+    document.getElementById('pedidos-lista').innerHTML=`<div class="empty"><p>Error: ${e.message}</p></div>`;
+  }
+}
+
+window.filtrar=function(estado,el){
+  filtroActual=estado;
+  document.querySelectorAll('.vtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const lista=estado==='todos'?todosPedidos:todosPedidos.filter(p=>p.estado===estado);
+  renderLista(lista);
+};
+
+function renderLista(lista){
+  const cont=document.getElementById('pedidos-lista');
+  if(!lista.length){
+    cont.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><p>${filtroActual==='todos'?'No tienes pedidos aún':'Sin pedidos en este estado'}</p><a href="explorar.html" class="btn-explorar-link">Explorar productos →</a></div>`;
+    return;
+  }
+  cont.innerHTML='';
+  lista.forEach(p=>{
+    const est=p.estado||'pendiente';
+    const fecha=p.creadoEn?new Date(p.creadoEn.toDate()).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):'—';
+    const proveedores=[...new Set((p.items||[]).map(i=>i.proveedor||'Proveedor'))];
+    const prov=proveedores[0]||'Proveedor';
+    // Timeline
+    const pasos=['pendiente','proceso','completado'];
+    const idxActual=pasos.indexOf(est);
+    let timelineHTML='<div class="timeline">';
+    pasos.forEach((paso,i)=>{
+      const done=i<idxActual, active=i===idxActual;
+      timelineHTML+=`<div class="tl-step"><div class="tl-dot ${done?'done':active?'active':''}">`;
+      if(done) timelineHTML+=`<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>`;
+      else if(active) timelineHTML+=`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="white"/></svg>`;
+      timelineHTML+=`</div><span class="tl-label ${done||active?'done':''}">${paso==='pendiente'?'Recibido':paso==='proceso'?'En proceso':'Completado'}</span></div>`;
+      if(i<pasos.length-1) timelineHTML+=`<div class="tl-line ${done?'done':''}"></div>`;
+    });
+    timelineHTML+='</div>';
+    // Items
+    const items=p.items||[];
+    let itemsHTML=items.map(i=>`
+      <div class="p-item">
+        <div class="p-item-img">${i.imagen?`<img src="${i.imagen}" alt="${i.nombre}">`:`<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`}</div>
+        <div class="p-item-info"><div class="p-item-nombre">${i.nombre||'Producto'}</div><div class="p-item-cant">${i.cantidad} × $${Number(i.precio||0).toFixed(2)}</div></div>
+        <div class="p-item-precio">$${(i.cantidad*i.precio).toFixed(2)}</div>
+      </div>`).join('');
+    const div=document.createElement('div');
+    div.className='pedido-card';
+    div.innerHTML=`
+      <div class="p-header">
+        <div><div class="p-num">#PV-${p.id.slice(-6).toUpperCase()}</div><div class="p-fecha">${fecha}</div></div>
+        <div class="estado-badge est-${est}">${est}</div>
+      </div>
+      ${timelineHTML}
+      <div class="p-body">
+        <div class="p-proveedor">
+          <div class="p-prov-avatar">${prov[0].toUpperCase()}</div>
+          <div><div class="p-prov-nombre">${prov}</div><div class="p-prov-sub">${proveedores.length>1?`+${proveedores.length-1} proveedores más`:p.metodoPago||'transferencia'}</div></div>
+        </div>
+        <div class="p-items">${itemsHTML}</div>
+        <div class="p-entrega">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${p.entrega?.nombre||'—'} · ${p.entrega?.direccion||''} · ${p.entrega?.ciudad||''}
+        </div>
+        ${p.notas?`<div style="font-size:0.78rem;color:#aaa;font-style:italic;margin-bottom:10px;">"${p.notas}"</div>`:''}
+        <div class="p-totales">
+          <div class="p-total-row"><span>Subtotal</span><span>$${Number(p.total||0).toFixed(2)}</span></div>
+          <div class="p-total-row"><span>Envío</span><span>A coordinar</span></div>
+          <div class="p-total-final"><span>Total</span><span>$${Number(p.total||0).toFixed(2)}</span></div>
+        </div>
+        <div class="p-actions">
+          <button class="p-btn p-btn-chat" onclick="irChat('${prov}')">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Chat
+          </button>
+          ${est==='completado'?`<button class="p-btn p-btn-reseña" onclick="irReseña('${items[0]?.id||''}')">⭐ Reseña</button>`:''}
+          <button class="p-btn p-btn-reordenar" onclick="reordenar('${p.id}')">Repetir pedido</button>
+        </div>
+      </div>`;
+    cont.appendChild(div);
+  });
+}
+
+window.irChat=function(proveedor){
+  window.location.href=`chat.html`;
+};
+
+window.irReseña=function(prodId){
+  if(prodId) window.location.href=`producto.html?id=${prodId}`;
+};
+
+window.reordenar=function(pedidoId){
+  const p=todosPedidos.find(p=>p.id===pedidoId);
+  if(!p) return;
+  let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  (p.items||[]).forEach(item=>{
+    const idx=carrito.findIndex(i=>i.id===item.id);
+    if(idx>=0) carrito[idx].cantidad+=item.cantidad;
+    else carrito.push({...item});
+  });
+  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
+  window.location.href='carrito.html';
+};
+</script>
+</body>
+</html>
