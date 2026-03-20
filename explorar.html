@@ -9,31 +9,22 @@
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; }
   body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:80px; -webkit-font-smoothing:antialiased; }
-
-  /* HEADER */
   .header{ background:var(--negro); padding:44px 16px 14px; position:sticky; top:0; z-index:100; }
   .header-top{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
   .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
   .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .search-wrap{ flex:1; background:rgba(255,255,255,0.1); border-radius:12px; padding:10px 14px; display:flex; align-items:center; gap:8px; }
+  .search-wrap{ flex:1; background:rgba(255,255,255,0.1); border-radius:12px; padding:10px 14px; display:flex; align-items:center; gap:8px; cursor:pointer; }
   .search-wrap input{ flex:1; background:transparent; border:none; outline:none; color:white; font-family:'DM Sans',sans-serif; font-size:0.9rem; }
   .search-wrap input::placeholder{ color:#666; }
   .search-wrap svg{ width:16px; height:16px; stroke:#666; fill:none; stroke-width:2.5; flex-shrink:0; }
-
-  /* FILTROS */
   .filtros{ display:flex; gap:8px; padding:12px 16px; overflow-x:auto; scrollbar-width:none; }
   .filtros::-webkit-scrollbar{ display:none; }
   .filtro{ padding:7px 14px; border-radius:20px; white-space:nowrap; border:1.5px solid #e8e8e8; background:white; font-size:0.76rem; font-weight:600; color:#888; cursor:pointer; transition:0.2s; }
   .filtro.active{ background:var(--negro); color:white; border-color:var(--negro); }
-
-  /* ORDEN BAR */
   .orden-bar{ display:flex; justify-content:space-between; align-items:center; padding:0 16px 10px; }
   .orden-count{ font-size:0.78rem; color:#aaa; font-weight:500; }
   .orden-select{ border:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:700; color:var(--naranja); outline:none; cursor:pointer; }
-
-  /* GRID ESTILO ALIBABA */
   .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:0 16px; }
-
   .prod-card{ background:white; border-radius:16px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
   .prod-card:active{ transform:scale(0.97); }
   .prod-img{ width:100%; height:160px; background:#f5f5f5; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
@@ -41,7 +32,6 @@
   .no-img{ width:44px; height:44px; stroke:#ddd; fill:none; stroke-width:1.5; }
   .cat-tag{ position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.5); color:white; font-size:0.56rem; font-weight:700; padding:2px 7px; border-radius:6px; text-transform:uppercase; }
   .video-tag{ position:absolute; top:8px; right:8px; background:rgba(168,230,61,0.9); color:var(--negro); font-size:0.56rem; font-weight:800; padding:2px 7px; border-radius:6px; }
-
   .prod-body{ padding:10px 12px 12px; }
   .prod-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); line-height:1.3; margin-bottom:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; height:2.4em; }
   .prod-empresa{ font-size:0.68rem; color:#bbb; margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -51,22 +41,17 @@
   .add-btn{ width:30px; height:30px; border-radius:9px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
   .add-btn:active{ transform:scale(0.85); }
   .add-btn svg{ width:15px; height:15px; stroke:white; fill:none; stroke-width:2.5; }
-
-  /* SKELETON */
   .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
   @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
   .skel-c{ background:white; border-radius:16px; overflow:hidden; }
   .skel-img{ height:160px; }
   .skel-l{ height:10px; margin:12px 12px 6px; border-radius:6px; }
   .skel-l.s{ width:55%; height:8px; margin:0 12px 12px; }
-
   .empty{ grid-column:1/-1; text-align:center; padding:48px 20px; color:#bbb; }
   .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 12px; display:block; }
   .empty p{ font-size:0.88rem; }
-
   .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:11px 20px; border-radius:28px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
   .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
   .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
   .tab.active{ color:var(--negro); }
@@ -83,9 +68,9 @@
     <div class="back-btn" onclick="window.location.href='dashboard.html'">
       <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     </div>
-    <div class="search-wrap">
+    <div class="search-wrap" onclick="window.location.href='busqueda.html'">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="search-input" placeholder="Buscar productos, marcas..." autocomplete="off">
+      <input type="text" placeholder="Buscar productos, marcas..." readonly>
     </div>
   </div>
 </header>
@@ -144,7 +129,7 @@ const app=initializeApp({
 });
 const auth=getAuth(app);
 const db=getFirestore(app);
-let catActiva='todos', busqueda='', todosProductos=[];
+let catActiva='todos',todosProductos=[];
 
 onAuthStateChanged(auth,user=>{
   if(!user){window.location.href='login.html';return;}
@@ -158,11 +143,6 @@ document.querySelectorAll('.filtro').forEach(f=>{
     catActiva=f.dataset.cat;
     renderizar();
   });
-});
-
-document.getElementById('search-input').addEventListener('input',e=>{
-  busqueda=e.target.value.toLowerCase().trim();
-  renderizar();
 });
 
 window.renderizar=renderizar;
@@ -186,17 +166,12 @@ function renderizar(){
   const orden=document.getElementById('orden-select').value;
   let lista=[...todosProductos];
   if(catActiva!=='todos') lista=lista.filter(p=>p.categoria===catActiva);
-  if(busqueda) lista=lista.filter(p=>
-    (p.nombre||'').toLowerCase().includes(busqueda)||
-    (p.nombreProveedor||'').toLowerCase().includes(busqueda)||
-    (p.descripcion||'').toLowerCase().includes(busqueda)
-  );
   if(orden==='precio-asc') lista.sort((a,b)=>(a.precio||0)-(b.precio||0));
   if(orden==='precio-desc') lista.sort((a,b)=>(b.precio||0)-(a.precio||0));
   document.getElementById('total-count').textContent=`${lista.length} producto${lista.length!==1?'s':''}`;
   const grid=document.getElementById('grid');
   if(!lista.length){
-    grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><p>${busqueda?'Sin resultados para "'+busqueda+'"':'Sin productos en esta categoría'}</p></div>`;
+    grid.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><p>Sin productos en esta categoría</p></div>`;
     return;
   }
   grid.innerHTML='';
@@ -207,6 +182,7 @@ function tarjeta(p){
   const div=document.createElement('div');
   div.className='prod-card';
   const img=p.imagenes?.[0]||p.imagen||'';
+  div.onclick=()=>window.location.href=`producto.html?id=${p.id}`;
   div.innerHTML=`
     <div class="prod-img">
       ${img?`<img src="${img}" alt="${p.nombre||''}" loading="lazy">`:`<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
