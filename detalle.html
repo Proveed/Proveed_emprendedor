@@ -1,141 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Detalle — PROVEED</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --verde: #32D74B; --negro: #000; --gris: #f8f8f8; }
-        body { background: #fff; margin: 0; font-family: 'DM Sans', sans-serif; padding-bottom: 120px; }
-        
-        /* HEADER FIJO */
-        header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 100; }
-        .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding-right: 15px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED — Bienvenido</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; }
+  html,body{ height:100%; }
+  body{
+    background:var(--gris);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ width:100%; max-width:400px; text-align:center; }
 
-        /* GALERÍA DE PRODUCTO */
-        .product-gallery { width: 100%; height: 380px; background: var(--gris); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        #p-img { max-width: 90%; max-height: 90%; object-fit: contain; }
+  /* CHECK */
+  .check-circle{
+    width:90px; height:90px;
+    background:var(--verde);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 24px;
+    animation:popIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    box-shadow:0 8px 32px rgba(168,230,61,0.35);
+  }
+  .check-path{ stroke-dasharray:60; stroke-dashoffset:60; animation:drawCheck 0.5s ease forwards 0.7s; }
 
-        .container { padding: 25px 20px; }
-        .price-line { display: flex; justify-content: space-between; align-items: center; }
-        .price { font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; }
-        .title { font-family: 'Syne'; font-size: 1.4rem; text-transform: uppercase; margin: 10px 0 25px; line-height: 1.1; }
+  .greeting{
+    font-family:'Syne',sans-serif;
+    font-size:1.8rem;
+    font-weight:900;
+    color:var(--negro);
+    letter-spacing:-0.5px;
+    margin-bottom:6px;
+    animation:fadeUp 0.6s ease both 0.4s;
+  }
+  .sub{
+    font-size:0.9rem;
+    color:#aaa;
+    line-height:1.6;
+    margin-bottom:32px;
+    animation:fadeUp 0.6s ease both 0.5s;
+  }
 
-        /* INTERACCIÓN: CANTIDAD */
-        .section-label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #888; margin-bottom: 12px; display: block; }
-        .selector { display: flex; align-items: center; gap: 20px; background: var(--gris); padding: 12px 20px; border-radius: 15px; width: fit-content; margin-bottom: 30px; }
-        .qty-btn { background: none; border: none; font-size: 1.5rem; font-weight: bold; cursor: pointer; color: var(--negro); }
-        #qty-val { font-size: 1.3rem; font-weight: 800; min-width: 30px; text-align: center; }
+  /* FEATURES */
+  .features{ display:flex; flex-direction:column; gap:12px; margin-bottom:32px; animation:fadeUp 0.6s ease both 0.6s; }
+  .feat{
+    display:flex; align-items:center; gap:14px;
+    background:var(--blanco); border-radius:16px; padding:14px 16px;
+    border:1.5px solid #f0f0f0; text-align:left;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  }
+  .feat-icon{
+    width:44px; height:44px; border-radius:12px;
+    background:rgba(168,230,61,0.12);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .feat-icon svg{ width:22px; height:22px; stroke:var(--negro); fill:none; stroke-width:2; }
+  .feat-title{ font-weight:700; font-size:0.9rem; color:var(--negro); }
+  .feat-desc{ font-size:0.75rem; color:#aaa; margin-top:2px; }
 
-        /* INFO DEL PROVEEDOR */
-        .prov-card { border: 1.5px solid #eee; border-radius: 20px; padding: 15px; display: flex; align-items: center; gap: 15px; margin-top: 5px; }
-        .prov-avatar { width: 50px; height: 50px; background: var(--negro); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 1.2rem; }
-        .prov-name { font-size: 0.95rem; font-weight: 700; margin: 0; text-transform: uppercase; }
-        .prov-status { font-size: 0.7rem; color: var(--verde); font-weight: 800; display: block; margin-top: 2px; }
+  /* BTN */
+  .btn-start{
+    width:100%; padding:17px; border:none; border-radius:16px;
+    background:var(--negro); color:white;
+    font-family:'Syne',sans-serif; font-size:1rem; font-weight:800;
+    cursor:pointer; transition:0.2s;
+    animation:fadeUp 0.6s ease both 0.75s;
+    letter-spacing:0.3px;
+  }
+  .btn-start:active{ transform:scale(0.98); }
 
-        /* FOOTER CON CHAT Y ACCIÓN */
-        .footer-actions { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; padding: 20px; display: grid; grid-template-columns: 1fr 2fr; gap: 12px; box-sizing: border-box; z-index: 1000; }
-        .btn-chat { background: #f0f0f0; border: none; border-radius: 18px; font-weight: 700; cursor: pointer; height: 60px; font-size: 0.8rem; }
-        .btn-order { background: var(--negro); color: white; border: none; border-radius: 18px; font-family: 'Syne'; font-weight: 700; cursor: pointer; height: 60px; text-transform: uppercase; font-size: 0.9rem; }
-    </style>
+  @keyframes popIn{ from{transform:scale(0.4);opacity:0;} to{transform:scale(1);opacity:1;} }
+  @keyframes drawCheck{ to{stroke-dashoffset:0;} }
+  @keyframes fadeUp{ from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+</style>
 </head>
 <body>
+<div class="wrap">
+  <div class="check-circle">
+    <svg width="48" height="48" viewBox="0 0 60 60">
+      <path class="check-path" d="M14 32 L26 44 L46 20" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
 
-    <header>
-        <button class="back-btn" onclick="location.href='dashboard.html'">←</button>
-        <div style="font-family: 'Syne'; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px;">DATOS DEL PRODUCTO</div>
-    </header>
+  <div class="greeting">¡Listo, <span id="user-name" style="color:var(--verde)">emprendedor</span>!</div>
+  <p class="sub">Tu cuenta fue creada con éxito. Ya puedes conectar con los mejores proveedores del Ecuador.</p>
 
-    <div class="product-gallery">
-        <img id="p-img" src="" alt="">
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+      <div><div class="feat-title">Compra al por mayor</div><div class="feat-desc">Miles de productos con precio mayorista real</div></div>
     </div>
-
-    <div class="container">
-        <div class="price-line">
-            <span id="p-price" class="price">$0.00</span>
-            <span id="p-min-tag" style="background: #e8fdf0; color: #15803d; font-size: 0.65rem; padding: 5px 10px; border-radius: 6px; font-weight: 800;">MIN. 1</span>
-        </div>
-        <h1 id="p-title" class="title">...</h1>
-
-        <span class="section-label">Cantidad a Pedir</span>
-        <div class="selector">
-            <button class="qty-btn" onclick="updateQty(-1)">-</button>
-            <span id="qty-val">1</span>
-            <button class="qty-btn" onclick="updateQty(1)">+</button>
-        </div>
-
-        <span class="section-label">Proveedor Responsable</span>
-        <div class="prov-card">
-            <div id="p-avatar" class="prov-avatar">?</div>
-            <div class="p-info">
-                <h4 id="p-prov-name" class="prov-name">...</h4>
-                <span class="prov-status">● VERIFICADO POR PROVEED</span>
-            </div>
-        </div>
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div><div class="feat-title">Chat seguro con proveedores</div><div class="feat-desc">Negocia dentro de la plataforma, sin salir</div></div>
     </div>
-
-    <div class="footer-actions">
-        <button class="btn-chat" onclick="location.href='messenger.html'">CHAT</button>
-        <button class="btn-order" onclick="addToCart()">AÑADIR AL PEDIDO</button>
+    <div class="feat">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div><div class="feat-title">Transacciones protegidas</div><div class="feat-desc">Tu dinero seguro en cada compra</div></div>
     </div>
+  </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+  <button class="btn-start" onclick="window.location.href='dashboard.html'">EXPLORAR PROVEEDORES →</button>
+</div>
 
-        const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // LEER LOS DATOS DEL NAVEGADOR (Pase de posta del Dashboard)
-        const productID = localStorage.getItem('lastSelectedProdID');
-        const provNombre = localStorage.getItem('currentProveedorNombre');
-        let minUnits = 1;
-        let currentQty = 1;
-
-        async function loadProductData() {
-            if (!productID) return location.href = 'dashboard.html';
-
-            try {
-                const snap = await getDoc(doc(db, "productos", productID));
-                if (snap.exists()) {
-                    const data = snap.data();
-                    
-                    // CARGA DE DATOS REALES DE FIREBASE
-                    document.getElementById('p-img').src = data.imagenUrl || data.imagen || "";
-                    document.getElementById('p-price').innerText = `$${data.precio || 0}`;
-                    document.getElementById('p-title').innerText = data.nombre || data.titulo || "Producto Sin Nombre";
-                    
-                    // Lógica de Mínimos
-                    minUnits = parseInt(data.minimo) || 1;
-                    currentQty = minUnits;
-                    document.getElementById('qty-val').innerText = currentQty;
-                    document.getElementById('p-min-tag').innerText = `MÍNIMO: ${minUnits} UDS`;
-
-                    // Lógica del Proveedor
-                    const nombreFinal = provNombre || "Proveedor Proveed";
-                    document.getElementById('p-prov-name').innerText = nombreFinal;
-                    document.getElementById('p-avatar').innerText = nombreFinal.charAt(0).toUpperCase();
-                }
-            } catch (error) {
-                console.error("Error al conectar con Firebase:", error);
-            }
-        }
-
-        window.updateQty = (val) => {
-            currentQty += val;
-            if (currentQty < minUnits) currentQty = minUnits;
-            document.getElementById('qty-val').innerText = currentQty;
-        };
-
-        window.addToCart = () => {
-            // Guardamos la cantidad seleccionada para el proceso de pago
-            localStorage.setItem('lastSelectedQty', currentQty);
-            alert(`Añadido: ${currentQty} unidades al pedido.`);
-        };
-
-        loadProductData();
-    </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+const app=initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+onAuthStateChanged(auth,async(user)=>{
+  if(!user){window.location.href='login.html';return;}
+  const snap=await getDoc(doc(db,'usuarios',user.uid));
+  if(snap.exists()) document.getElementById('user-name').textContent=snap.data().nombre.split(' ')[0];
+});
+</script>
 </body>
 </html>
