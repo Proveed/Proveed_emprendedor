@@ -1,16 +1,14 @@
-/* PROVEED — Hoja de Estilo Maestra
-   Diseño: Minimalista / Premium / Seguro
-   Tipografía: Syne (Títulos) & DM Sans (Lectura)
+/* PROVEED — Hoja de Estilo Maestra (V2.0)
+   Corrección: Legibilidad de Títulos, Iconos Lineales y Navegación Premium
 */
 
 :root {
     --verde-pro: #32D74B;
-    --negro: #0D0D0D;
-    --gris-suave: #F8F9FA;
-    --gris-texto: #888888;
+    --negro-suave: #1A1A1A; /* Negro refinado para evitar el efecto 'mancha' */
+    --gris-fondo: #F8F9FA;
+    --gris-texto: #666666;
     --gris-borde: #EEEEEE;
-    --rojo-alerta: #FF3B30;
-    --naranja: #FF6B00;
+    --gris-iconos: #AAAAAA;
 }
 
 * {
@@ -23,23 +21,26 @@
 body {
     font-family: 'DM Sans', sans-serif;
     background-color: white;
-    color: var(--negro);
-    line-height: 1.5;
+    color: var(--negro-suave);
+    line-height: 1.4;
     overflow-x: hidden;
 }
 
-/* --- TIPOGRAFÍA CORREGIDA (Anti-Aplastamiento) --- */
+/* --- TIPOGRAFÍA DE TÍTULOS (ARREGLADA) --- */
 
 h1, h2, h3, .logo-text {
     font-family: 'Syne', sans-serif;
-    font-weight: 700; /* Bajado de 800 para mayor claridad */
-    letter-spacing: 0.5px; /* Espaciado positivo para que respire */
-    line-height: 1.2;
+    color: var(--negro-suave);
+    font-weight: 700; /* Bajado de 800 para que la letra 'respire' */
+    letter-spacing: 0.8px; /* Espacio extra para que no se vean aplastadas */
+    text-transform: uppercase;
+    line-height: 1.1;
 }
 
-p, span, input, button {
+/* Texto de lectura general */
+p, span, input, b {
     font-family: 'DM Sans', sans-serif;
-    letter-spacing: -0.1px;
+    letter-spacing: -0.2px;
 }
 
 /* --- ICONOS LINEALES PROFESIONALES --- */
@@ -48,16 +49,16 @@ p, span, input, button {
     width: 22px; 
     height: 22px; 
     stroke: currentColor; 
-    stroke-width: 1.8; /* Trazo fino estilo Apple/Alibaba */
+    stroke-width: 1.8; /* Trazo fino elegante */
     fill: none; 
     stroke-linecap: round; 
     stroke-linejoin: round; 
-    transition: all 0.2s ease;
+    transition: 0.3s ease;
 }
 
-/* --- COMPONENTES DE INTERFAZ --- */
+/* --- ESTRUCTURA DE NAVEGACIÓN --- */
 
-/* Header Principal */
+/* Cabecera Principal */
 .header-main {
     background: white;
     padding: 15px 20px;
@@ -70,7 +71,6 @@ p, span, input, button {
     z-index: 1000;
 }
 
-/* Logo Hexagonal */
 .logo-wrapper {
     display: flex;
     align-items: center;
@@ -78,8 +78,8 @@ p, span, input, button {
 }
 
 .hex-icon {
-    width: 24px;
-    height: 28px;
+    width: 22px;
+    height: 26px;
     background: var(--verde-pro);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
@@ -87,14 +87,14 @@ p, span, input, button {
     justify-content: center;
 }
 
-/* Barra de Navegación Inferior */
+/* Barra Inferior (5 Iconos) */
 .nav-bar {
     position: fixed;
     bottom: 0;
     width: 100%;
     background: white;
     display: flex;
-    padding: 12px 0 28px; /* Espacio extra para iPhone/Android modernos */
+    padding: 12px 0 28px;
     border-top: 1px solid var(--gris-borde);
     justify-content: space-around;
     z-index: 2000;
@@ -104,7 +104,7 @@ p, span, input, button {
     text-align: center;
     flex: 1;
     text-decoration: none;
-    color: #AAAAAA; /* Gris para inactivos */
+    color: var(--gris-iconos);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,71 +112,88 @@ p, span, input, button {
 }
 
 .nav-item.active {
-    color: var(--negro);
+    color: var(--negro-suave);
 }
 
 .nav-item p {
-    font-size: 0.6rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.55rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.8px; /* Texto pequeño legible */
+    letter-spacing: 0.5px;
 }
 
-/* Cards de Productos (Dashboard) */
+/* --- GRID DE PRODUCTOS --- */
+
 .product-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 20px;
+    gap: 12px;
+    padding: 15px;
 }
 
 .product-card {
     background: white;
-    border-radius: 16px;
+    border-radius: 12px;
     border: 1px solid var(--gris-borde);
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: 0.2s;
 }
 
 .product-card:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
 }
 
 .product-img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
-    background: var(--gris-suave);
+    background: #f9f9f9;
 }
 
 .product-info {
-    padding: 12px;
+    padding: 10px;
 }
 
-/* Botones de Acción */
-.btn-primary {
-    background: var(--negro);
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-weight: 700;
-    width: 100%;
-    cursor: pointer;
+.product-price {
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin: 2px 0;
 }
 
-.btn-primary:active {
-    background: #333;
-}
+/* --- BANNERS DE SEGURIDAD (PROVEED SEG) --- */
 
-/* Banners de Seguridad (PROVEED SEG) */
 .banner-seg {
-    background: #FFF8E6;
+    background: #FFF8E6; /* Amarillo suave alerta */
     border: 1px solid #FFE5A3;
     padding: 12px 15px;
     border-radius: 12px;
-    margin: 10px 20px;
+    margin: 15px 20px;
     display: flex;
-    gap: 10px;
-    align-items: center;
+    gap: 12px;
+}
+
+.banner-seg p {
+    font-size: 0.75rem;
+    color: #856404;
+    margin: 0;
+}
+
+/* --- RED SOCIAL (POSTS) --- */
+
+.post { border-bottom: 8px solid var(--gris-fondo); background: white; }
+.post-header { display: flex; align-items: center; gap: 12px; padding: 15px; }
+.post-media { width: 100%; aspect-ratio: 1/1; background: #000; }
+.post-actions { display: flex; gap: 20px; padding: 15px; }
+
+/* Botones genéricos */
+.btn-main {
+    background: var(--negro-suave);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    width: 100%;
+    font-family: 'DM Sans';
 }
