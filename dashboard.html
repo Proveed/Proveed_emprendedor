@@ -1,151 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dashboard Real — PROVEED</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --verde: #32D74B; --negro: #000; --gris: #111; --borde: #222; }
-        body { background: var(--negro); color: white; margin: 0; font-family: 'DM Sans', sans-serif; }
-        
-        header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--borde); position: sticky; top: 0; background: var(--negro); z-index: 100; }
-        .logo { font-family: 'Syne'; font-size: 1.2rem; letter-spacing: 2px; }
-        
-        .welcome-section { padding: 25px 20px; }
-        .welcome-section h1 { font-family: 'Syne'; font-size: 1.5rem; margin: 0; }
-        .user-badge { color: var(--verde); font-size: 0.8rem; font-weight: bold; text-transform: uppercase; margin-top: 5px; display: block; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED — Inicio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
+  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:80px; -webkit-font-smoothing:antialiased; }
 
-        /* GRID DE PRODUCTOS REALES */
-        #productos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .card { background: var(--gris); border-radius: 20px; border: 1px solid var(--borde); overflow: hidden; display: flex; flex-direction: column; transition: 0.3s; }
-        .card:active { transform: scale(0.97); }
-        .card img { width: 100%; height: 160px; object-fit: cover; background: #222; }
-        
-        .card-info { padding: 12px; flex: 1; display: flex; flex-direction: column; }
-        .card-info h3 { font-size: 0.9rem; margin: 0; font-weight: 700; color: #fff; }
-        .prov-name { font-size: 0.65rem; color: #888; margin: 5px 0; text-transform: uppercase; font-weight: 800; }
-        .price-tag { color: var(--verde); font-weight: 800; font-size: 1.1rem; margin-top: auto; }
-        
-        .btn-negociar { background: white; color: black; border: none; padding: 10px; border-radius: 10px; font-weight: 800; font-family: 'Syne'; font-size: 0.7rem; cursor: pointer; margin-top: 10px; width: 100%; text-transform: uppercase; }
+  /* HEADER */
+  .header{ background:var(--negro); padding:44px 20px 16px; position:sticky; top:0; z-index:100; }
+  .header-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .logo-row{ display:flex; align-items:center; gap:8px; }
+  .logo-row svg{ width:28px; height:28px; }
+  .logo-text{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:900; color:white; letter-spacing:-0.5px; }
+  .logo-text span{ color:var(--verde); }
+  .header-icons{ display:flex; gap:12px; align-items:center; }
+  .h-icon{ position:relative; cursor:pointer; width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  .h-icon svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2; }
+  .badge{ position:absolute; top:-4px; right:-4px; background:var(--rojo); color:white; font-size:0.55rem; font-weight:800; padding:2px 5px; border-radius:8px; border:2px solid var(--negro); display:none; }
 
-        .loader { text-align: center; padding: 50px; color: var(--verde); font-family: 'Syne'; }
-        
-        /* BARRA INFERIOR */
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: var(--negro); border-top: 1px solid var(--borde); display: flex; justify-content: space-around; padding: 15px 0; }
-        .nav-item { color: #555; text-decoration: none; font-size: 0.7rem; font-weight: bold; text-align: center; }
-        .nav-item.active { color: var(--verde); }
-    </style>
+  /* SEARCH BAR */
+  .search-bar{
+    background:rgba(255,255,255,0.08);
+    border-radius:12px; padding:11px 14px;
+    display:flex; align-items:center; gap:10px;
+    cursor:pointer;
+  }
+  .search-bar svg{ width:16px; height:16px; stroke:#888; fill:none; stroke-width:2.5; flex-shrink:0; }
+  .search-bar span{ font-size:0.88rem; color:#666; }
+
+  /* BANNER HERO */
+  .banner{
+    margin:14px 16px;
+    background:linear-gradient(135deg, var(--negro) 0%, #1a2a0a 100%);
+    border-radius:20px; padding:22px 20px;
+    position:relative; overflow:hidden;
+  }
+  .banner::before{
+    content:''; position:absolute; right:-20px; top:-20px;
+    width:140px; height:140px;
+    background:radial-gradient(circle, rgba(168,230,61,0.2) 0%, transparent 70%);
+  }
+  .banner-tag{ background:var(--verde); color:var(--negro); font-size:0.62rem; font-weight:800; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
+  .banner-title{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:900; color:white; line-height:1.2; margin-bottom:6px; }
+  .banner-sub{ font-size:0.78rem; color:#888; margin-bottom:16px; }
+  .banner-btn{ background:var(--verde); color:var(--negro); border:none; padding:10px 20px; border-radius:10px; font-family:'Syne',sans-serif; font-weight:800; font-size:0.82rem; cursor:pointer; }
+
+  /* CATEGORÍAS */
+  .section-head{ display:flex; justify-content:space-between; align-items:center; padding:18px 16px 10px; }
+  .section-head h3{ font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--negro); }
+  .section-head a{ font-size:0.8rem; color:var(--naranja); text-decoration:none; font-weight:600; }
+
+  .cats-scroll{ display:flex; gap:10px; padding:0 16px 4px; overflow-x:auto; scrollbar-width:none; }
+  .cats-scroll::-webkit-scrollbar{ display:none; }
+  .cat-chip{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    cursor:pointer; flex-shrink:0; min-width:64px;
+  }
+  .cat-icon{
+    width:56px; height:56px; border-radius:16px;
+    background:white; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:0.2s;
+    border:2px solid transparent;
+  }
+  .cat-chip.active .cat-icon{ border-color:var(--verde); background:rgba(168,230,61,0.1); }
+  .cat-icon svg{ width:24px; height:24px; stroke:var(--negro); fill:none; stroke-width:2; }
+  .cat-chip.active .cat-icon svg{ stroke:var(--negro); }
+  .cat-label{ font-size:0.62rem; font-weight:600; color:#888; text-align:center; }
+  .cat-chip.active .cat-label{ color:var(--negro); font-weight:700; }
+
+  /* PRODUCTOS GRID estilo Alibaba */
+  .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:8px 16px; }
+  .prod-card{ background:white; border-radius:16px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+  .prod-card:active{ transform:scale(0.97); }
+  .prod-img{ width:100%; height:160px; background:#f5f5f5; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .prod-img img{ width:100%; height:100%; object-fit:cover; }
+  .prod-img .no-img{ width:44px; height:44px; stroke:#ddd; fill:none; stroke-width:1.5; }
+  .prod-badge{ position:absolute; top:8px; left:8px; background:var(--naranja); color:white; font-size:0.58rem; font-weight:800; padding:3px 8px; border-radius:6px; text-transform:uppercase; }
+  .prod-body{ padding:10px 12px 12px; }
+  .prod-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); line-height:1.3; margin-bottom:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .prod-proveedor{ font-size:0.68rem; color:#bbb; margin-bottom:6px; }
+  .prod-precio{ font-size:1rem; font-weight:800; color:var(--naranja); }
+  .prod-min{ font-size:0.62rem; color:#ccc; }
+  .prod-footer{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
+  .add-btn{ width:32px; height:32px; border-radius:10px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
+  .add-btn:active{ transform:scale(0.85); }
+  .add-btn svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2.5; }
+
+  /* SKELETON */
+  .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
+  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+  .skel-card{ background:white; border-radius:16px; overflow:hidden; }
+  .skel-img{ height:160px; }
+  .skel-line{ height:10px; margin:12px 12px 6px; border-radius:6px; }
+  .skel-line.s{ width:55%; height:8px; margin:0 12px 12px; }
+
+  /* TOAST */
+  .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:11px 20px; border-radius:28px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* TAB BAR */
+  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
+  .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; transition:0.2s; }
+  .tab.active{ color:var(--negro); }
+  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
+  .tab span{ font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+  .tab-dot{ width:5px; height:5px; background:var(--verde); border-radius:50%; margin-top:-2px; display:none; }
+  .tab.active .tab-dot{ display:block; }
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">PROVEED</div>
-        <button onclick="logout()" style="background:none; border:none; color:#ff4444; font-weight:bold; font-size:0.7rem; cursor:pointer;">SALIR</button>
-    </header>
-
-    <div class="welcome-section">
-        <h1 id="user-name">Cargando...</h1>
-        <span class="user-badge" id="user-location">Verificando ubicación...</span>
+<header class="header">
+  <div class="header-top">
+    <div class="logo-row">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A8E63D"/><stop offset="100%" style="stop-color:#7BC820"/></linearGradient></defs>
+        <path d="M50 4 L93 28 V72 L50 96 L7 72 V28 Z" fill="url(#g1)"/>
+        <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="logo-text">PRO<span>VEED</span></div>
     </div>
+    <div class="header-icons">
+      <div class="h-icon" onclick="window.location.href='chat.html'">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <div class="badge" id="badge-chat">!</div>
+      </div>
+      <div class="h-icon" onclick="window.location.href='carrito.html'" style="position:relative;">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <div class="badge" id="badge-cart" style="display:none;">0</div>
+      </div>
+      <div class="h-icon" onclick="window.location.href='perfil.html'">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+  </div>
+  <div class="search-bar" onclick="window.location.href='explorar.html'">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>Buscar productos, proveedores...</span>
+  </div>
+</header>
 
-    <div id="loader" class="loader">CONECTANDO A BASE DE DATOS...</div>
-    <div id="productos-grid"></div>
+<!-- BANNER HERO -->
+<div class="banner">
+  <div class="banner-tag">🔥 Ofertas mayoristas</div>
+  <div class="banner-title">Los mejores proveedores<br>del Ecuador en un solo lugar</div>
+  <div class="banner-sub">Precios mayoristas reales, sin intermediarios</div>
+  <button class="banner-btn" onclick="window.location.href='explorar.html'">Explorar ahora →</button>
+</div>
 
-    <div style="height: 80px;"></div> <nav class="nav-bar">
-        <a href="#" class="nav-item active">EXPLORAR</a>
-        <a href="pedidos.html" class="nav-item">MIS PEDIDOS</a>
-        <a href="perfil.html" class="nav-item">MI CUENTA</a>
-    </nav>
+<!-- CATEGORÍAS -->
+<div class="section-head">
+  <h3>Categorías</h3>
+  <a href="explorar.html">Ver todo</a>
+</div>
+<div class="cats-scroll">
+  <div class="cat-chip active" data-cat="todos" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+    <div class="cat-label">Todo</div>
+  </div>
+  <div class="cat-chip" data-cat="textiles" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></div>
+    <div class="cat-label">Textiles</div>
+  </div>
+  <div class="cat-chip" data-cat="tecnologia" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+    <div class="cat-label">Tecnología</div>
+  </div>
+  <div class="cat-chip" data-cat="alimentos" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
+    <div class="cat-label">Alimentos</div>
+  </div>
+  <div class="cat-chip" data-cat="cosmeticos" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg></div>
+    <div class="cat-label">Cosméticos</div>
+  </div>
+  <div class="cat-chip" data-cat="construccion" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
+    <div class="cat-label">Construcción</div>
+  </div>
+  <div class="cat-chip" data-cat="maquinaria" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
+    <div class="cat-label">Maquinaria</div>
+  </div>
+  <div class="cat-chip" data-cat="agricultura" onclick="selCat(this)">
+    <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="5"/><path d="M12 22V12"/></svg></div>
+    <div class="cat-label">Agricultura</div>
+  </div>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs, getDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+<!-- PRODUCTOS -->
+<div class="section-head" style="padding-top:16px;">
+  <h3 id="grid-title">Destacados</h3>
+  <a href="explorar.html">Ver más</a>
+</div>
+<div class="products-grid" id="products-grid">
+  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
+  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
+  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
+  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
+</div>
 
-        const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+<div class="toast" id="toast"></div>
 
-        const grid = document.getElementById('productos-grid');
-        const loader = document.getElementById('loader');
+<nav class="tab-bar">
+  <a class="tab active" href="dashboard.html">
+    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Inicio</span><div class="tab-dot"></div>
+  </a>
+  <a class="tab" href="explorar.html">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>Explorar</span><div class="tab-dot"></div>
+  </a>
+  <a class="tab" href="chat.html">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Chat</span><div class="tab-dot"></div>
+  </a>
+  <a class="tab" href="carrito.html">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span>Carrito</span><div class="tab-dot"></div>
+  </a>
+  <a class="tab" href="perfil.html">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Perfil</span><div class="tab-dot"></div>
+  </a>
+</nav>
 
-        // 1. VERIFICACIÓN DE SESIÓN REAL
-        const userEmail = localStorage.getItem('userEmail');
-        if (!userEmail) { location.href = "index.html"; }
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-        async function initDashboard() {
-            try {
-                // Traer datos del emprendedor logueado
-                const qU = query(collection(db, "usuarios"), where("email", "==", userEmail));
-                const userSnap = await getDocs(qU);
-                
-                if (!userSnap.empty) {
-                    const uData = userSnap.docs[0].data();
-                    document.getElementById('user-name').innerText = `Hola, ${uData.nombre || uData.nombres}`;
-                    document.getElementById('user-location').innerText = `RED ECUADOR: ${uData.provincia || 'Nacional'}`;
-                    
-                    // Cargar productos reales
-                    await cargarProductos(uData.provincia);
-                }
-            } catch (e) { console.error(e); }
-        }
+const app=initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+let todosProds=[];
+let catActiva='todos';
 
-        // 2. CARGA DE PRODUCTOS Y SUS PROVEEDORES REALES
-        async function cargarProductos(provinciaUsuario) {
-            // Buscamos productos (podrías filtrar por provinciaUsuario si quieres)
-            const qP = query(collection(db, "productos"));
-            const snapP = await getDocs(qP);
-            
-            loader.style.display = 'none';
-            grid.innerHTML = '';
+onAuthStateChanged(auth,async(user)=>{
+  if(!user){window.location.href='login.html';return;}
+  actualizarBadgeCart();
+  cargarProductos();
+});
 
-            if (snapP.empty) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#555;">No hay productos disponibles en tu zona aún.</p>';
-                return;
-            }
+async function cargarProductos(){
+  try{
+    const snap=await getDocs(collection(db,'productos'));
+    todosProds=snap.docs
+      .map(d=>({id:d.id,...d.data()}))
+      .filter(p=>p.activo===true);
+    todosProds.sort((a,b)=>(b.creadoEn?.toMillis?.()||0)-(a.creadoEn?.toMillis?.()||0));
+    renderGrid(todosProds);
+  }catch(e){
+    document.getElementById('products-grid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:30px;color:#aaa;font-size:0.85rem;">Error: ${e.message}</div>`;
+  }
+}
 
-            // Usamos for...of para manejar las consultas asíncronas de proveedores
-            for (const docProd of snapP.docs) {
-                const prod = docProd.data();
-                
-                // BUSCAR EL NOMBRE REAL DEL PROVEEDOR PARA ESTE PRODUCTO
-                const qProv = query(collection(db, "usuarios"), where("email", "==", prod.proveedorEmail));
-                const snapProv = await getDocs(qProv);
-                let nombreProv = "Proveedor Oficial";
+function renderGrid(lista){
+  const grid=document.getElementById('products-grid');
+  if(!lista.length){
+    grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#bbb;">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1.2" style="display:block;margin:0 auto 12px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <p style="font-size:0.88rem;">Sin productos en esta categoría</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML='';
+  lista.slice(0,8).forEach(p=>{
+    const img=p.imagenes?.[0]||p.imagen||'';
+    const div=document.createElement('div');
+    div.className='prod-card';
+    div.innerHTML=`
+      <div class="prod-img">
+        ${img?`<img src="${img}" alt="${p.nombre||''}" loading="lazy">`:`<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
+        ${p.categoria?`<div class="prod-badge">${p.categoria}</div>`:''}
+      </div>
+      <div class="prod-body">
+        <div class="prod-nombre">${p.nombre||'Producto'}</div>
+        <div class="prod-proveedor">${p.nombreProveedor||'Proveedor'}</div>
+        <div class="prod-footer">
+          <div>
+            <div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div>
+            <div class="prod-min">Mín: ${p.minimo||1} und.</div>
+          </div>
+          <button class="add-btn" onclick="agregar(event,'${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}',${p.precio||0},${p.minimo||1},'${img}','${(p.nombreProveedor||'').replace(/'/g,"\\'")}')">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
 
-                if (!snapProv.empty) {
-                    const d = snapProv.docs[0].data();
-                    nombreProv = `${d.nombres} ${d.apellidos}`;
-                }
+window.selCat=function(el){
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  catActiva=el.dataset.cat;
+  const filtrado=catActiva==='todos'?todosProds:todosProds.filter(p=>p.categoria===catActiva);
+  document.getElementById('grid-title').textContent=catActiva==='todos'?'Destacados':el.querySelector('.cat-label').textContent;
+  renderGrid(filtrado);
+};
 
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="${prod.imagen || 'https://via.placeholder.com/300'}" alt="${prod.titulo}">
-                    <div class="card-info">
-                        <h3>${prod.titulo}</h3>
-                        <p class="prov-name">📦 ${nombreProv}</p>
-                        <div class="price-tag">$${prod.precio}</div>
-                        <button class="btn-negociar" onclick="irAChat('${prod.proveedorEmail}', '${nombreProv}')">Negociar Precio</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            }
-        }
+window.agregar=function(e,id,nombre,precio,minimo,imagen,proveedor){
+  e.stopPropagation();
+  carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const idx=carrito.findIndex(i=>i.id===id);
+  if(idx>=0) carrito[idx].cantidad+=minimo;
+  else carrito.push({id,nombre,precio,cantidad:minimo,minimo,imagen,proveedor});
+  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
+  actualizarBadgeCart();
+  const t=document.getElementById('toast');
+  t.textContent=`✓ ${nombre} añadido`;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+};
 
-        // 3. NAVEGACIÓN REAL AL CHAT
-        window.irAChat = (emailProv, nombreProv) => {
-            localStorage.setItem('currentProveedor', emailProv);
-            localStorage.setItem('currentProveedorNombre', nombreProv);
-            location.href = "messenger.html";
-        };
-
-        window.logout = () => {
-            localStorage.clear();
-            location.href = "index.html";
-        };
-
-        initDashboard();
-    </script>
+function actualizarBadgeCart(){
+  carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const total=carrito.reduce((s,i)=>s+i.cantidad,0);
+  const badge=document.getElementById('badge-cart');
+  if(total>0){ badge.textContent=total; badge.style.display='block'; }
+  else badge.style.display='none';
+}
+</script>
 </body>
 </html>
