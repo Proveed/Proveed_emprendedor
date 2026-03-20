@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED — Producto</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; --azul:#007AFF; }
+  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:120px; -webkit-font-smoothing:antialiased; }
+
+  /* HEADER */
+  .header{ position:fixed; top:0; width:100%; z-index:200; padding:44px 16px 12px; display:flex; align-items:center; justify-content:space-between; background:transparent; transition:background 0.3s; }
+  .header.solid{ background:var(--negro); }
+  .icon-btn{ width:38px; height:38px; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
+  .icon-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .header-icons{ display:flex; gap:8px; }
+
+  /* GALERÍA */
+  .gallery{ width:100%; height:320px; position:relative; overflow:hidden; background:#f0f0f0; }
+  .gallery-slides{ display:flex; height:100%; transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .slide{ min-width:100%; height:100%; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:#f0f0f0; position:relative; overflow:hidden; }
+  .slide img{ width:100%; height:100%; object-fit:cover; }
+  .slide video{ width:100%; height:100%; object-fit:cover; }
+  .slide .no-img{ width:64px; height:64px; stroke:#ddd; fill:none; stroke-width:1.2; }
+  .play-overlay{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.3); }
+  .play-btn{ width:60px; height:60px; background:rgba(255,255,255,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .play-btn svg{ width:24px; height:24px; fill:var(--negro); margin-left:3px; }
+
+  /* DOTS */
+  .gallery-dots{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.5); transition:0.3s; }
+  .dot.active{ background:white; width:18px; border-radius:3px; }
+
+  /* THUMBNAILS */
+  .thumbs{ display:flex; gap:8px; padding:12px 16px; overflow-x:auto; scrollbar-width:none; background:white; }
+  .thumbs::-webkit-scrollbar{ display:none; }
+  .thumb{ width:56px; height:56px; border-radius:10px; overflow:hidden; flex-shrink:0; cursor:pointer; border:2px solid transparent; transition:0.2s; background:#f5f5f5; display:flex; align-items:center; justify-content:center; }
+  .thumb.active{ border-color:var(--verde); }
+  .thumb img{ width:100%; height:100%; object-fit:cover; }
+  .thumb svg{ width:20px; height:20px; stroke:#bbb; fill:none; stroke-width:1.5; }
+  .thumb .video-thumb{ width:100%; height:100%; background:var(--negro); display:flex; align-items:center; justify-content:center; }
+  .thumb .video-thumb svg{ stroke:var(--verde); }
+
+  /* INFO CARD */
+  .info-card{ background:white; margin:0; padding:18px 16px; }
+  .prod-categoria{ font-size:0.68rem; font-weight:700; color:var(--naranja); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+  .prod-nombre{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--negro); line-height:1.2; margin-bottom:10px; }
+  .precio-row{ display:flex; align-items:baseline; gap:8px; margin-bottom:6px; }
+  .prod-precio{ font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:900; color:var(--naranja); }
+  .prod-unidad{ font-size:0.78rem; color:#bbb; }
+  .prod-min-badge{ display:inline-flex; align-items:center; gap:6px; background:rgba(168,230,61,0.12); border:1px solid rgba(168,230,61,0.3); border-radius:8px; padding:5px 10px; font-size:0.76rem; font-weight:600; color:var(--negro); margin-bottom:14px; }
+  .prod-min-badge svg{ width:14px; height:14px; stroke:var(--negro); fill:none; stroke-width:2; }
+  .rating-row{ display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+  .stars{ color:#FFD60A; font-size:0.85rem; }
+  .rating-num{ font-weight:700; font-size:0.85rem; color:var(--negro); }
+  .rating-count{ font-size:0.75rem; color:#bbb; }
+  .entrega-row{ display:flex; align-items:center; gap:6px; font-size:0.78rem; color:#666; margin-top:8px; }
+  .entrega-row svg{ width:14px; height:14px; stroke:#666; fill:none; stroke-width:2; flex-shrink:0; }
+
+  /* CANTIDAD Y COTIZACIÓN */
+  .qty-section{ background:white; margin-top:10px; padding:16px; }
+  .qty-label{ font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px; }
+  .qty-row{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .qty-wrap{ display:flex; align-items:center; background:var(--gris); border-radius:12px; overflow:hidden; }
+  .qty-btn{ width:42px; height:42px; border:none; background:transparent; font-size:1.2rem; font-weight:700; cursor:pointer; color:var(--negro); display:flex; align-items:center; justify-content:center; }
+  .qty-num{ font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; min-width:48px; text-align:center; color:var(--negro); }
+  .qty-total{ font-size:0.82rem; color:#aaa; }
+  .qty-total b{ color:var(--naranja); font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; }
+
+  /* COTIZACIÓN */
+  .cot-section{ background:rgba(168,230,61,0.06); border:1.5px solid rgba(168,230,61,0.2); border-radius:14px; padding:14px; margin-top:4px; }
+  .cot-title{ font-weight:700; font-size:0.9rem; color:var(--negro); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  .cot-title svg{ width:16px; height:16px; stroke:var(--negro); fill:none; stroke-width:2; }
+  .cot-input{ width:100%; padding:10px 12px; background:white; border:1.5px solid #eee; border-radius:10px; outline:none; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--negro); margin-bottom:8px; resize:none; height:70px; }
+  .cot-input:focus{ border-color:var(--verde); }
+  .cot-qty-row{ display:flex; gap:8px; margin-bottom:10px; }
+  .cot-qty-input{ flex:1; padding:10px 12px; background:white; border:1.5px solid #eee; border-radius:10px; outline:none; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--negro); }
+  .cot-qty-input:focus{ border-color:var(--verde); }
+  .btn-cotizar{ width:100%; padding:12px; background:var(--negro); color:white; border:none; border-radius:12px; font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; cursor:pointer; }
+
+  /* PROVEEDOR CARD */
+  .prov-card{ background:white; margin-top:10px; padding:16px; cursor:pointer; }
+  .prov-row{ display:flex; align-items:center; gap:12px; }
+  .prov-avatar{ width:50px; height:50px; border-radius:14px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:var(--verde); flex-shrink:0; }
+  .prov-info{ flex:1; }
+  .prov-nombre{ font-weight:700; font-size:0.92rem; color:var(--negro); }
+  .prov-ciudad{ font-size:0.72rem; color:#bbb; margin-top:2px; }
+  .prov-verified{ display:inline-flex; align-items:center; gap:4px; background:rgba(168,230,61,0.1); border-radius:6px; padding:2px 8px; font-size:0.62rem; font-weight:700; color:var(--negro); margin-top:4px; }
+  .prov-verified svg{ width:10px; height:10px; stroke:var(--negro); fill:none; stroke-width:3; }
+  .prov-arrow svg{ width:16px; height:16px; stroke:#ddd; fill:none; stroke-width:2.5; }
+  .prov-stats{ display:flex; gap:16px; margin-top:12px; padding-top:12px; border-top:1px solid #f5f5f5; }
+  .prov-stat{ text-align:center; }
+  .prov-stat b{ display:block; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--negro); }
+  .prov-stat span{ font-size:0.62rem; color:#bbb; }
+
+  /* DESCRIPCIÓN */
+  .desc-section{ background:white; margin-top:10px; padding:16px; }
+  .desc-title{ font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:800; color:var(--negro); margin-bottom:10px; }
+  .desc-text{ font-size:0.85rem; color:#666; line-height:1.6; }
+  .desc-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+  .tag{ background:var(--gris); border-radius:8px; padding:4px 10px; font-size:0.72rem; color:#666; font-weight:500; }
+
+  /* RESEÑAS */
+.reviews-section{ background:white; margin-top:10px; padding:16px; }
+  .reviews-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .reviews-title{ font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:800; color:var(--negro); }
+  .btn-reseña{ background:transparent; border:1.5px solid var(--negro); border-radius:10px; padding:6px 14px; font-family:'DM Sans',sans-serif; font-size:0.76rem; font-weight:700; cursor:pointer; color:var(--negro); }
+  .resumen-rating{ display:flex; gap:16px; align-items:center; background:var(--gris); border-radius:14px; padding:14px; margin-bottom:14px; }
+  .rating-grande{ text-align:center; }
+  .rating-grande b{ font-family:'Syne',sans-serif; font-size:2.5rem; font-weight:900; color:var(--negro); display:block; line-height:1; }
+  .rating-grande .stars-g{ font-size:0.85rem; color:#FFD60A; }
+  .rating-grande small{ font-size:0.65rem; color:#bbb; }
+  .barras{ flex:1; }
+  .barra-row{ display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+  .barra-label{ font-size:0.65rem; color:#aaa; width:8px; }
+  .barra-track{ flex:1; height:4px; background:#e0e0e0; border-radius:4px; overflow:hidden; }
+  .barra-fill{ height:100%; background:var(--verde); border-radius:4px; }
+  .review-item{ padding:14px 0; border-bottom:1px solid #f5f5f5; }
+  .review-item:last-child{ border-bottom:none; }
+  .review-header{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .rev-avatar{ width:36px; height:36px; border-radius:10px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; color:var(--verde); flex-shrink:0; }
+  .rev-info{ flex:1; }
+  .rev-nombre{ font-weight:700; font-size:0.85rem; color:var(--negro); }
+  .rev-fecha{ font-size:0.68rem; color:#bbb; margin-top:1px; }
+  .rev-stars{ color:#FFD60A; font-size:0.78rem; }
+  .rev-texto{ font-size:0.82rem; color:#666; line-height:1.5; }
+
+  /* MODAL RESEÑA */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; z-index:400; align-items:flex-end; }
+  .modal-overlay.show{ display:flex; }
+  .modal-sheet{ background:white; width:100%; border-radius:28px 28px 0 0; padding:24px 20px 36px; transform:translateY(100%); transition:0.4s cubic-bezier(0.16,1,0.3,1); max-height:85vh; overflow-y:auto; }
+  .modal-overlay.show .modal-sheet{ transform:translateY(0); }
+  .drag-handle{ width:40px; height:4px; background:#e0e0e0; border-radius:4px; margin:0 auto 20px; }
+  .modal-title{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--negro); margin-bottom:16px; }
+  .stars-input{ display:flex; gap:8px; margin-bottom:16px; }
+  .star-btn{ font-size:1.8rem; cursor:pointer; transition:0.15s; filter:grayscale(1); }
+  .star-btn.on{ filter:none; }
+  .field{ margin-bottom:13px; }
+  .field label{ display:block; font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:5px; }
+  .field textarea{ width:100%; padding:12px 14px; background:var(--gris); border:1.5px solid #eee; border-radius:12px; outline:none; font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--negro); resize:none; height:80px; }
+  .field textarea:focus{ border-color:var(--verde); }
+  .btn-enviar-res{ width:100%; padding:15px; background:var(--negro); color:white; border:none; border-radius:14px; font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; }
+
+  /* FOOTER FIJO */
+  .footer-fixed{ position:fixed; bottom:0; width:100%; background:white; padding:12px 16px 24px; box-shadow:0 -6px 24px rgba(0,0,0,0.08); z-index:300; }
+  .footer-row{ display:flex; gap:10px; }
+  .btn-chat-prod{ flex:1; padding:14px; border:2px solid var(--negro); border-radius:14px; background:white; color:var(--negro); font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .btn-chat-prod svg{ width:16px; height:16px; stroke:var(--negro); fill:none; stroke-width:2.5; }
+  .btn-add-prod{ flex:2; padding:14px; border:none; border-radius:14px; background:var(--negro); color:white; font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; cursor:pointer; transition:0.2s; }
+  .btn-add-prod:active{ transform:scale(0.98); }
+
+  .toast{ position:fixed; top:100px; left:50%; transform:translateX(-50%) translateY(-20px); background:var(--negro); color:white; padding:11px 20px; border-radius:28px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:500; white-space:nowrap; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header" id="header">
+  <button class="icon-btn" onclick="history.back()">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </button>
+  <div class="header-icons">
+    <button class="icon-btn" onclick="compartir()">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
+    <button class="icon-btn" id="fav-btn" onclick="toggleFav()">
+      <svg viewBox="0 0 24 24" id="fav-icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- GALERÍA -->
+<div class="gallery" id="gallery">
+  <div class="gallery-slides" id="slides">
+    <div class="slide"><svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+  </div>
+  <div class="gallery-dots" id="gallery-dots"></div>
+</div>
+
+<!-- THUMBNAILS -->
+<div class="thumbs" id="thumbs"></div>
+
+<!-- INFO -->
+<div class="info-card">
+  <div class="prod-categoria" id="prod-categoria">Cargando...</div>
+  <div class="prod-nombre" id="prod-nombre">Cargando producto...</div>
+  <div class="precio-row">
+    <div class="prod-precio" id="prod-precio">$0.00</div>
+    <div class="prod-unidad" id="prod-unidad">/ unidad</div>
+  </div>
+  <div class="prod-min-badge">
+    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+    Mínimo: <b id="prod-min">1</b> unidades
+  </div>
+  <div class="rating-row">
+    <div class="stars" id="stars-display">★★★★★</div>
+    <div class="rating-num" id="rating-num">0.0</div>
+    <div class="rating-count" id="rating-count">(0 reseñas)</div>
+  </div>
+  <div class="entrega-row">
+    <svg viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7M5 19a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM18 19a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+    Tiempo de entrega: <b id="prod-entrega">—</b>
+  </div>
+</div>
+
+<!-- CANTIDAD -->
+<div class="qty-section">
+  <div class="qty-label">Cantidad</div>
+  <div class="qty-row">
+    <div class="qty-wrap">
+      <button class="qty-btn" onclick="cambiarQty(-1)">−</button>
+      <div class="qty-num" id="qty-num">1</div>
+      <button class="qty-btn" onclick="cambiarQty(1)">+</button>
+    </div>
+    <div class="qty-total">Total: <b id="qty-total">$0.00</b></div>
+  </div>
+
+  <!-- COTIZACIÓN -->
+  <div class="cot-section">
+    <div class="cot-title">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Solicitar cotización personalizada
+    </div>
+    <textarea class="cot-input" id="cot-mensaje" placeholder="Ej: Necesito 500 unidades en color azul, ¿qué precio me das?"></textarea>
+    <div class="cot-qty-row">
+      <input type="number" class="cot-qty-input" id="cot-cantidad" placeholder="Cantidad deseada" min="1">
+    </div>
+    <button class="btn-cotizar" onclick="enviarCotizacion()">ENVIAR SOLICITUD DE COTIZACIÓN →</button>
+  </div>
+</div>
+
+<!-- PROVEEDOR -->
+div class="prov-card" id="prov-card" onclick="verProveedor()">
+  <div class="prov-row">
+    <div class="prov-avatar" id="prov-avatar">P</div>
+    <div class="prov-info">
+      <div class="prov-nombre" id="prov-nombre">Cargando...</div>
+      <div class="prov-ciudad" id="prov-ciudad">—</div>
+      <div class="prov-verified"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Proveedor verificado</div>
+    </div>
+    <div class="prov-arrow"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></div>
+  </div>
+  <div class="prov-stats">
+    <div class="prov-stat"><b id="prov-productos">0</b><span>Productos</span></div>
+    <div class="prov-stat"><b id="prov-ventas">0</b><span>Ventas</span></div>
+    <div class="prov-stat"><b id="prov-rating">—</b><span>Valoración</span></div>
+  </div>
+</div>
+
+<!-- DESCRIPCIÓN -->
+<div class="desc-section">
+  <div class="desc-title">Descripción del producto</div>
+  <div class="desc-text" id="prod-desc">Sin descripción disponible.</div>
+  <div class="desc-tags" id="prod-tags"></div>
+</div>
+
+<!-- RESEÑAS -->
+<div class="reviews-section">
+  <div class="reviews-header">
+    <div class="reviews-title">Reseñas y valoraciones</div>
+    <button class="btn-reseña" onclick="abrirModalReseña()">+ Agregar</button>
+  </div>
+  <div class="resumen-rating">
+    <div class="rating-grande">
+      <b id="rating-big">0.0</b>
+      <div class="stars-g">★★★★★</div>
+      <small id="rating-total-lbl">0 reseñas</small>
+    </div>
+    <div class="barras" id="barras"></div>
+  </div>
+  <div id="reviews-lista">
+    <div style="text-align:center;padding:20px;color:#bbb;font-size:0.85rem;">Sin reseñas aún. ¡Sé el primero!</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-fixed">
+  <div class="footer-row">
+    <button class="btn-chat-prod" onclick="chatConProveedor()">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Chat
+    </button>
+    <button class="btn-add-prod" onclick="agregarAlCarrito()">AÑADIR AL CARRITO</button>
+  </div>
+</div>
+
+<!-- MODAL RESEÑA -->
+<div class="modal-overlay" id="modal-reseña" onclick="cerrarModalReseña(event)">
+  <div class="modal-sheet">
+    <div class="drag-handle"></div>
+    <div class="modal-title">Escribir reseña</div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:0.7rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Tu valoración</div>
+      <div class="stars-input" id="stars-input">
+        <span class="star-btn" data-val="1" onclick="setStar(1)">⭐</span>
+        <span class="star-btn" data-val="2" onclick="setStar(2)">⭐</span>
+        <span class="star-btn" data-val="3" onclick="setStar(3)">⭐</span>
+        <span class="star-btn" data-val="4" onclick="setStar(4)">⭐</span>
+        <span class="star-btn" data-val="5" onclick="setStar(5)">⭐</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Tu comentario</label>
+      <textarea id="res-texto" placeholder="Cuéntanos tu experiencia con este producto y proveedor..."></textarea>
+    </div>
+    <button class="btn-enviar-res" onclick="enviarReseña()">PUBLICAR RESEÑA</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, updateDoc, increment } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const app=initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+const params=new URLSearchParams(window.location.search);
+const prodId=params.get('id');
+let currentUser=null, prod=null, qty=1, slideActual=0, starSeleccionado=0;
+let favs=JSON.parse(localStorage.getItem('proveed_favs')||'[]');
+
+onAuthStateChanged(auth,async(user)=>{
+  if(!user){window.location.href='login.html';return;}
+  currentUser=user;
+  if(!prodId){history.back();return;}
+  cargarProducto();
+});
+
+async function cargarProducto(){
+  try{
+    const snap=await getDoc(doc(db,'productos',prodId));
+    if(!snap.exists()){history.back();return;}
+    prod={id:snap.id,...snap.data()};
+    renderProducto();
+    cargarProveedor();
+    cargarReseñas();
+    // Registrar vista
+    try{ await updateDoc(doc(db,'productos',prodId),{vistas:increment(1)}); }catch(e){}
+  }catch(e){ console.warn(e); }
+}
+
+function renderProducto(){
+  document.title=`PROVEED — ${prod.nombre||'Producto'}`;
+  document.getElementById('prod-categoria').textContent=(prod.categoria||'').toUpperCase();
+  document.getElementById('prod-nombre').textContent=prod.nombre||'Producto';
+  document.getElementById('prod-precio').textContent='$'+Number(prod.precio||0).toFixed(2);
+  document.getElementById('prod-unidad').textContent='/ '+(prod.unidad||'unidad');
+  document.getElementById('prod-min').textContent=prod.minimo||1;
+  document.getElementById('prod-entrega').textContent=prod.tiempoEntrega||'A coordinar';
+  document.getElementById('prod-desc').textContent=prod.descripcion||'Sin descripción disponible.';
+  qty=prod.minimo||1;
+  document.getElementById('qty-num').textContent=qty;
+  actualizarTotal();
+  // Tags
+  const tags=document.getElementById('prod-tags');
+  if(prod.categoria) tags.innerHTML+=`<span class="tag">${prod.categoria}</span>`;
+  if(prod.unidad) tags.innerHTML+=`<span class="tag">${prod.unidad}</span>`;
+  if(prod.tiempoEntrega) tags.innerHTML+=`<span class="tag">${prod.tiempoEntrega}</span>`;
+  // Fav
+  if(favs.includes(prodId)){
+    document.getElementById('fav-icon').style.fill='var(--rojo)';
+    document.getElementById('fav-icon').style.stroke='var(--rojo)';
+  }
+  // Galería
+const medias=[];
+  if(prod.imagenes?.length) prod.imagenes.forEach(u=>{ if(u) medias.push({tipo:'img',url:u}); });
+  else if(prod.imagen) medias.push({tipo:'img',url:prod.imagen});
+  if(prod.videoURL) medias.push({tipo:'video',url:prod.videoURL});
+  if(!medias.length) return;
+  const slidesEl=document.getElementById('slides');
+  const thumbsEl=document.getElementById('thumbs');
+  const dotsEl=document.getElementById('gallery-dots');
+  slidesEl.innerHTML='';thumbsEl.innerHTML='';dotsEl.innerHTML='';
+  medias.forEach((m,i)=>{
+    const slide=document.createElement('div');
+    slide.className='slide';
+    if(m.tipo==='img'){
+      slide.innerHTML=`<img src="${m.url}" alt="${prod.nombre}" loading="lazy">`;
+    } else {
+      slide.innerHTML=`<video src="${m.url}" playsinline preload="metadata" id="video-main"></video><div class="play-overlay" onclick="playVideo()"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg></div></div>`;
+    }
+    slidesEl.appendChild(slide);
+    const thumb=document.createElement('div');
+    thumb.className='thumb'+(i===0?' active':'');
+    thumb.onclick=()=>irASlide(i);
+    if(m.tipo==='img'){
+      thumb.innerHTML=`<img src="${m.url}" alt="">`;
+    } else {
+      thumb.innerHTML=`<div class="video-thumb"><svg viewBox="0 0 24 24" width="20" height="20"><polygon points="5 3 19 12 5 21 5 3" fill="white"/></svg></div>`;
+    }
+    thumbsEl.appendChild(thumb);
+    const dot=document.createElement('div');
+    dot.className='dot'+(i===0?' active':'');
+    dotsEl.appendChild(dot);
+  });
+  // Swipe galería
+  let startX=0;
+  const gallery=document.getElementById('gallery');
+  gallery.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
+  gallery.addEventListener('touchend',e=>{
+    const diff=startX-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>40) irASlide(diff>0?Math.min(slideActual+1,medias.length-1):Math.max(slideActual-1,0));
+  });
+}
+
+function irASlide(idx){
+  slideActual=idx;
+  document.getElementById('slides').style.transform=`translateX(-${idx*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
+}
+
+window.playVideo=function(){
+  const v=document.getElementById('video-main');
+  if(v){ v.play(); v.previousElementSibling?.remove(); }
+};
+
+// SCROLL HEADER
+window.addEventListener('scroll',()=>{
+  document.getElementById('header').classList.toggle('solid',window.scrollY>280);
+});
+
+function actualizarTotal(){
+  document.getElementById('qty-total').textContent='$'+(qty*(prod?.precio||0)).toFixed(2);
+}
+
+window.cambiarQty=function(delta){
+  const min=prod?.minimo||1;
+  qty=Math.max(min,qty+delta*min);
+  document.getElementById('qty-num').textContent=qty;
+  actualizarTotal();
+};
+
+window.toggleFav=function(){
+  const idx=favs.indexOf(prodId);
+  if(idx>=0){ favs.splice(idx,1); document.getElementById('fav-icon').style.fill='none'; document.getElementById('fav-icon').style.stroke='white'; }
+  else{ favs.push(prodId); document.getElementById('fav-icon').style.fill='var(--rojo)'; document.getElementById('fav-icon').style.stroke='var(--rojo)'; }
+  localStorage.setItem('proveed_favs',JSON.stringify(favs));
+};
+
+window.compartir=function(){
+  if(navigator.share) navigator.share({title:prod?.nombre||'Producto',url:window.location.href});
+  else{ navigator.clipboard.writeText(window.location.href); showToast('📋 Link copiado'); }
+};
+
+async function cargarProveedor(){
+  if(!prod?.proveedorId) return;
+  try{
+    const snap=await getDoc(doc(db,'usuarios',prod.proveedorId));
+    if(!snap.exists()) return;
+    const d=snap.data();
+    document.getElementById('prov-avatar').textContent=(d.empresa||d.nombre||'P')[0].toUpperCase();
+    document.getElementById('prov-nombre').textContent=d.empresa||d.nombre||'Proveedor';
+    document.getElementById('prov-ciudad').textContent=d.ciudad||'Ecuador';
+    const qp=await getDocs(query(collection(db,'productos'),where('proveedorId','==',prod.proveedorId),where('activo','==',true)));
+    document.getElementById('prov-productos').textContent=qp.size;
+    const qv=await getDocs(query(collection(db,'pedidos')));
+    let ventas=0;
+    qv.forEach(d=>{ if((d.data().items||[]).some(i=>i.proveedor===(snap.data().empresa||snap.data().nombre))) ventas++; });
+    document.getElementById('prov-ventas').textContent=ventas;
+  }catch(e){ console.warn(e); }
+}
+
+window.verProveedor=function(){
+  if(prod?.proveedorId) window.location.href=`proveedor.html?id=${prod.proveedorId}`;
+};
+
+window.chatConProveedor=async function(){
+  if(!prod?.proveedorId) return;
+  const snap=await getDoc(doc(db,'usuarios',prod.proveedorId));
+  const nombre=snap.exists()?(snap.data().empresa||snap.data().nombre||'Proveedor'):'Proveedor';
+  window.location.href=`chat.html?proveedorId=${prod.proveedorId}&nombre=${encodeURIComponent(nombre)}`;
+};
+
+window.agregarAlCarrito=function(){
+  if(!prod) return;
+  let c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const img=prod.imagenes?.[0]||prod.imagen||'';
+  const proveedor=prod.nombreProveedor||'Proveedor';
+  const idx=c.findIndex(i=>i.id===prodId);
+  if(idx>=0) c[idx].cantidad+=qty;
+  else c.push({id:prodId,nombre:prod.nombre,precio:prod.precio,cantidad:qty,minimo:prod.minimo||1,imagen:img,proveedor});
+  localStorage.setItem('carrito_proveed',JSON.stringify(c));
+  showToast(`✓ ${qty} × ${prod.nombre} añadido`);
+};
+
+// COTIZACIÓN
+window.enviarCotizacion=async function(){
+  if(!currentUser||!prod) return;
+  const mensaje=document.getElementById('cot-mensaje').value.trim();
+  const cantidad=document.getElementById('cot-cantidad').value;
+  if(!mensaje){showToast('Escribe tu mensaje de cotización');return;}
+  try{
+    const snap=await getDoc(doc(db,'usuarios',prod.proveedorId));
+    const nombre=snap.exists()?(snap.data().empresa||snap.data().nombre||'Proveedor'):'Proveedor';
+    const qChat=await getDocs(query(collection(db,'chats'),where('emprendedorId','==',currentUser.uid),where('proveedorId','==',prod.proveedorId)));
+    let chatId;
+    if(!qChat.empty){ chatId=qChat.docs[0].id; }
+    else{
+      const ref=await addDoc(collection(db,'chats'),{
+        emprendedorId:currentUser.uid,proveedorId:prod.proveedorId,
+        proveedorNombre:nombre,ultimoMensaje:'',ultimoMensajeEn:serverTimestamp(),noLeidos:0
+      });
+      chatId=ref.id;
+    }
+    const textoCot=`📋 SOLICITUD DE COTIZACIÓN\n\nProducto: ${prod.nombre}\nCantidad deseada: ${cantidad||qty} ${prod.unidad||'unidades'}\n\n${mensaje}`;
+    await addDoc(collection(db,'chats',chatId,'mensajes'),{
+      texto:textoCot,remitenteId:currentUser.uid,tipo:'emprendedor',enviadoEn:serverTimestamp()
+    });
+    await updateDoc(doc(db,'chats',chatId),{ultimoMensaje:'Solicitud de cotización',ultimoMensajeEn:serverTimestamp(),noLeidos:1});
+    document.getElementById('cot-mensaje').value='';
+    document.getElementById('cot-cantidad').value='';
+    showToast('✅ Cotización enviada al proveedor');
+  }catch(e){ showToast('Error: '+e.message); }
+};
+
+// RESEÑAS
+async function cargarReseñas(){
+  try{
+    const snap=await getDocs(query(collection(db,'reseñas'),where('productoId','==',prodId),orderBy('creadoEn','desc')));
+    const reseñas=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderReseñas(reseñas);
+  }catch(e){ console.warn(e); }
+}
+
+function renderReseñas(reseñas){
+  if(!reseñas.length) return;
+  const total=reseñas.length;
+  const suma=reseñas.reduce((s,r)=>s+(r.rating||0),0);
+  const prom=(suma/total).toFixed(1);
+  document.getElementById('rating-num').textContent=prom;
+  document.getElementById('rating-count').textContent=`(${total} reseña${total!==1?'s':''})`;
+  document.getElementById('rating-big').textContent=prom;
+  document.getElementById('rating-total-lbl').textContent=`${total} reseña${total!==1?'s':''}`;
+  document.getElementById('prov-rating').textContent=prom+'★';
+  // Barras
