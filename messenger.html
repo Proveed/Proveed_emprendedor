@@ -3,68 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Negociación — PROVEED</title>
+    <title>Chat de Negocios — PROVEED</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: white; height: 100vh; display: flex; flex-direction: column; }
+        body { background: white; height: 100vh; display: flex; flex-direction: column; margin: 0; font-family: 'DM Sans', sans-serif; }
         
-        /* HEADER DEL CHAT */
+        /* HEADER */
         .chat-header { 
             padding: 15px 20px; border-bottom: 1px solid #eee; 
-            display: flex; align-items: center; gap: 12px; position: sticky; top: 0; background: white; z-index: 10;
+            display: flex; align-items: center; gap: 12px; background: white; z-index: 10;
         }
-        .status-dot { width: 8px; height: 8px; background: var(--verde-pro); border-radius: 50%; }
+        .status-dot { width: 8px; height: 8px; background: #32D74B; border-radius: 50%; }
 
         /* ÁREA DE MENSAJES */
-        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: #F9F9F9; }
+        #chat-container { 
+            flex: 1; overflow-y: auto; padding: 20px; 
+            display: flex; flex-direction: column; gap: 12px; background: #F8F9FA; 
+        }
         
-        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.4; }
+        .msg { max-width: 75%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; position: relative; line-height: 1.4; }
         .msg.sent { align-self: flex-end; background: #1A1A1A; color: white; border-bottom-right-radius: 4px; }
-        .msg.received { align-self: flex-start; background: white; color: #333; border: 1px solid #eee; border-bottom-left-radius: 4px; }
-        .msg-info { font-size: 0.6rem; margin-top: 5px; opacity: 0.7; display: block; }
+        .msg.received { align-self: flex-start; background: white; color: #333; border: 1px solid #ddd; border-bottom-left-radius: 4px; }
+        
+        .user-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: block; opacity: 0.7; }
 
-        /* BARRA DE ENTRADA */
+        /* INPUT */
         .chat-input-area { 
             padding: 15px 20px 35px; background: white; border-top: 1px solid #eee; 
             display: flex; gap: 10px; align-items: center;
         }
         #message-input { 
-            flex: 1; background: #F2F2F2; border: none; padding: 14px; 
-            border-radius: 25px; outline: none; font-family: 'DM Sans'; 
+            flex: 1; background: #F2F2F2; border: none; padding: 14px 18px; 
+            border-radius: 25px; outline: none; font-size: 0.95rem;
         }
         .btn-send { 
-            background: var(--verde-pro); border: none; width: 45px; height: 45px; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black;
+            background: #1A1A1A; color: white; border: none; width: 48px; height: 48px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
+        .icon-pro { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
     </style>
 </head>
 <body>
 
     <header class="chat-header">
         <a href="dashboard.html" style="color:black;">
-            <svg class="icon-pro" style="width:20px;" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </a>
         <div style="flex:1;">
-            <h2 style="font-size: 0.95rem; margin: 0; font-family: 'Syne';">SOPORTE PROVEEDOR</h2>
+            <h2 style="font-size: 1rem; margin: 0; font-family: 'Syne'; text-transform: uppercase;">Negociación Directa</h2>
             <div style="display: flex; align-items: center; gap: 5px;">
                 <div class="status-dot"></div>
-                <span style="font-size: 0.7rem; color: #888;">En línea ahora</span>
+                <span style="font-size: 0.7rem; color: #666;">Canal de comunicación verificado</span>
             </div>
         </div>
     </header>
 
     <div id="chat-container">
-        <div class="msg received">
-            Hola, ¿en qué producto estás interesado para tu negocio?
-            <span class="msg-info">10:45 AM</span>
         </div>
-    </div>
 
     <div class="chat-input-area">
-        <input type="text" id="message-input" placeholder="Escribe tu propuesta...">
+        <input type="text" id="message-input" placeholder="Haz una oferta o pregunta...">
         <button class="btn-send" id="send-btn">
-            <svg class="icon-pro" style="width:18px;" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <svg class="icon-pro" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
         </button>
     </div>
 
@@ -72,42 +73,55 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
+        // CONFIGURACIÓN DE TU FIREBASE
         const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         const chatContainer = document.getElementById('chat-container');
         const messageInput = document.getElementById('message-input');
+        
+        // Obtenemos los datos del usuario logueado en index.html
         const userEmail = localStorage.getItem('userEmail') || "Invitado";
 
-        // ESCUCHAR MENSAJES EN TIEMPO REAL
+        // --- 1. ESCUCHA DE MENSAJES (EL CORAZÓN DEL CHAT) ---
         const q = query(collection(db, "chats"), orderBy("timestamp", "asc"));
+        
         onSnapshot(q, (snapshot) => {
-            chatContainer.innerHTML = ''; // Limpiar para recargar
+            chatContainer.innerHTML = ''; 
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 const isMine = data.user === userEmail;
                 
                 const msgDiv = document.createElement('div');
                 msgDiv.className = `msg ${isMine ? 'sent' : 'received'}`;
-                msgDiv.innerHTML = `${data.text} <span class="msg-info">${data.user}</span>`;
+                
+                msgDiv.innerHTML = `
+                    <span class="user-tag">${isMine ? 'Tú' : data.user.split('@')[0]}</span>
+                    ${data.text}
+                `;
                 chatContainer.appendChild(msgDiv);
             });
+            // Siempre bajar al último mensaje
             chatContainer.scrollTop = chatContainer.scrollHeight;
         });
 
-        // ENVIAR MENSAJE
+        // --- 2. ENVIAR MENSAJES ---
         async function sendMessage() {
             const text = messageInput.value.trim();
             if (text === "") return;
 
-            await addDoc(collection(db, "chats"), {
-                text: text,
-                user: userEmail,
-                timestamp: serverTimestamp()
-            });
-
-            messageInput.value = "";
+            try {
+                await addDoc(collection(db, "chats"), {
+                    text: text,
+                    user: userEmail,
+                    timestamp: serverTimestamp()
+                });
+                messageInput.value = "";
+            } catch (e) {
+                console.error("Error al enviar:", e);
+                alert("Error: Revisa las reglas de seguridad en Firebase.");
+            }
         }
 
         document.getElementById('send-btn').onclick = sendMessage;
