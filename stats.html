@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dueño PROVEED — Estadísticas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background: #F0F2f5; padding: 20px; padding-bottom: 60px; color: #1A1A1A; }
+        .header-admin { margin-bottom: 30px; border-left: 4px solid var(--verde-pro); padding-left: 15px; }
+        
+        /* TARJETAS DE DATOS RÁPIDOS */
+        .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .card { background: white; padding: 15px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #eee; }
+        .card h3 { font-size: 0.6rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .card p { font-family: 'Syne'; font-size: 1.2rem; font-weight: 700; margin: 0; }
+
+        /* CONTENEDORES DE GRÁFICAS */
+        .chart-box { background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; border: 1px solid #eee; }
+        .chart-box h2 { font-family: 'Syne'; font-size: 0.9rem; margin-bottom: 20px; text-transform: uppercase; color: #444; }
+        
+        .city-rank { margin-top: 15px; }
+        .city-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f9f9f9; font-size: 0.8rem; }
+        .city-row b { color: var(--verde-pro); }
+    </style>
+</head>
+<body>
+
+    <div class="header-admin">
+        <h1 style="font-size: 1.6rem;">CENTRAL DE DATOS</h1>
+        <p style="font-size: 0.8rem; color: #666;">Control total del ecosistema PROVEED</p>
+    </div>
+
+    <div class="grid-stats">
+        <div class="card">
+            <h3>Transacciones Hoy</h3>
+            <p id="total-trans">142</p>
+        </div>
+        <div class="card">
+            <h3>Volumen Est.</h3>
+            <p id="total-money">$8,240</p>
+        </div>
+    </div>
+
+    <div class="chart-box">
+        <h2>Ventas por Provincia (Ecuador)</h2>
+        <canvas id="chartCiudades"></canvas>
+        <div class="city-rank">
+            <div class="city-row"><span>1. Esmeraldas</span> <b id="val-esm">$3,100</b></div>
+            <div class="city-row"><span>2. Guayaquil</span> <b id="val-gye">$2,450</b></div>
+            <div class="city-row"><span>3. Quito</span> <b id="val-uio">$1,800</b></div>
+        </div>
+    </div>
+
+    <div class="chart-box">
+        <h2>Horas Pico de Tráfico</h2>
+        <canvas id="chartHoras"></canvas>
+        <p style="font-size: 0.65rem; color: #999; margin-top: 10px;">* Basado en la actividad de emprendedores en las últimas 24h.</p>
+    </div>
+
+    <div class="chart-box">
+        <h2>Top Categorías Movidas</h2>
+        <canvas id="chartCategorias"></canvas>
+    </div>
+
+    <script>
+        // --- DATA DE CIUDADES ---
+        new Chart(document.getElementById('chartCiudades'), {
+            type: 'bar',
+            data: {
+                labels: ['ESM', 'GYE', 'UIO', 'MNT', 'CUE'],
+                datasets: [{
+                    label: 'Ventas ($)',
+                    data: [3100, 2450, 1800, 1200, 900],
+                    backgroundColor: '#32D74B',
+                    borderRadius: 10
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+
+        // --- DATA DE HORAS (FRECUENCIA) ---
+        new Chart(document.getElementById('chartHoras'), {
+            type: 'line',
+            data: {
+                labels: ['6am', '10am', '2pm', '6pm', '10pm', '2am'],
+                datasets: [{
+                    label: 'Usuarios Online',
+                    data: [50, 450, 600, 1200, 900, 120],
+                    borderColor: '#1A1A1A',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(50, 215, 75, 0.1)'
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+
+        // --- DATA DE CATEGORÍAS (PRODUCTOS MÁS VENDIDOS) ---
+        new Chart(document.getElementById('chartCategorias'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Relojería', 'Gorras', 'Mochilas', 'Tecno'],
+                datasets: [{
+                    data: [45, 25, 15, 15],
+                    backgroundColor: ['#1A1A1A', '#32D74B', '#FF6B00', '#FF3B30'],
+                    borderWidth: 0
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
