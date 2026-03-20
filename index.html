@@ -7,17 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  :root{
-    --verde:#A8E63D;
-    --naranja:#FF8C00;
-    --negro:#111111;
-    --blanco:#FFFFFF;
-  }
-  html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-  }
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; }
+  html,body{ width:100%; height:100%; overflow:hidden; }
   body{
     background:var(--negro);
     font-family:'DM Sans',sans-serif;
@@ -26,94 +17,86 @@
     align-items:center;
     justify-content:center;
     min-height:100svh;
-    padding:24px;
+    padding:32px 24px;
     -webkit-font-smoothing:antialiased;
   }
   body::before{
     content:'';
     position:fixed;
     inset:0;
-    background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(168,230,61,0.13) 0%, transparent 65%);
+    background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(168,230,61,0.12) 0%, transparent 65%);
     pointer-events:none;
   }
-
   .wrap{
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:clamp(12px, 3vw, 24px);
+    gap:16px;
     width:100%;
-    max-width:360px;
+    max-width:280px;
     animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
   }
-
-  /* LOGO HEX */
   .logo-hex{
-    width:clamp(72px, 20vw, 110px);
-    height:clamp(72px, 20vw, 110px);
+    width:80px;
+    height:80px;
     animation:pulse 3s ease-in-out infinite 1.4s;
     flex-shrink:0;
   }
   .logo-hex svg{ width:100%; height:100%; }
-
-  /* MARCA */
-  .brand-block{ text-align:center; }
+  .brand-block{ text-align:center; width:100%; }
   .brand{
     font-family:'Syne',sans-serif;
-    font-size:clamp(2rem, 10vw, 3.2rem);
+    font-size:2.4rem;
     font-weight:900;
-    letter-spacing:-2px;
+    letter-spacing:-1px;
     color:var(--blanco);
     line-height:1;
+    white-space:nowrap;
   }
   .brand span{ color:var(--verde); }
   .tagline{
-    font-size:clamp(0.6rem, 2.5vw, 0.78rem);
+    font-size:0.65rem;
     color:#555;
-    letter-spacing:clamp(1px, 0.5vw, 3px);
+    letter-spacing:2px;
     text-transform:uppercase;
     margin-top:6px;
     font-weight:400;
   }
-
-  /* LOADER */
   .loader-wrap{
     width:100%;
-    max-width:180px;
-    margin-top:clamp(24px, 6vw, 48px);
+    margin-top:36px;
     display:flex;
     flex-direction:column;
     align-items:center;
     gap:12px;
   }
   .loader-track{
-    width:100%;
-    height:3px;
+    width:140px;
+    height:2px;
     background:rgba(255,255,255,0.07);
-    border-radius:3px;
+    border-radius:2px;
     overflow:hidden;
   }
   .loader-bar{
     height:100%;
     width:0%;
     background:linear-gradient(90deg, var(--verde), var(--naranja));
-    border-radius:3px;
+    border-radius:2px;
     animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.6s;
   }
   .status{
-    font-size:clamp(0.62rem, 2vw, 0.72rem);
+    font-size:0.68rem;
     color:#444;
     letter-spacing:1px;
     text-align:center;
   }
-
   @keyframes fadeUp{
-    from{opacity:0; transform:translateY(32px);}
-    to{opacity:1; transform:translateY(0);}
+    from{opacity:0;transform:translateY(28px);}
+    to{opacity:1;transform:translateY(0);}
   }
   @keyframes pulse{
     0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));}
-    50%{filter:drop-shadow(0 0 22px rgba(168,230,61,0.5));}
+    50%{filter:drop-shadow(0 0 18px rgba(168,230,61,0.45));}
   }
   @keyframes loadFill{
     0%{width:0%;}
@@ -124,7 +107,6 @@
 </style>
 </head>
 <body>
-
 <div class="wrap">
   <div class="logo-hex">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -138,20 +120,15 @@
       <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
   </div>
-
   <div class="brand-block">
     <div class="brand">PRO<span>VEED</span></div>
     <div class="tagline">Mercado Mayorista Ecuador</div>
   </div>
-
   <div class="loader-wrap">
-    <div class="loader-track">
-      <div class="loader-bar"></div>
-    </div>
+    <div class="loader-track"><div class="loader-bar"></div></div>
     <div class="status">Conectando con proveedores...</div>
   </div>
 </div>
-
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
