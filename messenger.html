@@ -3,104 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PROVEED — Mensajes Seguros</title>
+    <title>Negociación — PROVEED</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: white; padding-bottom: 100px; }
+        body { background: white; height: 100vh; display: flex; flex-direction: column; }
         
-        /* BANNER DE SEGURIDAD ANTIFRAUDE */
-        .security-banner {
-            background: #FFF8E6; border: 1px solid #FFE5A3;
-            margin: 15px 20px; padding: 12px 15px; border-radius: 12px;
-            display: flex; gap: 12px; align-items: flex-start;
+        /* HEADER DEL CHAT */
+        .chat-header { 
+            padding: 15px 20px; border-bottom: 1px solid #eee; 
+            display: flex; align-items: center; gap: 12px; position: sticky; top: 0; background: white; z-index: 10;
         }
-        .security-banner p { font-size: 0.75rem; color: #856404; line-height: 1.3; }
-        .security-banner b { color: #000; display: block; margin-bottom: 2px; }
+        .status-dot { width: 8px; height: 8px; background: var(--verde-pro); border-radius: 50%; }
 
-        .chat-item {
-            display: flex; align-items: center; padding: 18px 20px;
-            border-bottom: 1px solid #f8f8f8; text-decoration: none; color: black;
-            position: relative;
-        }
-        .chat-avatar {
-            width: 50px; height: 50px; border-radius: 15px;
-            background: #eee; margin-right: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Syne'; font-weight: 800; font-size: 1.1rem;
-        }
-        .chat-info { flex: 1; }
-        .chat-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 2px; }
-        .chat-preview { font-size: 0.8rem; color: #888; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        /* ÁREA DE MENSAJES */
+        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: #F9F9F9; }
         
-        .verified-badge { background: var(--verde-check); color: white; font-size: 0.55rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+        .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.4; }
+        .msg.sent { align-self: flex-end; background: #1A1A1A; color: white; border-bottom-right-radius: 4px; }
+        .msg.received { align-self: flex-start; background: white; color: #333; border: 1px solid #eee; border-bottom-left-radius: 4px; }
+        .msg-info { font-size: 0.6rem; margin-top: 5px; opacity: 0.7; display: block; }
 
-        /* Barra Inferior */
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; padding: 12px 0 28px; border-top: 1px solid #eee; justify-content: space-around; z-index: 1000; }
-        .nav-item { text-align: center; flex: 1; text-decoration: none; color: #999; }
-        .nav-item.active { color: #000; }
-        .nav-item p { font-size: 0.55rem; font-weight: 800; margin-top: 4px; }
-        .icon-svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        /* BARRA DE ENTRADA */
+        .chat-input-area { 
+            padding: 15px 20px 35px; background: white; border-top: 1px solid #eee; 
+            display: flex; gap: 10px; align-items: center;
+        }
+        #message-input { 
+            flex: 1; background: #F2F2F2; border: none; padding: 14px; 
+            border-radius: 25px; outline: none; font-family: 'DM Sans'; 
+        }
+        .btn-send { 
+            background: var(--verde-pro); border: none; width: 45px; height: 45px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black;
+        }
     </style>
 </head>
 <body>
 
-    <header style="padding: 30px 20px 10px; background: white;">
-        <h1 style="font-family: 'Syne'; font-size: 1.8rem; letter-spacing: -1px;">Mensajes</h1>
+    <header class="chat-header">
+        <a href="dashboard.html" style="color:black;">
+            <svg class="icon-pro" style="width:20px;" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </a>
+        <div style="flex:1;">
+            <h2 style="font-size: 0.95rem; margin: 0; font-family: 'Syne';">SOPORTE PROVEEDOR</h2>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div class="status-dot"></div>
+                <span style="font-size: 0.7rem; color: #888;">En línea ahora</span>
+            </div>
+        </div>
     </header>
 
-    <div class="security-banner">
-        <svg style="width:24px; height:24px; stroke:#856404; stroke-width:2; fill:none;" viewBox="0 0 24 24">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        <p>
-            <b>PROTECCIÓN PROVEED SEG</b>
-            Para evitar estafas y extorsiones, nunca compartas tu número de teléfono ni salgas de la plataforma. Todo negocio fuera de Proveed pierde la garantía antifraude.
-        </p>
+    <div id="chat-container">
+        <div class="msg received">
+            Hola, ¿en qué producto estás interesado para tu negocio?
+            <span class="msg-info">10:45 AM</span>
+        </div>
     </div>
 
-    <main>
-        <div class="chat-item">
-            <div class="chat-avatar" style="background: var(--lima); color: var(--negro);">P</div>
-            <div class="chat-info">
-                <div class="chat-name">Ulises (Importaciones) <span class="verified-badge">VERIFICADO</span></div>
-                <p class="chat-preview">Hola, el despacho para Esmeraldas está en revisión interna...</p>
-            </div>
-            <div style="font-size: 0.7rem; color: #999;">12:30</div>
-        </div>
+    <div class="chat-input-area">
+        <input type="text" id="message-input" placeholder="Escribe tu propuesta...">
+        <button class="btn-send" id="send-btn">
+            <svg class="icon-pro" style="width:18px;" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+    </div>
 
-        <div class="chat-item">
-            <div class="chat-avatar" style="background: var(--negro); color: white;">A</div>
-            <div class="chat-info">
-                <div class="chat-name">Ali Logistics <span class="verified-badge">VERIFICADO</span></div>
-                <p class="chat-preview">Confirmamos la recepción de las unidades en bodega.</p>
-            </div>
-            <div style="font-size: 0.7rem; color: #999;">Ayer</div>
-        </div>
-    </main>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-    <nav class="nav-bar">
-        <a href="dashboard.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-            <p>Inicio</p>
-        </a>
-        <a href="tips.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-            <p>Tips</p>
-        </a>
-        <a href="messenger.html" class="nav-item active">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"></path></svg>
-            <p>Chats</p>
-        </a>
-        <a href="carrito.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <p>Pedidos</p>
-        </a>
-        <a href="perfil.html" class="nav-item">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <p>Perfil</p>
-        </a>
-    </nav>
+        const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
+        const chatContainer = document.getElementById('chat-container');
+        const messageInput = document.getElementById('message-input');
+        const userEmail = localStorage.getItem('userEmail') || "Invitado";
+
+        // ESCUCHAR MENSAJES EN TIEMPO REAL
+        const q = query(collection(db, "chats"), orderBy("timestamp", "asc"));
+        onSnapshot(q, (snapshot) => {
+            chatContainer.innerHTML = ''; // Limpiar para recargar
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const isMine = data.user === userEmail;
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `msg ${isMine ? 'sent' : 'received'}`;
+                msgDiv.innerHTML = `${data.text} <span class="msg-info">${data.user}</span>`;
+                chatContainer.appendChild(msgDiv);
+            });
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
+
+        // ENVIAR MENSAJE
+        async function sendMessage() {
+            const text = messageInput.value.trim();
+            if (text === "") return;
+
+            await addDoc(collection(db, "chats"), {
+                text: text,
+                user: userEmail,
+                timestamp: serverTimestamp()
+            });
+
+            messageInput.value = "";
+        }
+
+        document.getElementById('send-btn').onclick = sendMessage;
+        messageInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
+    </script>
 </body>
 </html>
