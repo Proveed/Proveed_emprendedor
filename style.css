@@ -1,32 +1,182 @@
-/* style.css - ADN PROVEED PROFESIONAL */
+/* PROVEED — Hoja de Estilo Maestra
+   Diseño: Minimalista / Premium / Seguro
+   Tipografía: Syne (Títulos) & DM Sans (Lectura)
+*/
+
 :root {
-    --lima: #CCFF00;
-    --verde-check: #32D74B;
-    --naranja: #FF6B00;
+    --verde-pro: #32D74B;
     --negro: #0D0D0D;
-    --gris-fondo: #F8F9FA;
-    --blanco: #FFFFFF;
-    --fuente-titulo: 'Syne', sans-serif;
+    --gris-suave: #F8F9FA;
+    --gris-texto: #888888;
+    --gris-borde: #EEEEEE;
+    --rojo-alerta: #FF3B30;
+    --naranja: #FF6B00;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'DM Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-body { background: var(--gris-fondo); color: var(--negro); }
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: white;
+    color: var(--negro);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
 
-/* LOGO HEXAGONAL REPLICADO */
-.logo-master { display: flex; align-items: center; gap: 8px; }
+/* --- TIPOGRAFÍA CORREGIDA (Anti-Aplastamiento) --- */
+
+h1, h2, h3, .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; /* Bajado de 800 para mayor claridad */
+    letter-spacing: 0.5px; /* Espaciado positivo para que respire */
+    line-height: 1.2;
+}
+
+p, span, input, button {
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: -0.1px;
+}
+
+/* --- ICONOS LINEALES PROFESIONALES --- */
+
+.icon-pro { 
+    width: 22px; 
+    height: 22px; 
+    stroke: currentColor; 
+    stroke-width: 1.8; /* Trazo fino estilo Apple/Alibaba */
+    fill: none; 
+    stroke-linecap: round; 
+    stroke-linejoin: round; 
+    transition: all 0.2s ease;
+}
+
+/* --- COMPONENTES DE INTERFAZ --- */
+
+/* Header Principal */
+.header-main {
+    background: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gris-borde);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo Hexagonal */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .hex-icon {
-    width: 24px; height: 28px; background: var(--verde-check);
+    width: 24px;
+    height: 28px;
+    background: var(--verde-pro);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.check-svg { width: 12px; stroke: white; stroke-width: 4; fill: none; }
-.logo-text { font-family: var(--fuente-titulo); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: -0.5px; }
 
-/* ICONOS SVG GENERALES */
-.icon-pro { width: 22px; height: 22px; stroke: #999; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: 0.3s; }
-.active .icon-pro { stroke: var(--negro); }
+/* Barra de Navegación Inferior */
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    padding: 12px 0 28px; /* Espacio extra para iPhone/Android modernos */
+    border-top: 1px solid var(--gris-borde);
+    justify-content: space-around;
+    z-index: 2000;
+}
 
-/* BOTONES */
-.btn-lima { background: var(--lima); color: var(--negro); border: none; padding: 16px; border-radius: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; }
-.btn-naranja { background: var(--naranja); color: white; border: none; padding: 16px; border-radius: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.8rem; }
+.nav-item {
+    text-align: center;
+    flex: 1;
+    text-decoration: none;
+    color: #AAAAAA; /* Gris para inactivos */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-item.active {
+    color: var(--negro);
+}
+
+.nav-item p {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px; /* Texto pequeño legible */
+}
+
+/* Cards de Productos (Dashboard) */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--gris-borde);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.product-card:active {
+    transform: scale(0.97);
+}
+
+.product-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    background: var(--gris-suave);
+}
+
+.product-info {
+    padding: 12px;
+}
+
+/* Botones de Acción */
+.btn-primary {
+    background: var(--negro);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn-primary:active {
+    background: #333;
+}
+
+/* Banners de Seguridad (PROVEED SEG) */
+.banner-seg {
+    background: #FFF8E6;
+    border: 1px solid #FFE5A3;
+    padding: 12px 15px;
+    border-radius: 12px;
+    margin: 10px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
