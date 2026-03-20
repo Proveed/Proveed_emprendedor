@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED — Acceso</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --error:#FF4D4D; }
+  html,body{ height:100%; }
+  body{
+    background:var(--gris);
+    font-family:'DM Sans',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* HEADER LOGO */
+  .top-logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:24px;
+  }
+  .top-logo svg{ width:36px; height:36px; }
+  .top-logo-text{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:900; color:var(--negro); letter-spacing:-0.5px; }
+  .top-logo-text span{ color:var(--verde); }
+  .top-logo-sub{ font-size:0.58rem; color:#aaa; text-transform:uppercase; letter-spacing:1.5px; display:block; margin-top:-2px; }
+
+  /* CARD */
+  .card{
+    width:100%;
+    max-width:420px;
+    background:var(--blanco);
+    border-radius:24px;
+    padding:28px 24px;
+    box-shadow:0 4px 24px rgba(0,0,0,0.08);
+  }
+  .card-title{ font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; color:var(--negro); margin-bottom:4px; }
+  .card-sub{ font-size:0.85rem; color:#aaa; margin-bottom:22px; }
+
+  /* TABS */
+  .tabs{ display:flex; background:var(--gris); border-radius:14px; padding:4px; gap:4px; margin-bottom:22px; }
+  .tab{ flex:1; padding:10px; border-radius:11px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600; transition:0.25s; background:transparent; color:#aaa; }
+  .tab.active{ background:var(--verde); color:var(--negro); font-weight:700; }
+
+  /* FIELDS */
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
+  .field input,.field select{
+    width:100%; padding:13px 15px;
+    background:var(--gris); border:1.5px solid #eee;
+    border-radius:13px; color:var(--negro);
+    font-family:'DM Sans',sans-serif; font-size:0.95rem;
+    outline:none; transition:border-color 0.2s;
+    -webkit-appearance:none;
+  }
+  .field input:focus,.field select:focus{ border-color:var(--verde); background:white; }
+  .field input::placeholder{ color:#ccc; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+  /* BTN */
+  .btn-main{
+    width:100%; padding:15px; border:none; border-radius:14px;
+    background:var(--negro); color:white;
+    font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800;
+    cursor:pointer; transition:0.2s; margin-top:6px;
+    letter-spacing:0.3px;
+  }
+  .btn-main:active{ transform:scale(0.98); }
+  .btn-main:disabled{ opacity:0.5; cursor:not-allowed; }
+  .btn-main.loading .btn-text{ display:none; }
+  .btn-main.loading .spinner{ display:block; }
+  .spinner{ display:none; width:18px; height:18px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto; }
+
+  /* ERROR */
+  .msg-error{ display:none; background:rgba(255,77,77,0.08); border:1px solid rgba(255,77,77,0.25); border-radius:12px; padding:11px 14px; font-size:0.82rem; color:var(--error); margin-bottom:14px; }
+  .msg-error.visible{ display:block; }
+
+  /* FORGOT */
+  .forgot{ text-align:center; margin-top:14px; font-size:0.8rem; color:#aaa; cursor:pointer; }
+  .forgot span{ color:var(--naranja); font-weight:600; }
+
+  /* DIVIDER */
+  .divider{ display:flex; align-items:center; gap:12px; margin:18px 0; }
+  .divider hr{ flex:1; border:none; border-top:1px solid #eee; }
+  .divider span{ font-size:0.72rem; color:#ccc; font-weight:600; }
+
+  /* SWITCH PORTAL */
+  .switch-portal{ text-align:center; margin-top:20px; font-size:0.8rem; color:#aaa; }
+  .switch-portal a{ color:var(--naranja); font-weight:700; text-decoration:none; }
+
+  @keyframes spin{ to{transform:rotate(360deg);} }
+</style>
+</head>
+<body>
+
+<div class="top-logo">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A8E63D"/><stop offset="100%" style="stop-color:#7BC820"/></linearGradient></defs>
+    <path d="M50 4 L93 28 V72 L50 96 L7 72 V28 Z" fill="url(#g1)"/>
+    <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
+  <div>
+    <div class="top-logo-text">PRO<span>VEED</span></div>
+    <span class="top-logo-sub">Portal Emprendedor</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Bienvenido</div>
+  <div class="card-sub">Accede a miles de proveedores mayoristas</div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
+    <button class="tab" id="tab-reg" onclick="switchTab('reg')">Crear cuenta</button>
+  </div>
+
+  <div id="msg-error" class="msg-error"></div>
+
+  <!-- LOGIN -->
+  <div id="form-login">
+    <div class="field"><label>Correo electrónico</label><input type="email" id="l-email" placeholder="tucorreo@ejemplo.com"></div>
+    <div class="field"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••••"></div>
+    <button class="btn-main" id="btn-login" onclick="doLogin()">
+      <span class="btn-text">ENTRAR →</span>
+      <div class="spinner"></div>
+    </button>
+    <div class="forgot" onclick="doForgot()">¿Olvidaste tu contraseña? <span>Recuperar</span></div>
+  </div>
+
+  <!-- REGISTRO -->
+  <div id="form-reg" style="display:none;">
+    <div class="field"><label>Tu nombre completo</label><input type="text" id="r-nombre" placeholder="Juan Manuel Torres"></div>
+    <div class="field"><label>Correo electrónico</label><input type="email" id="r-email" placeholder="tucorreo@ejemplo.com"></div>
+    <div class="field"><label>Contraseña</label><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres"></div>
+    <div class="field-row">
+      <div class="field"><label>Cédula</label><input type="text" id="r-cedula" placeholder="1712345678" maxlength="13"></div>
+      <div class="field"><label>Ciudad</label><input type="text" id="r-ciudad" placeholder="Quito"></div>
+    </div>
+    <button class="btn-main" id="btn-reg" onclick="doRegistro()">
+      <span class="btn-text">CREAR CUENTA →</span>
+      <div class="spinner"></div>
+    </button>
+  </div>
+</div>
+
+<div class="switch-portal">¿Eres proveedor? <a href="https://proveed-proveedor.vercel.app">Entra aquí →</a></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const app=initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+window.switchTab=function(tab){
+  document.getElementById('tab-login').classList.toggle('active',tab==='login');
+  document.getElementById('tab-reg').classList.toggle('active',tab==='reg');
+  document.getElementById('form-login').style.display=tab==='login'?'block':'none';
+  document.getElementById('form-reg').style.display=tab==='reg'?'block':'none';
+  document.getElementById('msg-error').classList.remove('visible');
+};
+
+function showError(msg){ const e=document.getElementById('msg-error'); e.textContent=msg; e.classList.add('visible'); }
+function setLoading(id,s){ const b=document.getElementById(id); b.classList.toggle('loading',s); b.disabled=s; }
+
+const ERR={
+  'auth/user-not-found':'No existe cuenta con ese correo.',
+  'auth/wrong-password':'Contraseña incorrecta.',
+  'auth/invalid-credential':'Correo o contraseña incorrectos.',
+  'auth/too-many-requests':'Demasiados intentos. Espera unos minutos.',
+  'auth/email-already-in-use':'Ya existe una cuenta con ese correo.',
+  'auth/weak-password':'La contraseña debe tener al menos 6 caracteres.',
+  'auth/invalid-email':'Correo no válido.'
+};
+
+window.doLogin=async function(){
+  const email=document.getElementById('l-email').value.trim();
+  const pass=document.getElementById('l-pass').value;
+  if(!email||!pass){showError('Completa todos los campos.');return;}
+  setLoading('btn-login',true);
+  try{
+    const cred=await signInWithEmailAndPassword(auth,email,pass);
+    const snap=await getDoc(doc(db,'usuarios',cred.user.uid));
+    if(snap.exists()&&snap.data().rol==='proveedor'){
+      await auth.signOut();
+      showError('Esta cuenta es de proveedor. Usa el portal correcto.');
+      setLoading('btn-login',false);
+      return;
+    }
+    window.location.href='dashboard.html';
+  }catch(e){
+    showError(ERR[e.code]||'Error al iniciar sesión.');
+    setLoading('btn-login',false);
+  }
+};
+
+window.doRegistro=async function(){
+  const nombre=document.getElementById('r-nombre').value.trim();
+  const email=document.getElementById('r-email').value.trim();
+  const pass=document.getElementById('r-pass').value;
+  const cedula=document.getElementById('r-cedula').value.trim();
+  const ciudad=document.getElementById('r-ciudad').value.trim();
+  if(!nombre||!email||!pass||!cedula||!ciudad){showError('Todos los campos son obligatorios.');return;}
+  if(pass.length<6){showError('La contraseña debe tener al menos 6 caracteres.');return;}
+  setLoading('btn-reg',true);
+  try{
+    const cred=await createUserWithEmailAndPassword(auth,email,pass);
+    await setDoc(doc(db,'usuarios',cred.user.uid),{
+      nombre,email,cedula,ciudad,
+      rol:'emprendedor',activo:true,
+      creadoEn:serverTimestamp()
+    });
+    window.location.href='bienvenida.html';
+  }catch(e){
+    showError(ERR[e.code]||'Error al crear la cuenta.');
+    setLoading('btn-reg',false);
+  }
+};
+
+window.doForgot=async function(){
+  const email=document.getElementById('l-email').value.trim();
+  if(!email){showError('Escribe tu correo arriba primero.');return;}
+  try{
+    await sendPasswordResetEmail(auth,email);
+    const e=document.getElementById('msg-error');
+    e.textContent='✅ Correo de recuperación enviado.';
+    e.style.color='#32CD32';
+    e.classList.add('visible');
+  }catch(e){showError('No encontramos esa cuenta.');}
+};
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    if(document.getElementById('form-login').style.display!=='none') window.doLogin();
+    else window.doRegistro();
+  }
+});
+</script>
+</body>
+</html>
