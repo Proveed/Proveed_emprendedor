@@ -7,96 +7,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; }
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; }
   html,body{ width:100%; height:100%; overflow:hidden; }
   body{
     background:var(--negro);
     font-family:'DM Sans',sans-serif;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
-    min-height:100svh;
-    padding:32px 24px;
+    min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
   body::before{
     content:'';
     position:fixed;
     inset:0;
-    background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(168,230,61,0.12) 0%, transparent 65%);
+    background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,230,61,0.12) 0%, transparent 65%);
     pointer-events:none;
   }
   .wrap{
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:16px;
-    width:100%;
-    max-width:280px;
+    gap:14px;
+    padding:24px;
     animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
   }
   .logo-hex{
-    width:80px;
-    height:80px;
+    width:72px;
+    height:72px;
     animation:pulse 3s ease-in-out infinite 1.4s;
-    flex-shrink:0;
   }
   .logo-hex svg{ width:100%; height:100%; }
-  .brand-block{ text-align:center; width:100%; }
   .brand{
     font-family:'Syne',sans-serif;
-    font-size:2.4rem;
-    font-weight:900;
-    letter-spacing:-1px;
-    color:var(--blanco);
+    font-size:1.9rem;
+    font-weight:800;
+    color:white;
+    letter-spacing:-0.5px;
     line-height:1;
-    white-space:nowrap;
+    text-align:center;
   }
   .brand span{ color:var(--verde); }
   .tagline{
-    font-size:0.65rem;
+    font-size:0.62rem;
     color:#555;
     letter-spacing:2px;
     text-transform:uppercase;
-    margin-top:6px;
-    font-weight:400;
-  }
-  .loader-wrap{
-    width:100%;
-    margin-top:36px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
+    text-align:center;
   }
   .loader-track{
-    width:140px;
+    width:120px;
     height:2px;
-    background:rgba(255,255,255,0.07);
+    background:rgba(255,255,255,0.08);
     border-radius:2px;
     overflow:hidden;
+    margin-top:32px;
   }
   .loader-bar{
     height:100%;
     width:0%;
-    background:linear-gradient(90deg, var(--verde), var(--naranja));
+    background:linear-gradient(90deg,var(--verde),var(--naranja));
     border-radius:2px;
     animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.6s;
   }
   .status{
-    font-size:0.68rem;
+    font-size:0.65rem;
     color:#444;
     letter-spacing:1px;
+    margin-top:10px;
     text-align:center;
   }
   @keyframes fadeUp{
-    from{opacity:0;transform:translateY(28px);}
+    from{opacity:0;transform:translateY(24px);}
     to{opacity:1;transform:translateY(0);}
   }
   @keyframes pulse{
     0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));}
-    50%{filter:drop-shadow(0 0 18px rgba(168,230,61,0.45));}
+    50%{filter:drop-shadow(0 0 16px rgba(168,230,61,0.4));}
   }
   @keyframes loadFill{
     0%{width:0%;}
@@ -120,14 +108,10 @@
       <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
   </div>
-  <div class="brand-block">
-    <div class="brand">PRO<span>VEED</span></div>
-    <div class="tagline">Mercado Mayorista Ecuador</div>
-  </div>
-  <div class="loader-wrap">
-    <div class="loader-track"><div class="loader-bar"></div></div>
-    <div class="status">Conectando con proveedores...</div>
-  </div>
+  <div class="brand">PRO<span>VEED</span></div>
+  <div class="tagline">Mercado Mayorista Ecuador</div>
+  <div class="loader-track"><div class="loader-bar"></div></div>
+  <div class="status">Conectando con proveedores...</div>
 </div>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
