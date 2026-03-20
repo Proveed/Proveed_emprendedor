@@ -3,149 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Registro Seguro — PROVEED</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PROVEED — Registro Nacional Ecuador</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; color: white; padding: 20px; font-family: 'DM Sans', sans-serif; }
-        .reg-container { max-width: 450px; margin: 0 auto; padding-bottom: 50px; }
-        .logo-section { text-align: center; margin-bottom: 30px; }
+        :root { --verde-pro: #32D74B; --negro-puro: #000000; --gris-card: #111111; --gris-borde: #222222; }
+        body { background: var(--negro-puro); color: white; margin: 0; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .main-container { width: 100%; max-width: 440px; padding: 20px; box-sizing: border-box; }
         
-        .card-auth { background: #111; padding: 25px; border-radius: 24px; border: 1px solid #222; margin-bottom: 20px; }
-        .input-group { margin-bottom: 18px; }
-        label { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 700; }
+        #home-view { text-align: center; }
+        .logo-hex { width: 70px; height: 75px; background: var(--verde-pro); margin: 0 auto 20px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; align-items: center; justify-content: center; }
+        .brand-name { font-family: 'Syne'; font-size: 2.5rem; letter-spacing: 4px; margin: 0; }
         
-        input, select { 
-            width: 100%; background: #000; border: 1px solid #333; padding: 14px; 
-            border-radius: 12px; color: white; font-size: 0.95rem; outline: none;
-        }
-        input:focus { border-color: #32D74B; }
+        .btn-group { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; }
+        .btn-primary { background: var(--verde-pro); color: #000; border: none; padding: 18px; border-radius: 16px; font-weight: 800; font-family: 'Syne'; font-size: 1rem; cursor: pointer; text-transform: uppercase; }
+        .btn-secondary { background: transparent; color: white; border: 1.5px solid var(--gris-borde); padding: 18px; border-radius: 16px; font-weight: 700; cursor: pointer; }
 
-        /* TARJETA DE PRIVACIDAD */
-        .privacy-info { 
-            background: rgba(50, 215, 75, 0.05); border: 1px dashed #32D74B; 
-            padding: 15px; border-radius: 15px; margin-bottom: 25px; 
-        }
-        .privacy-info p { font-size: 0.75rem; color: #32D74B; margin: 0; line-height: 1.4; }
+        .form-view { display: none; animation: slideUp 0.4s ease; }
+        .card-auth { background: var(--gris-card); padding: 25px; border-radius: 24px; border: 1px solid var(--gris-borde); margin-top: 15px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.65rem; color: #888; text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
+        input, select { width: 100%; background: #000; border: 1px solid #333; padding: 14px; border-radius: 12px; color: white; outline: none; box-sizing: border-box; font-family: 'DM Sans'; appearance: none; }
+        
+        .privacy-box { background: rgba(50,215,75,0.08); border: 1px dashed var(--verde-pro); padding: 12px; border-radius: 12px; margin-bottom: 15px; font-size: 0.7rem; color: var(--verde-pro); }
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+        .btn-photo { background: #1a1a1a; border: 1px solid #333; color: #ccc; padding: 10px; border-radius: 10px; font-size: 0.6rem; cursor: pointer; }
 
-        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .photo-btn { 
-            background: #222; border: 1px solid #333; padding: 15px; border-radius: 12px; 
-            text-align: center; cursor: pointer; font-size: 0.7rem; color: #ccc;
-        }
-        .photo-btn:active { background: #333; }
-
-        .btn-register { 
-            background: #32D74B; color: #000; border: none; width: 100%; 
-            padding: 18px; border-radius: 15px; font-weight: 800; font-family: 'Syne'; 
-            font-size: 1rem; margin-top: 20px; text-transform: uppercase;
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="reg-container">
-        <div class="logo-section">
-            <h1 style="font-family: 'Syne'; font-size: 2rem; margin: 0;">PROVEED</h1>
-            <p style="color: #666; font-size: 0.8rem;">Registro Único de Emprendedores</p>
-        </div>
-
-        <div class="privacy-info">
-            <p><b>SEGURIDAD PROVEED:</b> Tus fotos de cédula y rostro son estrictamente privadas para validación interna. Los proveedores solo verán tu nombre, cédula y dirección para logística de envío.</p>
-        </div>
-
-        <div class="card-auth">
-            <div class="input-group">
-                <label>Nombres Completos</label>
-                <input type="text" id="nombres" placeholder="Ej: Luis Alejandro">
+    <div class="main-container">
+        
+        <div id="home-view">
+            <div class="logo-hex">
+                <svg width="30" viewBox="0 0 24 24" style="stroke:black; stroke-width:3; fill:none;"><path d="M20 6L9 17l-5-5"/></svg>
             </div>
-            <div class="input-group">
-                <label>Apellidos Completos</label>
-                <input type="text" id="apellidos" placeholder="Ej: Angulo Delgado">
-            </div>
-            <div class="input-group">
-                <label>Número de Cédula (Ecuador)</label>
-                <input type="number" id="cedula" placeholder="080xxxxxxx">
-            </div>
-            <div class="input-group">
-                <label>WhatsApp / Teléfono</label>
-                <input type="tel" id="telefono" placeholder="09xxxxxxxx">
-            </div>
-            <div class="input-group">
-                <label>Correo Electrónico</label>
-                <input type="email" id="email" placeholder="tu@correo.com">
+            <h1 class="brand-name">PROVEED</h1>
+            <p style="color:#666; font-size:0.8rem;">RED NACIONAL DE IMPORTACIÓN</p>
+            <div class="btn-group">
+                <button class="btn-primary" onclick="changeView('login')">Iniciar Sesión</button>
+                <button class="btn-secondary" onclick="changeView('register')">Crear Cuenta Segura</button>
             </div>
         </div>
 
-        <div class="card-auth">
-            <label>Dirección de Envío (Línea 1)</label>
-            <input type="text" id="dir1" placeholder="Calle principal y secundaria" style="margin-bottom: 15px;">
-            
-            <label>Dirección de Envío (Línea 2)</label>
-            <input type="text" id="dir2" placeholder="Barrio / Edificio / Referencia">
-            
-            <label style="margin-top: 15px;">Ciudad</label>
-            <select id="ciudad">
-                <option value="Esmeraldas">Esmeraldas</option>
-                <option value="Guayaquil">Guayaquil</option>
-                <option value="Quito">Quito</option>
-                <option value="Manta">Manta</option>
-            </select>
-        </div>
-
-        <div class="card-auth">
-            <label>Documentación Visual</label>
-            <div class="photo-grid">
-                <div class="photo-btn" onclick="alert('Cargar Cédula Frontal')">Cédula (Frente)</div>
-                <div class="photo-btn" onclick="alert('Cargar Cédula Posterior')">Cédula (Detrás)</div>
+        <div id="login-view" class="form-view">
+            <span style="color:var(--verde-pro); cursor:pointer;" onclick="changeView('home')">← VOLVER</span>
+            <div class="card-auth">
+                <div class="input-group"><label>Email</label><input type="email" id="log-email"></div>
+                <div class="input-group"><label>Contraseña</label><input type="password" id="log-pass"></div>
+                <button class="btn-primary" style="width:100%" onclick="processLogin()">ENTRAR</button>
             </div>
-            <div class="photo-btn" style="margin-top: 10px;" onclick="alert('Cargar Selfie')">Foto del Rostro (Selfie)</div>
         </div>
 
-        <button class="btn-register" id="btn-crear">Crear Cuenta Segura</button>
+        <div id="register-view" class="form-view">
+            <span style="color:var(--verde-pro); cursor:pointer;" onclick="changeView('home')">← VOLVER</span>
+            <div class="card-auth">
+                <div class="privacy-box"><b>SEGURIDAD PROVEED:</b> Datos encriptados para verificación de identidad.</div>
+                
+                <div class="input-group"><label>Nombres y Apellidos</label><input type="text" id="reg-full"></div>
+                <div class="input-group"><label>Cédula / RUC</label><input type="number" id="reg-ced"></div>
+                <div class="input-group"><label>Email Corporativo</label><input type="email" id="reg-email"></div>
+
+                <div class="input-group">
+                    <label>Provincia</label>
+                    <select id="reg-provincia" onchange="actualizarCantones()">
+                        <option value="">Seleccione Provincia</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Cantón / Ciudad</label>
+                    <select id="reg-canton">
+                        <option value="">Seleccione primero Provincia</option>
+                    </select>
+                </div>
+
+                <div class="input-group"><label>Dirección Exacta</label><input type="text" id="reg-dir" placeholder="Calle y Nro de casa"></div>
+                
+                <div class="photo-grid">
+                    <button class="btn-photo" onclick="alert('Cédula Frente')">Cédula Frontal</button>
+                    <button class="btn-photo" onclick="alert('Cédula Posterior')">Cédula Detrás</button>
+                </div>
+                
+                <button class="btn-primary" style="width:100%" onclick="processRegister()">REGISTRAR DISPOSITIVO</button>
+            </div>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+        import { getFirestore, doc, updateDoc, collection, addDoc, query, where, getDocs, arrayUnion, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        document.getElementById('btn-crear').onclick = async () => {
-            const btn = document.getElementById('btn-crear');
-            btn.innerText = "VALIDANDO DATOS...";
-            btn.disabled = true;
+        // BASE DE DATOS GEOGRÁFICA DE ECUADOR
+        const ecuadorData = {
+            "Azuay": ["Cuenca", "Gualaceo", "Paute", "Sigsig", "Girón", "Santa Isabel"],
+            "Bolívar": ["Guaranda", "Chillanes", "Chimbo", "Echeandía", "San Miguel"],
+            "Cañar": ["Azogues", "Biblián", "Cañar", "La Troncal"],
+            "Carchi": ["Tulcán", "Bolívar", "Espejo", "Mira", "Montúfar"],
+            "Chimborazo": ["Riobamba", "Alausí", "Chambo", "Chunchi", "Guano", "Colta"],
+            "Cotopaxi": ["Latacunga", "La Maná", "Pangua", "Pujilí", "Salcedo", "Saquisilí"],
+            "El Oro": ["Machala", "Arenillas", "Huaquillas", "Pasaje", "Santa Rosa", "Piñas"],
+            "Esmeraldas": ["Esmeraldas", "Atacames", "Eloy Alfaro", "Muisne", "Quinindé", "San Lorenzo"],
+            "Galápagos": ["Puerto Baquerizo Moreno", "Puerto Ayora", "Puerto Villamil"],
+            "Guayas": ["Guayaquil", "Durán", "Milagro", "Samborondón", "Daule", "Playas", "Naranjal"],
+            "Imbabura": ["Ibarra", "Atuntaqui", "Cotacachi", "Otavalo", "Pimampiro"],
+            "Loja": ["Loja", "Catamayo", "Celica", "Macará", "Paltas", "Saraguro"],
+            "Los Ríos": ["Babahoyo", "Quevedo", "Buena Fe", "Ventanas", "Vinces", "Mocache"],
+            "Manabí": ["Portoviejo", "Manta", "Chone", "El Carmen", "Montecristi", "Jipijapa", "Pedernales"],
+            "Morona Santiago": ["Macas", "Gualaquiza", "Limón Indanza", "Sucúa"],
+            "Napo": ["Tena", "Archidona", "El Chaco", "Quijos"],
+            "Orellana": ["El Coca", "Aguarico", "La Joya de los Sachas", "Loreto"],
+            "Pastaza": ["Puyo", "Mera", "Santa Clara"],
+            "Pichincha": ["Quito", "Cayambe", "Mejía", "Pedro Moncayo", "Rumiñahui", "Puerto Quito"],
+            "Santa Elena": ["Santa Elena", "La Libertad", "Salinas"],
+            "Santo Domingo": ["Santo Domingo", "La Concordia"],
+            "Sucumbíos": ["Nueva Loja", "Cascales", "Cuyabeno", "Shushufindi"],
+            "Tungurahua": ["Ambato", "Baños", "Cevallos", "Mocha", "Pelileo", "Píllaro"],
+            "Zamora Chinchipe": ["Zamora", "Chinchipe", "Yantzaza"]
+        };
 
+        // LLENAR SELECTOR DE PROVINCIAS
+        const provSelect = document.getElementById('reg-provincia');
+        Object.keys(ecuadorData).forEach(p => {
+            let opt = document.createElement('option');
+            opt.value = p; opt.innerText = p;
+            provSelect.appendChild(opt);
+        });
+
+        window.actualizarCantones = () => {
+            const provincia = provSelect.value;
+            const cantonSelect = document.getElementById('reg-canton');
+            cantonSelect.innerHTML = '<option value="">Seleccione Cantón</option>';
+            if(provincia) {
+                ecuadorData[provincia].forEach(c => {
+                    let opt = document.createElement('option');
+                    opt.value = c; opt.innerText = c;
+                    cantonSelect.appendChild(opt);
+                });
+            }
+        };
+
+        // --- LÓGICA DE SEGURIDAD (DISPOSITIVOS) ---
+        const getDeviceID = () => {
+            let id = localStorage.getItem('p_dev_id') || 'PRO-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            localStorage.setItem('p_dev_id', id);
+            return id;
+        };
+        const currentID = getDeviceID();
+
+        window.changeView = (v) => {
+            document.querySelectorAll('.form-view, #home-view').forEach(d => d.style.display = 'none');
+            document.getElementById(v + '-view').style.display = 'block';
+        };
+
+        window.processRegister = async () => {
+            const email = document.getElementById('reg-email').value;
             const datos = {
-                nombres: document.getElementById('nombres').value,
-                apellidos: document.getElementById('apellidos').value,
-                cedula: document.getElementById('cedula').value,
-                telefono: document.getElementById('telefono').value,
-                email: document.getElementById('email').value,
-                direccion: document.getElementById('dir1').value + " - " + document.getElementById('dir2').value,
-                ciudad: document.getElementById('ciudad').value,
-                verificado: false, // Tú los verificarás después
-                fechaRegistro: serverTimestamp()
+                nombre: document.getElementById('reg-full').value,
+                cedula: document.getElementById('reg-ced').value,
+                email: email,
+                provincia: document.getElementById('reg-provincia').value,
+                canton: document.getElementById('reg-canton').value,
+                direccion: document.getElementById('reg-dir').value,
+                dispositivos: [currentID],
+                timestamp: serverTimestamp()
             };
 
-            try {
-                // Guardamos al usuario en tu base de datos central
-                await addDoc(collection(db, "usuarios"), datos);
-                
-                // Guardamos sesión local para que la app lo reconozca
-                localStorage.setItem('userEmail', datos.email);
-                localStorage.setItem('userCiudad', datos.ciudad);
-                localStorage.setItem('userName', datos.nombres + " " + datos.apellidos);
+            if(!datos.email || !datos.provincia || !datos.canton) return alert("Por favor complete todos los campos de ubicación.");
 
-                alert("Cuenta creada con éxito. Bienvenido a PROVEED.");
+            try {
+                await addDoc(collection(db, "usuarios"), datos);
+                localStorage.setItem('userEmail', email);
+                alert("¡Cuenta vinculada al dispositivo!");
                 location.href = "dashboard.html";
-            } catch (e) {
-                alert("Error al registrar: " + e.message);
-                btn.disabled = false;
-                btn.innerText = "Crear Cuenta Segura";
-            }
+            } catch (e) { alert("Error: " + e.message); }
+        };
+
+        window.processLogin = async () => {
+            const email = document.getElementById('log-email').value;
+            const q = query(collection(db, "usuarios"), where("email", "==", email));
+            const snap = await getDocs(q);
+
+            if (!snap.empty) {
+                const userDoc = snap.docs[0];
+                const devs = userDoc.data().dispositivos || [];
+                if (devs.includes(currentID) || devs.length < 3) {
+                    if(!devs.includes(currentID)) {
+                        await updateDoc(doc(db, "usuarios", userDoc.id), { dispositivos: arrayUnion(currentID) });
+                    }
+                    localStorage.setItem('userEmail', email);
+                    location.href = "dashboard.html";
+                } else {
+                    alert("Límite de 3 dispositivos alcanzado.");
+                }
+            } else { alert("Usuario no encontrado."); }
         };
     </script>
 </body>
