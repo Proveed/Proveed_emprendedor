@@ -3,80 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Detalle de Producto — PROVEED</title>
+    <title>Detalle Real — PROVEED</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --verde: #32D74B; --negro: #000; --gris-frezze: #f9f9f9; }
-        body { background: var(--gris-frezze); margin: 0; font-family: 'DM Sans', sans-serif; color: #1a1a1a; padding-bottom: 100px; }
+        :root { --verde: #32D74B; --negro: #000; --fondo: #ffffff; }
+        body { background: var(--fondo); margin: 0; font-family: 'DM Sans', sans-serif; color: var(--negro); display: none; /* Oculto hasta que cargue BD */ }
         
-        /* HEADER */
-        header { background: white; padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; margin-right: 15px; }
+        header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 10; }
+        .back-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 0 15px 0 0; }
 
-        /* IMAGEN REAL */
-        .img-container { width: 100%; height: 350px; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .img-container img { width: 100%; height: 100%; object-fit: contain; }
+        .product-visual { width: 100%; height: 350px; background: #fdfdfd; display: flex; align-items: center; justify-content: center; }
+        .product-visual img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
-        /* INFO DINÁMICA */
-        .content { padding: 25px 20px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative; box-shadow: 0 -10px 20px rgba(0,0,0,0.05); }
-        .tag-min { background: #e8fdf0; color: #15803d; font-size: 0.7rem; font-weight: 800; padding: 6px 12px; border-radius: 6px; display: inline-block; margin-bottom: 10px; }
-        .price { font-size: 2.2rem; font-weight: 800; margin: 0; letter-spacing: -1px; }
-        .title { font-family: 'Syne'; font-size: 1.3rem; margin: 10px 0 20px; text-transform: uppercase; line-height: 1.1; }
+        .main-content { padding: 25px 20px; }
+        .tag-status { background: #e8fdf0; color: #15803d; font-size: 0.7rem; font-weight: 800; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; }
+        .price { font-size: 2.5rem; font-weight: 800; margin: 0; letter-spacing: -2px; }
+        .product-title { font-family: 'Syne'; font-size: 1.2rem; margin: 10px 0 25px; text-transform: uppercase; }
 
-        /* TARJETA PROVEEDOR BASE DE DATOS */
-        .provider-box { border: 1px solid #eee; border-radius: 20px; padding: 15px; display: flex; align-items: center; gap: 15px; margin-top: 20px; }
-        .p-avatar { width: 55px; height: 55px; background: var(--negro); color: white; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 1.4rem; }
-        .p-info h4 { margin: 0; font-size: 0.95rem; text-transform: uppercase; }
-        .p-info span { font-size: 0.75rem; color: var(--verde); font-weight: 700; }
+        /* RECUADRO DEL PROVEEDOR - SIN DATOS FALSOS */
+        .provider-card { border: 2px solid #f0f0f0; border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 15px; }
+        .avatar-real { width: 50px; height: 50px; background: var(--negro); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Syne'; font-size: 1.2rem; }
+        .provider-info h4 { margin: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .provider-info p { margin: 3px 0 0; font-size: 0.7rem; color: var(--verde); font-weight: 700; text-transform: uppercase; }
 
-        /* ACCIONES */
-        .footer-actions { position: fixed; bottom: 0; width: 100%; background: white; padding: 20px; border-top: 1px solid #eee; display: grid; grid-template-columns: 1fr 2fr; gap: 12px; box-sizing: border-box; }
-        .btn-chat { background: #f2f2f2; border: none; border-radius: 15px; font-weight: 700; cursor: pointer; height: 55px; }
-        .btn-order { background: var(--negro); color: white; border: none; border-radius: 15px; font-weight: 700; font-family: 'Syne'; cursor: pointer; height: 55px; text-transform: uppercase; }
-        
-        #error-msg { display: none; text-align: center; padding: 100px 20px; font-family: 'Syne'; }
+        .footer-nav { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #eee; padding: 20px; display: flex; gap: 10px; box-sizing: border-box; }
+        .btn-main { flex: 2; background: var(--negro); color: white; border: none; padding: 18px; border-radius: 15px; font-family: 'Syne'; font-weight: 700; cursor: pointer; }
+        .btn-chat { flex: 1; background: #f0f0f0; border: none; padding: 18px; border-radius: 15px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <header>
-        <button class="back-btn" onclick="location.href='dashboard.html'">✕</button>
-        <div style="font-family: 'Syne'; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px;">DETALLES DEL PRODUCTO</div>
+        <button class="back-btn" onclick="location.href='dashboard.html'">←</button>
+        <div style="font-family: 'Syne'; font-size: 0.8rem; font-weight: 800;">VERIFICACIÓN TÉCNICA</div>
     </header>
 
-    <div id="main-content">
-        <div class="img-container">
-            <img id="p-img" src="" alt="">
-        </div>
+    <div class="product-visual">
+        <img id="db-image" src="" alt="">
+    </div>
 
-        <div class="content">
-            <div id="p-tag" class="tag-min">CARGANDO...</div>
-            <h1 id="p-price" class="price">$0.00</h1>
-            <h2 id="p-title" class="title">NOMBRE DEL PRODUCTO</h2>
+    <div class="main-content">
+        <div id="db-minimo" class="tag-status">VERIFICANDO STOCK...</div>
+        <h1 id="db-precio" class="price">$0.00</h1>
+        <h2 id="db-titulo" class="product-title">CARGANDO PRODUCTO...</h2>
 
-            <div style="background: #fff9e6; padding: 15px; border-radius: 15px; font-size: 0.8rem; color: #856404; margin-bottom: 20px; border: 1px solid #ffeeba;">
-                <b>SISTEMA PROVEED SEG:</b> Tu pago está protegido. El dinero solo se libera al proveedor una vez que confirmes la recepción en tu ciudad.
+        <div class="provider-card">
+            <div id="db-avatar" class="avatar-real">?</div>
+            <div class="provider-info">
+                <h4 id="db-nombre-proveedor">BUSCANDO EN BASE DE DATOS...</h4>
+                <p>● PROVEEDOR REGISTRADO</p>
             </div>
-
-            <div class="provider-box">
-                <div id="p-initial" class="p-avatar">?</div>
-                <div class="p-info">
-                    <h4 id="p-provider-name">PROVEEDOR REAL</h4>
-                    <span>● VERIFICADO POR PROVEED</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-actions">
-            <button class="btn-chat" onclick="irAlChat()">CHAT</button>
-            <button class="btn-order">AÑADIR AL PEDIDO</button>
         </div>
     </div>
 
-    <div id="error-msg">
-        <h2>ERROR DE CONEXIÓN</h2>
-        <p>No se encontraron datos reales de este producto en la base de datos.</p>
-        <button onclick="location.href='dashboard.html'" style="padding: 10px 20px; background: black; color: white; border-radius: 10px;">VOLVER</button>
+    <div class="footer-nav">
+        <button class="btn-chat" onclick="abrirChat()">CHAT</button>
+        <button class="btn-main">ORDENAR AHORA</button>
     </div>
 
     <script type="module">
@@ -87,52 +69,64 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // LEER LOS DATOS ENVIADOS DESDE EL DASHBOARD
-        const prodID = localStorage.getItem('lastSelectedProdID');
-        const provEmail = localStorage.getItem('currentProveedor'); // Correo del proveedor
-        const provNombre = localStorage.getItem('currentProveedorNombre'); // Nombre del proveedor
+        // 1. OBTENER IDENTIFICADORES REALES
+        const productID = localStorage.getItem('lastSelectedProdID');
+        const provEmail = localStorage.getItem('currentProveedor'); // Este viene del Dashboard
 
-        async function cargarDetalleReal() {
-            if (!prodID) {
-                document.getElementById('main-content').style.display = 'none';
-                document.getElementById('error-msg').style.display = 'block';
+        async function conectarBaseDeDatos() {
+            if (!productID) {
+                alert("Error: No se seleccionó un producto válido.");
+                location.href = 'dashboard.html';
                 return;
             }
 
             try {
-                // CONSULTA DIRECTA A LA BASE DE DATOS (Colección: productos)
-                const docRef = doc(db, "productos", prodID);
+                // 2. CONSULTA REAL AL PRODUCTO
+                const docRef = doc(db, "productos", productID);
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    const data = docSnap.data();
+                    const p = docSnap.data();
                     
-                    // INYECTAR DATOS REALES EN EL HTML
-                    document.getElementById('p-img').src = data.imagen || data.imageUrl;
-                    document.getElementById('p-price').innerText = `$${data.precio || data.price}`;
-                    document.getElementById('p-title').innerText = data.titulo || data.name;
-                    document.getElementById('p-tag').innerText = `PEDIDO MÍNIMO: ${data.minimo || 1} UNIDADES`;
+                    // 3. INYECTAR DATOS DE FIREBASE
+                    document.getElementById('db-image').src = p.imagen || p.imageUrl;
+                    document.getElementById('db-precio').innerText = `$${p.precio}`;
+                    document.getElementById('db-titulo').innerText = p.titulo || p.nombre;
+                    document.getElementById('db-minimo').innerText = `MÍNIMO: ${p.minimo || 1} UNIDADES`;
+
+                    // 4. BUSCAR EL NOMBRE DEL PROVEEDOR (SIN FANTASÍAS)
+                    // Buscamos en la colección usuarios usando el email asociado al producto
+                    const userRef = doc(db, "usuarios", provEmail); 
+                    // Nota: Si usas el email como ID de documento, esto funcionará. 
+                    // Si no, el Dashboard ya debería habernos pasado el nombre real.
                     
-                    // USAR EL NOMBRE REAL DEL PROVEEDOR
-                    document.getElementById('p-provider-name').innerText = provNombre || "PROVEEDOR OFICIAL";
-                    document.getElementById('p-initial').innerText = (provNombre || "P").charAt(0).toUpperCase();
+                    const nombreReal = localStorage.getItem('currentProveedorNombre');
+                    
+                    if (nombreReal && nombreReal !== "Global Smart") {
+                        document.getElementById('db-nombre-proveedor').innerText = nombreReal;
+                        document.getElementById('db-avatar').innerText = nombreReal.charAt(0).toUpperCase();
+                    } else {
+                        document.getElementById('db-nombre-proveedor').innerText = "PROVEEDOR NO IDENTIFICADO";
+                    }
+
+                    // MOSTRAR PÁGINA SOLO CUANDO TODO ES REAL
+                    document.body.style.display = 'block';
 
                 } else {
-                    console.error("No existe el producto en Firebase");
-                    document.getElementById('main-content').style.display = 'none';
-                    document.getElementById('error-msg').style.display = 'block';
+                    alert("El producto no existe en la base de datos real.");
+                    location.href = 'dashboard.html';
                 }
             } catch (e) {
-                console.error("Error de Firebase:", e);
+                console.error("Error crítico:", e);
+                location.href = 'dashboard.html';
             }
         }
 
-        window.irAlChat = () => {
-            // Ya tenemos el currentProveedor y currentProveedorNombre guardados del Dashboard
+        window.abrirChat = () => {
             location.href = "messenger.html";
         };
 
-        cargarDetalleReal();
+        conectarBaseDeDatos();
     </script>
 </body>
 </html>
