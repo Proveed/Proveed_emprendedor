@@ -3,89 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bienvenido — PROVEED</title>
+    <title>Registro Seguro — PROVEED</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; color: white; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 30px; }
+        body { background: #000; color: white; padding: 20px; font-family: 'DM Sans', sans-serif; }
+        .reg-container { max-width: 450px; margin: 0 auto; padding-bottom: 50px; }
+        .logo-section { text-align: center; margin-bottom: 30px; }
         
-        .hero-section { text-align: center; margin-bottom: 40px; }
-        .logo-large { font-family: 'Syne'; font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
-        
-        .auth-card { background: #1A1A1A; padding: 25px; border-radius: 24px; border: 1px solid #333; }
-        
-        .input-group { margin-bottom: 15px; }
-        label { font-size: 0.65rem; text-transform: uppercase; color: #888; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        .card-auth { background: #111; padding: 25px; border-radius: 24px; border: 1px solid #222; margin-bottom: 20px; }
+        .input-group { margin-bottom: 18px; }
+        label { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 700; }
         
         input, select { 
-            width: 100%; background: #0D0D0D; border: 1px solid #333; padding: 15px; 
-            border-radius: 12px; color: white; font-family: 'DM Sans'; outline: none;
+            width: 100%; background: #000; border: 1px solid #333; padding: 14px; 
+            border-radius: 12px; color: white; font-size: 0.95rem; outline: none;
         }
-        
-        input:focus { border-color: var(--verde-pro); }
+        input:focus { border-color: #32D74B; }
 
-        .btn-login { 
-            background: var(--verde-pro); color: #000; border: none; width: 100%; 
-            padding: 18px; border-radius: 14px; font-weight: 800; font-family: 'Syne'; 
-            font-size: 1rem; cursor: pointer; margin-top: 10px; text-transform: uppercase;
+        /* TARJETA DE PRIVACIDAD */
+        .privacy-info { 
+            background: rgba(50, 215, 75, 0.05); border: 1px dashed #32D74B; 
+            padding: 15px; border-radius: 15px; margin-bottom: 25px; 
         }
-        
-        .footer-text { text-align: center; margin-top: 25px; font-size: 0.8rem; color: #666; }
-        .footer-text b { color: var(--verde-pro); cursor: pointer; }
+        .privacy-info p { font-size: 0.75rem; color: #32D74B; margin: 0; line-height: 1.4; }
+
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .photo-btn { 
+            background: #222; border: 1px solid #333; padding: 15px; border-radius: 12px; 
+            text-align: center; cursor: pointer; font-size: 0.7rem; color: #ccc;
+        }
+        .photo-btn:active { background: #333; }
+
+        .btn-register { 
+            background: #32D74B; color: #000; border: none; width: 100%; 
+            padding: 18px; border-radius: 15px; font-weight: 800; font-family: 'Syne'; 
+            font-size: 1rem; margin-top: 20px; text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
-        <div class="hex-icon" style="width: 50px; height: 55px; margin: 0 auto 15px;">
-            <svg width="20" viewBox="0 0 24 24" style="stroke:white; stroke-width:4; fill:none;"><path d="M20 6L9 17l-5-5"/></svg>
-        </div>
-        <h1 class="logo-large">PROVEED</h1>
-        <p style="color: #888; font-size: 0.9rem;">La red de negocios #1 de Ecuador</p>
-    </div>
-
-    <div class="auth-card">
-        <div class="input-group">
-            <label>Tu Correo de Negocios</label>
-            <input type="email" id="email" placeholder="ejemplo@negocio.com">
+    <div class="reg-container">
+        <div class="logo-section">
+            <h1 style="font-family: 'Syne'; font-size: 2rem; margin: 0;">PROVEED</h1>
+            <p style="color: #666; font-size: 0.8rem;">Registro Único de Emprendedores</p>
         </div>
 
-        <div class="input-group">
-            <label>Ciudad de Operación</label>
+        <div class="privacy-info">
+            <p><b>SEGURIDAD PROVEED:</b> Tus fotos de cédula y rostro son estrictamente privadas para validación interna. Los proveedores solo verán tu nombre, cédula y dirección para logística de envío.</p>
+        </div>
+
+        <div class="card-auth">
+            <div class="input-group">
+                <label>Nombres Completos</label>
+                <input type="text" id="nombres" placeholder="Ej: Luis Alejandro">
+            </div>
+            <div class="input-group">
+                <label>Apellidos Completos</label>
+                <input type="text" id="apellidos" placeholder="Ej: Angulo Delgado">
+            </div>
+            <div class="input-group">
+                <label>Número de Cédula (Ecuador)</label>
+                <input type="number" id="cedula" placeholder="080xxxxxxx">
+            </div>
+            <div class="input-group">
+                <label>WhatsApp / Teléfono</label>
+                <input type="tel" id="telefono" placeholder="09xxxxxxxx">
+            </div>
+            <div class="input-group">
+                <label>Correo Electrónico</label>
+                <input type="email" id="email" placeholder="tu@correo.com">
+            </div>
+        </div>
+
+        <div class="card-auth">
+            <label>Dirección de Envío (Línea 1)</label>
+            <input type="text" id="dir1" placeholder="Calle principal y secundaria" style="margin-bottom: 15px;">
+            
+            <label>Dirección de Envío (Línea 2)</label>
+            <input type="text" id="dir2" placeholder="Barrio / Edificio / Referencia">
+            
+            <label style="margin-top: 15px;">Ciudad</label>
             <select id="ciudad">
                 <option value="Esmeraldas">Esmeraldas</option>
                 <option value="Guayaquil">Guayaquil</option>
                 <option value="Quito">Quito</option>
                 <option value="Manta">Manta</option>
-                <option value="Santo Domingo">Santo Domingo</option>
-                <option value="Cuenca">Cuenca</option>
             </select>
         </div>
 
-        <button class="btn-login" id="btn-entrar">Empezar a Negociar</button>
+        <div class="card-auth">
+            <label>Documentación Visual</label>
+            <div class="photo-grid">
+                <div class="photo-btn" onclick="alert('Cargar Cédula Frontal')">Cédula (Frente)</div>
+                <div class="photo-btn" onclick="alert('Cargar Cédula Posterior')">Cédula (Detrás)</div>
+            </div>
+            <div class="photo-btn" style="margin-top: 10px;" onclick="alert('Cargar Selfie')">Foto del Rostro (Selfie)</div>
+        </div>
+
+        <button class="btn-register" id="btn-crear">Crear Cuenta Segura</button>
     </div>
 
-    <p class="footer-text">Al entrar aceptas la protección <b>PROVEED SEG</b></p>
-
     <script type="module">
-        // Lógica simple para guardar al usuario localmente y entrar
-        document.getElementById('btn-entrar').onclick = () => {
-            const email = document.getElementById('email').value;
-            const ciudad = document.getElementById('ciudad').value;
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-            if(email === "") {
-                alert("Por favor ingresa tu correo");
-                return;
+        const firebaseConfig = { apiKey: "AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", projectId: "proveed-8cb7c" };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('btn-crear').onclick = async () => {
+            const btn = document.getElementById('btn-crear');
+            btn.innerText = "VALIDANDO DATOS...";
+            btn.disabled = true;
+
+            const datos = {
+                nombres: document.getElementById('nombres').value,
+                apellidos: document.getElementById('apellidos').value,
+                cedula: document.getElementById('cedula').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
+                direccion: document.getElementById('dir1').value + " - " + document.getElementById('dir2').value,
+                ciudad: document.getElementById('ciudad').value,
+                verificado: false, // Tú los verificarás después
+                fechaRegistro: serverTimestamp()
+            };
+
+            try {
+                // Guardamos al usuario en tu base de datos central
+                await addDoc(collection(db, "usuarios"), datos);
+                
+                // Guardamos sesión local para que la app lo reconozca
+                localStorage.setItem('userEmail', datos.email);
+                localStorage.setItem('userCiudad', datos.ciudad);
+                localStorage.setItem('userName', datos.nombres + " " + datos.apellidos);
+
+                alert("Cuenta creada con éxito. Bienvenido a PROVEED.");
+                location.href = "dashboard.html";
+            } catch (e) {
+                alert("Error al registrar: " + e.message);
+                btn.disabled = false;
+                btn.innerText = "Crear Cuenta Segura";
             }
-
-            // Guardamos en el navegador quién es este usuario
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userCiudad', ciudad);
-
-            // Redirigimos al Dashboard
-            location.href = "dashboard.html";
         };
     </script>
-
 </body>
 </html>
