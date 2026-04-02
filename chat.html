@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Chat Emprendedor</title>
+<title>PROVEED — Chat</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -13,7 +13,8 @@
   .header{ background:var(--negro); padding:44px 16px 16px; }
   .header-title{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:white; }
   #lista-chats{ flex:1; overflow-y:auto; padding:12px 16px; }
-  .chat-item{ display:flex; align-items:center; gap:14px; background:white; border-radius:18px; padding:14px; margin-bottom:10px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .chat-item{ display:flex; align-items:center; gap:14px; background:white; border-radius:18px; padding:14px; margin-bottom:10px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition: 0.2s; }
+  .chat-item:active{ transform: scale(0.98); }
   .chat-avatar{ width:50px; height:50px; border-radius:16px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:1.2rem; color:var(--verde); font-weight:800; }
   .chat-info{ flex:1; min-width:0; }
   .chat-nombre{ font-weight:700; font-size:0.92rem; color:var(--negro); }
@@ -22,36 +23,30 @@
   .conv-header{ background:var(--negro); padding:44px 16px 14px; display:flex; align-items:center; gap:12px; color:white; }
   .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
   #mensajes{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:var(--gris); }
-  .burbuja{ max-width:80%; padding:11px 15px; border-radius:18px; font-size:0.88rem; line-height:1.5; }
+  .burbuja{ max-width:80%; padding:11px 15px; border-radius:18px; font-size:0.88rem; line-height:1.5; word-break: break-word; }
   .burbuja.enviado{ background:var(--negro); color:white; align-self:flex-end; border-bottom-right-radius:4px; }
-  .burbuja.recibido{ background:white; color:var(--negro); align-self:flex-start; border-bottom-left-radius:4px; }
+  .burbuja.recibido{ background:white; color:var(--negro); align-self:flex-start; border-bottom-left-radius:4px; box-shadow:0 2px 5px rgba(0,0,0,0.05); }
+  .bloqueo-banner{ background:#fff8f0; border:1px solid #FF8C00; border-radius:12px; padding:10px; margin:0 16px; display:none; font-size:0.75rem; color:#FF8C00; font-weight:600; text-align:center; }
   .input-area{ background:white; padding:10px 14px 25px; display:flex; gap:10px; border-top:1px solid #eee; }
   .input-wrap{ flex:1; background:var(--gris); border-radius:20px; padding:10px 14px; }
-  #msg-input{ width:100%; border:none; background:transparent; outline:none; resize:none; font-family:inherit; }
+  #msg-input{ width:100%; border:none; background:transparent; outline:none; resize:none; font-family:inherit; font-size: 0.9rem; }
   .send-btn{ width:42px; height:42px; border-radius:14px; background:var(--negro); border:none; display:flex; align-items:center; justify-content:center; }
-  .tab-bar{ background:white; display:flex; padding:10px 0 20px; border-top:1px solid #eee; }
-  .tab{ flex:1; text-align:center; text-decoration:none; color:#ccc; font-size:0.6rem; font-weight:700; text-transform:uppercase; }
-  .tab.active{ color:var(--negro); }
 </style>
 </head>
 <body>
 
 <div id="lista-view">
-  <div class="header"><div class="header-title">Mis Mensajes</div></div>
+  <div class="header"><div class="header-title">Mensajes | PROVEED</div></div>
   <div id="lista-chats"><div id="lista-content"></div></div>
-  <nav class="tab-bar">
-    <a class="tab" href="dashboard.html"><span>Inicio</span></a>
-    <a class="tab active" href="chat.html"><span>Chat</span></a>
-    <a class="tab" href="perfil.html"><span>Perfil</span></a>
-  </nav>
 </div>
 
 <div id="vista-chat">
   <div class="conv-header">
     <div class="back-btn" onclick="volverLista()"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> </div>
-    <div class="conv-nombre" id="conv-nombre">Proveedor</div>
+    <div id="conv-nombre">Proveedor</div>
   </div>
   <div id="mensajes"></div>
+  <div class="bloqueo-banner" id="bloqueo-banner">🔒 Mensaje bloqueado por seguridad</div>
   <div class="input-area">
     <div class="input-wrap"><textarea id="msg-input" placeholder="Escribe..." rows="1"></textarea></div>
     <button class="send-btn" onclick="enviarMensaje()"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> </button>
@@ -67,11 +62,9 @@ const app=initializeApp({ apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8", auth
 const auth=getAuth(app), db=getFirestore(app);
 let currentUser=null, chatActivoId=null, unsubMensajes=null;
 
-onAuthStateChanged(auth, user => { 
-  if(!user) return; 
-  currentUser=user; 
-  cargarChats(); 
-});
+const PATRONES = [/\b09\d{8}\b/, /whatsapp/i, /wsp/i, /@/, /\.com/i];
+
+onAuthStateChanged(auth, user => { if(user) { currentUser=user; cargarChats(); } });
 
 function cargarChats() {
   const q = query(collection(db, 'chats'), where('emprendedorId', '==', currentUser.uid), orderBy('ultimoMensajeEn', 'desc'));
@@ -83,7 +76,7 @@ function cargarChats() {
       const div = document.createElement('div');
       div.className = 'chat-item';
       div.innerHTML = `<div class="chat-avatar">${(c.proveedorNombre||'P')[0]}</div>
-        <div class="chat-info"><div class="chat-nombre">${c.proveedorNombre}</div><div class="chat-preview">${c.ultimoMensaje}</div></div>`;
+        <div class="chat-info"><div class="chat-nombre">${c.proveedorNombre}</div><div class="chat-preview">${c.ultimoMensaje||'Inicia el chat'}</div></div>`;
       div.onclick = () => abrirChat(d.id, c.proveedorNombre);
       cont.appendChild(div);
     });
@@ -95,19 +88,28 @@ function abrirChat(chatId, nombre) {
   document.getElementById('lista-view').style.display='none';
   document.getElementById('vista-chat').style.display='flex';
   document.getElementById('conv-nombre').textContent = nombre;
+  
   if(unsubMensajes) unsubMensajes();
   const q = query(collection(db, 'chats', chatId, 'mensajes'), orderBy('enviadoEn', 'asc'));
   unsubMensajes = onSnapshot(q, snap => {
-    document.getElementById('mensajes').innerHTML = '';
-    snap.forEach(mDoc => {
-      const m = mDoc.data();
-      const div = document.createElement('div');
-      div.className = `burbuja ${m.remitenteId === currentUser.uid ? 'enviado' : 'recibido'}`;
-      div.textContent = m.texto;
-      document.getElementById('mensajes').appendChild(div);
+    const mDiv = document.getElementById('mensajes');
+    mDiv.innerHTML = '';
+    snap.forEach(doc => {
+      const m = doc.data();
+      const b = document.createElement('div');
+      b.className = `burbuja ${m.remitenteId === currentUser.uid ? 'enviado' : 'recibido'}`;
+      b.textContent = m.texto;
+      mDiv.appendChild(b);
     });
-    document.getElementById('mensajes').scrollTop = 99999;
+    mDiv.scrollTop = mDiv.scrollHeight;
   });
+
+  // TECLADO AUTOMÁTICO
+  setTimeout(() => {
+    const input = document.getElementById('msg-input');
+    input.focus();
+    input.click();
+  }, 400);
 }
 
 window.volverLista = () => {
@@ -119,6 +121,14 @@ window.enviarMensaje = async () => {
   const input = document.getElementById('msg-input');
   const texto = input.value.trim();
   if(!texto || !chatActivoId) return;
+
+  if(PATRONES.some(p => p.test(texto))) {
+    const b = document.getElementById('bloqueo-banner');
+    b.style.display = 'block';
+    setTimeout(() => b.style.display = 'none', 3000);
+    input.value = ''; return;
+  }
+
   input.value = '';
   await addDoc(collection(db, 'chats', chatActivoId, 'mensajes'), { texto, remitenteId: currentUser.uid, enviadoEn: serverTimestamp() });
   await updateDoc(doc(db, 'chats', chatActivoId), { ultimoMensaje: texto, ultimoMensajeEn: serverTimestamp() });
