@@ -3,180 +3,417 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Inicio</title>
+<title>PROVEED — Tips</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:80px; -webkit-font-smoothing:antialiased; }
+  html,body{ height:100%; overflow:hidden; background:#000; font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
 
-  .header{ background:var(--negro); padding:44px 20px 16px; position:sticky; top:0; z-index:100; }
-  .header-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-  .logo-row{ display:flex; align-items:center; gap:8px; }
-  .logo-row svg{ width:28px; height:28px; }
-  .logo-text{ font-size:1.1rem; font-weight:800; color:white; letter-spacing:-0.3px; }
-  .logo-text span{ color:var(--verde); }
-  .header-icons{ display:flex; gap:10px; align-items:center; }
-  .h-icon{ position:relative; cursor:pointer; width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; }
-  .h-icon svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2; }
-  .badge{ position:absolute; top:-4px; right:-4px; background:var(--rojo); color:white; font-size:0.55rem; font-weight:800; padding:2px 5px; border-radius:8px; border:2px solid var(--negro); display:none; }
-  .search-bar{ background:rgba(255,255,255,0.08); border-radius:12px; padding:11px 14px; display:flex; align-items:center; gap:10px; cursor:pointer; }
-  .search-bar svg{ width:16px; height:16px; stroke:#888; fill:none; stroke-width:2.5; flex-shrink:0; }
-  .search-bar span{ font-size:0.88rem; color:#666; }
+  /* FEED CONTAINER */
+  .feed{ height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scrollbar-width:none; }
+  .feed::-webkit-scrollbar{ display:none; }
 
-  /* BANNER */
-  .banner{ margin:14px 16px; background:linear-gradient(135deg,#111 0%,#1a2a0a 100%); border-radius:20px; padding:20px; position:relative; overflow:hidden; }
-  .banner::before{ content:''; position:absolute; right:-20px; top:-20px; width:130px; height:130px; background:radial-gradient(circle,rgba(168,230,61,0.18) 0%,transparent 70%); }
-  .banner-tag{ background:var(--verde); color:var(--negro); font-size:0.62rem; font-weight:700; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
-  .banner-title{ font-size:1.2rem; font-weight:700; color:white; line-height:1.3; margin-bottom:5px; }
-  .banner-sub{ font-size:0.78rem; color:#888; margin-bottom:14px; }
-  .banner-btn{ background:var(--verde); color:var(--negro); border:none; padding:10px 18px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; }
+  /* CADA TIP */
+  .tip-slide{ height:100vh; width:100vw; scroll-snap-align:start; position:relative; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center; }
 
-  /* SECCIÓN */
-  .section-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 16px 10px; }
-  .section-head h3{ font-size:0.95rem; font-weight:700; color:var(--negro); }
-  .section-head a{ font-size:0.8rem; color:var(--naranja); text-decoration:none; font-weight:600; }
+  /* VIDEO */
+  .tip-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .tip-video-placeholder{ position:absolute; inset:0; background:linear-gradient(135deg,#1a1a1a,#2a2a2a); display:flex; align-items:center; justify-content:center; }
+  .tip-video-placeholder svg{ width:56px; height:56px; stroke:#333; fill:none; stroke-width:1.2; }
 
-  /* CATEGORÍAS */
-  .cats-scroll{ display:flex; gap:10px; padding:0 16px 4px; overflow-x:auto; scrollbar-width:none; }
-  .cats-scroll::-webkit-scrollbar{ display:none; }
-  .cat-chip{ display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; flex-shrink:0; min-width:60px; }
-  .cat-icon{ width:52px; height:52px; border-radius:14px; background:white; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:0.2s; border:2px solid transparent; }
-  .cat-chip.active .cat-icon{ border-color:var(--verde); background:rgba(168,230,61,0.1); }
-  .cat-icon svg{ width:22px; height:22px; stroke:var(--negro); fill:none; stroke-width:2; }
-  .cat-label{ font-size:0.6rem; font-weight:600; color:#888; text-align:center; }
-  .cat-chip.active .cat-label{ color:var(--negro); font-weight:700; }
+  /* OVERLAY GRADIENTE */
+  .tip-overlay{ position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.1) 60%, transparent 100%); }
 
-  /* TIPS PREVIEW */
-  .tips-scroll{ display:flex; gap:10px; padding:0 16px 4px; overflow-x:auto; scrollbar-width:none; }
-  .tips-scroll::-webkit-scrollbar{ display:none; }
-  .tip-thumb{ width:110px; flex-shrink:0; border-radius:14px; overflow:hidden; cursor:pointer; position:relative; height:170px; background:#111; transition:0.2s; }
-  .tip-thumb:active{ transform:scale(0.96); }
-  .tip-thumb video{ width:100%; height:100%; object-fit:cover; }
-  .tip-thumb-placeholder{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1a1a1a,#2a2a2a); }
-  .tip-thumb-placeholder svg{ width:28px; height:28px; stroke:#444; fill:none; stroke-width:1.5; }
-  .tip-thumb-overlay{ position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 50%); }
-  .tip-thumb-info{ position:absolute; bottom:8px; left:8px; right:8px; }
-  .tip-thumb-prov{ font-size:0.62rem; font-weight:700; color:rgba(255,255,255,0.8); }
-  .tip-thumb-desc{ font-size:0.6rem; color:rgba(255,255,255,0.6); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:2px; }
-  .tip-play-icon{ position:absolute; top:8px; right:8px; width:24px; height:24px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; }
-  .tip-play-icon svg{ width:10px; height:10px; fill:white; margin-left:1px; }
+  /* HEADER FIJO */
+  .feed-header{ position:fixed; top:0; left:0; right:0; z-index:200; padding:44px 16px 14px; display:flex; align-items:center; justify-content:space-between; }
+  .feed-title{ font-size:1.1rem; font-weight:700; color:white; }
+  .feed-title span{ color:var(--verde); }
+  .header-back{ width:36px; height:36px; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
+  .header-back svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
 
-  /* PRODUCTOS GRID */
-  .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:4px 16px; }
-  .prod-card{ background:white; border-radius:14px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
-  .prod-card:active{ transform:scale(0.97); }
-  .prod-img{ width:100%; height:155px; background:#f5f5f5; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .prod-img img{ width:100%; height:100%; object-fit:cover; }
-  .no-img{ width:40px; height:40px; stroke:#ddd; fill:none; stroke-width:1.5; }
-  .prod-cat-tag{ position:absolute; top:8px; left:8px; background:var(--naranja); color:white; font-size:0.56rem; font-weight:700; padding:2px 7px; border-radius:6px; text-transform:uppercase; }
-  .prod-video-tag{ position:absolute; top:8px; right:8px; background:rgba(168,230,61,0.9); color:var(--negro); font-size:0.56rem; font-weight:700; padding:2px 6px; border-radius:6px; }
-  .prod-body{ padding:10px 12px 12px; }
-  .prod-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); line-height:1.3; margin-bottom:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .prod-proveedor{ font-size:0.68rem; color:#bbb; margin-bottom:6px; }
-  .prod-precio{ font-size:0.95rem; font-weight:700; color:var(--naranja); }
-  .prod-min{ font-size:0.62rem; color:#ccc; }
-  .prod-footer{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
-  .add-btn{ width:30px; height:30px; border-radius:9px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
-  .add-btn:active{ transform:scale(0.85); }
-  .add-btn svg{ width:14px; height:14px; stroke:white; fill:none; stroke-width:2.5; }
+  /* INFO INFERIOR */
+  .tip-info{ position:absolute; bottom:0; left:0; right:60px; padding:20px 16px 100px; z-index:10; }
+  .tip-proveedor{ display:flex; align-items:center; gap:10px; margin-bottom:10px; cursor:pointer; }
+  .prov-ava{ width:38px; height:38px; border-radius:12px; background:var(--negro); border:2px solid var(--verde); display:flex; align-items:center; justify-content:center; font-size:0.92rem; font-weight:700; color:var(--verde); flex-shrink:0; }
+  .prov-info{ flex:1; }
+  .prov-name{ font-size:0.88rem; font-weight:700; color:white; }
+  .prov-city{ font-size:0.7rem; color:rgba(255,255,255,0.6); }
+  .btn-seguir-small{ background:var(--verde); color:var(--negro); border:none; border-radius:8px; padding:5px 12px; font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; white-space:nowrap; }
+  .btn-seguir-small.siguiendo{ background:transparent; color:white; border:1px solid rgba(255,255,255,0.4); }
+  .tip-desc{ font-size:0.88rem; color:white; line-height:1.5; margin-bottom:10px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .tip-desc.expanded{ -webkit-line-clamp:unset; }
+  .tip-ver-mas{ font-size:0.8rem; color:rgba(255,255,255,0.5); cursor:pointer; margin-bottom:10px; }
+  .tip-prod-link{ display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.12); backdrop-filter:blur(10px); border-radius:10px; padding:8px 14px; cursor:pointer; border:1px solid rgba(255,255,255,0.15); transition:0.2s; }
+  .tip-prod-link:active{ background:rgba(255,255,255,0.2); }
+  .tip-prod-link img{ width:28px; height:28px; border-radius:6px; object-fit:cover; }
+  .tip-prod-link svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2; }
+  .tip-prod-link span{ font-size:0.78rem; font-weight:600; color:white; }
+  .tip-prod-price{ font-size:0.72rem; color:var(--verde); font-weight:700; }
 
-  /* SKELETON */
-  .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
-  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
-  .skel-card{ background:white; border-radius:14px; overflow:hidden; }
-  .skel-img{ height:155px; }
-  .skel-line{ height:10px; margin:10px 12px 5px; border-radius:6px; }
-  .skel-line.s{ width:55%; height:8px; margin:0 12px 12px; }
+  /* ACCIONES DERECHA */
+  .tip-actions{ position:absolute; bottom:100px; right:12px; display:flex; flex-direction:column; gap:20px; align-items:center; z-index:10; }
+  .action-btn{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
+  .action-circle{ width:44px; height:44px; border-radius:50%; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; transition:0.2s; }
+  .action-circle:active{ transform:scale(0.88); }
+  .action-circle svg{ width:22px; height:22px; stroke:white; fill:none; stroke-width:2; }
+  .action-circle.liked svg{ stroke:var(--rojo); fill:var(--rojo); }
+  .action-label{ font-size:0.62rem; color:white; font-weight:600; text-align:center; }
 
-  .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:10px 20px; border-radius:24px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
-  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  /* PLAY/PAUSE */
+  .play-indicator{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:64px; height:64px; background:rgba(0,0,0,0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:20; }
+  .play-indicator.show{ opacity:1; }
+  .play-indicator svg{ width:28px; height:28px; fill:white; }
 
-  /* TAB BAR */
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; transition:0.2s; }
-  .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
-  .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; letter-spacing:0.3px; }
-  .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
-  .tab.active .tab-dot{ display:block; }
+  /* BARRA PROGRESO */
+  .progress-bar{ position:absolute; top:0; left:0; right:0; height:3px; background:rgba(255,255,255,0.15); z-index:30; }
+  .progress-fill{ height:100%; background:var(--verde); width:0%; transition:width 0.1s linear; }
+
+  /* DOTS INDICADOR */
+  .side-dots{ position:fixed; right:6px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:4px; z-index:100; }
+  .side-dot{ width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,0.3); transition:0.3s; }
+  .side-dot.active{ background:var(--verde); height:16px; border-radius:2px; }
+
+  /* COMENTARIOS DRAWER */
+  .comments-drawer{ position:fixed; bottom:0; left:0; right:0; background:#111; border-radius:20px 20px 0 0; transform:translateY(100%); transition:0.4s cubic-bezier(0.16,1,0.3,1); z-index:300; max-height:70vh; display:flex; flex-direction:column; }
+  .comments-drawer.open{ transform:translateY(0); }
+  .drawer-handle{ width:36px; height:4px; background:#333; border-radius:4px; margin:14px auto 0; flex-shrink:0; }
+  .drawer-header{ padding:12px 16px 10px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #222; flex-shrink:0; }
+  .drawer-title{ font-size:0.92rem; font-weight:700; color:white; }
+  .drawer-close{ width:28px; height:28px; background:#222; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
+  .drawer-close svg{ width:14px; height:14px; stroke:#888; fill:none; stroke-width:2.5; }
+  .comments-list{ flex:1; overflow-y:auto; padding:12px 16px; -webkit-overflow-scrolling:touch; }
+  .comment-item{ display:flex; gap:10px; margin-bottom:14px; }
+  .com-ava{ width:32px; height:32px; border-radius:10px; background:#222; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:var(--verde); flex-shrink:0; }
+  .com-body{ flex:1; }
+  .com-name{ font-size:0.78rem; font-weight:700; color:white; margin-bottom:2px; }
+  .com-text{ font-size:0.82rem; color:#aaa; line-height:1.4; }
+  .com-time{ font-size:0.65rem; color:#555; margin-top:3px; }
+  .comment-input-row{ padding:10px 16px 28px; display:flex; gap:10px; border-top:1px solid #222; flex-shrink:0; }
+  .comment-input{ flex:1; background:#222; border:none; border-radius:20px; padding:10px 14px; color:white; font-family:'Inter',sans-serif; font-size:0.88rem; outline:none; }
+  .comment-input::placeholder{ color:#555; }
+  .btn-send-com{ width:38px; height:38px; background:var(--verde); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .btn-send-com svg{ width:16px; height:16px; stroke:var(--negro); fill:none; stroke-width:2.5; }
+
+  /* EMPTY */
+  .empty-feed{ height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#444; text-align:center; padding:40px; }
+  .empty-feed svg{ width:64px; height:64px; stroke:#333; fill:none; stroke-width:1.2; margin-bottom:16px; }
+  .empty-feed h3{ font-size:1rem; font-weight:700; color:#555; margin-bottom:6px; }
+  .empty-feed p{ font-size:0.82rem; color:#444; line-height:1.5; }
+
+  /* LOADING */
+  .loading-feed{ height:100vh; display:flex; align-items:center; justify-content:center; }
+  .spinner{ width:32px; height:32px; border:3px solid #222; border-top-color:var(--verde); border-radius:50%; animation:spin 0.7s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header-top">
-    <div class="logo-row">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A8E63D"/><stop offset="100%" style="stop-color:#7BC820"/></linearGradient></defs>
-        <path d="M50 4 L93 28 V72 L50 96 L7 72 V28 Z" fill="url(#g1)"/>
-        <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-      <div class="logo-text">PRO<span>VEED</span></div>
-    </div>
-    <div class="header-icons">
-      <div class="h-icon" onclick="window.location.href='chat.html'">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <div class="badge" id="badge-chat">!</div>
-      </div>
-      <div class="h-icon" onclick="window.location.href='carrito.html'" style="position:relative;">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <div class="badge" id="badge-cart">0</div>
-      </div>
-      <div class="h-icon" onclick="window.location.href='perfil.html'">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </div>
-    </div>
-  </div>
-  <div class="search-bar" onclick="window.location.href='busqueda.html'">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <span>Buscar productos, proveedores...</span>
-  </div>
-</header>
-
-<div class="banner">
-  <div class="banner-tag">🔥 Mayorista Ecuador</div>
-  <div class="banner-title">Los mejores proveedores en un solo lugar</div>
-  <div class="banner-sub">Precios mayoristas reales, sin intermediarios</div>
-  <button class="banner-btn" onclick="window.location.href='explorar.html'">Explorar ahora →</button>
+<div class="feed-header">
+  <button class="header-back" onclick="window.location.href='dashboard.html'">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </button>
+  <div class="feed-title">Tips <span>PROVEED</span></div>
+  <div style="width:36px;"></div>
 </div>
 
-<!-- CATEGORÍAS -->
-<div class="section-head">
-  <h3>Categorías</h3>
-  <a href="explorar.html">Ver todo</a>
+<div class="side-dots" id="side-dots"></div>
+
+<div class="feed" id="feed">
+  <div class="loading-feed"><div class="spinner"></div></div>
 </div>
-<div class="cats-scroll">
-  <div class="cat-chip active" data-cat="todos" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-    <div class="cat-label">Todo</div>
+
+<!-- COMENTARIOS -->
+<div class="comments-drawer" id="comments-drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-header">
+    <div class="drawer-title">Comentarios</div>
+    <button class="drawer-close" onclick="cerrarComentarios()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
-  <div class="cat-chip" data-cat="textiles" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></div>
-    <div class="cat-label">Textiles</div>
+  <div class="comments-list" id="comments-list">
+    <div style="text-align:center;padding:20px;color:#444;font-size:0.82rem;">Sin comentarios aún</div>
   </div>
-  <div class="cat-chip" data-cat="tecnologia" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
-    <div class="cat-label">Tecnología</div>
-  </div>
-  <div class="cat-chip" data-cat="alimentos" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
-    <div class="cat-label">Alimentos</div>
-  </div>
-  <div class="cat-chip" data-cat="cosmeticos" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg></div>
-    <div class="cat-label">Cosméticos</div>
-  </div>
-  <div class="cat-chip" data-cat="construccion" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
-    <div class="cat-label">Construcción</div>
-  </div>
-  <div class="cat-chip" data-cat="maquinaria" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
-    <div class="cat-label">Maquinaria</div>
-  </div>
-  <div class="cat-chip" data-cat="agricultura" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="5"/><path d="M12 22V12"/></svg></div>
-    <div class="cat-label">Agricultura</div>
+  <div class="comment-input-row">
+    <input type="text" class="comment-input" id="comment-input" placeholder="Escribe un comentario...">
+    <button class="btn-send-com" onclick="enviarComentario()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
   </div>
 </div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc, addDoc, updateDoc, increment, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
+  authDomain:"proveed-8cb7c.firebaseapp.com",
+  projectId:"proveed-8cb7c",
+  storageBucket:"proveed-8cb7c.firebasestorage.app",
+  messagingSenderId:"235073250367",
+  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
+});
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let tips = [];
+let tipActivo = 0;
+let tipActivoId = null;
+let seguidos = JSON.parse(localStorage.getItem('proveed_seguidos') || '[]');
+let likes = JSON.parse(localStorage.getItem('proveed_likes') || '[]');
+
+onAuthStateChanged(auth, async user => {
+  if (!user) { window.location.href = 'login.html'; return; }
+  currentUser = user;
+  cargarTips();
+});
+
+async function cargarTips() {
+  try {
+    const snap = await getDocs(collection(db, 'tips'));
+    tips = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    tips.sort((a, b) => (b.creadoEn?.toMillis?.() || 0) - (a.creadoEn?.toMillis?.() || 0));
+    renderFeed();
+  } catch(e) {
+    document.getElementById('feed').innerHTML = '<div class="empty-feed"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><h3>Sin tips aún</h3><p>Los proveedores publicarán videos con tips y novedades de sus productos aquí</p></div>';
+  }
+}
+
+function renderFeed() {
+  const feed = document.getElementById('feed');
+  const dotsEl = document.getElementById('side-dots');
+  if (!tips.length) {
+    feed.innerHTML = '<div class="empty-feed"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><h3>Sin tips aún</h3><p>Los proveedores publicarán videos con tips y novedades de sus productos aquí</p></div>';
+    return;
+  }
+  feed.innerHTML = '';
+  dotsEl.innerHTML = '';
+  tips.forEach((tip, i) => {
+    const slide = crearSlide(tip, i);
+    feed.appendChild(slide);
+    const dot = document.createElement('div');
+    dot.className = 'side-dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(dot);
+  });
+  // Scroll snap observer
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = parseInt(entry.target.dataset.idx);
+        tipActivo = idx;
+        tipActivoId = tips[idx].id;
+        document.querySelectorAll('.side-dot').forEach((d, j) => d.classList.toggle('active', j === idx));
+        // Pausar todos los videos y reproducir el activo
+        document.querySelectorAll('.tip-video').forEach(v => { v.pause(); v.currentTime = 0; });
+        const vid = entry.target.querySelector('.tip-video');
+        if (vid) { vid.play().catch(() => {}); }
+        // Registrar vista
+        try { updateDoc(doc(db, 'tips', tips[idx].id), { vistas: increment(1) }); } catch(e) {}
+      } else {
+        const vid = entry.target.querySelector('.tip-video');
+        if (vid) vid.pause();
+      }
+    });
+  }, { threshold: 0.7 });
+  document.querySelectorAll('.tip-slide').forEach(s => observer.observe(s));
+}
+
+function crearSlide(tip, i) {
+  const div = document.createElement('div');
+  div.className = 'tip-slide';
+  div.dataset.idx = i;
+  const liked = likes.includes(tip.id);
+  const siguiendo = seguidos.includes(tip.proveedorId);
+  const empresa = tip.proveedorNombre || 'Proveedor';
+  const inicial = empresa[0].toUpperCase();
+  div.innerHTML = `
+    <div class="progress-bar"><div class="progress-fill" id="prog-${i}"></div></div>
+    ${tip.videoURL
+      ? `<video class="tip-video" src="${tip.videoURL}" playsinline loop preload="auto"></video>`
+      : `<div class="tip-video-placeholder"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>`
+    }
+    <div class="tip-overlay"></div>
+    <div class="play-indicator" id="play-ind-${i}">
+      <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </div>
+    <div class="tip-info">
+      <div class="tip-proveedor" onclick="verProveedor('${tip.proveedorId}')">
+        <div class="prov-ava">${inicial}</div>
+        <div class="prov-info">
+          <div class="prov-name">${empresa}</div>
+          <div class="prov-city">${tip.ciudad || 'Ecuador'}</div>
+        </div>
+        <button class="btn-seguir-small ${siguiendo ? 'siguiendo' : ''}" id="btn-seg-${i}" onclick="toggleSeguir(event,'${tip.proveedorId}',${i})">${siguiendo ? '✓ Siguiendo' : 'Seguir'}</button>
+      </div>
+      <div class="tip-desc" id="desc-${i}">${tip.descripcion || ''}</div>
+      ${tip.descripcion && tip.descripcion.length > 80 ? `<div class="tip-ver-mas" onclick="expandDesc(${i})">Ver más</div>` : ''}
+      ${tip.productoId ? `
+        <div class="tip-prod-link" onclick="verProducto('${tip.productoId}')">
+          ${tip.productoImagen ? `<img src="${tip.productoImagen}" alt="">` : `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`}
+          <div>
+            <div><svg viewBox="0 0 24 24" width="12" height="12" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="white" fill="none" stroke-width="2"/></svg><span>${tip.productoNombre || 'Ver producto'}</span></div>
+            ${tip.productoPrecio ? `<div class="tip-prod-price">$${Number(tip.productoPrecio).toFixed(2)}</div>` : ''}
+          </div>
+        </div>` : ''}
+    </div>
+    <div class="tip-actions">
+      <div class="action-btn" onclick="toggleLike('${tip.id}',${i})">
+        <button class="action-circle ${liked ? 'liked' : ''}" id="like-btn-${i}">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <span class="action-label" id="likes-cnt-${i}">${tip.likes || 0}</span>
+      </div>
+      <div class="action-btn" onclick="abrirComentarios('${tip.id}')">
+        <button class="action-circle">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <span class="action-label" id="coms-cnt-${i}">${tip.comentarios || 0}</span>
+      </div>
+      <div class="action-btn" onclick="compartirTip('${tip.id}')">
+        <button class="action-circle">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+        <span class="action-label">Compartir</span>
+      </div>
+      <div class="action-btn" onclick="verProducto('${tip.productoId}')">
+        <button class="action-circle">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </button>
+        <span class="action-label">Producto</span>
+      </div>
+    </div>`;
+// Click para pausar/reanudar
+  div.addEventListener('click', e => {
+    if (e.target.closest('.tip-actions') || e.target.closest('.tip-info') || e.target.closest('.comments-drawer')) return;
+    const vid = div.querySelector('.tip-video');
+    if (!vid) return;
+    const ind = div.querySelector('.play-indicator');
+    if (vid.paused) {
+      vid.play();
+      ind.classList.remove('show');
+    } else {
+      vid.pause();
+      ind.classList.add('show');
+      setTimeout(() => ind.classList.remove('show'), 1200);
+    }
+  });
+
+  // Barra de progreso
+  const vid = div.querySelector('.tip-video');
+  if (vid) {
+    vid.addEventListener('timeupdate', () => {
+      const prog = document.getElementById('prog-' + i);
+      if (prog && vid.duration) prog.style.width = (vid.currentTime / vid.duration * 100) + '%';
+    });
+  }
+
+  return div;
+}
+
+window.toggleLike = async function(tipId, idx) {
+  const btn = document.getElementById('like-btn-' + idx);
+  const cnt = document.getElementById('likes-cnt-' + idx);
+  const likedIdx = likes.indexOf(tipId);
+  if (likedIdx >= 0) {
+    likes.splice(likedIdx, 1);
+    btn.classList.remove('liked');
+    const n = parseInt(cnt.textContent) - 1;
+    cnt.textContent = Math.max(0, n);
+    try { await updateDoc(doc(db, 'tips', tipId), { likes: increment(-1) }); } catch(e) {}
+  } else {
+    likes.push(tipId);
+    btn.classList.add('liked');
+    cnt.textContent = parseInt(cnt.textContent) + 1;
+    try { await updateDoc(doc(db, 'tips', tipId), { likes: increment(1) }); } catch(e) {}
+  }
+  localStorage.setItem('proveed_likes', JSON.stringify(likes));
+};
+
+window.toggleSeguir = function(e, provId, idx) {
+  e.stopPropagation();
+  const btn = document.getElementById('btn-seg-' + idx);
+  const i = seguidos.indexOf(provId);
+  if (i >= 0) {
+    seguidos.splice(i, 1);
+    btn.textContent = 'Seguir';
+    btn.classList.remove('siguiendo');
+  } else {
+    seguidos.push(provId);
+    btn.textContent = '✓ Siguiendo';
+    btn.classList.add('siguiendo');
+  }
+  localStorage.setItem('proveed_seguidos', JSON.stringify(seguidos));
+};
+
+window.expandDesc = function(idx) {
+  const desc = document.getElementById('desc-' + idx);
+  desc.classList.add('expanded');
+  desc.nextElementSibling && desc.nextElementSibling.remove();
+};
+
+window.verProveedor = function(id) {
+  if (id) window.location.href = 'proveedor.html?id=' + id;
+};
+
+window.verProducto = function(id) {
+  if (id) window.location.href = 'producto.html?id=' + id;
+};
+
+window.compartirTip = function(id) {
+  const url = window.location.origin + '/tips.html?tip=' + id;
+  if (navigator.share) navigator.share({ title: 'Tips PROVEED', url });
+  else navigator.clipboard.writeText(url);
+};
+
+// COMENTARIOS
+let comentariosTipId = null;
+
+window.abrirComentarios = async function(tipId) {
+  comentariosTipId = tipId;
+  document.getElementById('comments-drawer').classList.add('open');
+  document.getElementById('comments-list').innerHTML = '<div style="text-align:center;padding:20px;color:#444;font-size:0.82rem;">Cargando...</div>';
+  try {
+    const snap = await getDocs(query(collection(db, 'tips', tipId, 'comentarios'), orderBy('creadoEn', 'asc')));
+    const coms = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    const list = document.getElementById('comments-list');
+    if (!coms.length) { list.innerHTML = '<div style="text-align:center;padding:20px;color:#444;font-size:0.82rem;">Sin comentarios aún</div>'; return; }
+    list.innerHTML = '';
+    coms.forEach(c => {
+      const hora = c.creadoEn ? new Date(c.creadoEn.toDate()).toLocaleTimeString('es-EC', { hour: '2-digit', minute: '2-digit' }) : '';
+      const div = document.createElement('div');
+      div.className = 'comment-item';
+      div.innerHTML = `<div class="com-ava">${(c.userName || 'U')[0].toUpperCase()}</div><div class="com-body"><div class="com-name">${c.userName || 'Usuario'}</div><div class="com-text">${c.texto}</div><div class="com-time">${hora}</div></div>`;
+      list.appendChild(div);
+    });
+  } catch(e) { console.warn(e); }
+};
+
+window.cerrarComentarios = function() {
+  document.getElementById('comments-drawer').classList.remove('open');
+  comentariosTipId = null;
+};
+
+window.enviarComentario = async function() {
+  const input = document.getElementById('comment-input');
+  const texto = input.value.trim();
+  if (!texto || !comentariosTipId || !currentUser) return;
+  input.value = '';
+  try {
+    const snap = await getDoc(doc(db, 'usuarios', currentUser.uid));
+    const nombre = snap.exists() ? snap.data().nombre : 'Usuario';
+    await addDoc(collection(db, 'tips', comentariosTipId, 'comentarios'), { texto, userId: currentUser.uid, userName: nombre, creadoEn: serverTimestamp() });
+    await updateDoc(doc(db, 'tips', comentariosTipId), { comentarios: increment(1) });
+    window.abrirComentarios(comentariosTipId);
+  } catch(e) { console.warn(e); }
+};
+
+document.getElementById('comment-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') window.enviarComentario();
+});
+</script>
+</body>
+</html>
