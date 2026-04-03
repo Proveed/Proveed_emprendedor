@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,32 +8,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
   html,body{ height:100%; overflow:hidden; background:#000; font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
-
-  /* FEED CONTAINER */
   .feed{ height:100vh; overflow-y:scroll; scroll-snap-type:y mandatory; scrollbar-width:none; }
   .feed::-webkit-scrollbar{ display:none; }
-
-  /* CADA TIP */
   .tip-slide{ height:100vh; width:100vw; scroll-snap-align:start; position:relative; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center; }
-
-  /* VIDEO */
   .tip-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .tip-video-placeholder{ position:absolute; inset:0; background:linear-gradient(135deg,#1a1a1a,#2a2a2a); display:flex; align-items:center; justify-content:center; }
   .tip-video-placeholder svg{ width:56px; height:56px; stroke:#333; fill:none; stroke-width:1.2; }
-
-  /* OVERLAY GRADIENTE */
-  .tip-overlay{ position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.1) 60%, transparent 100%); }
-
-  /* HEADER FIJO */
+  .tip-overlay{ position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.1) 50%,transparent 100%); }
   .feed-header{ position:fixed; top:0; left:0; right:0; z-index:200; padding:44px 16px 14px; display:flex; align-items:center; justify-content:space-between; }
   .feed-title{ font-size:1.1rem; font-weight:700; color:white; }
   .feed-title span{ color:var(--verde); }
   .header-back{ width:36px; height:36px; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
   .header-back svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-
-  /* INFO INFERIOR */
   .tip-info{ position:absolute; bottom:0; left:0; right:60px; padding:20px 16px 100px; z-index:10; }
   .tip-proveedor{ display:flex; align-items:center; gap:10px; margin-bottom:10px; cursor:pointer; }
   .prov-ava{ width:38px; height:38px; border-radius:12px; background:var(--negro); border:2px solid var(--verde); display:flex; align-items:center; justify-content:center; font-size:0.92rem; font-weight:700; color:var(--verde); flex-shrink:0; }
@@ -44,14 +33,11 @@
   .tip-desc{ font-size:0.88rem; color:white; line-height:1.5; margin-bottom:10px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
   .tip-desc.expanded{ -webkit-line-clamp:unset; }
   .tip-ver-mas{ font-size:0.8rem; color:rgba(255,255,255,0.5); cursor:pointer; margin-bottom:10px; }
-  .tip-prod-link{ display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.12); backdrop-filter:blur(10px); border-radius:10px; padding:8px 14px; cursor:pointer; border:1px solid rgba(255,255,255,0.15); transition:0.2s; }
-  .tip-prod-link:active{ background:rgba(255,255,255,0.2); }
+  .tip-prod-link{ display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.12); backdrop-filter:blur(10px); border-radius:10px; padding:8px 14px; cursor:pointer; border:1px solid rgba(255,255,255,0.15); }
   .tip-prod-link img{ width:28px; height:28px; border-radius:6px; object-fit:cover; }
   .tip-prod-link svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2; }
   .tip-prod-link span{ font-size:0.78rem; font-weight:600; color:white; }
   .tip-prod-price{ font-size:0.72rem; color:var(--verde); font-weight:700; }
-
-  /* ACCIONES DERECHA */
   .tip-actions{ position:absolute; bottom:100px; right:12px; display:flex; flex-direction:column; gap:20px; align-items:center; z-index:10; }
   .action-btn{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
   .action-circle{ width:44px; height:44px; border-radius:50%; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; transition:0.2s; }
@@ -59,22 +45,14 @@
   .action-circle svg{ width:22px; height:22px; stroke:white; fill:none; stroke-width:2; }
   .action-circle.liked svg{ stroke:var(--rojo); fill:var(--rojo); }
   .action-label{ font-size:0.62rem; color:white; font-weight:600; text-align:center; }
-
-  /* PLAY/PAUSE */
   .play-indicator{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:64px; height:64px; background:rgba(0,0,0,0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:20; }
   .play-indicator.show{ opacity:1; }
   .play-indicator svg{ width:28px; height:28px; fill:white; }
-
-  /* BARRA PROGRESO */
   .progress-bar{ position:absolute; top:0; left:0; right:0; height:3px; background:rgba(255,255,255,0.15); z-index:30; }
   .progress-fill{ height:100%; background:var(--verde); width:0%; transition:width 0.1s linear; }
-
-  /* DOTS INDICADOR */
   .side-dots{ position:fixed; right:6px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:4px; z-index:100; }
   .side-dot{ width:4px; height:4px; border-radius:50%; background:rgba(255,255,255,0.3); transition:0.3s; }
   .side-dot.active{ background:var(--verde); height:16px; border-radius:2px; }
-
-  /* COMENTARIOS DRAWER */
   .comments-drawer{ position:fixed; bottom:0; left:0; right:0; background:#111; border-radius:20px 20px 0 0; transform:translateY(100%); transition:0.4s cubic-bezier(0.16,1,0.3,1); z-index:300; max-height:70vh; display:flex; flex-direction:column; }
   .comments-drawer.open{ transform:translateY(0); }
   .drawer-handle{ width:36px; height:4px; background:#333; border-radius:4px; margin:14px auto 0; flex-shrink:0; }
@@ -94,14 +72,10 @@
   .comment-input::placeholder{ color:#555; }
   .btn-send-com{ width:38px; height:38px; background:var(--verde); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
   .btn-send-com svg{ width:16px; height:16px; stroke:var(--negro); fill:none; stroke-width:2.5; }
-
-  /* EMPTY */
   .empty-feed{ height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#444; text-align:center; padding:40px; }
   .empty-feed svg{ width:64px; height:64px; stroke:#333; fill:none; stroke-width:1.2; margin-bottom:16px; }
   .empty-feed h3{ font-size:1rem; font-weight:700; color:#555; margin-bottom:6px; }
   .empty-feed p{ font-size:0.82rem; color:#444; line-height:1.5; }
-
-  /* LOADING */
   .loading-feed{ height:100vh; display:flex; align-items:center; justify-content:center; }
   .spinner{ width:32px; height:32px; border:3px solid #222; border-top-color:var(--verde); border-radius:50%; animation:spin 0.7s linear infinite; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
@@ -118,12 +92,10 @@
 </div>
 
 <div class="side-dots" id="side-dots"></div>
-
 <div class="feed" id="feed">
   <div class="loading-feed"><div class="spinner"></div></div>
 </div>
 
-<!-- COMENTARIOS -->
 <div class="comments-drawer" id="comments-drawer">
   <div class="drawer-handle"></div>
   <div class="drawer-header">
@@ -143,10 +115,11 @@
   </div>
 </div>
 
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, doc, getDoc, addDoc, updateDoc, increment, query, where, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc, addDoc, updateDoc, increment, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
@@ -159,10 +132,7 @@ const app = initializeApp({
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentUser = null;
-let tips = [];
-let tipActivo = 0;
-let tipActivoId = null;
+let currentUser = null, tips = [], tipActivo = 0, tipActivoId = null;
 let seguidos = JSON.parse(localStorage.getItem('proveed_seguidos') || '[]');
 let likes = JSON.parse(localStorage.getItem('proveed_likes') || '[]');
 
@@ -175,11 +145,11 @@ onAuthStateChanged(auth, async user => {
 async function cargarTips() {
   try {
     const snap = await getDocs(collection(db, 'tips'));
-    tips = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    tips = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(t => t.activo !== false);
     tips.sort((a, b) => (b.creadoEn?.toMillis?.() || 0) - (a.creadoEn?.toMillis?.() || 0));
     renderFeed();
   } catch(e) {
-    document.getElementById('feed').innerHTML = '<div class="empty-feed"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><h3>Sin tips aún</h3><p>Los proveedores publicarán videos con tips y novedades de sus productos aquí</p></div>';
+    document.getElementById('feed').innerHTML = '<div class="empty-feed"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg><h3>Sin tips aún</h3><p>Los proveedores publicarán videos aquí pronto</p></div>';
   }
 }
 
@@ -187,31 +157,25 @@ function renderFeed() {
   const feed = document.getElementById('feed');
   const dotsEl = document.getElementById('side-dots');
   if (!tips.length) {
-    feed.innerHTML = '<div class="empty-feed"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><h3>Sin tips aún</h3><p>Los proveedores publicarán videos con tips y novedades de sus productos aquí</p></div>';
+    feed.innerHTML = '<div class="empty-feed"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg><h3>Sin tips aún</h3><p>Los proveedores publicarán videos con tips aquí</p></div>';
     return;
   }
-  feed.innerHTML = '';
-  dotsEl.innerHTML = '';
+  feed.innerHTML = ''; dotsEl.innerHTML = '';
   tips.forEach((tip, i) => {
-    const slide = crearSlide(tip, i);
-    feed.appendChild(slide);
+    feed.appendChild(crearSlide(tip, i));
     const dot = document.createElement('div');
     dot.className = 'side-dot' + (i === 0 ? ' active' : '');
     dotsEl.appendChild(dot);
   });
-  // Scroll snap observer
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const idx = parseInt(entry.target.dataset.idx);
-        tipActivo = idx;
-        tipActivoId = tips[idx].id;
+        tipActivo = idx; tipActivoId = tips[idx].id;
         document.querySelectorAll('.side-dot').forEach((d, j) => d.classList.toggle('active', j === idx));
-        // Pausar todos los videos y reproducir el activo
         document.querySelectorAll('.tip-video').forEach(v => { v.pause(); v.currentTime = 0; });
         const vid = entry.target.querySelector('.tip-video');
-        if (vid) { vid.play().catch(() => {}); }
-        // Registrar vista
+        if (vid) vid.play().catch(() => {});
         try { updateDoc(doc(db, 'tips', tips[idx].id), { vistas: increment(1) }); } catch(e) {}
       } else {
         const vid = entry.target.querySelector('.tip-video');
@@ -224,41 +188,27 @@ function renderFeed() {
 
 function crearSlide(tip, i) {
   const div = document.createElement('div');
-  div.className = 'tip-slide';
-  div.dataset.idx = i;
+  div.className = 'tip-slide'; div.dataset.idx = i;
   const liked = likes.includes(tip.id);
   const siguiendo = seguidos.includes(tip.proveedorId);
   const empresa = tip.proveedorNombre || 'Proveedor';
-  const inicial = empresa[0].toUpperCase();
   div.innerHTML = `
     <div class="progress-bar"><div class="progress-fill" id="prog-${i}"></div></div>
-    ${tip.videoURL
-      ? `<video class="tip-video" src="${tip.videoURL}" playsinline loop preload="auto"></video>`
-      : `<div class="tip-video-placeholder"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>`
-    }
+    ${tip.videoURL ? `<video class="tip-video" src="${tip.videoURL}" playsinline loop preload="auto"></video>` : `<div class="tip-video-placeholder"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg></div>`}
     <div class="tip-overlay"></div>
-    <div class="play-indicator" id="play-ind-${i}">
-      <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-    </div>
+    <div class="play-indicator" id="play-ind-${i}"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
     <div class="tip-info">
       <div class="tip-proveedor" onclick="verProveedor('${tip.proveedorId}')">
-        <div class="prov-ava">${inicial}</div>
-        <div class="prov-info">
-          <div class="prov-name">${empresa}</div>
-          <div class="prov-city">${tip.ciudad || 'Ecuador'}</div>
-        </div>
+        <div class="prov-ava">${empresa[0].toUpperCase()}</div>
+        <div class="prov-info"><div class="prov-name">${empresa}</div><div class="prov-city">${tip.ciudad || 'Ecuador'}</div></div>
         <button class="btn-seguir-small ${siguiendo ? 'siguiendo' : ''}" id="btn-seg-${i}" onclick="toggleSeguir(event,'${tip.proveedorId}',${i})">${siguiendo ? '✓ Siguiendo' : 'Seguir'}</button>
       </div>
       <div class="tip-desc" id="desc-${i}">${tip.descripcion || ''}</div>
       ${tip.descripcion && tip.descripcion.length > 80 ? `<div class="tip-ver-mas" onclick="expandDesc(${i})">Ver más</div>` : ''}
-      ${tip.productoId ? `
-        <div class="tip-prod-link" onclick="verProducto('${tip.productoId}')">
-          ${tip.productoImagen ? `<img src="${tip.productoImagen}" alt="">` : `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`}
-          <div>
-            <div><svg viewBox="0 0 24 24" width="12" height="12" style="display:inline;vertical-align:middle;margin-right:3px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="white" fill="none" stroke-width="2"/></svg><span>${tip.productoNombre || 'Ver producto'}</span></div>
-            ${tip.productoPrecio ? `<div class="tip-prod-price">$${Number(tip.productoPrecio).toFixed(2)}</div>` : ''}
-          </div>
-        </div>` : ''}
+      ${tip.productoId ? `<div class="tip-prod-link" onclick="verProducto('${tip.productoId}')">
+        ${tip.productoImagen ? `<img src="${tip.productoImagen}" alt="">` : `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`}
+        <div><div><span>${tip.productoNombre || 'Ver producto'}</span></div>${tip.productoPrecio ? `<div class="tip-prod-price">$${Number(tip.productoPrecio).toFixed(2)}</div>` : ''}</div>
+      </div>` : ''}
     </div>
     <div class="tip-actions">
       <div class="action-btn" onclick="toggleLike('${tip.id}',${i})">
@@ -268,41 +218,28 @@ function crearSlide(tip, i) {
         <span class="action-label" id="likes-cnt-${i}">${tip.likes || 0}</span>
       </div>
       <div class="action-btn" onclick="abrirComentarios('${tip.id}')">
-        <button class="action-circle">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </button>
-        <span class="action-label" id="coms-cnt-${i}">${tip.comentarios || 0}</span>
+        <button class="action-circle"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+        <span class="action-label">${tip.comentarios || 0}</span>
       </div>
       <div class="action-btn" onclick="compartirTip('${tip.id}')">
-        <button class="action-circle">
-          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        </button>
+        <button class="action-circle"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
         <span class="action-label">Compartir</span>
       </div>
-      <div class="action-btn" onclick="verProducto('${tip.productoId}')">
-        <button class="action-circle">
-          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        </button>
+      ${tip.productoId ? `<div class="action-btn" onclick="verProducto('${tip.productoId}')">
+        <button class="action-circle"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
         <span class="action-label">Producto</span>
-      </div>
+      </div>` : ''}
     </div>`;
-// Click para pausar/reanudar
+
   div.addEventListener('click', e => {
     if (e.target.closest('.tip-actions') || e.target.closest('.tip-info') || e.target.closest('.comments-drawer')) return;
     const vid = div.querySelector('.tip-video');
     if (!vid) return;
     const ind = div.querySelector('.play-indicator');
-    if (vid.paused) {
-      vid.play();
-      ind.classList.remove('show');
-    } else {
-      vid.pause();
-      ind.classList.add('show');
-      setTimeout(() => ind.classList.remove('show'), 1200);
-    }
+    if (vid.paused) { vid.play(); ind.classList.remove('show'); }
+    else { vid.pause(); ind.classList.add('show'); setTimeout(() => ind.classList.remove('show'), 1200); }
   });
 
-  // Barra de progreso
   const vid = div.querySelector('.tip-video');
   if (vid) {
     vid.addEventListener('timeupdate', () => {
@@ -310,7 +247,6 @@ function crearSlide(tip, i) {
       if (prog && vid.duration) prog.style.width = (vid.currentTime / vid.duration * 100) + '%';
     });
   }
-
   return div;
 }
 
@@ -319,14 +255,11 @@ window.toggleLike = async function(tipId, idx) {
   const cnt = document.getElementById('likes-cnt-' + idx);
   const likedIdx = likes.indexOf(tipId);
   if (likedIdx >= 0) {
-    likes.splice(likedIdx, 1);
-    btn.classList.remove('liked');
-    const n = parseInt(cnt.textContent) - 1;
-    cnt.textContent = Math.max(0, n);
+    likes.splice(likedIdx, 1); btn.classList.remove('liked');
+    cnt.textContent = Math.max(0, parseInt(cnt.textContent) - 1);
     try { await updateDoc(doc(db, 'tips', tipId), { likes: increment(-1) }); } catch(e) {}
   } else {
-    likes.push(tipId);
-    btn.classList.add('liked');
+    likes.push(tipId); btn.classList.add('liked');
     cnt.textContent = parseInt(cnt.textContent) + 1;
     try { await updateDoc(doc(db, 'tips', tipId), { likes: increment(1) }); } catch(e) {}
   }
@@ -337,15 +270,8 @@ window.toggleSeguir = function(e, provId, idx) {
   e.stopPropagation();
   const btn = document.getElementById('btn-seg-' + idx);
   const i = seguidos.indexOf(provId);
-  if (i >= 0) {
-    seguidos.splice(i, 1);
-    btn.textContent = 'Seguir';
-    btn.classList.remove('siguiendo');
-  } else {
-    seguidos.push(provId);
-    btn.textContent = '✓ Siguiendo';
-    btn.classList.add('siguiendo');
-  }
+  if (i >= 0) { seguidos.splice(i, 1); btn.textContent = 'Seguir'; btn.classList.remove('siguiendo'); }
+  else { seguidos.push(provId); btn.textContent = '✓ Siguiendo'; btn.classList.add('siguiendo'); }
   localStorage.setItem('proveed_seguidos', JSON.stringify(seguidos));
 };
 
@@ -355,31 +281,23 @@ window.expandDesc = function(idx) {
   desc.nextElementSibling && desc.nextElementSibling.remove();
 };
 
-window.verProveedor = function(id) {
-  if (id) window.location.href = 'proveedor.html?id=' + id;
-};
-
-window.verProducto = function(id) {
-  if (id) window.location.href = 'producto.html?id=' + id;
-};
-
-window.compartirTip = function(id) {
+window.verProveedor = id => { if (id) window.location.href = 'proveedor.html?id=' + id; };
+window.verProducto = id => { if (id) window.location.href = 'producto.html?id=' + id; };
+window.compartirTip = id => {
   const url = window.location.origin + '/tips.html?tip=' + id;
   if (navigator.share) navigator.share({ title: 'Tips PROVEED', url });
   else navigator.clipboard.writeText(url);
 };
 
-// COMENTARIOS
 let comentariosTipId = null;
-
 window.abrirComentarios = async function(tipId) {
   comentariosTipId = tipId;
   document.getElementById('comments-drawer').classList.add('open');
   document.getElementById('comments-list').innerHTML = '<div style="text-align:center;padding:20px;color:#444;font-size:0.82rem;">Cargando...</div>';
   try {
     const snap = await getDocs(query(collection(db, 'tips', tipId, 'comentarios'), orderBy('creadoEn', 'asc')));
-    const coms = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     const list = document.getElementById('comments-list');
+    const coms = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     if (!coms.length) { list.innerHTML = '<div style="text-align:center;padding:20px;color:#444;font-size:0.82rem;">Sin comentarios aún</div>'; return; }
     list.innerHTML = '';
     coms.forEach(c => {
@@ -392,10 +310,7 @@ window.abrirComentarios = async function(tipId) {
   } catch(e) { console.warn(e); }
 };
 
-window.cerrarComentarios = function() {
-  document.getElementById('comments-drawer').classList.remove('open');
-  comentariosTipId = null;
-};
+window.cerrarComentarios = () => { document.getElementById('comments-drawer').classList.remove('open'); comentariosTipId = null; };
 
 window.enviarComentario = async function() {
   const input = document.getElementById('comment-input');
@@ -411,9 +326,7 @@ window.enviarComentario = async function() {
   } catch(e) { console.warn(e); }
 };
 
-document.getElementById('comment-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') window.enviarComentario();
-});
+document.getElementById('comment-input').addEventListener('keydown', e => { if (e.key === 'Enter') window.enviarComentario(); });
 </script>
 </body>
 </html>
