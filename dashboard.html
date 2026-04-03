@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,7 +10,6 @@
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
   body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:80px; -webkit-font-smoothing:antialiased; }
-
   .header{ background:var(--negro); padding:44px 20px 16px; position:sticky; top:0; z-index:100; }
   .header-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
   .logo-row{ display:flex; align-items:center; gap:8px; }
@@ -23,18 +23,15 @@
   .search-bar{ background:rgba(255,255,255,0.08); border-radius:12px; padding:11px 14px; display:flex; align-items:center; gap:10px; cursor:pointer; }
   .search-bar svg{ width:16px; height:16px; stroke:#888; fill:none; stroke-width:2.5; flex-shrink:0; }
   .search-bar span{ font-size:0.88rem; color:#666; }
-
   .banner{ margin:14px 16px; background:linear-gradient(135deg,#111 0%,#1a2a0a 100%); border-radius:20px; padding:20px; position:relative; overflow:hidden; }
   .banner::before{ content:''; position:absolute; right:-20px; top:-20px; width:130px; height:130px; background:radial-gradient(circle,rgba(168,230,61,0.18) 0%,transparent 70%); }
   .banner-tag{ background:var(--verde); color:var(--negro); font-size:0.62rem; font-weight:700; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
   .banner-title{ font-size:1.2rem; font-weight:700; color:white; line-height:1.3; margin-bottom:5px; }
   .banner-sub{ font-size:0.78rem; color:#888; margin-bottom:14px; }
   .banner-btn{ background:var(--verde); color:var(--negro); border:none; padding:10px 18px; border-radius:10px; font-family:'Inter',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; }
-
   .section-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 16px 10px; }
   .section-head h3{ font-size:0.95rem; font-weight:700; color:var(--negro); }
   .section-head a{ font-size:0.8rem; color:var(--naranja); text-decoration:none; font-weight:600; }
-
   .cats-scroll{ display:flex; gap:10px; padding:0 16px 4px; overflow-x:auto; scrollbar-width:none; }
   .cats-scroll::-webkit-scrollbar{ display:none; }
   .cat-chip{ display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; flex-shrink:0; min-width:60px; }
@@ -43,7 +40,6 @@
   .cat-icon svg{ width:22px; height:22px; stroke:var(--negro); fill:none; stroke-width:2; }
   .cat-label{ font-size:0.6rem; font-weight:600; color:#888; text-align:center; }
   .cat-chip.active .cat-label{ color:var(--negro); font-weight:700; }
-
   .tips-scroll{ display:flex; gap:10px; padding:0 16px 4px; overflow-x:auto; scrollbar-width:none; }
   .tips-scroll::-webkit-scrollbar{ display:none; }
   .tip-thumb{ width:110px; flex-shrink:0; border-radius:14px; overflow:hidden; cursor:pointer; position:relative; height:170px; background:#111; transition:0.2s; }
@@ -57,7 +53,6 @@
   .tip-thumb-desc{ font-size:0.6rem; color:rgba(255,255,255,0.6); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:2px; }
   .tip-play-icon{ position:absolute; top:8px; right:8px; width:24px; height:24px; background:rgba(255,255,255,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; }
   .tip-play-icon svg{ width:10px; height:10px; fill:white; margin-left:1px; }
-
   .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:4px 16px; }
   .prod-card{ background:white; border-radius:14px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
   .prod-card:active{ transform:scale(0.97); }
@@ -75,21 +70,18 @@
   .add-btn{ width:30px; height:30px; border-radius:9px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.2s; flex-shrink:0; }
   .add-btn:active{ transform:scale(0.85); }
   .add-btn svg{ width:14px; height:14px; stroke:white; fill:none; stroke-width:2.5; }
-
   .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
   @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
   .skel-card{ background:white; border-radius:14px; overflow:hidden; }
   .skel-img{ height:155px; }
   .skel-line{ height:10px; margin:10px 12px 5px; border-radius:6px; }
   .skel-line.s{ width:55%; height:8px; margin:0 12px 12px; }
-
   .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:10px 20px; border-radius:24px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
   .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; transition:0.2s; }
+  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
   .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
+  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
   .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; letter-spacing:0.3px; }
   .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
   .tab.active .tab-dot{ display:block; }
@@ -173,6 +165,7 @@
   </div>
 </div>
 
+
 <div class="section-head" style="padding-top:18px;">
   <h3>Tips de proveedores</h3>
   <a href="tips.html">Ver todos</a>
@@ -195,6 +188,7 @@
 </div>
 
 <div class="toast" id="toast"></div>
+
 <nav class="tab-bar">
   <a class="tab active" href="dashboard.html">
     <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -205,7 +199,7 @@
     <span>Explorar</span><div class="tab-dot"></div>
   </a>
   <a class="tab" href="tips.html">
-    <svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg>
     <span>Tips</span><div class="tab-dot"></div>
   </a>
   <a class="tab" href="carrito.html">
@@ -262,8 +256,8 @@ async function cargarTips() {
     const scroll = document.getElementById('tips-scroll');
     if (!tips.length) {
       scroll.innerHTML = `<div style="width:110px;height:170px;border-radius:14px;background:#e8e8e8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex-shrink:0;cursor:pointer;" onclick="window.location.href='tips.html'">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
-        <span style="font-size:0.65rem;color:#bbb;font-weight:600;text-align:center;padding:0 8px;">Pronto habrá tips aquí</span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg>
+        <span style="font-size:0.65rem;color:#bbb;font-weight:600;text-align:center;padding:0 8px;">Pronto habrá tips</span>
       </div>`;
       return;
     }
@@ -273,7 +267,7 @@ async function cargarTips() {
       div.className = 'tip-thumb';
       div.onclick = () => window.location.href = 'tips.html';
       div.innerHTML = `
-        ${tip.videoURL ? `<video src="${tip.videoURL}" muted playsinline preload="metadata"></video>` : `<div class="tip-thumb-placeholder"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg></div>`}
+        ${tip.videoURL ? `<video src="${tip.videoURL}" muted playsinline preload="metadata"></video>` : `<div class="tip-thumb-placeholder"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg></div>`}
         <div class="tip-thumb-overlay"></div>
         <div class="tip-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="white"/></svg></div>
         <div class="tip-thumb-info">
@@ -288,7 +282,7 @@ async function cargarTips() {
 function renderGrid(lista) {
   const grid = document.getElementById('products-grid');
   if (!lista.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#bbb;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1.2" style="display:block;margin:0 auto 12px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><p style="font-size:0.85rem;">Sin productos en esta categoría</p></div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#bbb;"><p style="font-size:0.85rem;">Sin productos en esta categoría</p></div>`;
     return;
   }
   grid.innerHTML = '';
