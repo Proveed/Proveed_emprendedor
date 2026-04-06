@@ -114,24 +114,32 @@
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
-const app=initializeApp({
-  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-  authDomain:"proveed-8cb7c.firebaseapp.com",
-  projectId:"proveed-8cb7c",
-  storageBucket:"proveed-8cb7c.firebasestorage.app",
-  messagingSenderId:"235073250367",
-  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-});
-const auth=getAuth(app);
-const db=getFirestore(app);
-onAuthStateChanged(auth,async(user)=>{
-  if(!user){window.location.href='login.html';return;}
-  const snap=await getDoc(doc(db,'usuarios',user.uid));
-  if(snap.exists()) document.getElementById('user-name').textContent=snap.data().nombre.split(' ')[0];
-});
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+
+async function init() {
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  if (!session) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // Obtenemos los datos del perfil del usuario
+  const { data: userProfile, error } = await supabase
+    .from('usuarios')
+    .select('nombre')
+    .eq('id', session.user.id)
+    .single();
+
+  if (!error && userProfile) {
+    const primerNombre = userProfile.nombre.split(' ')[0];
+    document.getElementById('user-name').textContent = primerNombre;
+  }
+}
+
+init();
 </script>
 </body>
 </html>
