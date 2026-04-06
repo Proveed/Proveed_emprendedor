@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -139,50 +138,19 @@
     <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></div>
     <div class="cat-label">Textiles</div>
   </div>
-  <div class="cat-chip" data-cat="tecnologia" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
-    <div class="cat-label">Tecnología</div>
   </div>
-  <div class="cat-chip" data-cat="alimentos" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
-    <div class="cat-label">Alimentos</div>
-  </div>
-  <div class="cat-chip" data-cat="cosmeticos" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg></div>
-    <div class="cat-label">Cosméticos</div>
-  </div>
-  <div class="cat-chip" data-cat="construccion" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
-    <div class="cat-label">Construcción</div>
-  </div>
-  <div class="cat-chip" data-cat="maquinaria" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg></div>
-    <div class="cat-label">Maquinaria</div>
-  </div>
-  <div class="cat-chip" data-cat="agricultura" onclick="selCat(this)">
-    <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="5"/><path d="M12 22V12"/></svg></div>
-    <div class="cat-label">Agricultura</div>
-  </div>
-</div>
-
 
 <div class="section-head" style="padding-top:18px;">
   <h3>Tips de proveedores</h3>
   <a href="tips.html">Ver todos</a>
 </div>
-<div class="tips-scroll" id="tips-scroll">
-  <div style="width:110px;height:170px;border-radius:14px;" class="skeleton"></div>
-  <div style="width:110px;height:170px;border-radius:14px;" class="skeleton"></div>
-  <div style="width:110px;height:170px;border-radius:14px;" class="skeleton"></div>
-</div>
+<div class="tips-scroll" id="tips-scroll"></div>
 
 <div class="section-head" style="padding-top:16px;">
   <h3 id="grid-title">Destacados</h3>
   <a href="explorar.html">Ver más</a>
 </div>
 <div class="products-grid" id="products-grid">
-  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
-  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
   <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
   <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
 </div>
@@ -213,99 +181,92 @@
 </nav>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-const app = initializeApp({
-  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-  authDomain:"proveed-8cb7c.firebaseapp.com",
-  projectId:"proveed-8cb7c",
-  storageBucket:"proveed-8cb7c.firebasestorage.app",
-  messagingSenderId:"235073250367",
-  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-});
-const auth = getAuth(app);
-const db = getFirestore(app);
+const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+
 let carrito = JSON.parse(localStorage.getItem('carrito_proveed') || '[]');
-let todosProds = [], catActiva = 'todos';
+let todosProds = [];
 
-onAuthStateChanged(auth, async user => {
-  if (!user) { window.location.href = 'login.html'; return; }
+async function init() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+  
   actualizarBadgeCart();
   cargarProductos();
   cargarTips();
-});
+}
 
 async function cargarProductos() {
-  try {
-    const snap = await getDocs(collection(db, 'productos'));
-    todosProds = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(p => p.activo === true);
-    todosProds.sort((a, b) => (b.creadoEn?.toMillis?.() || 0) - (a.creadoEn?.toMillis?.() || 0));
-    renderGrid(todosProds);
-  } catch(e) {
-    document.getElementById('products-grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:#aaa;font-size:0.85rem;">Error: ${e.message}</div>`;
+  const { data: prods, error } = await supabase
+    .from('productos')
+    .select('*')
+    .eq('activo', true)
+    .order('created_at', { ascending: false });
+
+  if (!error) {
+    todosProds = prods;
+    renderGrid(prods);
   }
 }
 
 async function cargarTips() {
-  try {
-    const snap = await getDocs(collection(db, 'tips'));
-    const tips = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(t => t.activo !== false);
-    tips.sort((a, b) => (b.creadoEn?.toMillis?.() || 0) - (a.creadoEn?.toMillis?.() || 0));
-    const scroll = document.getElementById('tips-scroll');
-    if (!tips.length) {
-      scroll.innerHTML = `<div style="width:110px;height:170px;border-radius:14px;background:#e8e8e8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex-shrink:0;cursor:pointer;" onclick="window.location.href='tips.html'">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg>
-        <span style="font-size:0.65rem;color:#bbb;font-weight:600;text-align:center;padding:0 8px;">Pronto habrá tips</span>
+  const { data: tips } = await supabase
+    .from('tips')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(6);
+
+  const scroll = document.getElementById('tips-scroll');
+  if (!tips?.length) {
+    scroll.innerHTML = `<div style="width:110px;height:170px;border-radius:14px;background:#e8e8e8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex-shrink:0;">
+      <span style="font-size:0.65rem;color:#bbb;font-weight:600;">Pronto más tips</span>
+    </div>`;
+    return;
+  }
+  
+  scroll.innerHTML = '';
+  tips.forEach(tip => {
+    const div = document.createElement('div');
+    div.className = 'tip-thumb';
+    div.onclick = () => window.location.href = 'tips.html';
+    div.innerHTML = `
+      ${tip.video_url ? `<video src="${tip.video_url}" muted playsinline></video>` : `<div class="tip-thumb-placeholder"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg></div>`}
+      <div class="tip-thumb-overlay"></div>
+      <div class="tip-thumb-info">
+        <div class="tip-thumb-prov">${tip.proveedor_nombre || 'Proveedor'}</div>
+        <div class="tip-thumb-desc">${tip.descripcion || ''}</div>
       </div>`;
-      return;
-    }
-    scroll.innerHTML = '';
-    tips.slice(0, 6).forEach(tip => {
-      const div = document.createElement('div');
-      div.className = 'tip-thumb';
-      div.onclick = () => window.location.href = 'tips.html';
-      div.innerHTML = `
-        ${tip.videoURL ? `<video src="${tip.videoURL}" muted playsinline preload="metadata"></video>` : `<div class="tip-thumb-placeholder"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg></div>`}
-        <div class="tip-thumb-overlay"></div>
-        <div class="tip-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="white"/></svg></div>
-        <div class="tip-thumb-info">
-          <div class="tip-thumb-prov">${tip.proveedorNombre || 'Proveedor'}</div>
-          <div class="tip-thumb-desc">${tip.descripcion || ''}</div>
-        </div>`;
-      scroll.appendChild(div);
-    });
-  } catch(e) { console.warn(e); }
+    scroll.appendChild(div);
+  });
 }
 
 function renderGrid(lista) {
   const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
   if (!lista.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#bbb;"><p style="font-size:0.85rem;">Sin productos en esta categoría</p></div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#bbb;">Sin productos</div>`;
     return;
   }
-  grid.innerHTML = '';
+
   lista.slice(0, 8).forEach(p => {
-    const img = p.imagenes?.[0] || p.imagen || '';
     const div = document.createElement('div');
     div.className = 'prod-card';
     div.onclick = () => window.location.href = `producto.html?id=${p.id}`;
     div.innerHTML = `
       <div class="prod-img">
-        ${img ? `<img src="${img}" alt="${p.nombre || ''}" loading="lazy">` : `<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
+        <img src="${p.imagen_url || ''}" loading="lazy">
         ${p.categoria ? `<div class="prod-cat-tag">${p.categoria}</div>` : ''}
-        ${p.videoURL ? `<div class="prod-video-tag">▶</div>` : ''}
       </div>
       <div class="prod-body">
-        <div class="prod-nombre">${p.nombre || 'Producto'}</div>
-        <div class="prod-proveedor">${p.nombreProveedor || 'Proveedor'}</div>
+        <div class="prod-nombre">${p.nombre}</div>
+        <div class="prod-proveedor">${p.proveedor_nombre || 'Proveedor'}</div>
         <div class="prod-footer">
           <div>
-            <div class="prod-precio">$${Number(p.precio || 0).toFixed(2)}</div>
+            <div class="prod-precio">$${Number(p.precio).toFixed(2)}</div>
             <div class="prod-min">Mín: ${p.minimo || 1} und.</div>
           </div>
-          <button class="add-btn" onclick="agregar(event,'${p.id}','${(p.nombre || '').replace(/'/g, "\\'")}',${p.precio || 0},${p.minimo || 1},'${img}','${(p.nombreProveedor || '').replace(/'/g, "\\'")}')">
+          <button class="add-btn" onclick="agregar(event,'${p.id}','${p.nombre}',${p.precio},${p.minimo},'${p.imagen_url}')">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
         </div>
@@ -317,20 +278,20 @@ function renderGrid(lista) {
 window.selCat = function(el) {
   document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  catActiva = el.dataset.cat;
-  const filtrado = catActiva === 'todos' ? todosProds : todosProds.filter(p => p.categoria === catActiva);
-  document.getElementById('grid-title').textContent = catActiva === 'todos' ? 'Destacados' : el.querySelector('.cat-label').textContent;
+  const cat = el.dataset.cat;
+  const filtrado = cat === 'todos' ? todosProds : todosProds.filter(p => p.categoria === cat);
   renderGrid(filtrado);
 };
 
-window.agregar = function(e, id, nombre, precio, minimo, imagen, proveedor) {
+window.agregar = function(e, id, nombre, precio, minimo, imagen) {
   e.stopPropagation();
   carrito = JSON.parse(localStorage.getItem('carrito_proveed') || '[]');
   const idx = carrito.findIndex(i => i.id === id);
   if (idx >= 0) carrito[idx].cantidad += minimo;
-  else carrito.push({ id, nombre, precio, cantidad: minimo, minimo, imagen, proveedor });
+  else carrito.push({ id, nombre, precio, cantidad: minimo, minimo, imagen });
   localStorage.setItem('carrito_proveed', JSON.stringify(carrito));
   actualizarBadgeCart();
+  
   const t = document.getElementById('toast');
   t.textContent = `✓ ${nombre} añadido`;
   t.classList.add('show');
@@ -344,6 +305,8 @@ function actualizarBadgeCart() {
   if (total > 0) { badge.textContent = total; badge.style.display = 'block'; }
   else badge.style.display = 'none';
 }
+
+init();
 </script>
 </body>
 </html>
