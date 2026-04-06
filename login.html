@@ -22,12 +22,7 @@
   }
 
   /* HEADER LOGO */
-  .top-logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:24px;
-  }
+  .top-logo{ display:flex; align-items:center; gap:10px; margin-bottom:24px; }
   .top-logo svg{ width:36px; height:36px; }
   .top-logo-text{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:900; color:var(--negro); letter-spacing:-0.5px; }
   .top-logo-text span{ color:var(--verde); }
@@ -53,17 +48,14 @@
   /* FIELDS */
   .field{ margin-bottom:14px; }
   .field label{ display:block; font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
-  .field input,.field select{
+  .field input{
     width:100%; padding:13px 15px;
     background:var(--gris); border:1.5px solid #eee;
     border-radius:13px; color:var(--negro);
     font-family:'DM Sans',sans-serif; font-size:0.95rem;
-    outline:none; transition:border-color 0.2s;
-    -webkit-appearance:none;
+    outline:none; transition:0.2s;
   }
-  .field input:focus,.field select:focus{ border-color:var(--verde); background:white; }
-  .field input::placeholder{ color:#ccc; }
-  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .field input:focus{ border-color:var(--verde); background:white; }
 
   /* BTN */
   .btn-main{
@@ -71,32 +63,17 @@
     background:var(--negro); color:white;
     font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800;
     cursor:pointer; transition:0.2s; margin-top:6px;
-    letter-spacing:0.3px;
   }
   .btn-main:active{ transform:scale(0.98); }
-  .btn-main:disabled{ opacity:0.5; cursor:not-allowed; }
-  .btn-main.loading .btn-text{ display:none; }
-  .btn-main.loading .spinner{ display:block; }
-  .spinner{ display:none; width:18px; height:18px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto; }
+  .btn-main:disabled{ opacity:0.5; }
 
   /* ERROR */
   .msg-error{ display:none; background:rgba(255,77,77,0.08); border:1px solid rgba(255,77,77,0.25); border-radius:12px; padding:11px 14px; font-size:0.82rem; color:var(--error); margin-bottom:14px; }
   .msg-error.visible{ display:block; }
+  .msg-success{ color: #22C55E; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); }
 
-  /* FORGOT */
-  .forgot{ text-align:center; margin-top:14px; font-size:0.8rem; color:#aaa; cursor:pointer; }
-  .forgot span{ color:var(--naranja); font-weight:600; }
-
-  /* DIVIDER */
-  .divider{ display:flex; align-items:center; gap:12px; margin:18px 0; }
-  .divider hr{ flex:1; border:none; border-top:1px solid #eee; }
-  .divider span{ font-size:0.72rem; color:#ccc; font-weight:600; }
-
-  /* SWITCH PORTAL */
   .switch-portal{ text-align:center; margin-top:20px; font-size:0.8rem; color:#aaa; }
   .switch-portal a{ color:var(--naranja); font-weight:700; text-decoration:none; }
-
-  @keyframes spin{ to{transform:rotate(360deg);} }
 </style>
 </head>
 <body>
@@ -114,141 +91,125 @@
 </div>
 
 <div class="card">
-  <div class="card-title">Bienvenido</div>
-  <div class="card-sub">Accede a miles de proveedores mayoristas</div>
+  <div class="card-title" id="title-text">Bienvenido</div>
+  <div class="card-sub" id="sub-text">Accede a miles de proveedores mayoristas</div>
 
   <div class="tabs">
     <button class="tab active" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
     <button class="tab" id="tab-reg" onclick="switchTab('reg')">Crear cuenta</button>
   </div>
 
-  <div id="msg-error" class="msg-error"></div>
+  <div id="msg-box" class="msg-error"></div>
 
-  <!-- LOGIN -->
   <div id="form-login">
     <div class="field"><label>Correo electrónico</label><input type="email" id="l-email" placeholder="tucorreo@ejemplo.com"></div>
     <div class="field"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••••"></div>
-    <button class="btn-main" id="btn-login" onclick="doLogin()">
-      <span class="btn-text">ENTRAR →</span>
-      <div class="spinner"></div>
-    </button>
-    <div class="forgot" onclick="doForgot()">¿Olvidaste tu contraseña? <span>Recuperar</span></div>
+    <button class="btn-main" id="btn-login" onclick="doLogin()">ENTRAR →</button>
   </div>
 
-  <!-- REGISTRO -->
   <div id="form-reg" style="display:none;">
-    <div class="field"><label>Tu nombre completo</label><input type="text" id="r-nombre" placeholder="Juan Manuel Torres"></div>
+    <div class="field"><label>Nombre Completo</label><input type="text" id="r-nombre" placeholder="Juan Torres"></div>
     <div class="field"><label>Correo electrónico</label><input type="email" id="r-email" placeholder="tucorreo@ejemplo.com"></div>
     <div class="field"><label>Contraseña</label><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres"></div>
-    <div class="field-row">
-      <div class="field"><label>Cédula</label><input type="text" id="r-cedula" placeholder="1712345678" maxlength="13"></div>
-      <div class="field"><label>Ciudad</label><input type="text" id="r-ciudad" placeholder="Quito"></div>
-    </div>
-    <button class="btn-main" id="btn-reg" onclick="doRegistro()">
-      <span class="btn-text">CREAR CUENTA →</span>
-      <div class="spinner"></div>
-    </button>
+    <button class="btn-main" id="btn-reg" onclick="doRegistro()">CREAR CUENTA →</button>
   </div>
 </div>
 
 <div class="switch-portal">¿Eres proveedor? <a href="https://proveed-proveedor.vercel.app">Entra aquí →</a></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-const app=initializeApp({
-  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-  authDomain:"proveed-8cb7c.firebaseapp.com",
-  projectId:"proveed-8cb7c",
-  storageBucket:"proveed-8cb7c.firebasestorage.app",
-  messagingSenderId:"235073250367",
-  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-});
-const auth=getAuth(app);
-const db=getFirestore(app);
+// Configuración de Supabase (Proveed Intelligence)
+const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
 
-window.switchTab=function(tab){
-  document.getElementById('tab-login').classList.toggle('active',tab==='login');
-  document.getElementById('tab-reg').classList.toggle('active',tab==='reg');
-  document.getElementById('form-login').style.display=tab==='login'?'block':'none';
-  document.getElementById('form-reg').style.display=tab==='reg'?'block':'none';
-  document.getElementById('msg-error').classList.remove('visible');
+window.switchTab = (tab) => {
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-reg').classList.toggle('active', tab === 'reg');
+  document.getElementById('form-login').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('form-reg').style.display = tab === 'reg' ? 'block' : 'none';
+  document.getElementById('title-text').textContent = tab === 'login' ? 'Bienvenido' : 'Únete a Proveed';
+  document.getElementById('msg-box').classList.remove('visible');
 };
 
-function showError(msg){ const e=document.getElementById('msg-error'); e.textContent=msg; e.classList.add('visible'); }
-function setLoading(id,s){ const b=document.getElementById(id); b.classList.toggle('loading',s); b.disabled=s; }
+function showMsg(msg, isError = true) {
+  const box = document.getElementById('msg-box');
+  box.textContent = msg;
+  box.className = isError ? 'msg-error visible' : 'msg-error visible msg-success';
+}
 
-const ERR={
-  'auth/user-not-found':'No existe cuenta con ese correo.',
-  'auth/wrong-password':'Contraseña incorrecta.',
-  'auth/invalid-credential':'Correo o contraseña incorrectos.',
-  'auth/too-many-requests':'Demasiados intentos. Espera unos minutos.',
-  'auth/email-already-in-use':'Ya existe una cuenta con ese correo.',
-  'auth/weak-password':'La contraseña debe tener al menos 6 caracteres.',
-  'auth/invalid-email':'Correo no válido.'
-};
+window.doLogin = async () => {
+  const email = document.getElementById('l-email').value.trim();
+  const password = document.getElementById('l-pass').value;
+  const btn = document.getElementById('btn-login');
 
-window.doLogin=async function(){
-  const email=document.getElementById('l-email').value.trim();
-  const pass=document.getElementById('l-pass').value;
-  if(!email||!pass){showError('Completa todos los campos.');return;}
-  setLoading('btn-login',true);
-  try{
-    const cred=await signInWithEmailAndPassword(auth,email,pass);
-    const snap=await getDoc(doc(db,'usuarios',cred.user.uid));
-    if(snap.exists()&&snap.data().rol==='proveedor'){
-      await auth.signOut();
-      showError('Esta cuenta es de proveedor. Usa el portal correcto.');
-      setLoading('btn-login',false);
-      return;
+  if(!email || !password) return showMsg('Completa todos los campos');
+  
+  btn.disabled = true;
+  btn.textContent = 'AUTENTICANDO...';
+
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    showMsg(error.message);
+    btn.disabled = false;
+    btn.textContent = 'ENTRAR →';
+  } else {
+    // Verificar rol en tabla perfiles
+    const { data: perfil } = await supabase.from('usuarios').select('rol').eq('id', data.user.id).single();
+    
+    if (perfil && perfil.rol === 'proveedor') {
+      await supabase.auth.signOut();
+      showMsg('Esta cuenta es de Proveedor. Usa el portal correspondiente.');
+      btn.disabled = false;
+      btn.textContent = 'ENTRAR →';
+    } else {
+      window.location.href = 'dashboard.html';
     }
-    window.location.href='dashboard.html';
-  }catch(e){
-    showError(ERR[e.code]||'Error al iniciar sesión.');
-    setLoading('btn-login',false);
   }
 };
 
-window.doRegistro=async function(){
-  const nombre=document.getElementById('r-nombre').value.trim();
-  const email=document.getElementById('r-email').value.trim();
-  const pass=document.getElementById('r-pass').value;
-  const cedula=document.getElementById('r-cedula').value.trim();
-  const ciudad=document.getElementById('r-ciudad').value.trim();
-  if(!nombre||!email||!pass||!cedula||!ciudad){showError('Todos los campos son obligatorios.');return;}
-  if(pass.length<6){showError('La contraseña debe tener al menos 6 caracteres.');return;}
-  setLoading('btn-reg',true);
-  try{
-    const cred=await createUserWithEmailAndPassword(auth,email,pass);
-    await setDoc(doc(db,'usuarios',cred.user.uid),{
-      nombre,email,cedula,ciudad,
-      rol:'emprendedor',activo:true,
-      creadoEn:serverTimestamp()
-    });
-    window.location.href='bienvenida.html';
-  }catch(e){
-    showError(ERR[e.code]||'Error al crear la cuenta.');
-    setLoading('btn-reg',false);
+window.doRegistro = async () => {
+  const nombre = document.getElementById('r-nombre').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const password = document.getElementById('r-pass').value;
+  const btn = document.getElementById('btn-reg');
+
+  if(!nombre || !email || !password) return showMsg('Completa todos los campos');
+  if(password.length < 6) return showMsg('La contraseña es muy corta');
+
+  btn.disabled = true;
+  btn.textContent = 'CREANDO CUENTA...';
+
+  const { data, error } = await supabase.auth.signUp({ 
+    email, 
+    password,
+    options: { data: { nombre: nombre } }
+  });
+
+  if (error) {
+    showMsg(error.message);
+    btn.disabled = false;
+    btn.textContent = 'CREAR CUENTA →';
+  } else {
+    // Insertar en tabla de usuarios personalizados
+    await supabase.from('usuarios').insert([{
+      id: data.user.id,
+      nombre: nombre,
+      email: email,
+      rol: 'emprendedor',
+      activo: true
+    }]);
+    
+    showMsg('¡Cuenta creada! Revisa tu correo o inicia sesión.', false);
+    btn.textContent = 'CUENTA LISTA';
   }
 };
 
-window.doForgot=async function(){
-  const email=document.getElementById('l-email').value.trim();
-  if(!email){showError('Escribe tu correo arriba primero.');return;}
-  try{
-    await sendPasswordResetEmail(auth,email);
-    const e=document.getElementById('msg-error');
-    e.textContent='✅ Correo de recuperación enviado.';
-    e.style.color='#32CD32';
-    e.classList.add('visible');
-  }catch(e){showError('No encontramos esa cuenta.');}
-};
-
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    if(document.getElementById('form-login').style.display!=='none') window.doLogin();
+// Enter key support
+document.addEventListener('keydown', e => {
+  if(e.key === 'Enter') {
+    if(document.getElementById('form-login').style.display !== 'none') window.doLogin();
     else window.doRegistro();
   }
 });
