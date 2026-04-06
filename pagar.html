@@ -17,126 +17,88 @@
 
   .section{ margin:14px 16px 0; }
   .section-label{ font-family:'Syne',sans-serif; font-size:0.75rem; font-weight:800; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
-
   .card{ background:white; border-radius:18px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
 
-  /* RESUMEN ITEMS */
   .order-item{ display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #f5f5f5; font-size:0.86rem; }
   .order-item:last-child{ border-bottom:none; }
   .order-item-name{ color:#666; flex:1; padding-right:10px; }
   .order-item-price{ font-weight:700; color:var(--naranja); white-space:nowrap; }
 
-  /* ENTREGA */
   .field{ margin-bottom:13px; }
   .field label{ display:block; font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:5px; }
   .field input,.field textarea{
-    width:100%; padding:12px 14px;
-    background:var(--gris); border:1.5px solid #eee;
-    border-radius:12px; outline:none;
-    font-family:'DM Sans',sans-serif; font-size:0.9rem;
-    color:var(--negro); transition:border-color 0.2s;
-    -webkit-appearance:none;
+    width:100%; padding:12px 14px; background:var(--gris); border:1.5px solid #eee;
+    border-radius:12px; outline:none; font-family:'DM Sans',sans-serif; font-size:0.9rem;
+    color:var(--negro); transition:0.2s;
   }
   .field input:focus,.field textarea:focus{ border-color:var(--verde); background:white; }
-  .field textarea{ resize:none; height:65px; line-height:1.5; }
-  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .field textarea{ resize:none; height:65px; }
 
-  /* MÉTODO PAGO */
   .metodo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
   .metodo-btn{
-    padding:14px 10px; border:2px solid #eee; border-radius:14px;
-    background:white; cursor:pointer; text-align:center;
-    font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.82rem;
-    color:#888; transition:0.2s;
+    padding:14px 10px; border:2px solid #eee; border-radius:14px; background:white; 
+    cursor:pointer; text-align:center; font-family:'DM Sans',sans-serif; font-weight:600; 
+    font-size:0.82rem; color:#888; transition:0.2s;
   }
   .metodo-btn.active{ border-color:var(--negro); color:var(--negro); background:#f8f8f8; }
   .metodo-btn svg{ width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:2; display:block; margin:0 auto 6px; }
 
-  /* TOTAL CARD */
   .total-card{ background:var(--negro); border-radius:18px; padding:18px; margin:14px 16px 0; }
   .total-row{ display:flex; justify-content:space-between; font-size:0.84rem; color:#666; margin-bottom:8px; }
   .total-final{ display:flex; justify-content:space-between; font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:900; color:white; margin-top:12px; padding-top:10px; border-top:1px solid #222; }
   .total-final span:last-child{ color:var(--verde); }
 
-  /* FOOTER */
   .footer-fixed{ position:fixed; bottom:0; width:100%; background:white; padding:14px 16px 28px; box-shadow:0 -6px 24px rgba(0,0,0,0.08); z-index:200; }
-  .btn-confirmar{ width:100%; padding:16px; border:none; border-radius:16px; background:var(--negro); color:white; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:0.2s; }
-  .btn-confirmar:active{ transform:scale(0.98); }
-  .btn-confirmar:disabled{ opacity:0.5; cursor:not-allowed; }
+  .btn-confirmar{ width:100%; padding:16px; border:none; border-radius:16px; background:var(--negro); color:white; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; }
+  .btn-confirmar:disabled{ opacity:0.5; }
 
-  /* SUCCESS */
-  .success-screen{
-    display:none; position:fixed; inset:0;
-    background:var(--negro); z-index:999;
-    flex-direction:column; align-items:center; justify-content:center;
-    padding:40px; text-align:center;
-  }
+  .success-screen{ display:none; position:fixed; inset:0; background:var(--negro); z-index:999; flex-direction:column; align-items:center; justify-content:center; padding:40px; text-align:center; }
   .success-screen.show{ display:flex; }
-  .check-big{
-    width:100px; height:100px;
-    background:var(--verde);
-    border-radius:50%; display:flex; align-items:center; justify-content:center;
-    margin:0 auto 28px;
-    animation:popIn 0.5s ease;
-    box-shadow:0 8px 32px rgba(168,230,61,0.35);
-  }
-  .check-path2{ stroke-dasharray:60; stroke-dashoffset:60; animation:draw 0.5s ease forwards 0.6s; }
+  .check-big{ width:100px; height:100px; background:var(--verde); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:28px; box-shadow:0 8px 32px rgba(168,230,61,0.35); }
   .success-title{ font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:900; color:white; margin-bottom:8px; }
-  .success-sub{ color:#555; font-size:0.9rem; line-height:1.6; margin-bottom:32px; }
-  .num-pedido{ background:#1a1a1a; border-radius:14px; padding:14px 24px; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--verde); margin-bottom:28px; }
-  .btn-volver{ padding:16px 36px; background:var(--verde); color:var(--negro); border-radius:16px; border:none; font-family:'Syne',sans-serif; font-weight:800; cursor:pointer; font-size:0.95rem; }
-
-  @keyframes popIn{ from{transform:scale(0.5);opacity:0;} to{transform:scale(1);opacity:1;} }
-  @keyframes draw{ to{stroke-dashoffset:0;} }
+  .num-pedido{ background:#1a1a1a; border-radius:14px; padding:14px 24px; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--verde); margin:20px 0; }
+  .btn-volver{ padding:16px 36px; background:var(--verde); border-radius:16px; border:none; font-family:'Syne',sans-serif; font-weight:800; cursor:pointer; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="back-btn" onclick="history.back()">
-    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-  </div>
+  <div class="back-btn" onclick="history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
   <div class="header-title">Confirmar Pedido</div>
 </div>
 
-<!-- RESUMEN -->
 <div class="section">
   <div class="section-label">Resumen del pedido</div>
   <div class="card"><div id="items-list"></div></div>
 </div>
 
-<!-- TOTAL -->
 <div class="total-card">
   <div class="total-row"><span>Subtotal</span><span id="sub-val">$0.00</span></div>
-  <div class="total-row"><span>Envío</span><span style="color:#555;">A coordinar con proveedor</span></div>
+  <div class="total-row"><span>Envío</span><span style="color:#555;">A coordinar</span></div>
   <div class="total-final"><span>Total</span><span id="tot-val">$0.00</span></div>
 </div>
 
-<!-- ENTREGA -->
-<div class="section" style="margin-top:16px;">
+<div class="section">
   <div class="section-label">Datos de entrega</div>
   <div class="card">
-    <div class="field"><label>Nombre completo</label><input type="text" id="nombre-entrega" placeholder="Juan Manuel Torres"></div>
-    <div class="field"><label>Dirección de entrega</label><input type="text" id="direccion" placeholder="Calle, número, sector, ciudad"></div>
-    <div class="field-row">
-      <div class="field"><label>Ciudad</label><input type="text" id="ciudad" placeholder="Quito"></div>
-      <div class="field"><label>Provincia</label><input type="text" id="provincia" placeholder="Pichincha"></div>
+    <div class="field"><label>Nombre completo</label><input type="text" id="nombre-entrega"></div>
+    <div class="field"><label>Dirección exacta</label><input type="text" id="direccion"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="field"><label>Ciudad</label><input type="text" id="ciudad"></div>
+      <div class="field"><label>Teléfono</label><input type="text" id="telefono"></div>
     </div>
-    <div class="field"><label>Notas (opcional)</label><textarea id="notas" placeholder="Color, talla, indicaciones especiales..."></textarea></div>
+    <div class="field"><label>Notas</label><textarea id="notas" placeholder="Tallas, colores..."></textarea></div>
   </div>
 </div>
 
-<!-- MÉTODO PAGO -->
-<div class="section" style="margin-top:14px;">
+<div class="section">
   <div class="section-label">Método de pago</div>
   <div class="metodo-grid">
     <div class="metodo-btn active" id="m-transferencia" onclick="setMetodo('transferencia')">
-      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      Transferencia
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Transferencia
     </div>
     <div class="metodo-btn" id="m-efectivo" onclick="setMetodo('efectivo')">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Efectivo
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Efectivo
     </div>
   </div>
 </div>
@@ -145,102 +107,117 @@
   <button class="btn-confirmar" id="btn-confirmar" onclick="confirmar()">ENVIAR PEDIDO →</button>
 </div>
 
-<!-- SUCCESS -->
 <div class="success-screen" id="success-screen">
-  <div class="check-big">
-    <svg width="52" height="52" viewBox="0 0 60 60">
-      <path class="check-path2" d="M14 32 L26 44 L46 20" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    </svg>
-  </div>
+  <div class="check-big"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="M20 6L9 17l-5-5"/></svg></div>
   <div class="success-title">¡Pedido enviado!</div>
-  <p class="success-sub">El proveedor recibió tu pedido y te contactará por el chat de PROVEED para coordinar el pago y envío.</p>
-  <div class="num-pedido" id="num-pedido">#PV-000000</div>
-  <button class="btn-volver" onclick="window.location.href='dashboard.html'">IR AL INICIO →</button>
+  <p style="color:#666">El proveedor coordinará contigo por el chat.</p>
+  <div class="num-pedido" id="num-pedido">#PV-XXXXXX</div>
+  <button class="btn-volver" onclick="window.location.href='dashboard.html'">VOLVER AL INICIO</button>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-const app=initializeApp({
-  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-  authDomain:"proveed-8cb7c.firebaseapp.com",
-  projectId:"proveed-8cb7c",
-  storageBucket:"proveed-8cb7c.firebasestorage.app",
-  messagingSenderId:"235073250367",
-  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-});
-const auth=getAuth(app);
-const db=getFirestore(app);
-let currentUser=null;
-let metodoPago='transferencia';
-let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
 
-onAuthStateChanged(auth,async(user)=>{
-  if(!user){window.location.href='login.html';return;}
-  currentUser=user;
-  const snap=await getDoc(doc(db,'usuarios',user.uid));
-  if(snap.exists()){
-    document.getElementById('nombre-entrega').value=snap.data().nombre||'';
-    document.getElementById('ciudad').value=snap.data().ciudad||'';
+let userUID = null;
+let metodoPago = 'transferencia';
+let itemsCarrito = [];
+
+async function init() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+  userUID = session.user.id;
+  
+  // Cargar perfil del usuario para autocompletar
+  const { data: perfil } = await supabase.from('usuarios').select('*').eq('id', userUID).single();
+  if(perfil) {
+    document.getElementById('nombre-entrega').value = perfil.nombre || '';
+    document.getElementById('ciudad').value = perfil.ciudad || '';
   }
-  renderResumen();
-});
-
-function renderResumen(){
-  const lista=document.getElementById('items-list');
-  let subtotal=0;
-  lista.innerHTML='';
-  if(!carrito.length){
-    lista.innerHTML='<p style="color:#aaa;font-size:0.85rem;text-align:center;padding:10px;">Carrito vacío</p>';
-    return;
-  }
-  carrito.forEach(item=>{
-    const tot=item.precio*item.cantidad;
-    subtotal+=tot;
-    const div=document.createElement('div');
-    div.className='order-item';
-    div.innerHTML=`<span class="order-item-name">${item.cantidad}× ${item.nombre}</span><span class="order-item-price">$${tot.toFixed(2)}</span>`;
-    lista.appendChild(div);
-  });
-  document.getElementById('sub-val').textContent='$'+subtotal.toFixed(2);
-  document.getElementById('tot-val').textContent='$'+subtotal.toFixed(2);
+  
+  cargarResumen();
 }
 
-window.setMetodo=function(m){
-  metodoPago=m;
-  document.getElementById('m-transferencia').classList.toggle('active',m==='transferencia');
-  document.getElementById('m-efectivo').classList.toggle('active',m==='efectivo');
+async function cargarResumen() {
+  // Consultar carrito real de Supabase (con info del producto unida)
+  const { data, error } = await supabase
+    .from('carrito')
+    .select(`cantidad, productos(nombre, precio)`)
+    .eq('user_id', userUID);
+
+  if (error || !data.length) {
+    document.getElementById('items-list').innerHTML = '<p style="text-align:center;color:#999;padding:10px;">Carrito vacío</p>';
+    return;
+  }
+
+  itemsCarrito = data;
+  const lista = document.getElementById('items-list');
+  let total = 0;
+  lista.innerHTML = '';
+
+  data.forEach(item => {
+    const sub = item.cantidad * item.productos.precio;
+    total += sub;
+    const div = document.createElement('div');
+    div.className = 'order-item';
+    div.innerHTML = `<span class="order-item-name">${item.cantidad}× ${item.productos.nombre}</span><span class="order-item-price">$${sub.toFixed(2)}</span>`;
+    lista.appendChild(div);
+  });
+
+  document.getElementById('sub-val').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('tot-val').textContent = `$${total.toFixed(2)}`;
+}
+
+window.setMetodo = (m) => {
+  metodoPago = m;
+  document.getElementById('m-transferencia').classList.toggle('active', m === 'transferencia');
+  document.getElementById('m-efectivo').classList.toggle('active', m === 'efectivo');
 };
 
-window.confirmar=async function(){
-  const nombre=document.getElementById('nombre-entrega').value.trim();
-  const direccion=document.getElementById('direccion').value.trim();
-  const ciudad=document.getElementById('ciudad').value.trim();
-  if(!nombre||!direccion||!ciudad){alert('Por favor completa los datos de entrega.');return;}
-  if(!carrito.length){alert('Tu carrito está vacío.');return;}
-  const btn=document.getElementById('btn-confirmar');
-  btn.disabled=true;btn.textContent='PROCESANDO...';
-  try{
-    const ref=await addDoc(collection(db,'pedidos'),{
-      emprendedorId:currentUser.uid,
-      items:carrito,
-      entrega:{nombre,direccion,ciudad,provincia:document.getElementById('provincia').value.trim()},
-      metodoPago,
-      notas:document.getElementById('notas').value.trim(),
-      estado:'pendiente',
-      total:carrito.reduce((s,i)=>s+i.precio*i.cantidad,0),
-      creadoEn:serverTimestamp()
-    });
-    localStorage.removeItem('carrito_proveed');
-    document.getElementById('num-pedido').textContent='#PV-'+ref.id.slice(-6).toUpperCase();
+window.confirmar = async () => {
+  const nombre = document.getElementById('nombre-entrega').value.trim();
+  const direccion = document.getElementById('direccion').value.trim();
+  const ciudad = document.getElementById('ciudad').value.trim();
+  
+  if(!nombre || !direccion || !ciudad) return alert('Datos incompletos');
+  
+  const btn = document.getElementById('btn-confirmar');
+  btn.disabled = true;
+  btn.textContent = 'PROCESANDO...';
+
+  try {
+    // 1. Crear Pedido
+    const { data: pedido, error } = await supabase
+      .from('pedidos')
+      .insert([{
+        user_id: userUID,
+        total: parseFloat(document.getElementById('tot-val').textContent.replace('$','')),
+        metodo_pago: metodoPago,
+        estado: 'pendiente',
+        datos_entrega: { nombre, direccion, ciudad, notas: document.getElementById('notas').value },
+        items: itemsCarrito // Guardamos copia de los items en el pedido
+      }])
+      .select()
+      .single();
+
+    if(error) throw error;
+
+    // 2. Limpiar carrito en DB
+    await supabase.from('carrito').delete().eq('user_id', userUID);
+
+    // 3. Éxito
+    document.getElementById('num-pedido').textContent = `#PV-${pedido.id.toString().slice(-6).toUpperCase()}`;
     document.getElementById('success-screen').classList.add('show');
-  }catch(e){
-    alert('Error al enviar el pedido. Intenta de nuevo.');
-    btn.disabled=false;btn.textContent='ENVIAR PEDIDO →';
+
+  } catch (e) {
+    alert('Error al procesar: ' + e.message);
+    btn.disabled = false;
+    btn.textContent = 'ENVIAR PEDIDO →';
   }
 };
+
+init();
 </script>
 </body>
 </html>
