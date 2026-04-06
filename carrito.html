@@ -1,188 +1,310 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Carrito</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:180px; -webkit-font-smoothing:antialiased; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PROVEED — Carrito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET & VARIABLES */
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    :root{ 
+      --verde:#A8E63D; 
+      --naranja:#FF8C00; 
+      --negro:#111111; 
+      --blanco:#FFFFFF; 
+      --gris:#F5F6F2; 
+      --rojo:#FF4D4D; 
+    }
+    
+    body{ 
+      background:var(--gris); 
+      font-family:'DM Sans', sans-serif; 
+      padding-bottom:180px; 
+      -webkit-font-smoothing:antialiased;
+    }
 
-  .header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
-  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
-  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .header-title{ font-size:1.1rem; font-weight:700; color:white; }
-  .header-count{ font-size:0.75rem; color:#666; margin-top:1px; }
+    /* HEADER */
+    .header{ 
+      background:var(--negro); 
+      padding:44px 16px 16px; 
+      display:flex; 
+      align-items:center; 
+      gap:12px; 
+      position:sticky; 
+      top:0; 
+      z-index:100; 
+    }
+    .back-btn{ 
+      width:36px; height:36px; 
+      background:rgba(255,255,255,0.08); 
+      border-radius:10px; 
+      display:flex; align-items:center; justify-content:center; 
+      cursor:pointer; 
+    }
+    .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+    .header-title{ font-family:'Syne', sans-serif; font-size:1.1rem; font-weight:800; color:white; }
+    .header-count{ font-size:0.75rem; color:#888; margin-top:1px; }
 
-  .content{ padding:14px 16px; }
+    /* CONTENT & GROUPS */
+    .content{ padding:14px 16px; }
+    .vendor-group{ 
+      background:white; 
+      border-radius:20px; 
+      margin-bottom:12px; 
+      overflow:hidden; 
+      box-shadow:0 4px 12px rgba(0,0,0,0.03); 
+      border:1px solid #eee; 
+    }
+    .vendor-header{ 
+      padding:12px 16px; 
+      display:flex; align-items:center; 
+      gap:10px; 
+      border-bottom:1px solid #f5f5f5; 
+      background:#fafafa; 
+    }
+    .vendor-avatar{ 
+      width:32px; height:32px; 
+      border-radius:8px; 
+      background:var(--verde); 
+      display:flex; align-items:center; justify-content:center; 
+      font-size:0.85rem; font-weight:800; color:var(--negro); 
+    }
+    .vendor-nombre{ font-weight:700; font-size:0.85rem; color:var(--negro); text-transform: uppercase; }
 
-  .vendor-group{ background:white; border-radius:18px; margin-bottom:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .vendor-header{ padding:12px 16px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #f5f5f5; background:#fafafa; }
-  .vendor-avatar{ width:34px; height:34px; border-radius:10px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-size:0.82rem; font-weight:700; color:white; flex-shrink:0; }
-  .vendor-nombre{ font-weight:700; font-size:0.88rem; color:var(--negro); }
-  .vendor-sub{ font-size:0.7rem; color:#bbb; margin-top:1px; }
+    /* ITEMS */
+    .cart-item{ display:flex; gap:12px; padding:16px; border-bottom:1px solid #f8f8f8; }
+    .cart-item:last-child{ border-bottom:none; }
+    .item-img{ 
+      width:80px; height:80px; 
+      border-radius:14px; 
+      background:#f5f5f5; 
+      flex-shrink:0; overflow:hidden; 
+      display:flex; align-items:center; justify-content:center; 
+      border:1px solid #eee; 
+    }
+    .item-img img{ width:100%; height:100%; object-fit:cover; }
+    
+    .item-info{ flex:1; min-width:0; display:flex; flex-direction:column; justify-content:space-between; }
+    .item-nombre{ font-size:0.85rem; font-weight:700; color:var(--negro); line-height:1.3; }
+    .item-precio-total{ font-size:1rem; font-weight:800; color:var(--naranja); margin-top:4px; }
+    
+    .item-controls{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+    .qty-wrap{ display:flex; align-items:center; background:var(--gris); border-radius:12px; padding:2px; }
+    .qty-btn{ 
+      width:32px; height:32px; 
+      border:none; background:transparent; 
+      font-size:1.2rem; font-weight:700; 
+      cursor:pointer; color:var(--negro); 
+      display:flex; align-items:center; justify-content:center; 
+    }
+    .qty-num{ font-weight:800; font-size:0.9rem; min-width:30px; text-align:center; }
+    
+    .del-btn{ 
+      width:36px; height:36px; 
+      border:none; background:#FFF0F0; 
+      border-radius:12px; cursor:pointer; 
+      display:flex; align-items:center; justify-content:center; 
+    }
+    .del-btn svg{ width:18px; height:18px; stroke:var(--rojo); fill:none; stroke-width:2; }
 
-  .cart-item{ display:flex; gap:12px; padding:14px 16px; border-bottom:1px solid #f8f8f8; }
-  .cart-item:last-child{ border-bottom:none; }
-  .item-img{ width:72px; height:72px; border-radius:12px; background:#f5f5f5; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .item-img img{ width:100%; height:100%; object-fit:cover; }
-  .item-img svg{ width:26px; height:26px; stroke:#ddd; fill:none; stroke-width:1.5; }
-  .item-info{ flex:1; min-width:0; }
-  .item-nombre{ font-size:0.88rem; font-weight:600; color:var(--negro); line-height:1.3; margin-bottom:3px; }
-  .item-precio-unit{ font-size:0.72rem; color:#bbb; margin-bottom:6px; }
-  .item-precio-total{ font-size:0.95rem; font-weight:700; color:var(--naranja); }
-  .item-controls{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
-  .qty-wrap{ display:flex; align-items:center; background:var(--gris); border-radius:10px; overflow:hidden; }
-  .qty-btn{ width:34px; height:34px; border:none; background:transparent; font-size:1.1rem; font-weight:600; cursor:pointer; color:var(--negro); display:flex; align-items:center; justify-content:center; }
-  .qty-btn:active{ background:rgba(0,0,0,0.06); }
-  .qty-num{ font-weight:700; font-size:0.9rem; min-width:28px; text-align:center; color:var(--negro); }
-  .del-btn{ width:34px; height:34px; border:none; background:rgba(255,77,77,0.08); border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-  .del-btn svg{ width:16px; height:16px; stroke:var(--rojo); fill:none; stroke-width:2; }
+    /* EMPTY STATE */
+    .empty-cart{ text-align:center; padding:80px 24px; }
+    .empty-cart svg{ width:64px; height:64px; stroke:#ddd; fill:none; stroke-width:1.5; margin-bottom:16px; }
+    .empty-cart h3{ font-family:'Syne', sans-serif; font-size:1.2rem; font-weight:800; margin-bottom:8px; }
+    .btn-explorar{ 
+      display:inline-block; padding:14px 28px; 
+      background:var(--negro); color:white; 
+      border-radius:16px; font-weight:800; 
+      text-decoration:none; font-family:'Syne', sans-serif; 
+    }
 
-  .empty-cart{ text-align:center; padding:60px 20px; }
-  .empty-cart svg{ width:72px; height:72px; stroke:#e0e0e0; fill:none; stroke-width:1.2; margin:0 auto 16px; display:block; }
-  .empty-cart h3{ font-size:1.1rem; font-weight:700; color:#ccc; margin-bottom:6px; }
-  .empty-cart p{ font-size:0.85rem; color:#bbb; margin-bottom:24px; }
-  .btn-explorar{ display:inline-block; padding:13px 28px; background:var(--negro); color:white; border-radius:14px; font-weight:700; font-size:0.88rem; text-decoration:none; }
-
-  .checkout-footer{ position:fixed; bottom:0; width:100%; background:white; padding:14px 16px 28px; box-shadow:0 -6px 24px rgba(0,0,0,0.08); z-index:200; }
-  .footer-total-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-  .footer-total-label{ font-size:0.82rem; color:#aaa; }
-  .footer-total-val{ font-size:1.3rem; font-weight:800; color:var(--negro); }
-  .btn-pagar{ width:100%; padding:16px; border:none; border-radius:16px; background:var(--negro); color:white; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:0.2s; display:flex; justify-content:space-between; align-items:center; }
-  .btn-pagar:active{ transform:scale(0.98); }
-  .btn-pagar svg{ width:20px; height:20px; stroke:white; fill:none; stroke-width:2.5; }
-
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; z-index:100; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
-  .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; }
-  .tab span{ font-size:0.58rem; font-weight:600; text-transform:uppercase; }
-  .tab-dot{ width:5px; height:5px; background:var(--verde); border-radius:50%; margin-top:-2px; display:none; }
-  .tab.active .tab-dot{ display:block; }
-</style>
+    /* FOOTER */
+    .checkout-footer{ 
+      position:fixed; bottom:0; width:100%; 
+      background:white; padding:16px 16px 32px; 
+      box-shadow:0 -10px 30px rgba(0,0,0,0.08); 
+      z-index:200; border-radius:24px 24px 0 0; 
+    }
+    .footer-total-row{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px; }
+    .footer-total-label{ font-size:0.75rem; color:#aaa; font-weight:700; text-transform:uppercase; }
+    .footer-total-val{ font-size:1.5rem; font-weight:900; color:var(--negro); font-family:'Syne', sans-serif; }
+    .btn-pagar{ 
+      width:100%; padding:18px; 
+      border:none; border-radius:18px; 
+      background:var(--negro); color:white; 
+      font-family:'Syne', sans-serif; font-size:1rem; 
+      font-weight:800; cursor:pointer; 
+      display:flex; justify-content:space-between; align-items:center; 
+    }
+  </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="back-btn" onclick="window.location.href='dashboard.html'">
-    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  <div class="header">
+    <div class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </div>
+    <div>
+      <div class="header-title">Mi Carrito</div>
+      <div id="header-count" class="header-count">Cargando...</div>
+    </div>
   </div>
-  <div>
-    <div class="header-title">Mi Carrito</div>
-    <div class="header-count" id="header-count">0 productos</div>
+
+  <div class="content" id="content">
+    </div>
+
+  <div class="checkout-footer" id="checkout-footer" style="display:none;">
+    <div class="footer-total-row">
+      <div>
+        <div class="footer-total-label">Subtotal estimado</div>
+        <div id="total-val" class="footer-total-val">$0.00</div>
+      </div>
+    </div>
+    <button class="btn-pagar" onclick="window.location.href='checkout.html'">
+      <span>CONTINUAR COMPRA</span>
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--verde)" fill="none" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
   </div>
-</div>
 
-<div class="content" id="content"></div>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-<div class="checkout-footer" id="checkout-footer" style="display:none;">
-  <div class="footer-total-row">
-    <div class="footer-total-label">Total a pagar</div>
-    <div class="footer-total-val" id="total-val">$0.00</div>
-  </div>
-  <button class="btn-pagar" onclick="window.location.href='pagar.html'">
-    <span>CONFIRMAR PEDIDO</span>
-    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </button>
-</div>
+    const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
 
-<script>
-let carrito = JSON.parse(localStorage.getItem('carrito_proveed') || '[]');
+    let userUID = null;
 
-function guardar(){ localStorage.setItem('carrito_proveed', JSON.stringify(carrito)); }
-function fmt(n){ return '$' + Number(n).toFixed(2); }
+    // Inicializar sesión y carrito
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+      userUID = session.user.id;
+      await cargarCarrito();
+    }
 
-function render(){
-  const cont = document.getElementById('content');
-  const footer = document.getElementById('checkout-footer');
-  const count = document.getElementById('header-count');
+    async function cargarCarrito() {
+      const cont = document.getElementById('content');
+      const countLabel = document.getElementById('header-count');
+      const footer = document.getElementById('checkout-footer');
 
-  if(!carrito.length){
-    footer.style.display = 'none';
-    count.textContent = '0 productos';
-    cont.innerHTML = `
-      <div class="empty-cart">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <h3>Tu carrito está vacío</h3>
-        <p>Explora los productos de nuestros proveedores</p>
-        <a href="explorar.html" class="btn-explorar">Explorar productos →</a>
-      </div>`;
-    return;
-  }
+      // Query para obtener items del carrito con info de productos
+      const { data, error } = await supabase
+        .from('carrito')
+        .select(`
+          id,
+          cantidad,
+          productos (
+            id,
+            nombre,
+            precio,
+            imagenes,
+            nombre_proveedor,
+            minimo
+          )
+        `)
+        .eq('user_id', userUID);
 
-  const totalItems = carrito.reduce((s,i) => s + i.cantidad, 0);
-  count.textContent = totalItems + ' producto' + (totalItems !== 1 ? 's' : '');
-  footer.style.display = 'block';
+      if (error || !data || data.length === 0) {
+        countLabel.textContent = '0 productos';
+        footer.style.display = 'none';
+        cont.innerHTML = `
+          <div class="empty-cart">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <h3>Carrito vacío</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Parece que aún no has añadido nada.</p>
+            <a href="explorar.html" class="btn-explorar">IR A LA TIENDA</a>
+          </div>`;
+        return;
+      }
 
-  const grupos = {};
-  carrito.forEach(item => {
-    const k = item.proveedor || 'Sin proveedor';
-    if(!grupos[k]) grupos[k] = [];
-    grupos[k].push(item);
-  });
+      // Agrupación por proveedor
+      const grupos = {};
+      let subtotal = 0;
+      let totalUds = 0;
 
-  cont.innerHTML = '';
-  let subtotal = 0;
+      data.forEach(item => {
+        const p = item.productos;
+        if(!p) return; // Skip si no hay producto relacionado
+        
+        const prov = p.nombre_proveedor || 'General';
+        if (!grupos[prov]) grupos[prov] = [];
+        grupos[prov].push(item);
+        
+        subtotal += (p.precio * item.cantidad);
+        totalUds += item.cantidad;
+      });
 
-  Object.entries(grupos).forEach(([proveedor, items]) => {
-    const g = document.createElement('div');
-    g.className = 'vendor-group';
-    let html = `
-      <div class="vendor-header">
-        <div class="vendor-avatar">${proveedor[0].toUpperCase()}</div>
-        <div>
-          <div class="vendor-nombre">${proveedor}</div>
-          <div class="vendor-sub">${items.length} producto${items.length !== 1 ? 's' : ''}</div>
-        </div>
-      </div>`;
-    items.forEach(item => {
-      const total = item.precio * item.cantidad;
-      subtotal += total;
-      html += `
-        <div class="cart-item">
-          <div class="item-img">
-            ${item.imagen ? `<img src="${item.imagen}" alt="${item.nombre}">` : `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
-          </div>
-          <div class="item-info">
-            <div class="item-nombre">${item.nombre}</div>
-            <div class="item-precio-unit">$${item.precio.toFixed(2)} por unidad</div>
-            <div class="item-precio-total">${fmt(total)}</div>
-            <div class="item-controls">
-              <div class="qty-wrap">
-                <button class="qty-btn" onclick="cambiarQty('${item.id}',-${item.minimo||1})">−</button>
-                <span class="qty-num">${item.cantidad}</span>
-                <button class="qty-btn" onclick="cambiarQty('${item.id}',${item.minimo||1})">+</button>
+      countLabel.textContent = `${totalUds} unidad${totalUds !== 1 ? 'es' : ''}`;
+      document.getElementById('total-val').textContent = `$${subtotal.toFixed(2)}`;
+      footer.style.display = 'block';
+
+      cont.innerHTML = '';
+      Object.entries(grupos).forEach(([prov, items]) => {
+        const section = document.createElement('div');
+        section.className = 'vendor-group';
+        
+        let html = `
+          <div class="vendor-header">
+            <div class="vendor-avatar">${prov[0].toUpperCase()}</div>
+            <div class="vendor-nombre">${prov}</div>
+          </div>`;
+        
+        items.forEach(item => {
+          const p = item.productos;
+          html += `
+            <div class="cart-item">
+              <div class="item-img">
+                <img src="${p.imagenes?.[0] || 'https://via.placeholder.com/150'}" alt="${p.nombre}">
               </div>
-              <button class="del-btn" onclick="eliminar('${item.id}')">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>`;
-    });
-    g.innerHTML = html;
-    cont.appendChild(g);
-  });
+              <div class="item-info">
+                <div>
+                  <div class="item-nombre">${p.nombre}</div>
+                  <div class="item-precio-total">$${(p.precio * item.cantidad).toFixed(2)}</div>
+                </div>
+                <div class="item-controls">
+                  <div class="qty-wrap">
+                    <button class="qty-btn" onclick="updateQty('${item.id}', ${item.cantidad - 1}, ${p.minimo || 1})">−</button>
+                    <span class="qty-num">${item.cantidad}</span>
+                    <button class="qty-btn" onclick="updateQty('${item.id}', ${item.cantidad + 1})">+</button>
+                  </div>
+                  <button class="del-btn" onclick="deleteItem('${item.id}')">
+                    <svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>`;
+        });
+        section.innerHTML = html;
+        cont.appendChild(section);
+      });
+    }
 
-  document.getElementById('total-val').textContent = fmt(subtotal);
-}
+    // Funciones globales para botones
+    window.updateQty = async (itemId, nuevaCant, min) => {
+      if (nuevaCant < min) return;
+      const { error } = await supabase
+        .from('carrito')
+        .update({ cantidad: nuevaCant })
+        .eq('id', itemId);
+      
+      if (!error) cargarCarrito();
+    };
 
-window.cambiarQty = function(id, delta){
-  const idx = carrito.findIndex(i => i.id === id);
-  if(idx < 0) return;
-  carrito[idx].cantidad = Math.max(carrito[idx].minimo || 1, carrito[idx].cantidad + delta);
-  guardar(); render();
-};
+    window.deleteItem = async (itemId) => {
+      const { error } = await supabase
+        .from('carrito')
+        .delete()
+        .eq('id', itemId);
+      
+      if (!error) cargarCarrito();
+    };
 
-window.eliminar = function(id){
-  carrito = carrito.filter(i => i.id !== id);
-  guardar(); render();
-};
+    // Lanzar app
+    init();
 
-render();
-</script>
+  </script>
 </body>
 </html>
