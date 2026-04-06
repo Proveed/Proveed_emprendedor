@@ -118,23 +118,24 @@
   <div class="loader-track"><div class="loader-bar"></div></div>
   <div class="status">Conectando con proveedores...</div>
 </div>
+
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-  const app=initializeApp({
-    apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-    authDomain:"proveed-8cb7c.firebaseapp.com",
-    projectId:"proveed-8cb7c",
-    storageBucket:"proveed-8cb7c.firebasestorage.app",
-    messagingSenderId:"235073250367",
-    appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-  });
-  const auth=getAuth(app);
-  setTimeout(()=>{
-    onAuthStateChanged(auth,user=>{
-      window.location.href=user?'dashboard.html':'login.html';
-    });
-  },2600);
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+  // Configuración de Supabase
+  const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+
+  // Esperamos a que la animación de carga termine (2.6s aprox)
+  setTimeout(async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    // Si hay sesión enviamos al dashboard, si no al login
+    if (session) {
+      window.location.href = 'dashboard.html';
+    } else {
+      window.location.href = 'login.html';
+    }
+  }, 2600);
 </script>
 </body>
 </html>
