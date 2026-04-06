@@ -3,335 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Proveedor</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>PROVEED — Producto</title>
+
+<meta property="og:type" content="website">
+<meta property="og:title" id="og-title" content="Producto en PROVEED">
+<meta property="og:description" id="og-desc" content="Precios mayoristas en Ecuador.">
+<meta property="og:image" id="og-image" content="">
+<meta property="og:url" id="og-url" content="">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@800&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; }
+  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:120px; -webkit-font-smoothing:antialiased; }
 
-  /* HEADER BANNER */
-  .banner{ background:var(--negro); padding:44px 16px 0; position:relative; }
-  .header-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
-  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
-  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .share-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
-  .share-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2; }
+  /* HEADER */
+  .header{ position:fixed; top:0; width:100%; z-index:200; padding:44px 16px 12px; display:flex; align-items:center; justify-content:space-between; transition: 0.3s; }
+  .header.solid{ background:var(--negro); }
+  .icon-btn{ width:40px; height:40px; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); border-radius:12px; display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; }
+  .icon-btn svg{ width:20px; height:20px; stroke:white; fill:none; stroke-width:2.5; }
 
-  /* PERFIL */
-  .perfil-card{ background:white; margin:0 16px; margin-top:-20px; border-radius:20px; padding:20px; box-shadow:0 4px 20px rgba(0,0,0,0.08); position:relative; z-index:10; }
-  .perfil-top{ display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; }
-  .prov-avatar-big{ width:70px; height:70px; border-radius:18px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:2rem; font-weight:900; color:var(--verde); flex-shrink:0; }
-  .prov-datos{ flex:1; min-width:0; }
-  .prov-nombre{ font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:var(--negro); margin-bottom:3px; }
-  .prov-ciudad{ font-size:0.76rem; color:#aaa; margin-bottom:6px; display:flex; align-items:center; gap:4px; }
-  .prov-ciudad svg{ width:12px; height:12px; stroke:#aaa; fill:none; stroke-width:2; }
-  .verified-badge{ display:inline-flex; align-items:center; gap:4px; background:rgba(168,230,61,0.12); border:1px solid rgba(168,230,61,0.3); border-radius:8px; padding:3px 10px; font-size:0.65rem; font-weight:700; color:var(--negro); }
-  .verified-badge svg{ width:10px; height:10px; stroke:var(--negro); fill:none; stroke-width:3; }
+  /* GALERÍA */
+  .gallery-container{ width:100%; height:380px; background:#ddd; position:relative; overflow-x: scroll; display: flex; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .gallery-container::-webkit-scrollbar { display: none; }
+  .slide{ min-width:100%; height:100%; scroll-snap-align: start; display:flex; align-items:center; justify-content:center; cursor: zoom-in; }
+  .slide img{ width:100%; height:100%; object-fit:cover; }
+  .dots{ position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); transition: 0.3s; }
+  .dot.active{ width:18px; background:var(--verde); border-radius:10px; }
 
-  /* STATS GRID */
-  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #f5f5f5; }
-  .stat{ text-align:center; }
-  .stat b{ display:block; font-family:'Syne',sans-serif; font-size:1rem; font-weight:900; color:var(--negro); }
-  .stat span{ font-size:0.6rem; color:#bbb; font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
+  /* INFO PRODUCTO */
+  .main-info{ background:white; padding:20px; border-radius: 0 0 24px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .prod-cat{ font-size:0.7rem; font-weight:800; color:var(--naranja); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+  .prod-name{ font-family:'Syne', sans-serif; font-size:1.4rem; font-weight:800; color:var(--negro); line-height:1.2; margin-bottom:12px; }
+  .price-tag{ display:flex; align-items:baseline; gap:6px; }
+  .price-val{ font-size:1.8rem; font-weight:900; color:var(--negro); font-variant-numeric: tabular-nums; }
+  .price-unit{ font-size:0.85rem; color:#999; font-weight:500; }
 
-  /* ABOUT */
-  .about-text{ font-size:0.82rem; color:#666; line-height:1.6; margin-bottom:12px; }
-  .tags{ display:flex; flex-wrap:wrap; gap:6px; }
-  .tag{ background:var(--gris); border-radius:8px; padding:4px 10px; font-size:0.72rem; color:#666; }
+  /* PERFIL VENDEDOR */
+  .seller-mini-card { display:flex; align-items:center; gap:12px; padding:16px; background:white; margin-top:10px; border-radius:24px; text-decoration:none; color:inherit; border:1px solid #eee; }
+  .seller-avatar { width:48px; height:48px; border-radius:14px; background:var(--negro); display:flex; align-items:center; justify-content:center; overflow:hidden; font-family:'Syne',sans-serif; font-weight:800; color:var(--verde); flex-shrink:0; }
+  .seller-avatar img { width:100%; height:100%; object-fit:cover; }
+  .seller-info { flex:1; }
+  .seller-name { font-size:0.9rem; font-weight:800; color:var(--negro); }
+  .seller-location { font-size:0.75rem; color:#999; display:flex; align-items:center; gap:4px; margin-top:2px; }
+  .seller-location svg { width:12px; height:12px; stroke:#999; fill:none; stroke-width:2; }
+  .view-profile-btn { font-size:0.7rem; font-weight:800; color:var(--naranja); text-transform:uppercase; }
 
-  /* ACCIÓN BOTONES */
-  .action-row{ display:flex; gap:10px; margin:14px 16px 0; }
-  .btn-chat-prov{ flex:1; padding:13px; border:2px solid var(--negro); border-radius:14px; background:white; color:var(--negro); font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; }
-  .btn-chat-prov svg{ width:16px; height:16px; stroke:var(--negro); fill:none; stroke-width:2.5; }
-  .btn-seguir{ flex:1; padding:13px; border:none; border-radius:14px; background:var(--negro); color:white; font-family:'Syne',sans-serif; font-size:0.85rem; font-weight:800; cursor:pointer; transition:0.2s; }
-  .btn-seguir.siguiendo{ background:var(--verde); color:var(--negro); }
+  /* ACCIONES */
+  .action-card{ background:white; margin-top:10px; padding:20px; border-radius:24px; }
+  .qty-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
+  .qty-ctrl{ display:flex; align-items:center; background:var(--gris); border-radius:14px; padding:4px; }
+  .qty-btn{ width:36px; height:36px; border:none; background:transparent; font-size:1.2rem; font-weight:700; cursor:pointer; }
+  .qty-num{ min-width:40px; text-align:center; font-weight:800; }
+  .cot-box{ background:rgba(168, 230, 61, 0.08); border:1.5px dashed var(--verde); border-radius:18px; padding:16px; margin-top:10px; }
+  .cot-input{ width:100%; border:none; background:white; border-radius:12px; padding:12px; font-family:'Inter'; font-size:0.85rem; outline:none; margin-bottom:10px; resize:none; min-height:80px; }
 
-  /* TABS */
-  .tabs-bar{ display:flex; background:white; margin-top:14px; border-bottom:1px solid #eee; position:sticky; top:0; z-index:100; }
-  .tab-btn{ flex:1; padding:14px; border:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:600; color:#aaa; cursor:pointer; border-bottom:2px solid transparent; transition:0.2s; }
-  .tab-btn.active{ color:var(--negro); border-bottom-color:var(--verde); font-weight:700; }
+  /* RECOMENDACIONES */
+  .recommendations{ padding:20px; background:white; margin-top:10px; border-radius:24px; }
+  .rec-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin-top:15px; }
+  .rec-item{ background:var(--gris); border-radius:18px; overflow:hidden; text-decoration:none; color:inherit; }
+  .rec-img{ width:100%; aspect-ratio:1/1; object-fit:cover; }
+  .rec-info{ padding:10px; }
+  .rec-price{ font-weight:800; color:var(--naranja); font-size:0.9rem; font-variant-numeric: tabular-nums; }
 
-  /* PRODUCTOS */
-  .prods-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:14px 16px; }
-  .prod-card{ background:white; border-radius:16px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
-  .prod-card:active{ transform:scale(0.97); }
-  .prod-img{ width:100%; height:150px; background:#f5f5f5; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative; }
-  .prod-img img{ width:100%; height:100%; object-fit:cover; }
-  .prod-img svg{ width:40px; height:40px; stroke:#ddd; fill:none; stroke-width:1.5; }
-  .prod-body{ padding:10px 12px 12px; }
-  .prod-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); margin-bottom:4px; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .prod-precio{ font-size:0.95rem; font-weight:800; color:var(--naranja); }
-  .prod-min{ font-size:0.62rem; color:#ccc; }
-
-  /* RESEÑAS TAB */
-  .reviews-wrap{ padding:14px 16px; }
-  .review-item{ background:white; border-radius:16px; padding:14px; margin-bottom:10px; box-shadow:0 2px 6px rgba(0,0,0,0.04); }
-  .rev-header{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-  .rev-avatar{ width:36px; height:36px; border-radius:10px; background:var(--negro); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; color:var(--verde); flex-shrink:0; }
-  .rev-info{ flex:1; }
-  .rev-nombre{ font-weight:700; font-size:0.85rem; color:var(--negro); }
-  .rev-fecha{ font-size:0.68rem; color:#bbb; }
-  .rev-stars{ color:#FFD60A; font-size:0.78rem; }
-  .rev-texto{ font-size:0.82rem; color:#666; line-height:1.5; }
-  .rev-prod{ font-size:0.7rem; color:#aaa; margin-top:6px; }
-
-  /* SOBRE TAB */
-  .sobre-wrap{ padding:14px 16px; }
-  .info-item{ background:white; border-radius:14px; padding:14px 16px; margin-bottom:10px; display:flex; gap:12px; align-items:center; box-shadow:0 2px 6px rgba(0,0,0,0.04); }
-  .info-icon{ width:40px; height:40px; border-radius:12px; background:var(--gris); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .info-icon svg{ width:20px; height:20px; stroke:var(--negro); fill:none; stroke-width:2; }
-  .info-label{ font-size:0.7rem; color:#bbb; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:2px; }
-  .info-val{ font-size:0.88rem; font-weight:600; color:var(--negro); }
-
-  .empty{ text-align:center; padding:40px 20px; color:#bbb; }
-  .empty svg{ width:48px; height:48px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 12px; display:block; }
-  .empty p{ font-size:0.85rem; }
-
-  .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
-  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+  /* LIGHTBOX & FOOTER */
+  .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:1000; display:none; align-items:center; justify-content:center; backdrop-filter:blur(10px); }
+  .lightbox.show{ display:flex; }
+  .lightbox img{ max-width:95%; max-height:85%; border-radius:12px; object-fit:contain; }
+  .footer-fixed{ position:fixed; bottom:0; width:100%; background:white; padding:16px 20px 30px; border-top:1px solid #eee; display:flex; gap:12px; z-index:300; }
+  .btn-primary{ flex:2; padding:16px; border:none; border-radius:16px; background:var(--negro); color:white; font-weight:800; font-size:0.9rem; cursor:pointer; }
+  .btn-secondary{ flex:1; padding:16px; border:2px solid var(--negro); border-radius:16px; background:transparent; font-weight:800; font-size:0.9rem; cursor:pointer; }
+  .toast{ position:fixed; top:50px; left:50%; transform:translateX(-50%); background:var(--negro); color:white; padding:12px 24px; border-radius:50px; font-size:0.85rem; font-weight:600; opacity:0; transition:0.4s; z-index:1100; pointer-events:none; }
+  .toast.show{ opacity:1; top:100px; }
 </style>
 </head>
 <body>
 
-<div class="banner">
-  <div class="header-top">
-    <div class="back-btn" onclick="history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
-    <button class="share-btn" onclick="compartir()"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
-  </div>
-  <div style="height:30px;"></div>
-</div>
-
-<div class="perfil-card">
-  <div class="perfil-top">
-    <div class="prov-avatar-big" id="prov-avatar">P</div>
-    <div class="prov-datos">
-      <div class="prov-nombre" id="prov-nombre">Cargando...</div>
-      <div class="prov-ciudad"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span id="prov-ciudad">Ecuador</span></div>
-      <div class="verified-badge"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Proveedor verificado</div>
-    </div>
-  </div>
-  <div class="stats-grid">
-    <div class="stat"><b id="stat-prods">—</b><span>Productos</span></div>
-    <div class="stat"><b id="stat-ventas">—</b><span>Ventas</span></div>
-    <div class="stat"><b id="stat-rating">—</b><span>Rating</span></div>
-    <div class="stat"><b id="stat-años">—</b><span>En PROVEED</span></div>
-  </div>
-  <div class="about-text" id="prov-about">Proveedor mayorista en Ecuador.</div>
-  <div class="tags" id="prov-tags"></div>
-</div>
-
-<div class="action-row">
-  <button class="btn-chat-prov" onclick="chatConProveedor()">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Contactar
-  </button>
-  <button class="btn-seguir" id="btn-seguir" onclick="toggleSeguir()">Seguir proveedor</button>
-</div>
-
-<div class="tabs-bar">
-  <button class="tab-btn active" onclick="switchTab('productos',this)">Productos</button>
-  <button class="tab-btn" onclick="switchTab('reseñas',this)">Reseñas</button>
-  <button class="tab-btn" onclick="switchTab('sobre',this)">Sobre</button>
-</div>
-
-<div id="tab-productos">
-  <div class="prods-grid" id="prods-grid">
-    <div class="prod-card"><div class="prod-img skeleton" style="height:150px;"></div><div style="padding:10px;"><div class="skeleton" style="height:10px;margin-bottom:6px;"></div><div class="skeleton" style="height:8px;width:60%;"></div></div></div>
-    <div class="prod-card"><div class="prod-img skeleton" style="height:150px;"></div><div style="padding:10px;"><div class="skeleton" style="height:10px;margin-bottom:6px;"></div><div class="skeleton" style="height:8px;width:60%;"></div></div></div>
+<div class="header" id="navbar">
+  <button class="icon-btn" onclick="history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+  <div style="display:flex; gap:8px;">
+    <button class="icon-btn" onclick="compartirProducto()"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+    <button class="icon-btn"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
   </div>
 </div>
 
-<div id="tab-reseñas" style="display:none;">
-  <div class="reviews-wrap" id="reviews-wrap">
-    <div class="empty"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><p>Sin reseñas aún</p></div>
+<div class="gallery-container" id="gallery">
+  <div id="slides-wrapper" style="display: contents;"></div>
+  <div class="dots" id="dots-wrapper"></div>
+</div>
+
+<div class="main-info">
+  <div class="prod-cat" id="cat-label">CATALOGO</div>
+  <h1 class="prod-name" id="prod-title">Cargando producto...</h1>
+  <div class="price-tag">
+    <span class="price-val" id="prod-price">$0.00</span>
+    <span class="price-unit">/ unidad</span>
   </div>
 </div>
 
-<div id="tab-sobre" style="display:none;">
-  <div class="sobre-wrap">
-    <div class="info-item">
-      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-      <div><div class="info-label">Empresa</div><div class="info-val" id="sobre-empresa">—</div></div>
-    </div>
-    <div class="info-item">
-      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <div><div class="info-label">Ciudad</div><div class="info-val" id="sobre-ciudad">—</div></div>
-    </div>
-    <div class="info-item">
-      <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <div><div class="info-label">Miembro desde</div><div class="info-val" id="sobre-fecha">—</div></div>
-    </div>
-    <div class="info-item">
-      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></div>
-      <div><div class="info-label">Categoría principal</div><div class="info-val" id="sobre-cat">—</div></div>
-    </div>
-    <div class="info-item">
-      <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-      <div><div class="info-label">RUC</div><div class="info-val" id="sobre-ruc">—</div></div>
+<a href="#" id="seller-link" class="seller-mini-card">
+  <div class="seller-avatar" id="seller-img-container">
+    <span id="seller-initial">-</span>
+  </div>
+  <div class="seller-info">
+    <div class="seller-name" id="seller-name">Cargando proveedor...</div>
+    <div class="seller-location">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="seller-provincia">Ecuador</span>
     </div>
   </div>
+  <div class="view-profile-btn">Ver Perfil</div>
+</a>
+
+<div class="action-card">
+  <div class="qty-row">
+    <span style="font-weight:700; font-size:0.85rem;">Cantidad mayorista</span>
+    <div class="qty-ctrl">
+      <button class="qty-btn" onclick="updateQty(-1)">−</button>
+      <div class="qty-num" id="qty-val">1</div>
+      <button class="qty-btn" onclick="updateQty(1)">+</button>
+    </div>
+  </div>
+  <div class="cot-box">
+    <textarea class="cot-input" id="cot-msg" placeholder="Pregunta por stock o descuentos..."></textarea>
+    <button class="btn-primary" style="width:100%; font-size:0.8rem; padding:12px;" onclick="showToast('Mensaje enviado')">ENVIAR CONSULTA</button>
+  </div>
 </div>
+
+<div class="recommendations">
+  <div style="font-weight:800; font-size:0.9rem;">Productos similares</div>
+  <div class="rec-grid" id="rec-wrapper"></div>
+</div>
+
+<div class="footer-fixed">
+  <button class="btn-secondary" id="btn-chat">CHAT</button>
+  <button class="btn-primary" onclick="showToast('Añadido al carrito')">AÑADIR AL CARRITO</button>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')">
+  <img src="" id="lightbox-img">
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, getDocs, query, where, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
 
-const app=initializeApp({
-  apiKey:"AIzaSyAZQRlfdtJjmodrfmct5N3qrLO6hniO2o8",
-  authDomain:"proveed-8cb7c.firebaseapp.com",
-  projectId:"proveed-8cb7c",
-  storageBucket:"proveed-8cb7c.firebasestorage.app",
-  messagingSenderId:"235073250367",
-  appId:"1:235073250367:web:89ec59fea5f0b8a347448a"
-});
-const auth=getAuth(app);
-const db=getFirestore(app);
+const params = new URLSearchParams(window.location.search);
+const prodId = params.get('id');
+let currentProduct = null;
+let currentQty = 1;
 
-const params=new URLSearchParams(window.location.search);
-const provId=params.get('id');
-let currentUser=null, provData=null;
-let seguidos=JSON.parse(localStorage.getItem('proveed_seguidos')||'[]');
+async function init() {
+  if(!prodId) return;
+  const { data: prod } = await supabase.from('productos').select('*').eq('id', prodId).single();
+  if(!prod) return;
+  currentProduct = prod;
+  currentQty = prod.minimo || 1;
 
-onAuthStateChanged(auth,async(user)=>{
-  if(!user){window.location.href='login.html';return;}
-  currentUser=user;
-  if(!provId){history.back();return;}
-  cargarProveedor();
-  actualizarBtnSeguir();
-});
+  // Llenar datos producto
+  document.getElementById('prod-title').innerText = prod.nombre;
+  document.getElementById('prod-price').innerText = `$${prod.precio.toFixed(2)}`;
+  document.getElementById('cat-label').innerText = prod.categoria || 'GENERAL';
+  document.getElementById('qty-val').innerText = currentQty;
 
-async function cargarProveedor(){
-  try{
-    const snap=await getDoc(doc(db,'usuarios',provId));
-    if(!snap.exists()){history.back();return;}
-    provData=snap.data();
-    renderPerfil(provData);
-    cargarProductos();
-    cargarReseñas();
-  }catch(e){ console.warn(e); }
+  // Meta Tags
+  document.getElementById('og-title').content = prod.nombre;
+  document.getElementById('og-image').content = prod.imagen_url;
+
+  // Galería
+  const images = prod.imagenes || [prod.imagen_url];
+  const wrapper = document.getElementById('slides-wrapper');
+  const dots = document.getElementById('dots-wrapper');
+  images.forEach((img, idx) => {
+    wrapper.innerHTML += `<div class="slide" onclick="abrirLightbox('${img}')"><img src="${img}"></div>`;
+    dots.innerHTML += `<div class="dot ${idx === 0 ? 'active' : ''}"></div>`;
+  });
+
+  initGalleryScroll();
+  cargarDatosVendedor(prod.proveedor_id);
+  cargarRecomendaciones(prod.categoria, prod.id);
+  
+  document.getElementById('btn-chat').onclick = () => window.location.href = `chat.html?receptor=${prod.proveedor_id}`;
 }
 
-function renderPerfil(d){
-  const empresa=d.empresa||d.nombre||'Proveedor';
-  document.title=`PROVEED — ${empresa}`;
-  document.getElementById('prov-avatar').textContent=empresa[0].toUpperCase();
-  document.getElementById('prov-nombre').textContent=empresa;
-  document.getElementById('prov-ciudad').textContent=d.ciudad||'Ecuador';
-  document.getElementById('prov-about').textContent=`Proveedor mayorista de ${d.categoria||'productos'} en ${d.ciudad||'Ecuador'}. Atención personalizada y precios competitivos.`;
-  // Tags
-  const tags=document.getElementById('prov-tags');
-  if(d.categoria) tags.innerHTML+=`<span class="tag">${d.categoria}</span>`;
-  if(d.ciudad) tags.innerHTML+=`<span class="tag">${d.ciudad}</span>`;
-  // Fecha
-  const fecha=d.creadoEn?new Date(d.creadoEn.toDate()).toLocaleDateString('es-EC',{month:'long',year:'numeric'}):'—';
-  const años=d.creadoEn?Math.max(1,Math.floor((Date.now()-d.creadoEn.toDate())/(365*24*60*60*1000)))+'a':'—';
-  document.getElementById('stat-años').textContent=años;
-  // Sobre
-  document.getElementById('sobre-empresa').textContent=empresa;
-  document.getElementById('sobre-ciudad').textContent=d.ciudad||'—';
-  document.getElementById('sobre-fecha').textContent=fecha;
-  document.getElementById('sobre-cat').textContent=d.categoria||'—';
-  document.getElementById('sobre-ruc').textContent=d.ruc||'—';
+async function cargarDatosVendedor(vId) {
+  const { data: v } = await supabase.from('usuarios').select('*').eq('id', vId).single();
+  if(!v) return;
+  const nombre = v.empresa || v.nombre || 'Proveedor';
+  document.getElementById('seller-name').innerText = nombre;
+  document.getElementById('seller-provincia').innerText = v.provincia || v.ciudad || 'Ecuador';
+  document.getElementById('seller-link').href = `perfil.html?id=${v.id}`;
+  if(v.foto_url) {
+    document.getElementById('seller-img-container').innerHTML = `<img src="${v.foto_url}">`;
+  } else {
+    document.getElementById('seller-initial').innerText = nombre[0].toUpperCase();
+  }
 }
 
-async function cargarProductos(){
-  const grid=document.getElementById('prods-grid');
-  try{
-    const snap=await getDocs(query(collection(db,'productos'),where('proveedorId','==',provId),where('activo','==',true)));
-    const prods=snap.docs.map(d=>({id:d.id,...d.data()}));
-    document.getElementById('stat-prods').textContent=prods.length;
-    if(!prods.length){
-      grid.innerHTML=`<div style="grid-column:1/-1;"><div class="empty"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><p>Sin productos activos</p></div></div>`;
-      return;
-    }
-    grid.innerHTML='';
-    prods.forEach(p=>{
-      const img=p.imagenes?.[0]||p.imagen||'';
-      const div=document.createElement('div');
-      div.className='prod-card';
-      div.onclick=()=>window.location.href=`producto.html?id=${p.id}`;
-      div.innerHTML=`
-        <div class="prod-img">
-          ${img?`<img src="${img}" alt="${p.nombre||''}" loading="lazy">`:`<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
+async function cargarRecomendaciones(cat, id) {
+  const { data: recs } = await supabase.from('productos').select('*').eq('categoria', cat).neq('id', id).limit(4);
+  const wrapper = document.getElementById('rec-wrapper');
+  (recs || []).forEach(r => {
+    wrapper.innerHTML += `
+      <a href="producto.html?id=${r.id}" class="rec-item">
+        <img src="${r.imagen_url}" class="rec-img">
+        <div class="rec-info">
+          <div style="font-size:0.7rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${r.nombre}</div>
+          <div class="rec-price">$${r.precio.toFixed(2)}</div>
         </div>
-        <div class="prod-body">
-          <div class="prod-nombre">${p.nombre||'Producto'}</div>
-          <div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div>
-          <div class="prod-min">Mín: ${p.minimo||1} und.</div>
-        </div>`;
-      grid.appendChild(div);
-    });
-    // Ventas
-    const qv=await getDocs(query(collection(db,'pedidos')));
-    let ventas=0;
-    const empresa=provData?.empresa||provData?.nombre||'';
-    qv.forEach(d=>{ if((d.data().items||[]).some(i=>i.proveedor===empresa)) ventas++; });
-    document.getElementById('stat-ventas').textContent=ventas;
-  }catch(e){ grid.innerHTML=`<div style="grid-column:1/-1;"><div class="empty"><p>Error al cargar</p></div></div>`; }
+      </a>`;
+  });
 }
 
-async function cargarReseñas(){
-  try{
-    const snap=await getDocs(query(collection(db,'reseñas'),where('proveedorId','==',provId),orderBy('creadoEn','desc')));
-    const reseñas=snap.docs.map(d=>({id:d.id,...d.data()}));
-    const wrap=document.getElementById('reviews-wrap');
-    if(!reseñas.length){ wrap.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><p>Sin reseñas aún</p></div>`; return; }
-    const suma=reseñas.reduce((s,r)=>s+(r.rating||0),0);
-    const prom=(suma/reseñas.length).toFixed(1);
-    document.getElementById('stat-rating').textContent=prom+'★';
-    wrap.innerHTML='';
-    reseñas.forEach(r=>{
-      const fecha=r.creadoEn?new Date(r.creadoEn.toDate()).toLocaleDateString('es-EC',{day:'2-digit',month:'short'}):'';
-      const stars='★'.repeat(r.rating||5)+'☆'.repeat(5-(r.rating||5));
-      const div=document.createElement('div');
-      div.className='review-item';
-      div.innerHTML=`
-        <div class="rev-header">
-          <div class="rev-avatar">${(r.userName||'U')[0].toUpperCase()}</div>
-          <div class="rev-info"><div class="rev-nombre">${r.userName||'Usuario'}</div><div class="rev-fecha">${fecha}</div></div>
-          <div class="rev-stars">${stars}</div>
-        </div>
-        <div class="rev-texto">${r.texto||''}</div>
-        ${r.productoId?`<div class="rev-prod">Producto reseñado</div>`:''}`;
-      wrap.appendChild(div);
-    });
-  }catch(e){ console.warn(e); }
+function initGalleryScroll() {
+  const container = document.getElementById('gallery');
+  const dots = document.querySelectorAll('.dot');
+  container.onscroll = () => {
+    const idx = Math.round(container.scrollLeft / window.innerWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  };
 }
 
-window.switchTab=function(tab,el){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('tab-productos').style.display=tab==='productos'?'block':'none';
-  document.getElementById('tab-reseñas').style.display=tab==='reseñas'?'block':'none';
-  document.getElementById('tab-sobre').style.display=tab==='sobre'?'block':'none';
+window.abrirLightbox = (src) => {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  lb.classList.add('show');
 };
 
-window.chatConProveedor=async function(){
-  if(!provId||!currentUser) return;
-  const nombre=provData?.empresa||provData?.nombre||'Proveedor';
-  window.location.href=`chat.html?proveedorId=${provId}&nombre=${encodeURIComponent(nombre)}`;
+window.updateQty = (v) => {
+  const min = currentProduct.minimo || 1;
+  currentQty = Math.max(min, currentQty + (v * min));
+  document.getElementById('qty-val').innerText = currentQty;
 };
 
-function actualizarBtnSeguir(){
-  const btn=document.getElementById('btn-seguir');
-  if(seguidos.includes(provId)){ btn.textContent='✓ Siguiendo'; btn.classList.add('siguiendo'); }
-  else{ btn.textContent='Seguir proveedor'; btn.classList.remove('siguiendo'); }
+window.compartirProducto = () => {
+  if (navigator.share) {
+    navigator.share({ title: currentProduct.nombre, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    showToast('Enlace copiado');
+  }
+};
+
+function showToast(m) {
+  const t = document.getElementById('toast');
+  t.innerText = m; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-window.toggleSeguir=function(){
-  const idx=seguidos.indexOf(provId);
-  if(idx>=0) seguidos.splice(idx,1);
-  else seguidos.push(provId);
-  localStorage.setItem('proveed_seguidos',JSON.stringify(seguidos));
-  actualizarBtnSeguir();
+window.onscroll = () => {
+  document.getElementById('navbar').classList.toggle('solid', window.scrollY > 150);
 };
 
-window.compartir=function(){
-  if(navigator.share) navigator.share({title:provData?.empresa||'Proveedor',url:window.location.href});
-  else navigator.clipboard.writeText(window.location.href);
-};
+init();
 </script>
 </body>
 </html>
