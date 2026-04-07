@@ -122,8 +122,11 @@
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-  // Configuración de Supabase
-  const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+  // Configuración de Supabase arreglada con tus credenciales reales
+  const supabase = createClient(
+    'https://pqoqirousggkjnkzxkhy.supabase.co', 
+    'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I'
+  )
 
   // Esperamos a que la animación de carga termine (2.6s aprox)
   setTimeout(async () => {
