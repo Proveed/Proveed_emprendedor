@@ -120,22 +120,27 @@
 </div>
 
 <script type="module">
+  // Importamos la función directamente
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-  // Configuración de Supabase arreglada con tus credenciales reales
-  const supabase = createClient(
-    'https://pqoqirousggkjnkzxkhy.supabase.co', 
-    'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I'
-  )
+  // LLAVES ACTUALIZADAS
+  const supabaseUrl = 'https://pqoqirousggkjnkzxkhy.supabase.co'
+  const supabaseKey = 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I'
 
-  // Esperamos a que la animación de carga termine (2.6s aprox)
+  // LA CORRECCIÓN: Se llama a createClient directamente, sin el prefijo "supabase."
+  const _supabase = createClient(supabaseUrl, supabaseKey)
+
   setTimeout(async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    // Si hay sesión enviamos al dashboard, si no al login
-    if (session) {
-      window.location.href = 'dashboard.html';
-    } else {
+    try {
+      const { data: { session } } = await _supabase.auth.getSession();
+      
+      if (session) {
+        window.location.href = 'dashboard.html';
+      } else {
+        window.location.href = 'login.html';
+      }
+    } catch (err) {
+      console.error("Error de conexión:", err);
       window.location.href = 'login.html';
     }
   }, 2600);
