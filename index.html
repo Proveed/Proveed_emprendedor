@@ -4,111 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Emprendedor</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; }
-  html,body{ height:100%; width:100%; overflow:hidden; }
-  body{
-    background:var(--negro);
-    font-family:'DM Sans',sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    -webkit-font-smoothing:antialiased;
-  }
-  body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,230,61,0.12) 0%, transparent 65%);
-    pointer-events:none;
-  }
-  .wrap{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
-  }
-  .logo-hex{
-    width:18vw;
-    height:18vw;
-    max-width:80px;
-    max-height:80px;
-    min-width:56px;
-    min-height:56px;
-    animation:pulse 3s ease-in-out infinite 1.4s;
-  }
+  html,body{ height:100%; overflow:hidden; }
+  body{ background:var(--negro); font-family:'Inter',sans-serif; display:flex; align-items:center; justify-content:center; -webkit-font-smoothing:antialiased; }
+  body::before{ content:''; position:fixed; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,230,61,0.12) 0%, transparent 65%); pointer-events:none; }
+  .wrap{ display:flex; flex-direction:column; align-items:center; gap:10px; animation:fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both; }
+  .logo-hex{ width:18vw; height:18vw; max-width:80px; max-height:80px; min-width:56px; min-height:56px; animation:pulse 3s ease-in-out infinite 1.4s; }
   .logo-hex svg{ width:100%; height:100%; display:block; }
-  .brand{
-    font-family:'Syne',sans-serif;
-    font-size:7vw;
-    font-weight:800;
-    color:white;
-    letter-spacing:-0.5px;
-    line-height:1;
-    text-align:center;
-  }
+  .brand{ font-size:7vw; font-weight:800; color:white; letter-spacing:-0.5px; text-align:center; }
   .brand span{ color:var(--verde); }
-  .tagline{
-    font-size:2.8vw;
-    color:#555;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    text-align:center;
-  }
-  .loader-track{
-    width:28vw;
-    max-width:130px;
-    min-width:100px;
-    height:2px;
-    background:rgba(255,255,255,0.08);
-    border-radius:2px;
-    overflow:hidden;
-    margin-top:24px;
-  }
-  .loader-bar{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,var(--verde),var(--naranja));
-    border-radius:2px;
-    animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.6s;
-  }
-  .status{
-    font-size:2.5vw;
-    color:#444;
-    letter-spacing:1px;
-    margin-top:8px;
-    text-align:center;
-  }
-  @keyframes fadeUp{
-    from{opacity:0;transform:translateY(24px);}
-    to{opacity:1;transform:translateY(0);}
-  }
-  @keyframes pulse{
-    0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));}
-    50%{filter:drop-shadow(0 0 16px rgba(168,230,61,0.4));}
-  }
-  @keyframes loadFill{
-    0%{width:0%;}
-    60%{width:70%;}
-    85%{width:88%;}
-    100%{width:100%;}
-  }
+  .tagline{ font-size:2.8vw; color:#555; letter-spacing:2px; text-transform:uppercase; text-align:center; }
+  .loader-track{ width:28vw; max-width:130px; min-width:100px; height:2px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; margin-top:24px; }
+  .loader-bar{ height:100%; width:0%; background:linear-gradient(90deg,var(--verde),var(--naranja)); border-radius:2px; animation:loadFill 2.4s cubic-bezier(0.4,0,0.2,1) forwards 0.6s; }
+  .status{ font-size:2.5vw; color:#444; letter-spacing:1px; margin-top:8px; text-align:center; }
+  @keyframes fadeUp{ from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes pulse{ 0%,100%{filter:drop-shadow(0 0 0px rgba(168,230,61,0));} 50%{filter:drop-shadow(0 0 16px rgba(168,230,61,0.4));} }
+  @keyframes loadFill{ 0%{width:0%;} 60%{width:70%;} 85%{width:88%;} 100%{width:100%;} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="logo-hex">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#A8E63D"/>
-          <stop offset="100%" style="stop-color:#7BC820"/>
-        </linearGradient>
-      </defs>
+      <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A8E63D"/><stop offset="100%" style="stop-color:#7BC820"/></linearGradient></defs>
       <path d="M50 4 L93 28 V72 L50 96 L7 72 V28 Z" fill="url(#g1)"/>
       <path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
@@ -116,33 +37,18 @@
   <div class="brand">PRO<span>VEED</span></div>
   <div class="tagline">Mercado Mayorista Ecuador</div>
   <div class="loader-track"><div class="loader-bar"></div></div>
-  <div class="status">Conectando con proveedores...</div>
+  <div class="status">Conectando...</div>
 </div>
-
-<script type="module">
-  // Importamos la función directamente
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-  // LLAVES ACTUALIZADAS
-  const supabaseUrl = 'https://pqoqirousggkjnkzxkhy.supabase.co'
-  const supabaseKey = 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I'
-
-  // LA CORRECCIÓN: Se llama a createClient directamente, sin el prefijo "supabase."
-  const _supabase = createClient(supabaseUrl, supabaseKey)
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://hfmsyrmkewscnvwynzfq.supabase.co',
+    'sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v'
+  );
   setTimeout(async () => {
-    try {
-      const { data: { session } } = await _supabase.auth.getSession();
-      
-      if (session) {
-        window.location.href = 'dashboard.html';
-      } else {
-        window.location.href = 'login.html';
-      }
-    } catch (err) {
-      console.error("Error de conexión:", err);
-      window.location.href = 'login.html';
-    }
+    const { data: { session } } = await sb.auth.getSession();
+    window.location.href = session ? 'dashboard.html' : 'login.html';
   }, 2600);
 </script>
 </body>
