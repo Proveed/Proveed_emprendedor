@@ -3,112 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Acceso</title>
+<title>PROVEED — Acceso Emprendedor</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; -webkit-font-smoothing:antialiased; }
-  .top-logo{ display:flex; align-items:center; gap:10px; margin-bottom:24px; }
-  .top-logo svg{ width:36px; height:36px; }
-  .top-logo-text{ font-size:1.3rem; font-weight:800; color:var(--negro); }
-  .top-logo-text span{ color:var(--verde); }
-  .top-logo-sub{ font-size:0.58rem; color:#aaa; text-transform:uppercase; letter-spacing:1.5px; display:block; margin-top:-2px; }
-  .card{ width:100%; max-width:420px; background:white; border-radius:24px; padding:28px 24px; box-shadow:0 4px 24px rgba(0,0,0,0.08); }
-  .card-title{ font-size:1.4rem; font-weight:800; color:var(--negro); margin-bottom:4px; }
-  .card-sub{ font-size:0.85rem; color:#aaa; margin-bottom:22px; }
-  .tabs{ display:flex; background:var(--gris); border-radius:14px; padding:4px; gap:4px; margin-bottom:22px; }
-  .tab{ flex:1; padding:10px; border-radius:11px; border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600; transition:0.25s; background:transparent; color:#aaa; }
-  .tab.active{ background:var(--verde); color:var(--negro); font-weight:700; }
+  body{ background:var(--gris); font-family:'Inter',sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased; }
+  .top-bar{ background:var(--negro); padding:44px 20px 20px; display:flex; align-items:center; gap:10px; }
+  .top-bar svg{ width:32px; height:32px; }
+  .top-bar-text{ font-size:1.1rem; font-weight:800; color:white; }
+  .top-bar-text span{ color:var(--verde); }
+  .top-bar-sub{ font-size:0.62rem; color:#555; text-transform:uppercase; letter-spacing:1.5px; display:block; }
+  .tabs{ display:flex; background:white; border-bottom:1px solid #eee; }
+  .tab-btn{ flex:1; padding:14px; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:0.88rem; font-weight:600; color:#bbb; cursor:pointer; border-bottom:2px solid transparent; transition:0.2s; }
+  .tab-btn.active{ color:var(--negro); border-bottom-color:var(--verde); }
+  .form-wrap{ padding:20px 16px 40px; max-width:480px; margin:0 auto; }
+  .msg-error{ display:none; background:rgba(255,77,77,0.08); border:1px solid rgba(255,77,77,0.25); border-radius:12px; padding:11px 14px; font-size:0.82rem; color:var(--rojo); margin-bottom:16px; }
+  .msg-error.visible{ display:block; }
   .field{ margin-bottom:14px; }
   .field label{ display:block; font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
-  .field input{ width:100%; padding:13px 15px; background:var(--gris); border:1.5px solid #eee; border-radius:13px; color:var(--negro); font-family:'Inter',sans-serif; font-size:0.95rem; outline:none; transition:border-color 0.2s; -webkit-appearance:none; }
-  .field input:focus{ border-color:var(--verde); background:white; }
+  .field input,.field select,.field textarea{ width:100%; padding:13px 15px; background:white; border:1.5px solid #eee; border-radius:13px; font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--negro); outline:none; -webkit-appearance:none; transition:border-color 0.2s; }
+  .field input:focus,.field select:focus{ border-color:var(--verde); }
   .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .btn-main{ width:100%; padding:15px; border:none; border-radius:14px; background:var(--negro); color:white; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:0.2s; margin-top:6px; }
+  .section-divider{ font-size:0.72rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:1px; padding:16px 0 8px; display:flex; align-items:center; gap:8px; }
+  .section-divider::after{ content:''; flex:1; height:1px; background:#eee; }
+
+  /* FOTO UPLOAD */
+  .foto-upload-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+  .foto-upload-single{ margin-bottom:14px; }
+  .foto-slot{ border:2px dashed #e0e0e0; border-radius:16px; padding:16px 12px; text-align:center; cursor:pointer; position:relative; overflow:hidden; transition:0.2s; background:white; }
+  .foto-slot.filled{ border-color:var(--verde); border-style:solid; }
+  .foto-slot img{ width:100%; height:110px; object-fit:cover; border-radius:10px; display:none; }
+  .foto-slot.filled img{ display:block; }
+  .foto-slot-placeholder{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .foto-slot.filled .foto-slot-placeholder{ display:none; }
+  .foto-slot-placeholder svg{ width:28px; height:28px; stroke:#ccc; fill:none; stroke-width:1.5; }
+  .foto-slot-placeholder span{ font-size:0.72rem; color:#bbb; font-weight:600; text-align:center; line-height:1.4; }
+  .foto-file-input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .foto-check{ position:absolute; top:8px; right:8px; width:22px; height:22px; background:var(--verde); border-radius:50%; display:none; align-items:center; justify-content:center; }
+  .foto-slot.filled .foto-check{ display:flex; }
+  .foto-check svg{ width:12px; height:12px; stroke:var(--negro); fill:none; stroke-width:3; }
+
+  /* SELFIE */
+  .selfie-wrap{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:14px; }
+  .selfie-circle{ width:100px; height:100px; border-radius:50%; border:3px dashed #e0e0e0; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; overflow:hidden; background:white; transition:0.2s; }
+  .selfie-circle.filled{ border-color:var(--verde); border-style:solid; }
+  .selfie-circle img{ width:100%; height:100%; object-fit:cover; display:none; }
+  .selfie-circle.filled img{ display:block; }
+  .selfie-placeholder{ display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .selfie-circle.filled .selfie-placeholder{ display:none; }
+  .selfie-placeholder svg{ width:28px; height:28px; stroke:#ccc; fill:none; stroke-width:1.5; }
+  .selfie-placeholder span{ font-size:0.65rem; color:#bbb; font-weight:600; }
+  .selfie-input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .selfie-label{ font-size:0.75rem; color:#aaa; text-align:center; line-height:1.4; }
+
+  .btn-main{ width:100%; padding:15px; border:none; border-radius:14px; background:var(--negro); color:white; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; margin-top:8px; transition:0.2s; }
   .btn-main:disabled{ opacity:0.5; cursor:not-allowed; }
-  .msg-error{ display:none; background:rgba(255,77,77,0.08); border:1px solid rgba(255,77,77,0.25); border-radius:12px; padding:11px 14px; font-size:0.82rem; color:var(--rojo); margin-bottom:14px; }
-  .msg-error.visible{ display:block; }
-  .switch-portal{ text-align:center; margin-top:20px; font-size:0.8rem; color:#aaa; }
+  .upload-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.7); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:1000; }
+  .upload-overlay.show{ display:flex; }
+  .upload-box{ background:white; border-radius:20px; padding:28px 24px; width:82%; max-width:300px; text-align:center; }
+  .upload-box h3{ font-size:1rem; font-weight:700; margin-bottom:6px; }
+  .upload-box p{ font-size:0.82rem; color:#aaa; margin-bottom:16px; }
+  .upload-bar-track{ height:6px; background:#f0f0f0; border-radius:6px; overflow:hidden; }
+  .upload-bar{ height:100%; background:var(--verde); border-radius:6px; width:0%; transition:width 0.3s; }
+  .upload-pct{ font-size:1.2rem; font-weight:800; color:var(--negro); margin-top:10px; }
+  .switch-portal{ text-align:center; margin-top:20px; font-size:0.8rem; color:#aaa; padding-bottom:20px; }
   .switch-portal a{ color:var(--naranja); font-weight:700; text-decoration:none; }
 </style>
 </head>
 <body>
-<div class="top-logo">
+
+<div class="top-bar">
   <svg viewBox="0 0 100 100"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A8E63D"/><stop offset="100%" style="stop-color:#7BC820"/></linearGradient></defs><path d="M50 4 L93 28 V72 L50 96 L7 72 V28 Z" fill="url(#g1)"/><path d="M30 52 L44 66 L70 36" stroke="white" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-  <div><div class="top-logo-text">PRO<span>VEED</span></div><span class="top-logo-sub">Portal Emprendedor</span></div>
+  <div><div class="top-bar-text">PRO<span>VEED</span></div><span class="top-bar-sub">Portal Emprendedor</span></div>
 </div>
-<div class="card">
-  <div class="card-title">Bienvenido</div>
-  <div class="card-sub">Accede a miles de proveedores mayoristas</div>
-  <div class="tabs">
-    <button class="tab active" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
-    <button class="tab" id="tab-reg" onclick="switchTab('reg')">Crear cuenta</button>
-  </div>
+
+<div class="tabs">
+  <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
+  <button class="tab-btn" id="tab-reg" onclick="switchTab('reg')">Crear cuenta</button>
+</div>
+
+<div class="form-wrap">
   <div id="msg-error" class="msg-error"></div>
+
+ <!-- LOGIN -->
   <div id="form-login">
-    <div class="field"><label>Correo</label><input type="email" id="l-email" placeholder="tucorreo@ejemplo.com"></div>
+    <div class="field"><label>Correo electrónico</label><input type="email" id="l-email" placeholder="tucorreo@ejemplo.com"></div>
     <div class="field"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••••"></div>
     <button class="btn-main" id="btn-login" onclick="doLogin()">ENTRAR →</button>
   </div>
+
+  <!-- REGISTRO -->
   <div id="form-reg" style="display:none;">
-    <div class="field"><label>Nombre completo</label><input type="text" id="r-nombre" placeholder="Juan Torres"></div>
-    <div class="field"><label>Correo</label><input type="email" id="r-email" placeholder="tucorreo@ejemplo.com"></div>
-    <div class="field"><label>Contraseña</label><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres"></div>
+    <div class="section-divider">Datos personales</div>
+    <div class="field"><label>Nombre completo *</label><input type="text" id="r-nombre" placeholder="Juan Torres"></div>
     <div class="field-row">
-      <div class="field"><label>Cédula</label><input type="text" id="r-cedula" placeholder="1712345678"></div>
-      <div class="field"><label>Ciudad</label><input type="text" id="r-ciudad" placeholder="Quito"></div>
+      <div class="field"><label>Cédula *</label><input type="text" id="r-cedula" placeholder="1712345678" maxlength="10"></div>
+      <div class="field"><label>Teléfono *</label><input type="tel" id="r-telefono" placeholder="0991234567" maxlength="10"></div>
     </div>
+    <div class="field-row">
+      <div class="field"><label>Ciudad *</label><input type="text" id="r-ciudad" placeholder="Quito"></div>
+      <div class="field"><label>Fecha nacimiento</label><input type="date" id="r-fecha"></div>
+    </div>
+
+    <div class="section-divider">Foto de verificación</div>
+    <div class="selfie-wrap">
+      <div class="selfie-circle" id="selfie-circle">
+        <img id="selfie-preview" src="" alt="">
+        <div class="selfie-placeholder">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Tu foto</span>
+        </div>
+        <input type="file" accept="image/*" capture="user" class="selfie-input" onchange="cargarSelfie(this)">
+      </div>
+      <div class="selfie-label">Toma una foto de tu rostro claramente visible<br>para verificar tu identidad</div>
+    </div>
+
+    <div class="section-divider">Fotos de cédula</div>
+    <div class="foto-upload-grid">
+      <div class="foto-slot" id="cedula-front-slot">
+        <img id="cedula-front-preview" src="" alt="">
+        <div class="foto-slot-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span>Cédula frontal</span>
+        </div>
+        <div class="foto-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <input type="file" accept="image/*" capture="environment" class="foto-file-input" onchange="cargarFoto(this,'cedula-front')">
+      </div>
+      <div class="foto-slot" id="cedula-back-slot">
+        <img id="cedula-back-preview" src="" alt="">
+        <div class="foto-slot-placeholder">
+          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span>Cédula trasera</span>
+        </div>
+        <div class="foto-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <input type="file" accept="image/*" capture="environment" class="foto-file-input" onchange="cargarFoto(this,'cedula-back')">
+      </div>
+    </div>
+
+    <div class="section-divider">Acceso</div>
+    <div class="field"><label>Correo electrónico *</label><input type="email" id="r-email" placeholder="tucorreo@ejemplo.com"></div>
+    <div class="field"><label>Contraseña *</label><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres"></div>
+
     <button class="btn-main" id="btn-reg" onclick="doRegistro()">CREAR CUENTA →</button>
   </div>
+
+  <div class="switch-portal">¿Eres proveedor? <a href="https://proveed-proveedor.vercel.app">Entra aquí →</a></div>
 </div>
-<div class="switch-portal">¿Eres proveedor? <a href="https://proveed-proveedor.vercel.app">Entra aquí →</a></div>
+
+<div class="upload-overlay" id="upload-overlay">
+  <div class="upload-box">
+    <h3>Creando tu cuenta</h3>
+    <p>Subiendo documentos de verificación...</p>
+    <div class="upload-bar-track"><div class="upload-bar" id="upload-bar"></div></div>
+    <div class="upload-pct" id="upload-pct">0%</div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const { createClient } = supabase;
 const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
+let fotoFiles = { 'cedula-front': null, 'cedula-back': null, selfie: null };
+
 window.switchTab = function(tab) {
   document.getElementById('tab-login').classList.toggle('active', tab==='login');
   document.getElementById('tab-reg').classList.toggle('active', tab==='reg');
-  document.getElementById('form-login').style.display = tab==='login'?'block':'none';
-  document.getElementById('form-reg').style.display = tab==='reg'?'block':'none';
+  document.getElementById('form-login').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('form-reg').style.display = tab==='reg' ? 'block' : 'none';
   document.getElementById('msg-error').classList.remove('visible');
 };
 
-function showError(msg){ const e=document.getElementById('msg-error'); e.textContent=msg; e.classList.add('visible'); }
+function showError(msg){ const e=document.getElementById('msg-error'); e.textContent=msg; e.classList.add('visible'); window.scrollTo(0,0); }
+
+window.cargarSelfie = function(input) {
+  const file = input.files[0]; if(!file) return;
+  fotoFiles.selfie = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('selfie-preview').src = e.target.result;
+    document.getElementById('selfie-circle').classList.add('filled');
+  };
+  reader.readAsDataURL(file);
+};
+
+window.cargarFoto = function(input, tipo) {
+  const file = input.files[0]; if(!file) return;
+  fotoFiles[tipo] = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById(tipo+'-preview').src = e.target.result;
+    document.getElementById(tipo+'-slot').classList.add('filled');
+  };
+  reader.readAsDataURL(file);
+};
+
+async function subirFoto(file, path) {
+  const { error } = await sb.storage.from('proveed-media').upload(path, file, { upsert: true });
+  if(error) throw error;
+  const { data } = sb.storage.from('proveed-media').getPublicUrl(path);
+  return data.publicUrl;
+}
+
+function setProgress(pct) {
+  document.getElementById('upload-bar').style.width = pct + '%';
+  document.getElementById('upload-pct').textContent = pct + '%';
+}
 
 window.doLogin = async function() {
   const email = document.getElementById('l-email').value.trim();
   const pass = document.getElementById('l-pass').value;
   if(!email||!pass){ showError('Completa todos los campos'); return; }
-  document.getElementById('btn-login').disabled=true;
-  document.getElementById('btn-login').textContent='Entrando...';
+  const btn = document.getElementById('btn-login');
+  btn.disabled=true; btn.textContent='Entrando...';
   const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-  if(error){ showError('Correo o contraseña incorrectos'); document.getElementById('btn-login').disabled=false; document.getElementById('btn-login').textContent='ENTRAR →'; return; }
-  const { data: usuario } = await sb.from('usuarios').select('rol').eq('id', data.user.id).single();
-  if(usuario?.rol === 'proveedor'){ await sb.auth.signOut(); showError('Esta cuenta es de proveedor'); document.getElementById('btn-login').disabled=false; document.getElementById('btn-login').textContent='ENTRAR →'; return; }
+  if(error){ showError('Correo o contraseña incorrectos'); btn.disabled=false; btn.textContent='ENTRAR →'; return; }
+  const { data:usuario } = await sb.from('usuarios').select('rol').eq('id', data.user.id).single();
+  if(usuario?.rol==='proveedor'){ await sb.auth.signOut(); showError('Esta cuenta es de proveedor'); btn.disabled=false; btn.textContent='ENTRAR →'; return; }
   window.location.href = 'dashboard.html';
 };
 
 window.doRegistro = async function() {
   const nombre = document.getElementById('r-nombre').value.trim();
+  const cedula = document.getElementById('r-cedula').value.trim();
+  const telefono = document.getElementById('r-telefono').value.trim();
+  const ciudad = document.getElementById('r-ciudad').value.trim();
+  const fecha = document.getElementById('r-fecha').value;
   const email = document.getElementById('r-email').value.trim();
   const pass = document.getElementById('r-pass').value;
-  const cedula = document.getElementById('r-cedula').value.trim();
-  const ciudad = document.getElementById('r-ciudad').value.trim();
-  if(!nombre||!email||!pass||!cedula||!ciudad){ showError('Todos los campos son obligatorios'); return; }
+  if(!nombre||!cedula||!telefono||!ciudad||!email||!pass){ showError('Completa todos los campos obligatorios'); return; }
   if(pass.length<6){ showError('Contraseña mínimo 6 caracteres'); return; }
-  document.getElementById('btn-reg').disabled=true;
-  document.getElementById('btn-reg').textContent='Creando cuenta...';
-  const { data, error } = await sb.auth.signUp({ email, password: pass });
-  if(error){ showError(error.message); document.getElementById('btn-reg').disabled=false; document.getElementById('btn-reg').textContent='CREAR CUENTA →'; return; }
-  await sb.from('usuarios').insert({ id: data.user.id, nombre, email, cedula, ciudad, rol:'emprendedor', activo:true });
-  window.location.href = 'bienvenida.html';
+  if(!fotoFiles.selfie){ showError('Sube tu foto de perfil para verificación'); return; }
+  if(!fotoFiles['cedula-front']){ showError('Sube la foto frontal de tu cédula'); return; }
+  if(!fotoFiles['cedula-back']){ showError('Sube la foto trasera de tu cédula'); return; }
+  const btn = document.getElementById('btn-reg');
+  btn.disabled=true;
+  document.getElementById('upload-overlay').classList.add('show');
+  try {
+    setProgress(10);
+    const { data, error } = await sb.auth.signUp({ email, password: pass });
+    if(error) throw error;
+    const uid = data.user.id;
+    setProgress(30);
+    const selfieUrl = await subirFoto(fotoFiles.selfie, `verificacion/${uid}/selfie`);
+    setProgress(55);
+    const cedulaFrontUrl = await subirFoto(fotoFiles['cedula-front'], `verificacion/${uid}/cedula-front`);
+    setProgress(75);
+    const cedulaBackUrl = await subirFoto(fotoFiles['cedula-back'], `verificacion/${uid}/cedula-back`);
+    setProgress(90);
+    await sb.from('usuarios').insert({
+      id: uid, nombre, email, cedula, telefono, ciudad,
+      fecha_nacimiento: fecha||null,
+      foto_perfil: selfieUrl,
+      cedula_frontal: cedulaFrontUrl,
+      cedula_trasera: cedulaBackUrl,
+      rol: 'emprendedor', activo: true, verificado: false
+    });
+    setProgress(100);
+    setTimeout(() => { document.getElementById('upload-overlay').classList.remove('show'); window.location.href = 'bienvenida.html'; }, 800);
+  } catch(e) {
+    document.getElementById('upload-overlay').classList.remove('show');
+    showError('Error: ' + e.message);
+    btn.disabled=false;
+  }
 };
-
-document.addEventListener('keydown', e => { if(e.key==='Enter'){ if(document.getElementById('form-login').style.display!=='none') window.doLogin(); else window.doRegistro(); } });
 </script>
 </body>
 </html>
