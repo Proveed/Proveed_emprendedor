@@ -4,226 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Mis Pedidos</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; --azul:#007AFF; }
-  body{ background:var(--gris); font-family:'DM Sans',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
-
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; --azul:#007AFF; }
+  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
   .header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
-  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
   .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .header-title{ font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:white; }
-
-  /* STATS */
-  .stats-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:14px 16px 0; }
-  .stat-box{ background:white; border-radius:16px; padding:14px 10px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .stat-val{ font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:900; }
-  .stat-val.naranja{ color:var(--naranja); }
-  .stat-val.verde{ color:var(--verde); }
-  .stat-val.negro{ color:var(--negro); }
-  .stat-lbl{ font-size:0.6rem; color:#bbb; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-top:3px; }
-
-  /* TABS */
-  .tabs{ display:flex; gap:8px; padding:14px 16px 4px; overflow-x:auto; scrollbar-width:none; }
-  .vtab{ padding:8px 16px; border-radius:20px; white-space:nowrap; border:1.5px solid #e0e0e0; background:white; font-size:0.78rem; font-weight:600; color:#888; cursor:pointer; transition:0.2s; }
+  .header-title{ font-size:1.1rem; font-weight:700; color:white; }
+  .tabs-row{ display:flex; gap:8px; padding:14px 16px; overflow-x:auto; scrollbar-width:none; }
+  .tabs-row::-webkit-scrollbar{ display:none; }
+  .vtab{ padding:8px 16px; border-radius:20px; border:1.5px solid #eee; background:white; font-size:0.76rem; font-weight:600; color:#aaa; cursor:pointer; white-space:nowrap; }
   .vtab.active{ background:var(--negro); color:white; border-color:var(--negro); }
-
-  /* PEDIDO CARD */
-  .pedidos-lista{ padding:8px 16px; }
-  .pedido-card{ background:white; border-radius:20px; margin-bottom:14px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-
-  .p-header{ padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f5f5f5; }
-  .p-num{ font-family:'Syne',sans-serif; font-weight:800; font-size:0.95rem; color:var(--negro); }
-  .p-fecha{ font-size:0.7rem; color:#bbb; margin-top:2px; }
-  .estado-badge{ font-size:0.65rem; font-weight:800; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }
+  .pedidos-lista{ padding:0 16px; }
+  .pedido-card{ background:white; border-radius:18px; margin-bottom:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .ped-header{ padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f8f8f8; }
+  .ped-num{ font-size:0.88rem; font-weight:800; color:var(--negro); }
+  .ped-fecha{ font-size:0.7rem; color:#bbb; margin-top:1px; }
+  .est-badge{ font-size:0.65rem; font-weight:700; padding:4px 10px; border-radius:20px; }
   .est-pendiente{ background:rgba(0,122,255,0.1); color:var(--azul); }
   .est-proceso{ background:rgba(255,140,0,0.1); color:var(--naranja); }
-  .est-completado{ background:rgba(168,230,61,0.15); color:#5a9a00; }
-
-  /* TIMELINE */
-  .timeline{ display:flex; align-items:center; padding:12px 16px; background:#fafafa; border-bottom:1px solid #f5f5f5; }
-  .tl-step{ display:flex; flex-direction:column; align-items:center; flex:1; }
-  .tl-dot{ width:24px; height:24px; border-radius:50%; background:#e0e0e0; display:flex; align-items:center; justify-content:center; margin-bottom:4px; }
-  .tl-dot.done{ background:var(--verde); }
-  .tl-dot.active{ background:var(--naranja); }
-  .tl-dot svg{ width:12px; height:12px; stroke:white; fill:none; stroke-width:3; }
-  .tl-label{ font-size:0.58rem; font-weight:600; color:#bbb; }
-  .tl-line{ flex:1; height:2px; background:#e0e0e0; margin-bottom:16px; }
-  .tl-line.done{ background:var(--verde); }
-
-  .p-body{ padding:14px 16px; }
-  .p-items{ background:var(--gris); border-radius:12px; padding:10px 12px; margin-bottom:12px; }
-  .p-item{ display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid rgba(0,0,0,0.04); font-size:0.82rem; }
-  .p-item:last-child{ border-bottom:none; }
-
-  .p-total-final{ display:flex; justify-content:space-between; font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; border-top:1px solid #f5f5f5; padding-top:10px; margin-top:10px; }
-  .p-actions{ display:flex; gap:8px; margin-top:12px; }
-  .p-btn{ flex:1; padding:11px; border-radius:12px; border:none; font-weight:700; font-size:0.78rem; cursor:pointer; }
-  .p-btn-chat{ background:var(--gris); color:var(--negro); }
-  .p-btn-reordenar{ background:var(--negro); color:white; }
-
+  .est-completado{ background:rgba(168,230,61,0.1); color:#3a7a00; }
+  .ped-timeline{ padding:14px 16px; display:flex; gap:0; }
+  .tl-step{ flex:1; display:flex; flex-direction:column; align-items:center; position:relative; }
+  .tl-step::before{ content:''; position:absolute; top:12px; left:50%; right:-50%; height:2px; background:#f0f0f0; z-index:0; }
+  .tl-step:last-child::before{ display:none; }
+  .tl-dot{ width:24px; height:24px; border-radius:50%; border:2px solid #eee; background:white; display:flex; align-items:center; justify-content:center; z-index:1; position:relative; margin-bottom:5px; }
+  .tl-dot.done{ border-color:var(--verde); background:var(--verde); }
+  .tl-dot.done svg{ width:10px; height:10px; stroke:var(--negro); fill:none; stroke-width:3; }
+  .tl-dot.active{ border-color:var(--naranja); background:var(--naranja); }
+  .tl-dot.active::after{ content:''; width:6px; height:6px; border-radius:50%; background:white; }
+  .tl-label{ font-size:0.6rem; color:#bbb; text-align:center; font-weight:600; }
+  .tl-label.done{ color:var(--negro); }
+  .ped-items{ padding:0 16px 12px; }
+  .ped-item-row{ display:flex; justify-content:space-between; font-size:0.8rem; padding:4px 0; color:#aaa; }
+  .ped-item-row:first-child{ color:#555; font-weight:600; }
+  .ped-footer{ padding:12px 16px; border-top:1px solid #f8f8f8; display:flex; justify-content:space-between; align-items:center; }
+  .ped-total{ font-size:1rem; font-weight:800; color:var(--naranja); }
+  .btn-repetir{ background:var(--gris); color:var(--negro); border:none; padding:8px 16px; border-radius:10px; font-family:'Inter',sans-serif; font-size:0.76rem; font-weight:700; cursor:pointer; }
   .empty{ text-align:center; padding:60px 20px; color:#bbb; }
-  
-  /* NAV */
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:10px 0 18px; border-top:1px solid #eee; z-index:200; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:4px; color:#ccc; text-decoration:none; flex:1; }
+  .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 14px; display:block; }
+  .empty p{ font-size:0.85rem; }
+  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; z-index:200; }
+  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
   .tab.active{ color:var(--negro); }
-  .tab span{ font-size:0.58rem; font-weight:700; text-transform:uppercase; }
+  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; }
+  .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
+  .tab.active .tab-dot{ display:block; }
 </style>
 </head>
 <body>
-
 <div class="header">
-  <div class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+  <button class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
   <div class="header-title">Mis Pedidos</div>
 </div>
-
-<div class="stats-row">
-  <div class="stat-box"><div class="stat-val naranja" id="st-total">0</div><div class="stat-lbl">Total</div></div>
-  <div class="stat-box"><div class="stat-val negro" id="st-pendientes">0</div><div class="stat-lbl">Pendientes</div></div>
-  <div class="stat-box"><div class="stat-val verde" id="st-gastado">$0</div><div class="stat-lbl">Gastado</div></div>
-</div>
-
-<div class="tabs">
+<div class="tabs-row">
   <div class="vtab active" onclick="filtrar('todos',this)">Todos</div>
   <div class="vtab" onclick="filtrar('pendiente',this)">Pendientes</div>
   <div class="vtab" onclick="filtrar('proceso',this)">En proceso</div>
   <div class="vtab" onclick="filtrar('completado',this)">Completados</div>
 </div>
-
-<div class="pedidos-lista" id="pedidos-lista">
-  <div class="empty">Cargando tu historial...</div>
-</div>
+<div class="pedidos-lista" id="pedidos-lista"><div class="empty"><p>Cargando pedidos...</p></div></div>
 
 <nav class="tab-bar">
-  <a class="tab" href="dashboard.html"><span>Inicio</span></a>
-  <a class="tab" href="explorar.html"><span>Explorar</span></a>
-  <a class="tab" href="chat.html"><span>Chat</span></a>
-  <a class="tab" href="carrito.html"><span>Carrito</span></a>
-  <a class="tab active" href="pedidos.html"><span>Pedidos</span></a>
+  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
+  <a class="tab" href="tips.html"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg><span>Tips</span><div class="tab-dot"></div></a>
+  <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
+  <a class="tab active" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span><div class="tab-dot"></div></a>
 </nav>
 
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+let todosPedidos=[], filtroActual='todos', userId='';
 
-const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+(async()=>{
+  const { data:{session} } = await sb.auth.getSession();
+  if(!session){ window.location.href='login.html'; return; }
+  userId=session.user.id;
+  const { data } = await sb.from('pedidos').select('*').eq('emprendedor_id',userId).order('created_at',{ascending:false});
+  todosPedidos=data||[];
+  renderPedidos();
+})();
 
-let userUID = null;
-let todosPedidos = [];
-
-async function init() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) { window.location.href = 'login.html'; return; }
-  userUID = session.user.id;
-  cargarPedidos();
-}
-
-async function cargarPedidos() {
-  const { data, error } = await supabase
-    .from('pedidos')
-    .select('*')
-    .eq('user_id', userUID)
-    .order('created_at', { ascending: false });
-
-  if (error) return console.error(error);
-  
-  todosPedidos = data;
-  
-  // Actualizar Stats
-  const pendientes = data.filter(p => p.estado === 'pendiente').length;
-  const gastado = data.reduce((acc, p) => acc + (p.total || 0), 0);
-  
-  document.getElementById('st-total').textContent = data.length;
-  document.getElementById('st-pendientes').textContent = pendientes;
-  document.getElementById('st-gastado').textContent = `$${gastado.toFixed(0)}`;
-  
-  renderLista(data);
-}
-
-window.filtrar = (estado, el) => {
-  document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  const filtrados = estado === 'todos' ? todosPedidos : todosPedidos.filter(p => p.estado === estado);
-  renderLista(filtrados);
-};
-
-function renderLista(lista) {
-  const cont = document.getElementById('pedidos-lista');
-  if (!lista.length) {
-    cont.innerHTML = '<div class="empty"><p>No hay pedidos en esta sección.</p></div>';
-    return;
-  }
-
-  cont.innerHTML = '';
-  lista.forEach(p => {
-    const fecha = new Date(p.created_at).toLocaleDateString('es-EC', { day:'2-digit', month:'short' });
-    const est = p.estado || 'pendiente';
-    
-    // Lógica Simple Timeline
-    const pasos = ['pendiente', 'proceso', 'completado'];
-    const idx = pasos.indexOf(est);
-
-    const card = document.createElement('div');
-    card.className = 'pedido-card';
-    card.innerHTML = `
-      <div class="p-header">
-        <div>
-          <div class="p-num">#PV-${p.id.toString().slice(-6).toUpperCase()}</div>
-          <div class="p-fecha">${fecha}</div>
-        </div>
-        <div class="estado-badge est-${est}">${est}</div>
-      </div>
-      <div class="timeline">
-        ${pasos.map((paso, i) => `
-          <div class="tl-step">
-            <div class="tl-dot ${i < idx ? 'done' : i === idx ? 'active' : ''}">
-              ${i < idx ? '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' : ''}
-            </div>
-            <span class="tl-label">${paso}</span>
-          </div>
-          ${i < pasos.length - 1 ? `<div class="tl-line ${i < idx ? 'done' : ''}"></div>` : ''}
-        `).join('')}
-      </div>
-      <div class="p-body">
-        <div class="p-items">
-          ${(p.items || []).map(item => `
-            <div class="p-item">
-              <span>${item.cantidad}× ${item.productos?.nombre || 'Producto'}</span>
-              <span>$${(item.cantidad * (item.productos?.precio || 0)).toFixed(2)}</span>
-            </div>
-          `).join('')}
-        </div>
-        <div class="p-total-final">
-          <span>Total Pagado</span>
-          <span style="color:var(--naranja)">$${(p.total || 0).toFixed(2)}</span>
-        </div>
-        <div class="p-actions">
-          <button class="p-btn p-btn-chat" onclick="window.location.href='chat.html'">Chat Soporte</button>
-          <button class="p-btn p-btn-reordenar" onclick="reordenar(${p.id})">Repetir Pedido</button>
-        </div>
-      </div>
-    `;
-    cont.appendChild(card);
+function renderPedidos(){
+  let lista=[...todosPedidos];
+  if(filtroActual!=='todos') lista=lista.filter(p=>p.estado===filtroActual);
+  const cont=document.getElementById('pedidos-lista');
+  if(!lista.length){ cont.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><p>Sin pedidos en este estado</p></div>'; return; }
+  cont.innerHTML='';
+  lista.forEach(p=>{
+    const div=document.createElement('div'); div.className='pedido-card';
+    const est=p.estado||'pendiente';
+    const fecha=new Date(p.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'});
+    const steps=['pendiente','proceso','completado'];
+    const stepIdx=steps.indexOf(est);
+    const tl=steps.map((s,i)=>`<div class="tl-step"><div class="tl-dot ${i<stepIdx?'done':i===stepIdx?'active':''}">${i<stepIdx?`<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`:''}</div><div class="tl-label ${i<=stepIdx?'done':''}">${s==='pendiente'?'Pendiente':s==='proceso'?'En proceso':'Entregado'}</div></div>`).join('');
+    const items=(p.items||[]).slice(0,3);
+    div.innerHTML=`<div class="ped-header"><div><div class="ped-num">#PV-${p.id.slice(-6).toUpperCase()}</div><div class="ped-fecha">${fecha}</div></div><span class="est-badge est-${est}">${est}</span></div><div class="ped-timeline">${tl}</div><div class="ped-items">${items.map(i=>`<div class="ped-item-row"><span>${i.nombre} ×${i.cantidad}</span><span>$${(i.precio*i.cantidad).toFixed(2)}</span></div>`).join('')}${p.items?.length>3?`<div class="ped-item-row"><span style="color:#bbb">+${p.items.length-3} productos más</span></div>`:''}</div><div class="ped-footer"><div class="ped-total">$${Number(p.total||0).toFixed(2)}</div><button class="btn-repetir" onclick="repetirPedido('${p.id}')">↺ Repetir pedido</button></div>`;
+    cont.appendChild(div);
   });
 }
 
-window.reordenar = async (id) => {
-  const pedido = todosPedidos.find(p => p.id === id);
-  if (!pedido) return;
-  
-  // Insertar de nuevo los items en el carrito de la DB
-  for (const item of pedido.items) {
-    await supabase.from('carrito').insert([{
-      user_id: userUID,
-      producto_id: item.producto_id,
-      cantidad: item.cantidad
-    }]);
-  }
-  window.location.href = 'carrito.html';
-};
+window.filtrar=function(f,el){ filtroActual=f; document.querySelectorAll('.vtab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); renderPedidos(); };
 
-init();
+window.repetirPedido=function(id){
+  const p=todosPedidos.find(p=>p.id===id);
+  if(!p||!p.items?.length) return;
+  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  p.items.forEach(i=>{ const idx=carrito.findIndex(c=>c.id===i.id); if(idx>=0) carrito[idx].cantidad+=i.cantidad; else carrito.push({...i}); });
+  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
+  window.location.href='carrito.html';
+};
 </script>
 </body>
 </html>
