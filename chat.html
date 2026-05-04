@@ -3,217 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Chat Realtime</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<title>PROVEED — Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  
-  body{ background:var(--gris); font-family:'DM Sans',sans-serif; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
-
-  /* VISTAS */
-  #lista-view{ display:flex; flex-direction:column; height:100%; }
-  #vista-chat{ display:none; flex:1; flex-direction:column; overflow:hidden; background: white; }
-
-  /* HEADER */
-  .header{ background:var(--negro); padding:50px 16px 20px; border-radius: 0 0 24px 24px; }
-  .header-title{ font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; color:white; }
-  .header-sub{ font-size: 0.7rem; color: var(--verde); font-weight: 700; text-transform: uppercase; margin-top: 4px; letter-spacing: 1px; }
-
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
+  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
+  .header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
+  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
+  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .header-title{ font-size:1.1rem; font-weight:700; color:white; flex:1; }
   /* LISTA DE CHATS */
-  #lista-chats{ flex:1; overflow-y:auto; padding:20px 16px; }
-  .chat-item{ 
-    display:flex; align-items:center; gap:14px; background:white; border-radius:20px; 
-    padding:16px; margin-bottom:12px; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.03); 
-    border: 1px solid transparent; transition: 0.2s; 
-  }
-  .chat-item:active{ transform: scale(0.96); background: #fafafa; }
-  .chat-avatar{ 
-    width:52px; height:52px; border-radius:16px; background:var(--negro); 
-    display:flex; align-items:center; justify-content:center; 
-    font-family:'Syne',sans-serif; font-size:1.2rem; color:var(--verde); font-weight:800; 
-  }
+  .chat-lista{ padding:14px 16px; display:none; }
+  .chat-item{ display:flex; gap:12px; align-items:center; padding:14px; background:white; border-radius:16px; margin-bottom:10px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition:0.15s; }
+  .chat-item:active{ transform:scale(0.98); }
+  .chat-avatar{ width:48px; height:48px; border-radius:14px; background:var(--naranja); display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:800; color:white; flex-shrink:0; }
   .chat-info{ flex:1; min-width:0; }
-  .chat-nombre{ font-weight:700; font-size:0.95rem; color:var(--negro); margin-bottom: 2px; }
-  .chat-preview{ font-size:0.8rem; color:#999; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-
-  /* AREA DE MENSAJES */
-  .conv-header{ background:var(--negro); padding:50px 16px 16px; display:flex; align-items:center; gap:14px; color:white; }
-  .back-btn{ width:38px; height:38px; background:rgba(255,255,255,0.08); border-radius:12px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
-  
-  #mensajes{ 
-    flex:1; overflow-y:auto; padding:20px 16px; display:flex; flex-direction:column; 
-    gap:12px; background:var(--gris); border-radius: 24px 24px 0 0;
-  }
-  .burbuja{ max-width:85%; padding:12px 16px; border-radius:20px; font-size:0.9rem; line-height:1.45; }
-  .burbuja.enviado{ background:var(--negro); color:white; align-self:flex-end; border-bottom-right-radius:4px; }
-  .burbuja.recibido{ background:white; color:var(--negro); align-self:flex-start; border-bottom-left-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-
-  /* SEGURIDAD */
-  .bloqueo-banner{ 
-    background:#FFF0F0; border:1px solid var(--rojo); border-radius:12px; 
-    padding:12px; margin:10px 16px; display:none; font-size:0.75rem; 
-    color:var(--rojo); font-weight:700; text-align:center;
-  }
-
-  /* INPUT */
-  .input-area{ background:white; padding:12px 16px 34px; display:flex; gap:10px; border-top:1px solid #eee; }
-  .input-wrap{ flex:1; background:var(--gris); border-radius:22px; padding:12px 18px; }
-  #msg-input{ width:100%; border:none; background:transparent; outline:none; resize:none; font-family:inherit; font-size: 0.95rem; }
-  .send-btn{ width:48px; height:48px; border-radius:16px; background:var(--negro); border:none; display:flex; align-items:center; justify-content:center; }
+  .chat-nombre{ font-size:0.9rem; font-weight:700; color:var(--negro); }
+  .chat-preview{ font-size:0.76rem; color:#aaa; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chat-meta{ display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
+  .chat-hora{ font-size:0.68rem; color:#bbb; }
+  .chat-badge{ background:var(--verde); color:var(--negro); font-size:0.62rem; font-weight:800; padding:2px 7px; border-radius:10px; }
+  /* CONVERSACIÓN */
+  .conversacion{ display:none; flex-direction:column; height:calc(100vh - 60px); }
+  .conv-header{ background:white; padding:14px 16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #eee; position:sticky; top:60px; z-index:50; }
+  .conv-back{ width:32px; height:32px; background:var(--gris); border-radius:9px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
+  .conv-back svg{ width:16px; height:16px; stroke:var(--negro); fill:none; stroke-width:2.5; }
+  .conv-avatar{ width:38px; height:38px; border-radius:12px; background:var(--naranja); display:flex; align-items:center; justify-content:center; font-size:0.9rem; font-weight:800; color:white; flex-shrink:0; }
+  .conv-nombre{ font-size:0.92rem; font-weight:700; color:var(--negro); }
+  .conv-estado{ font-size:0.7rem; color:var(--verde); }
+  .mensajes-wrap{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:8px; }
+  .msg{ max-width:78%; padding:10px 13px; border-radius:16px; font-size:0.88rem; line-height:1.5; }
+  .msg-recibido{ background:white; color:var(--negro); border-radius:4px 16px 16px 16px; align-self:flex-start; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+  .msg-enviado{ background:var(--negro); color:white; border-radius:16px 4px 16px 16px; align-self:flex-end; }
+  .msg-hora{ font-size:0.62rem; margin-top:3px; color:rgba(255,255,255,0.4); text-align:right; }
+  .msg-recibido .msg-hora{ color:#bbb; text-align:left; }
+  .input-wrap{ background:white; padding:12px 16px; border-top:1px solid #eee; display:flex; gap:10px; align-items:flex-end; }
+  .msg-input{ flex:1; background:var(--gris); border:none; border-radius:20px; padding:11px 16px; font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--negro); outline:none; resize:none; max-height:100px; line-height:1.4; }
+  .send-btn{ width:40px; height:40px; border-radius:50%; background:var(--negro); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .send-btn svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2.5; margin-left:2px; }
+  .empty{ text-align:center; padding:60px 20px; color:#bbb; }
+  .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 14px; display:block; }
+  .empty p{ font-size:0.85rem; }
+  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; z-index:200; }
+  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
+  .tab.active{ color:var(--negro); }
+  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; }
+  .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
+  .tab.active .tab-dot{ display:block; }
 </style>
 </head>
 <body>
-
-<div id="lista-view">
-  <div class="header">
-    <div class="header-title">Mensajes</div>
-    <div class="header-sub">Proveed Business</div>
-  </div>
-  <div id="lista-chats">
-    <div id="lista-content"></div>
-  </div>
+<div class="header">
+  <button class="back-btn" id="btn-back" onclick="volverLista()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+  <div class="header-title" id="header-title">Mis Chats</div>
 </div>
 
-<div id="vista-chat">
+<div class="chat-lista" id="chat-lista"></div>
+
+<div class="conversacion" id="conversacion">
   <div class="conv-header">
-    <div class="back-btn" onclick="volverLista()"> 
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> 
-    </div>
-    <div>
-      <div id="conv-nombre" style="font-family:'Syne'; font-weight:800;">Proveedor</div>
-      <div style="font-size:0.6rem; color:var(--verde); font-weight:700;">CHAT PROTEGIDO</div>
-    </div>
+    <button class="conv-back" onclick="volverLista()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <div class="conv-avatar" id="conv-avatar">P</div>
+    <div><div class="conv-nombre" id="conv-nombre">Proveedor</div><div class="conv-estado">En línea</div></div>
   </div>
-  
-  <div id="mensajes"></div>
-  
-  <div class="bloqueo-banner" id="bloqueo-banner">⚠️ Por seguridad, no compartas WhatsApp o enlaces externos.</div>
-
-  <div class="input-area">
-    <div class="input-wrap">
-      <textarea id="msg-input" placeholder="Escribe aquí..." rows="1"></textarea>
-    </div>
-    <button class="send-btn" onclick="enviarMensaje()"> 
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--verde)" stroke-width="3"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> 
-    </button>
+  <div class="mensajes-wrap" id="mensajes-wrap"></div>
+  <div class="input-wrap">
+    <textarea class="msg-input" id="msg-input" placeholder="Escribe un mensaje..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();enviarMensaje();}"></textarea>
+    <button class="send-btn" onclick="enviarMensaje()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
   </div>
 </div>
 
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+<nav class="tab-bar" id="tab-bar">
+  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
+  <a class="tab active" href="chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span><div class="tab-dot"></div></a>
+  <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
+  <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span><div class="tab-dot"></div></a>
+</nav>
 
-const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+let userId='', chatActivo=null, suscripcion=null;
 
-let userUID = null;
-let chatActivoId = null;
-let channel = null;
+const FILTROS = [/(\+?593|0)(9\d{8})/gi,/whatsapp/gi,/telegram/gi,/instagram/gi,/facebook/gi,/tiktok/gi,/@[a-z0-9._]+/gi,/https?:\/\/[^\s]+/gi];
+function filtrarMensaje(texto){ let t=texto; FILTROS.forEach(f=>{ t=t.replace(f,'[bloqueado]'); }); return t; }
 
-const PATRONES = [/\b09\d{8}\b/, /whatsapp/i, /wsp/i, /@/, /\.com/i];
+(async()=>{
+  const { data:{session} } = await sb.auth.getSession();
+  if(!session){ window.location.href='login.html'; return; }
+  userId=session.user.id;
+  cargarChats();
+})();
 
-async function init() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) return;
-  userUID = session.user.id;
-  cargarListaChats();
-}
-
-async function cargarListaChats() {
-  const { data, error } = await supabase
-    .from('chats')
-    .select('*')
-    .or(`emprendedor_id.eq.${userUID},proveedor_id.eq.${userUID}`)
-    .order('ultimo_mensaje_at', { ascending: false });
-
-  const cont = document.getElementById('lista-content');
-  cont.innerHTML = '';
-  
-  data?.forEach(c => {
-    const div = document.createElement('div');
-    div.className = 'chat-item';
-    div.innerHTML = `
-      <div class="chat-avatar">${(c.nombre_otro || 'P')[0]}</div>
-      <div class="chat-info">
-        <div class="chat-nombre">${c.nombre_otro || 'Chat de Negocios'}</div>
-        <div class="chat-preview">${c.ultimo_mensaje || 'Sin mensajes todavía'}</div>
-      </div>`;
-    div.onclick = () => abrirChat(c.id, c.nombre_otro);
-    cont.appendChild(div);
+async function cargarChats(){
+  document.getElementById('chat-lista').style.display='block';
+  document.getElementById('conversacion').style.display='none';
+  document.getElementById('tab-bar').style.display='flex';
+  document.getElementById('header-title').textContent='Mis Chats';
+  const { data } = await sb.from('chats').select('*').eq('emprendedor_id',userId).order('created_at',{ascending:false});
+  const lista=document.getElementById('chat-lista');
+  if(!data?.length){ lista.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Sin chats aún. Contacta a un proveedor.</p></div>'; return; }
+  lista.innerHTML='';
+  data.forEach(c=>{
+    const div=document.createElement('div'); div.className='chat-item';
+    div.onclick=()=>abrirChat(c);
+    div.innerHTML=`<div class="chat-avatar">${(c.proveedor_nombre||'P')[0].toUpperCase()}</div><div class="chat-info"><div class="chat-nombre">${c.proveedor_nombre||'Proveedor'}</div><div class="chat-preview">${c.ultimo_mensaje||'Iniciar conversación'}</div></div><div class="chat-meta"><div class="chat-hora">${c.created_at?new Date(c.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):''}</div>${c.no_leidos>0?`<div class="chat-badge">${c.no_leidos}</div>`:''}</div>`;
+    lista.appendChild(div);
   });
 }
 
-async function abrirChat(chatId, nombre) {
-  chatActivoId = chatId;
-  document.getElementById('lista-view').style.display='none';
-  document.getElementById('vista-chat').style.display='flex';
-  document.getElementById('conv-nombre').textContent = nombre;
-
-  // Cargar historial
-  const { data } = await supabase
-    .from('mensajes')
-    .select('*')
-    .eq('chat_id', chatId)
-    .order('created_at', { ascending: true });
-
-  const mDiv = document.getElementById('mensajes');
-  mDiv.innerHTML = '';
-  data?.forEach(m => renderBurbuja(m));
-  mDiv.scrollTop = mDiv.scrollHeight;
-
-  // Suscribirse a Realtime
-  if(channel) supabase.removeChannel(channel);
-  
-  channel = supabase
-    .channel(`chat_${chatId}`)
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'mensajes', filter: `chat_id=eq.${chatId}` }, 
-    payload => {
-      renderBurbuja(payload.new);
-      mDiv.scrollTop = mDiv.scrollHeight;
-    })
-    .subscribe();
+async function abrirChat(chat){
+  chatActivo=chat;
+  document.getElementById('chat-lista').style.display='none';
+  document.getElementById('conversacion').style.display='flex';
+  document.getElementById('tab-bar').style.display='none';
+  document.getElementById('conv-avatar').textContent=(chat.proveedor_nombre||'P')[0].toUpperCase();
+  document.getElementById('conv-nombre').textContent=chat.proveedor_nombre||'Proveedor';
+  await sb.from('chats').update({no_leidos:0}).eq('id',chat.id);
+  cargarMensajes(chat.id);
+  if(suscripcion) suscripcion.unsubscribe();
+  suscripcion=sb.channel('mensajes-'+chat.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chat.id}`},()=>cargarMensajes(chat.id)).subscribe();
 }
 
-function renderBurbuja(m) {
-  const mDiv = document.getElementById('mensajes');
-  const b = document.createElement('div');
-  b.className = `burbuja ${m.remitente_id === userUID ? 'enviado' : 'recibido'}`;
-  b.textContent = m.texto;
-  mDiv.appendChild(b);
+async function cargarMensajes(chatId){
+  const { data } = await sb.from('mensajes').select('*').eq('chat_id',chatId).order('created_at',{ascending:true});
+  const wrap=document.getElementById('mensajes-wrap');
+  wrap.innerHTML='';
+  (data||[]).forEach(m=>{
+    const div=document.createElement('div');
+    const esEnviado=m.remitente_id===userId;
+    div.className='msg '+(esEnviado?'msg-enviado':'msg-recibido');
+    const hora=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+    div.innerHTML=`${m.texto}<div class="msg-hora">${hora}</div>`;
+    wrap.appendChild(div);
+  });
+  wrap.scrollTop=wrap.scrollHeight;
 }
 
-window.enviarMensaje = async () => {
-  const input = document.getElementById('msg-input');
-  const texto = input.value.trim();
-  if(!texto || !chatActivoId) return;
-
-  if(PATRONES.some(p => p.test(texto))) {
-    const banner = document.getElementById('bloqueo-banner');
-    banner.style.display = 'block';
-    setTimeout(() => banner.style.display = 'none', 3000);
-    input.value = ''; return;
-  }
-
-  input.value = '';
-  
-  // Insertar mensaje
-  const { error } = await supabase
-    .from('mensajes')
-    .insert([{ chat_id: chatActivoId, texto: texto, remitente_id: userUID }]);
-
-  // Actualizar último mensaje en la lista
-  await supabase
-    .from('chats')
-    .update({ ultimo_mensaje: texto, ultimo_mensaje_at: new Date() })
-    .eq('id', chatActivoId);
+window.enviarMensaje=async function(){
+  const input=document.getElementById('msg-input');
+  const texto=filtrarMensaje(input.value.trim());
+  if(!texto||!chatActivo) return;
+  input.value='';
+  await sb.from('mensajes').insert({chat_id:chatActivo.id,texto,remitente_id:userId,tipo:'texto'});
+  await sb.from('chats').update({ultimo_mensaje:texto}).eq('id',chatActivo.id);
 };
 
-window.volverLista = () => {
-  document.getElementById('lista-view').style.display='flex';
-  document.getElementById('vista-chat').style.display='none';
-  if(channel) supabase.removeChannel(channel);
-};
-
-init();
+window.volverLista=function(){ if(suscripcion){ suscripcion.unsubscribe(); suscripcion=null; } chatActivo=null; cargarChats(); };
 </script>
 </body>
 </html>
