@@ -4,289 +4,335 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Producto</title>
-
-<meta property="og:type" content="website">
-<meta property="og:title" id="og-title" content="Producto en PROVEED">
-<meta property="og:description" id="og-desc" content="Encuentra los mejores precios al por mayor en Ecuador.">
-<meta property="og:image" id="og-image" content="">
-<meta property="og:url" id="og-url" content="">
-<meta name="twitter:card" content="summary_large_image">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --blanco:#FFFFFF; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:120px; -webkit-font-smoothing:antialiased; }
-
-  /* HEADER */
-  .header{ position:fixed; top:0; width:100%; z-index:200; padding:44px 16px 12px; display:flex; align-items:center; justify-content:space-between; transition: 0.3s; }
-  .header.solid{ background:var(--negro); }
-  .header-btns{ display:flex; gap:8px; }
-  .icon-btn{ width:40px; height:40px; background:rgba(0,0,0,0.4); backdrop-filter:blur(10px); border-radius:12px; display:flex; align-items:center; justify-content:center; border:none; cursor:pointer; }
-  .icon-btn svg{ width:20px; height:20px; stroke:white; fill:none; stroke-width:2.5; }
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
+  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:100px; -webkit-font-smoothing:antialiased; }
 
   /* GALERÍA */
-  .gallery-container{ width:100%; height:380px; background:#e8e8e8; position:relative; overflow-x: scroll; display: flex; scroll-snap-type: x mandatory; scrollbar-width: none; }
-  .gallery-container::-webkit-scrollbar { display: none; }
-  .slide{ min-width:100%; height:100%; scroll-snap-align: start; display:flex; align-items:center; justify-content:center; cursor: zoom-in; }
-  .slide img{ width:100%; height:100%; object-fit:cover; }
-  .dots{ position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:6px; pointer-events: none; }
-  .dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); transition: 0.3s; }
-  .dot.active{ width:18px; background:var(--verde); border-radius:10px; }
+  .galeria-wrap{ position:relative; width:100%; height:300px; background:#111; overflow:hidden; }
+  .galeria-scroll{ display:flex; height:100%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+  .galeria-scroll::-webkit-scrollbar{ display:none; }
+  .galeria-item{ min-width:100%; height:100%; scroll-snap-align:start; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:#111; position:relative; }
+  .galeria-item img{ width:100%; height:100%; object-fit:cover; }
+  .galeria-item video{ width:100%; height:100%; object-fit:cover; }
+  .galeria-placeholder{ display:flex; align-items:center; justify-content:center; width:100%; height:100%; background:#1a1a1a; }
+  .galeria-placeholder svg{ width:60px; height:60px; stroke:#333; fill:none; stroke-width:1.2; }
+  .galeria-dots{ position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:10; }
+  .galeria-dot{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.4); transition:0.3s; }
+  .galeria-dot.active{ background:white; width:16px; border-radius:3px; }
+  .galeria-back{ position:absolute; top:48px; left:16px; width:36px; height:36px; background:rgba(0,0,0,0.5); backdrop-filter:blur(10px); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; z-index:10; }
+  .galeria-back svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
+  .galeria-fav{ position:absolute; top:48px; right:16px; width:36px; height:36px; background:rgba(0,0,0,0.5); backdrop-filter:blur(10px); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; z-index:10; }
+  .galeria-fav svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2; }
+  .galeria-fav.activo svg{ stroke:var(--rojo); fill:var(--rojo); }
 
-  /* INFO PRINCIPAL */
-  .main-info{ background:white; padding:20px; border-radius: 0 0 24px 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-  .prod-cat{ font-size:0.7rem; font-weight:800; color:var(--naranja); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
-  .prod-name{ font-family:'Syne', sans-serif; font-size:1.4rem; font-weight:800; color:var(--negro); line-height:1.2; margin-bottom:12px; }
-  .price-tag{ display:flex; align-items:baseline; gap:6px; }
-  .price-val{ font-size:1.8rem; font-weight:900; color:var(--negro); letter-spacing: -1px; font-variant-numeric: tabular-nums; }
-  .price-unit{ font-size:0.85rem; color:#999; font-weight:500; }
+  /* CONTENIDO */
+  .content{ padding:20px 16px 0; }
+  .prod-cat-tag{ background:var(--naranja); color:white; font-size:0.65rem; font-weight:700; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:8px; text-transform:uppercase; }
+  .prod-nombre{ font-size:1.3rem; font-weight:800; color:var(--negro); line-height:1.3; margin-bottom:6px; }
+  .prod-precio-wrap{ display:flex; align-items:baseline; gap:8px; margin-bottom:6px; }
+  .prod-precio{ font-size:1.6rem; font-weight:800; color:var(--naranja); }
+  .prod-unidad{ font-size:0.82rem; color:#aaa; }
+  .prod-minimo{ font-size:0.78rem; color:#aaa; margin-bottom:14px; }
+  .prod-minimo span{ color:var(--negro); font-weight:700; }
 
-  .badges-row{ display:flex; gap:8px; margin-top:16px; overflow-x: auto; scrollbar-width: none; }
-  .badge{ background:var(--gris); padding:8px 12px; border-radius:12px; display:flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:700; color:#555; white-space:nowrap; }
+  /* PROVEEDOR */
+  .proveedor-card{ background:white; border-radius:16px; padding:14px; margin-bottom:16px; display:flex; align-items:center; gap:12px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+  .prov-avatar{ width:48px; height:48px; border-radius:14px; background:var(--naranja); display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:800; color:white; flex-shrink:0; overflow:hidden; }
+  .prov-avatar img{ width:100%; height:100%; object-fit:cover; }
+  .prov-info{ flex:1; }
+  .prov-nombre{ font-size:0.92rem; font-weight:700; color:var(--negro); }
+  .prov-ciudad{ font-size:0.72rem; color:#aaa; margin-top:2px; }
+  .prov-verificado{ font-size:0.62rem; color:var(--verde); font-weight:700; margin-top:3px; }
+  .prov-arrow{ width:16px; height:16px; stroke:#ddd; fill:none; stroke-width:2.5; }
 
-  /* ACCIONES & COTIZACIÓN */
-  .action-card{ background:white; margin-top:10px; padding:20px; border-radius:24px; }
-  .qty-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
-  .qty-ctrl{ display:flex; align-items:center; background:var(--gris); border-radius:14px; padding:4px; }
-  .qty-btn{ width:36px; height:36px; border:none; background:transparent; font-size:1.2rem; font-weight:700; cursor:pointer; }
-  .qty-num{ min-width:40px; text-align:center; font-weight:800; font-size:1rem; }
+  /* DESCRIPCIÓN */
+  .section-title{ font-size:0.82rem; font-weight:700; color:var(--negro); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
+  .prod-desc{ font-size:0.88rem; color:#666; line-height:1.6; margin-bottom:16px; }
+  .prod-desc.collapsed{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .ver-mas-btn{ font-size:0.82rem; color:var(--naranja); font-weight:600; cursor:pointer; margin-top:-8px; margin-bottom:16px; display:inline-block; }
 
-  .cot-box{ background:rgba(168, 230, 61, 0.08); border:1.5px dashed var(--verde); border-radius:18px; padding:16px; margin-top:10px; }
-  .cot-input{ width:100%; border:none; background:white; border-radius:12px; padding:12px; font-family:'Inter'; font-size:0.85rem; outline:none; margin-bottom:10px; resize:none; min-height:80px; }
+  /* DETALLES */
+  .detalles-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+  .detalle-item{ background:white; border-radius:12px; padding:12px; box-shadow:0 2px 6px rgba(0,0,0,0.04); }
+  .detalle-label{ font-size:0.62rem; color:#aaa; font-weight:600; text-transform:uppercase; margin-bottom:4px; }
+  .detalle-val{ font-size:0.88rem; font-weight:700; color:var(--negro); }
 
-  /* RECOMENDACIONES */
-  .recommendations{ padding:20px; background:white; margin-top:10px; border-radius:24px; }
-  .rec-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin-top:15px; }
-  .rec-item{ background:var(--gris); border-radius:18px; overflow:hidden; text-decoration:none; color:inherit; transition: 0.2s; }
-  .rec-img{ width:100%; aspect-ratio:1/1; object-fit:cover; }
-  .rec-info{ padding:10px; }
-  .rec-price{ font-weight:800; color:var(--naranja); font-size:0.9rem; font-variant-numeric: tabular-nums; }
+  /* RESEÑAS */
+  .resenas-wrap{ margin-bottom:16px; }
+  .resena-item{ background:white; border-radius:14px; padding:14px; margin-bottom:10px; box-shadow:0 2px 6px rgba(0,0,0,0.04); }
+  .resena-header{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .resena-avatar{ width:34px; height:34px; border-radius:10px; background:var(--gris); display:flex; align-items:center; justify-content:center; font-size:0.82rem; font-weight:700; color:var(--negro); flex-shrink:0; }
+  .resena-nombre{ font-size:0.82rem; font-weight:700; color:var(--negro); }
+  .resena-fecha{ font-size:0.68rem; color:#aaa; }
+  .resena-estrellas{ display:flex; gap:2px; margin-left:auto; }
+  .estrella{ font-size:0.85rem; }
+  .resena-texto{ font-size:0.82rem; color:#666; line-height:1.5; }
+  .sin-resenas{ text-align:center; padding:24px; color:#bbb; font-size:0.82rem; background:white; border-radius:14px; }
 
-  /* LIGHTBOX */
-  .lightbox{ position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:1000; display:none; align-items:center; justify-content:center; backdrop-filter:blur(10px); }
-  .lightbox.show{ display:flex; }
-  .lightbox img{ max-width:95%; max-height:85%; border-radius:12px; object-fit: contain; }
+  /* CANTIDAD */
+  .cantidad-wrap{ background:white; border-radius:16px; padding:16px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .cantidad-label{ font-size:0.72rem; font-weight:700; color:#aaa; text-transform:uppercase; margin-bottom:10px; }
+  .cantidad-controls{ display:flex; align-items:center; gap:16px; }
+  .cant-btn{ width:40px; height:40px; border-radius:12px; background:var(--gris); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:700; transition:0.2s; }
+  .cant-btn:active{ transform:scale(0.88); }
+  .cant-num{ font-size:1.3rem; font-weight:800; color:var(--negro); flex:1; text-align:center; }
+  .cant-total{ font-size:0.82rem; color:#aaa; margin-left:auto; }
+  .cant-total span{ color:var(--naranja); font-weight:700; }
 
-  /* FOOTER */
-  .footer-fixed{ position:fixed; bottom:0; width:100%; background:white; padding:16px 20px 30px; border-top:1px solid #eee; display:flex; gap:12px; z-index:300; }
-  .btn-primary{ flex:2; padding:16px; border:none; border-radius:16px; background:var(--negro); color:white; font-weight:800; font-size:0.9rem; cursor:pointer; }
-  .btn-secondary{ flex:1; padding:16px; border:2px solid var(--negro); border-radius:16px; background:transparent; font-weight:800; font-size:0.9rem; cursor:pointer; }
+  /* BOTTOM BAR */
+  .bottom-bar{ position:fixed; bottom:0; left:0; right:0; background:white; padding:14px 16px; border-top:1px solid #eee; display:flex; gap:10px; box-shadow:0 -4px 20px rgba(0,0,0,0.08); z-index:200; }
+  .btn-chat{ width:48px; height:48px; border-radius:14px; background:var(--gris); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .btn-chat svg{ width:20px; height:20px; stroke:var(--negro); fill:none; stroke-width:2; }
+  .btn-agregar{ flex:1; padding:14px; background:var(--negro); color:white; border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; transition:0.2s; }
+  .btn-agregar:active{ transform:scale(0.98); }
 
-  .toast{ position:fixed; top:50px; left:50%; transform:translateX(-50%); background:var(--negro); color:white; padding:12px 24px; border-radius:50px; font-size:0.85rem; font-weight:600; opacity:0; transition:0.4s; z-index:1100; pointer-events:none; }
-  .toast.show{ opacity:1; top:100px; }
+  .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
+  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+  .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:10px 20px; border-radius:24px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
 
-<div class="header" id="navbar">
-  <button class="icon-btn" onclick="history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-  <div class="header-btns">
-    <button class="icon-btn" onclick="compartirProducto()"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
-    <button class="icon-btn" onclick="showToast('Guardado en favoritos')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+<div class="galeria-wrap" id="galeria-wrap">
+  <div class="galeria-scroll" id="galeria-scroll">
+    <div class="galeria-item"><div class="galeria-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
   </div>
+  <div class="galeria-dots" id="galeria-dots"></div>
+  <button class="galeria-back" onclick="window.history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+  <button class="galeria-fav" id="btn-fav" onclick="toggleFav()"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
 </div>
 
-<div class="gallery-container" id="gallery">
-  <div class="gallery-slides" id="slides-wrapper" style="display: contents;">
+<div class="content">
+  <div class="prod-cat-tag" id="prod-cat">Cargando...</div>
+  <div class="prod-nombre" id="prod-nombre"><div class="skeleton" style="height:24px;width:80%;margin-bottom:6px;"></div></div>
+  <div class="prod-precio-wrap">
+    <div class="prod-precio" id="prod-precio">—</div>
+    <div class="prod-unidad" id="prod-unidad"></div>
+  </div>
+  <div class="prod-minimo" id="prod-minimo">Pedido mínimo: <span id="prod-min-num">—</span> unidades</div>
+
+  <!-- PROVEEDOR -->
+  <div class="proveedor-card" id="prov-card" onclick="verProveedor()">
+    <div class="prov-avatar" id="prov-avatar">P</div>
+    <div class="prov-info">
+      <div class="prov-nombre" id="prov-nombre">Cargando proveedor...</div>
+      <div class="prov-ciudad" id="prov-ciudad">—</div>
+      <div class="prov-verificado" id="prov-verificado"></div>
     </div>
-  <div class="dots" id="dots-wrapper"></div>
-</div>
-
-<div class="main-info">
-  <div class="prod-cat" id="cat-label">...</div>
-  <h1 class="prod-name" id="prod-title">Cargando...</h1>
-  <div class="price-tag">
-    <span class="price-val" id="prod-price">$0.00</span>
-    <span class="price-unit" id="prod-unit">/ unidad</span>
+    <svg class="prov-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
   </div>
-  
-  <div class="badges-row">
-    <div class="badge">Mínimo: <strong id="min-qty">1</strong></div>
-    <div class="badge">Entrega: <strong id="delivery-time">...</strong></div>
-  </div>
-</div>
 
-<div class="action-card">
-  <div class="qty-row">
-    <span style="font-weight:700; font-size:0.85rem;">Cantidad deseada</span>
-    <div class="qty-ctrl">
-      <button class="qty-btn" onclick="updateQty(-1)">−</button>
-      <div class="qty-num" id="qty-val">1</div>
-      <button class="qty-btn" onclick="updateQty(1)">+</button>
+  <!-- DESCRIPCIÓN -->
+  <div class="section-title">Descripción</div>
+  <div class="prod-desc collapsed" id="prod-desc">Cargando...</div>
+  <div class="ver-mas-btn" id="ver-mas-btn" onclick="expandirDesc()">Ver más →</div>
+
+  <!-- DETALLES -->
+  <div class="section-title">Detalles del producto</div>
+  <div class="detalles-grid">
+    <div class="detalle-item"><div class="detalle-label">Stock disponible</div><div class="detalle-val" id="det-stock">—</div></div>
+    <div class="detalle-item"><div class="detalle-label">Tiempo de entrega</div><div class="detalle-val" id="det-entrega">—</div></div>
+    <div class="detalle-item"><div class="detalle-label">Unidad de venta</div><div class="detalle-val" id="det-unidad">—</div></div>
+    <div class="detalle-item"><div class="detalle-label">Pedido mínimo</div><div class="detalle-val" id="det-minimo">—</div></div>
+  </div>
+
+  <!-- CANTIDAD -->
+  <div class="cantidad-wrap">
+    <div class="cantidad-label">Cantidad a pedir</div>
+    <div class="cantidad-controls">
+      <button class="cant-btn" onclick="cambiarCant(-1)">−</button>
+      <div class="cant-num" id="cant-num">1</div>
+      <button class="cant-btn" onclick="cambiarCant(1)">+</button>
+      <div class="cant-total">Total: <span id="cant-total">$0.00</span></div>
     </div>
   </div>
 
-  <div class="cot-box">
-    <div style="font-weight:800; font-size:0.85rem; margin-bottom:8px;">Solicitar cotización personalizada</div>
-    <textarea class="cot-input" id="cot-msg" placeholder="Ej: Necesito un mejor precio por volumen..."></textarea>
-    <button class="btn-primary" style="width:100%; font-size:0.8rem; padding:12px; background:var(--negro);" onclick="enviarCotizacion()">ENVIAR SOLICITUD</button>
+  <!-- RESEÑAS -->
+  <div class="section-title">Reseñas</div>
+  <div class="resenas-wrap" id="resenas-wrap">
+    <div class="sin-resenas">Cargando reseñas...</div>
   </div>
 </div>
 
-<div class="main-info" style="margin-top:10px; border-radius:24px;">
-    <div style="font-weight:800; font-size:0.9rem; margin-bottom:10px;">Descripción detallada</div>
-    <p id="prod-desc" style="font-size:0.85rem; color:#666; line-height:1.6;">...</p>
-</div>
-
-<div class="recommendations">
-  <div style="font-weight:800; font-size:0.9rem;">Más para tu negocio</div>
-  <div class="rec-grid" id="rec-wrapper"></div>
-</div>
-
-<div class="footer-fixed">
-  <button class="btn-secondary" onclick="irAlChat()">CHAT</button>
-  <button class="btn-primary" onclick="agregarAlCarrito()">AÑADIR AL CARRITO</button>
-</div>
-
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')">
-  <img src="" id="lightbox-img">
+<div class="bottom-bar">
+  <button class="btn-chat" onclick="irAlChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+  <button class="btn-agregar" onclick="agregarCarrito()">Agregar al carrito →</button>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-const supabase = createClient('https://pqoqirousggkjnkzxkhy.supabase.co', 'Sb_publishable_L8cdOOPzHe4ff3rkPr8x5Q_WTCF694I')
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
 const params = new URLSearchParams(window.location.search);
 const prodId = params.get('id');
-let currentProduct = null;
-let currentQty = 1;
+let producto = null, proveedor = null, cantidad = 1, userId = '';
+let favs = JSON.parse(localStorage.getItem('proveed_favs') || '[]');
 
-async function init() {
-  if(!prodId) return;
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = 'login.html'; return; }
+  userId = session.user.id;
+  if (!prodId) { window.history.back(); return; }
+  cargarProducto();
+})();
 
-  const { data: prod, error } = await supabase
-    .from('productos')
-    .select('*, usuarios(nombre, empresa)')
-    .eq('id', prodId)
-    .single();
+async function cargarProducto() {
+  const { data: p, error } = await sb.from('productos').select('*').eq('id', prodId).single();
+  if (error || !p) { window.history.back(); return; }
+  producto = p;
+  cantidad = p.minimo || 1;
 
-  if(error) { console.error(error); return; }
-  currentProduct = prod;
-  currentQty = prod.minimo || 1;
+  // GALERÍA
+  const medias = [];
+  const imgs = p.imagenes || (p.imagen ? [p.imagen] : []);
+  imgs.forEach(img => medias.push({ tipo: 'imagen', src: img }));
+  if (p.video_url) medias.push({ tipo: 'video', src: p.video_url });
 
-  // Renderizar Textos
-  document.getElementById('prod-title').innerText = prod.nombre;
-  document.getElementById('prod-price').innerText = `$${prod.precio.toFixed(2)}`;
-  document.getElementById('cat-label').innerText = prod.categoria || 'GENERAL';
-  document.getElementById('min-qty').innerText = prod.minimo || 1;
-  document.getElementById('delivery-time').innerText = prod.tiempo_entrega || '3-5 días';
-  document.getElementById('prod-desc').innerText = prod.descripcion || 'Sin descripción.';
-  document.getElementById('qty-val').innerText = currentQty;
+  const scroll = document.getElementById('galeria-scroll');
+  const dots = document.getElementById('galeria-dots');
+  if (medias.length) {
+    scroll.innerHTML = '';
+    dots.innerHTML = '';
+    medias.forEach((m, i) => {
+      const item = document.createElement('div');
+      item.className = 'galeria-item';
+      if (m.tipo === 'imagen') {
+        item.innerHTML = `<img src="${m.src}" alt="" loading="lazy">`;
+      } else {
+        item.innerHTML = `<video src="${m.src}" controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>`;
+      }
+      scroll.appendChild(item);
+      const dot = document.createElement('div');
+      dot.className = 'galeria-dot' + (i === 0 ? ' active' : '');
+      dots.appendChild(dot);
+    });
+    scroll.addEventListener('scroll', () => {
+      const idx = Math.round(scroll.scrollLeft / scroll.offsetWidth);
+      document.querySelectorAll('.galeria-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    });
+  }
 
-  // Configurar Meta Tags dinámicamente para compartir
-  document.getElementById('og-title').content = prod.nombre;
-  document.getElementById('og-desc').content = `Precio: $${prod.precio.toFixed(2)} - Compra mínima: ${prod.minimo} unidades.`;
-  document.getElementById('og-image').content = prod.imagen_url;
-  document.getElementById('og-url').content = window.location.href;
+  // INFO
+  document.getElementById('prod-cat').textContent = p.categoria || 'Producto';
+  document.getElementById('prod-nombre').textContent = p.nombre || 'Producto';
+  document.getElementById('prod-precio').textContent = '$' + Number(p.precio || 0).toFixed(2);
+  document.getElementById('prod-unidad').textContent = 'por ' + (p.unidad || 'unidad');
+  document.getElementById('prod-min-num').textContent = p.minimo || 1;
+  document.getElementById('prod-desc').textContent = p.descripcion || 'Sin descripción disponible.';
+  document.getElementById('det-stock').textContent = (p.stock || 0) + ' und.';
+  document.getElementById('det-entrega').textContent = p.tiempo_entrega || '2-5 días';
+  document.getElementById('det-unidad').textContent = p.unidad || 'Unidad';
+  document.getElementById('det-minimo').textContent = (p.minimo || 1) + ' und.';
+  document.getElementById('cant-num').textContent = cantidad;
+  document.getElementById('cant-total').textContent = '$' + (cantidad * p.precio).toFixed(2);
 
-  // Render Galería
-  const images = prod.imagenes || [prod.imagen_url];
-  const wrapper = document.getElementById('slides-wrapper');
-  const dots = document.getElementById('dots-wrapper');
-  
-  images.forEach((img, idx) => {
-    wrapper.innerHTML += `<div class="slide" onclick="abrirLightbox('${img}')"><img src="${img}"></div>`;
-    dots.innerHTML += `<div class="dot ${idx === 0 ? 'active' : ''}"></div>`;
-  });
+  // FAV
+  if (favs.includes(prodId)) document.getElementById('btn-fav').classList.add('activo');
 
-  initGalleryScroll();
-  cargarRecomendaciones(prod.categoria, prod.id);
+  // ACTUALIZAR VISTAS
+  sb.from('productos').update({ vistas: (p.vistas || 0) + 1 }).eq('id', prodId);
+
+  // PROVEEDOR
+  cargarProveedor(p.proveedor_id, p.nombre_proveedor);
+
+  // RESEÑAS
+  cargarResenas();
 }
 
-function initGalleryScroll() {
-  const container = document.getElementById('gallery');
-  const dots = document.querySelectorAll('.dot');
-  container.onscroll = () => {
-    const idx = Math.round(container.scrollLeft / window.innerWidth);
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-  };
-}
+async function cargarProveedor(provId, nombreFallback) {
+  document.getElementById('prov-nombre').textContent = nombreFallback || 'Proveedor';
+  document.getElementById('prov-avatar').textContent = (nombreFallback || 'P')[0].toUpperCase();
 
-window.abrirLightbox = (src) => {
-  const lb = document.getElementById('lightbox');
-  document.getElementById('lightbox-img').src = src;
-  lb.classList.add('show');
-};
-
-async function cargarRecomendaciones(cat, id) {
-  const { data: recs } = await supabase.from('productos').select('*').eq('categoria', cat).neq('id', id).limit(4);
-  const wrapper = document.getElementById('rec-wrapper');
-  if(!recs || recs.length === 0) {
-    const { data: rand } = await supabase.from('productos').select('*').limit(4);
-    renderRecs(rand);
+  if (!provId) return;
+  const { data: u } = await sb.from('usuarios').select('nombre,empresa,ciudad,foto_perfil,logo_empresa,verificado').eq('id', provId).single();
+  if (!u) return;
+  proveedor = u;
+  const nombre = u.empresa || u.nombre || nombreFallback || 'Proveedor';
+  document.getElementById('prov-nombre').textContent = nombre;
+  document.getElementById('prov-ciudad').textContent = u.ciudad || '—';
+  document.getElementById('prov-verificado').textContent = u.verificado ? '✓ Verificado' : '';
+  const logo = u.logo_empresa || u.foto_perfil || '';
+  const avatar = document.getElementById('prov-avatar');
+  if (logo) {
+    avatar.innerHTML = `<img src="${logo}" alt="">`;
   } else {
-    renderRecs(recs);
+    avatar.textContent = nombre[0].toUpperCase();
   }
 }
 
-function renderRecs(items) {
-  const wrapper = document.getElementById('rec-wrapper');
-  items.forEach(r => {
-    wrapper.innerHTML += `
-      <a href="producto.html?id=${r.id}" class="rec-item">
-        <img src="${r.imagen_url}" class="rec-img">
-        <div class="rec-info">
-          <div style="font-size:0.75rem; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${r.nombre}</div>
-          <div class="rec-price">$${r.precio.toFixed(2)}</div>
-        </div>
-      </a>`;
+async function cargarResenas() {
+  const { data } = await sb.from('reseñas').select('*').eq('producto_id', prodId).order('created_at', { ascending: false });
+  const wrap = document.getElementById('resenas-wrap');
+  if (!data?.length) { wrap.innerHTML = '<div class="sin-resenas">Sin reseñas aún. ¡Sé el primero!</div>'; return; }
+  wrap.innerHTML = '';
+  data.forEach(r => {
+    const div = document.createElement('div'); div.className = 'resena-item';
+    const fecha = new Date(r.created_at).toLocaleDateString('es-EC', { day: '2-digit', month: 'short', year: 'numeric' });
+    const estrellas = '⭐'.repeat(r.rating || 5);
+    div.innerHTML = `
+      <div class="resena-header">
+        <div class="resena-avatar">${(r.user_name || 'U')[0].toUpperCase()}</div>
+        <div><div class="resena-nombre">${r.user_name || 'Usuario'}</div><div class="resena-fecha">${fecha}</div></div>
+        <div class="resena-estrellas">${estrellas}</div>
+      </div>
+      <div class="resena-texto">${r.texto || ''}</div>`;
+    wrap.appendChild(div);
   });
 }
 
-window.updateQty = (v) => {
-  const min = currentProduct.minimo || 1;
-  currentQty = Math.max(min, currentQty + (v * min));
-  document.getElementById('qty-val').innerText = currentQty;
+window.cambiarCant = function(delta) {
+  if (!producto) return;
+  const min = producto.minimo || 1;
+  cantidad = Math.max(min, cantidad + (delta * min));
+  document.getElementById('cant-num').textContent = cantidad;
+  document.getElementById('cant-total').textContent = '$' + (cantidad * producto.precio).toFixed(2);
 };
 
-window.compartirProducto = async () => {
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: currentProduct.nombre,
-        text: `Mira este producto en PROVEED: ${currentProduct.nombre}`,
-        url: window.location.href,
-      });
-    } catch (err) { console.warn(err); }
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    showToast('Enlace copiado al portapapeles');
-  }
+window.expandirDesc = function() {
+  document.getElementById('prod-desc').classList.remove('collapsed');
+  document.getElementById('ver-mas-btn').style.display = 'none';
 };
 
-window.agregarAlCarrito = () => {
-    let cart = JSON.parse(localStorage.getItem('proveed_cart') || '[]');
-    cart.push({...currentProduct, cantidad_final: currentQty});
-    localStorage.setItem('proveed_cart', JSON.stringify(cart));
-    showToast('Añadido al carrito con éxito');
-}
+window.toggleFav = function() {
+  const btn = document.getElementById('btn-fav');
+  const idx = favs.indexOf(prodId);
+  if (idx >= 0) { favs.splice(idx, 1); btn.classList.remove('activo'); }
+  else { favs.push(prodId); btn.classList.add('activo'); }
+  localStorage.setItem('proveed_favs', JSON.stringify(favs));
+};
 
-window.enviarCotizacion = () => {
-    const msg = document.getElementById('cot-msg').value;
-    if(!msg) { showToast('Escribe un mensaje'); return; }
-    showToast('Enviando solicitud...');
-    // Aquí iría el insert a la tabla mensajes de Supabase
-}
+window.verProveedor = function() {
+  if (producto?.proveedor_id) window.location.href = `proveedor.html?id=${producto.proveedor_id}`;
+};
 
-window.irAlChat = () => {
-    window.location.href = `chat.html?receptor=${currentProduct.proveedor_id}`;
-}
-
-function showToast(m) {
+window.agregarCarrito = function() {
+  if (!producto) return;
+  let carrito = JSON.parse(localStorage.getItem('carrito_proveed') || '[]');
+  const idx = carrito.findIndex(i => i.id === prodId);
+  if (idx >= 0) carrito[idx].cantidad += cantidad;
+  else carrito.push({ id: prodId, nombre: producto.nombre, precio: producto.precio, cantidad, minimo: producto.minimo || 1, imagen: producto.imagenes?.[0] || producto.imagen || '', proveedor: producto.nombre_proveedor || '' });
+  localStorage.setItem('carrito_proveed', JSON.stringify(carrito));
   const t = document.getElementById('toast');
-  t.innerText = m; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-window.onscroll = () => {
-  document.getElementById('navbar').classList.toggle('solid', window.scrollY > 150);
+  t.textContent = `✓ ${producto.nombre} añadido al carrito`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
 };
 
-init();
+window.irAlChat = async function() {
+  if (!producto?.proveedor_id) return;
+  const { data: chats } = await sb.from('chats').select('id').eq('emprendedor_id', userId).eq('proveedor_id', producto.proveedor_id);
+  if (!chats?.length) {
+    await sb.from('chats').insert({ emprendedor_id: userId, proveedor_id: producto.proveedor_id, proveedor_nombre: producto.nombre_proveedor || 'Proveedor', ultimo_mensaje: '', no_leidos: 0 });
+  }
+  window.location.href = 'chat.html';
+};
 </script>
 </body>
 </html>
