@@ -16,12 +16,12 @@
   .header-title{ font-size:1.1rem; font-weight:700; color:white; }
   .btn-editar{ background:rgba(255,255,255,0.08); color:white; border:none; padding:8px 14px; border-radius:10px; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:600; cursor:pointer; }
   .perfil-hero{ display:flex; align-items:center; gap:14px; }
-  .perfil-avatar{ width:64px; height:64px; border-radius:20px; background:var(--verde); display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:800; color:var(--negro); flex-shrink:0; }
+  .perfil-avatar{ width:64px; height:64px; border-radius:20px; background:var(--verde); display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:800; color:var(--negro); flex-shrink:0; overflow:hidden; }
+  .perfil-avatar img{ width:100%; height:100%; object-fit:cover; }
   .perfil-info{ flex:1; }
   .perfil-nombre{ font-size:1.2rem; font-weight:800; color:white; }
   .perfil-email{ font-size:0.78rem; color:#555; margin-top:2px; }
-  .perfil-ciudad{ font-size:0.76rem; color:#666; margin-top:4px; display:flex; align-items:center; gap:4px; }
-  .perfil-ciudad svg{ width:12px; height:12px; stroke:#666; fill:none; stroke-width:2; }
+  .perfil-ciudad{ font-size:0.76rem; color:#666; margin-top:4px; }
   .stats-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:14px 16px; }
   .stat-card{ background:white; border-radius:16px; padding:14px 10px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
   .stat-val{ font-size:1.3rem; font-weight:800; color:var(--negro); }
@@ -71,7 +71,7 @@
     <div class="perfil-info">
       <div class="perfil-nombre" id="p-nombre">Cargando...</div>
       <div class="perfil-email" id="p-email">—</div>
-      <div class="perfil-ciudad"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span id="p-ciudad">—</span></div>
+      <div class="perfil-ciudad" id="p-ciudad">—</div>
     </div>
   </div>
 </div>
@@ -86,6 +86,7 @@
   <div class="section-title">Mi cuenta</div>
   <div class="menu-item" onclick="window.location.href='pedidos.html'"><div class="menu-icon" style="background:rgba(17,17,17,0.05)"><svg style="stroke:var(--negro)" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg></div><div class="menu-label">Mis pedidos</div><svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
   <div class="menu-item" onclick="window.location.href='chat.html'"><div class="menu-icon" style="background:rgba(168,230,61,0.1)"><svg style="stroke:var(--verde)" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="menu-label">Mis chats</div><svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+  <div class="menu-item" onclick="window.location.href='tienda.html'"><div class="menu-icon" style="background:rgba(255,140,0,0.1)"><svg style="stroke:var(--naranja)" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div class="menu-label">Tienda de apps</div><svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
 </div>
 
 <div class="section-card">
@@ -99,6 +100,7 @@
     <div class="field"><label>Nombre completo</label><input type="text" id="e-nombre"></div>
     <div class="field"><label>Ciudad</label><input type="text" id="e-ciudad"></div>
     <div class="field"><label>Cédula</label><input type="text" id="e-cedula"></div>
+    <div class="field"><label>Teléfono</label><input type="tel" id="e-telefono"></div>
     <button class="btn-guardar" onclick="guardarPerfil()">GUARDAR CAMBIOS</button>
   </div>
 </div>
@@ -115,47 +117,73 @@
 <script>
 const { createClient } = supabase;
 const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-let userId='', userData={};
+let userId = '';
 
 (async()=>{
   const { data:{session} } = await sb.auth.getSession();
   if(!session){ window.location.href='login.html'; return; }
-  userId=session.user.id;
-  const { data:u } = await sb.from('usuarios').select('*').eq('id',userId).single();
-  if(u){
-    userData=u;
-    document.getElementById('p-avatar').textContent=(u.nombre||'U')[0].toUpperCase();
-    document.getElementById('p-nombre').textContent=u.nombre||'Sin nombre';
-    document.getElementById('p-email').textContent=session.user.email||'—';
-    document.getElementById('p-ciudad').textContent=u.ciudad||'—';
-    document.getElementById('e-nombre').value=u.nombre||'';
-    document.getElementById('e-ciudad').value=u.ciudad||'';
-    document.getElementById('e-cedula').value=u.cedula||'';
+  userId = session.user.id;
+
+  // Mostrar caché inmediatamente
+  const cached = localStorage.getItem('proveed_perfil');
+  if(cached){
+    const u = JSON.parse(cached);
+    mostrarPerfil(u, session.user.email);
   }
-  const { data:pedidos } = await sb.from('pedidos').select('total').eq('emprendedor_id',userId);
-  const { data:chats } = await sb.from('chats').select('id').eq('emprendedor_id',userId);
-  document.getElementById('st-pedidos').textContent=(pedidos||[]).length;
-  document.getElementById('st-gastado').textContent='$'+((pedidos||[]).reduce((s,p)=>s+(p.total||0),0)).toFixed(0);
-  document.getElementById('st-chats').textContent=(chats||[]).length;
+
+  // Cargar datos frescos en paralelo
+  const [{ data:u }, { data:pedidos }, { data:chats }] = await Promise.all([
+    sb.from('usuarios').select('*').eq('id',userId).single(),
+    sb.from('pedidos').select('total').eq('emprendedor_id',userId),
+    sb.from('chats').select('id').eq('emprendedor_id',userId)
+  ]);
+
+  if(u){
+    localStorage.setItem('proveed_perfil', JSON.stringify(u));
+    mostrarPerfil(u, session.user.email);
+    document.getElementById('e-nombre').value = u.nombre||'';
+    document.getElementById('e-ciudad').value = u.ciudad||'';
+    document.getElementById('e-cedula').value = u.cedula||'';
+    document.getElementById('e-telefono').value = u.telefono||'';
+  }
+
+  document.getElementById('st-pedidos').textContent = (pedidos||[]).length;
+  document.getElementById('st-gastado').textContent = '$'+((pedidos||[]).reduce((s,p)=>s+(p.total||0),0)).toFixed(0);
+  document.getElementById('st-chats').textContent = (chats||[]).length;
 })();
 
-window.abrirEdit=()=>document.getElementById('edit-modal').classList.add('show');
-window.cerrarEdit=e=>{ if(e.target===document.getElementById('edit-modal')) document.getElementById('edit-modal').classList.remove('show'); };
+function mostrarPerfil(u, email){
+  const nombre = u.nombre||'Sin nombre';
+  const avatar = document.getElementById('p-avatar');
+  if(u.foto_perfil){
+    avatar.innerHTML = `<img src="${u.foto_perfil}" alt="">`;
+  } else {
+    avatar.textContent = nombre[0].toUpperCase();
+  }
+  document.getElementById('p-nombre').textContent = nombre;
+  document.getElementById('p-email').textContent = email||'—';
+  document.getElementById('p-ciudad').textContent = u.ciudad||'—';
+}
 
-window.guardarPerfil=async function(){
-  const nombre=document.getElementById('e-nombre').value.trim();
-  const ciudad=document.getElementById('e-ciudad').value.trim();
-  const cedula=document.getElementById('e-cedula').value.trim();
-  await sb.from('usuarios').update({nombre,ciudad,cedula}).eq('id',userId);
-  document.getElementById('p-nombre').textContent=nombre;
-  document.getElementById('p-avatar').textContent=(nombre||'U')[0].toUpperCase();
-  document.getElementById('p-ciudad').textContent=ciudad;
+window.abrirEdit = () => document.getElementById('edit-modal').classList.add('show');
+window.cerrarEdit = e => { if(e.target===document.getElementById('edit-modal')) document.getElementById('edit-modal').classList.remove('show'); };
+
+window.guardarPerfil = async function(){
+  const nombre = document.getElementById('e-nombre').value.trim();
+  const ciudad = document.getElementById('e-ciudad').value.trim();
+  const cedula = document.getElementById('e-cedula').value.trim();
+  const telefono = document.getElementById('e-telefono').value.trim();
+  await sb.from('usuarios').update({nombre,ciudad,cedula,telefono}).eq('id',userId);
+  const cached = JSON.parse(localStorage.getItem('proveed_perfil')||'{}');
+  localStorage.setItem('proveed_perfil', JSON.stringify({...cached,nombre,ciudad,cedula,telefono}));
+  mostrarPerfil({nombre,ciudad,cedula,telefono,foto_perfil:cached.foto_perfil}, document.getElementById('p-email').textContent);
   document.getElementById('edit-modal').classList.remove('show');
 };
 
-window.cerrarSesion=async function(){
+window.cerrarSesion = async function(){
+  localStorage.removeItem('proveed_perfil');
   await sb.auth.signOut();
-  window.location.href='login.html';
+  window.location.href = 'login.html';
 };
 </script>
 </body>
