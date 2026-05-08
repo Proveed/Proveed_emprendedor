@@ -7,18 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
+  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; --azul:#007AFF; }
   body{ background:var(--gris); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
-
-  /* LISTA */
   .lista-view{ display:block; }
   .conv-view{ display:none; flex-direction:column; height:100vh; background:var(--gris); }
-
   .header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
   .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; flex-shrink:0; }
   .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
   .header-title{ font-size:1.1rem; font-weight:700; color:white; flex:1; }
-
   .chat-lista{ padding:14px 16px; padding-bottom:90px; }
   .chat-item{ display:flex; gap:12px; align-items:center; padding:14px; background:white; border-radius:16px; margin-bottom:10px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition:0.15s; }
   .chat-item:active{ transform:scale(0.98); }
@@ -34,12 +30,13 @@
   .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 14px; display:block; }
   .empty p{ font-size:0.85rem; }
 
-  /* CONVERSACIÓN */
-  .conv-header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
+  .conv-header{ background:var(--negro); padding:44px 16px 12px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
   .conv-avatar{ width:38px; height:38px; border-radius:12px; background:var(--naranja); display:flex; align-items:center; justify-content:center; font-size:0.9rem; font-weight:800; color:white; flex-shrink:0; overflow:hidden; }
   .conv-avatar img{ width:100%; height:100%; object-fit:cover; }
+  .conv-info{ flex:1; }
   .conv-nombre{ font-size:0.92rem; font-weight:700; color:white; }
   .conv-estado{ font-size:0.7rem; color:var(--verde); }
+  .btn-catalogo-header{ background:rgba(168,230,61,0.15); color:var(--verde); border:none; padding:7px 12px; border-radius:10px; font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0; }
 
   .mensajes-wrap{ flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:8px; -webkit-overflow-scrolling:touch; }
   .msg-grupo{ display:flex; flex-direction:column; gap:4px; }
@@ -51,17 +48,67 @@
   .msg.recibido{ background:white; color:var(--negro); border-radius:4px 18px 18px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
   .msg-hora{ font-size:0.6rem; color:rgba(255,255,255,0.4); text-align:right; margin-top:3px; }
   .msg.recibido .msg-hora{ color:#bbb; text-align:left; }
-  .msg-bloqueado{ font-size:0.78rem; color:#aaa; font-style:italic; background:#f0f0f0; padding:6px 10px; border-radius:8px; margin:2px 0; }
 
-  /* INPUT */
-  .input-area{ background:white; border-top:1px solid #eee; padding:10px 12px; padding-bottom:max(10px, env(safe-area-inset-bottom)); flex-shrink:0; }
-  .input-row{ display:flex; gap:8px; align-items:flex-end; }
+  .msg-prod-card{ max-width:240px; background:white; border:1px solid #eee; border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .msg-prod-card.enviado{ background:#f8fff0; border-color:rgba(168,230,61,0.3); }
+  .msg-prod-img{ width:100%; height:130px; object-fit:cover; display:block; }
+  .msg-prod-video{ width:100%; height:130px; object-fit:cover; display:block; }
+  .msg-prod-body{ padding:10px 12px; }
+  .msg-prod-nombre{ font-size:0.82rem; font-weight:700; color:var(--negro); margin-bottom:2px; }
+  .msg-prod-precio{ font-size:0.9rem; font-weight:800; color:var(--naranja); margin-bottom:8px; }
+  .btn-comprar-msg{ width:100%; padding:8px; background:var(--negro); color:white; border:none; border-radius:8px; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; }
+  .btn-comprar-msg:active{ transform:scale(0.97); }
+
+  .msg-orden-card{ max-width:240px; background:white; border:1px solid #eee; border-radius:16px; padding:14px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .msg-orden-card.enviado{ background:#f8fff0; border-color:rgba(168,230,61,0.3); }
+  .msg-orden-titulo{ font-size:0.72rem; font-weight:700; color:#aaa; text-transform:uppercase; margin-bottom:6px; }
+  .msg-orden-total{ font-size:1.1rem; font-weight:800; color:var(--naranja); margin-bottom:4px; }
+  .msg-orden-items{ font-size:0.76rem; color:#aaa; margin-bottom:10px; }
+  .btn-pagar-orden{ width:100%; padding:8px; background:var(--negro); color:white; border:none; border-radius:8px; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; }
+
+  .input-area{ background:white; border-top:1px solid #eee; flex-shrink:0; }
+  .acciones-row{ display:flex; gap:8px; padding:8px 12px 4px; overflow-x:auto; scrollbar-width:none; }
+  .acciones-row::-webkit-scrollbar{ display:none; }
+  .accion-btn{ display:flex; align-items:center; gap:5px; background:var(--gris); border-radius:20px; padding:6px 12px; cursor:pointer; white-space:nowrap; border:none; font-family:'Inter',sans-serif; }
+  .accion-btn svg{ width:14px; height:14px; stroke:var(--negro); fill:none; stroke-width:2; flex-shrink:0; }
+  .accion-btn span{ font-size:0.72rem; color:#555; font-weight:600; }
+  .input-row{ display:flex; gap:8px; align-items:flex-end; padding:8px 12px; padding-bottom:max(10px,env(safe-area-inset-bottom)); }
   .msg-input{ flex:1; background:var(--gris); border:1.5px solid #eee; border-radius:20px; padding:10px 16px; font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--negro); outline:none; resize:none; max-height:120px; line-height:1.4; -webkit-appearance:none; }
   .msg-input:focus{ border-color:var(--verde); background:white; }
-  .send-btn{ width:42px; height:42px; border-radius:50%; background:var(--negro); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:0.2s; }
+  .send-btn{ width:42px; height:42px; border-radius:50%; background:var(--negro); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
   .send-btn:active{ transform:scale(0.9); }
   .send-btn svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2.5; margin-left:2px; }
-  .send-btn:disabled{ opacity:0.4; cursor:not-allowed; }
+  .send-btn:disabled{ opacity:0.4; }
+
+  /* MODALES */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; z-index:500; align-items:flex-end; }
+  .modal-overlay.show{ display:flex; }
+  .modal-sheet{ background:white; width:100%; max-height:85vh; border-radius:24px 24px 0 0; transform:translateY(100%); transition:0.4s cubic-bezier(0.16,1,0.3,1); display:flex; flex-direction:column; overflow:hidden; }
+  .modal-overlay.show .modal-sheet{ transform:translateY(0); }
+  .drag{ width:36px; height:4px; background:#e0e0e0; border-radius:4px; margin:14px auto 0; flex-shrink:0; }
+  .modal-header{ padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f5f5f5; flex-shrink:0; }
+  .modal-title{ font-size:1rem; font-weight:700; color:var(--negro); }
+  .close-btn{ width:30px; height:30px; background:#f5f5f5; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
+  .close-btn svg{ width:14px; height:14px; stroke:#666; fill:none; stroke-width:2.5; }
+  .modal-body{ overflow-y:auto; padding:14px 16px 28px; flex:1; }
+  .catalogo-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .cat-prod-card{ background:var(--gris); border-radius:14px; overflow:hidden; cursor:pointer; border:2px solid transparent; transition:0.2s; }
+  .cat-prod-card.selected{ border-color:var(--naranja); }
+  .cat-prod-img-wrap{ width:100%; height:100px; background:#e8e8e8; overflow:hidden; }
+  .cat-prod-img-wrap img{ width:100%; height:100%; object-fit:cover; }
+  .cat-prod-body{ padding:8px 10px; }
+  .cat-prod-nombre{ font-size:0.78rem; font-weight:700; color:var(--negro); margin-bottom:2px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .cat-prod-precio{ font-size:0.82rem; font-weight:700; color:var(--naranja); }
+
+  /* CANTIDAD MODAL */
+  .cantidad-controls{ display:flex; align-items:center; gap:16px; justify-content:center; margin:16px 0; }
+  .cant-btn{ width:44px; height:44px; border-radius:14px; background:var(--gris); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .cant-btn svg{ width:18px; height:18px; stroke:var(--negro); fill:none; stroke-width:2.5; }
+  .cant-num{ font-size:1.6rem; font-weight:800; color:var(--negro); min-width:60px; text-align:center; }
+  .total-wrap{ background:var(--gris); border-radius:14px; padding:14px; text-align:center; margin-bottom:14px; }
+  .total-label{ font-size:0.72rem; color:#aaa; text-transform:uppercase; font-weight:600; margin-bottom:4px; }
+  .total-val{ font-size:1.4rem; font-weight:800; color:var(--naranja); }
+  .btn-confirmar{ width:100%; padding:14px; background:var(--negro); color:white; border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; }
 
   .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; z-index:200; }
   .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
@@ -74,14 +121,14 @@
 </head>
 <body>
 
-<!-- LISTA DE CHATS -->
+<!-- LISTA -->
 <div class="lista-view" id="lista-view">
   <div class="header">
     <button class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="header-title">Mis Chats</div>
   </div>
   <div class="chat-lista" id="chat-lista">
-    <div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Cargando chats...</p></div>
+    <div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Cargando...</p></div>
   </div>
   <nav class="tab-bar">
     <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
@@ -97,18 +144,67 @@
   <div class="conv-header">
     <button class="back-btn" onclick="volverLista()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="conv-avatar" id="conv-avatar">P</div>
-    <div>
+    <div class="conv-info">
       <div class="conv-nombre" id="conv-nombre">Proveedor</div>
       <div class="conv-estado">En línea</div>
     </div>
+    <button class="btn-catalogo-header" onclick="abrirCatalogoEmp()">🛍 Ver catálogo</button>
   </div>
   <div class="mensajes-wrap" id="mensajes-wrap"></div>
   <div class="input-area">
+    <div class="acciones-row">
+      <button class="accion-btn" onclick="abrirCatalogoEmp()">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <span>Ver catálogo</span>
+      </button>
+      <button class="accion-btn" onclick="abrirOrdenEmp()">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        <span>Generar orden</span>
+      </button>
+    </div>
     <div class="input-row">
       <textarea class="msg-input" id="msg-input" placeholder="Escribe un mensaje..." rows="1"></textarea>
       <button class="send-btn" id="send-btn" onclick="enviarMensaje()">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CATÁLOGO DEL PROVEEDOR -->
+<div class="modal-overlay" id="catalogo-emp-modal" onclick="e=>{ if(e.target===this) this.classList.remove('show'); }">
+  <div class="modal-sheet">
+    <div class="drag"></div>
+    <div class="modal-header">
+      <span class="modal-title" id="catalogo-emp-title">Catálogo del proveedor</span>
+      <button class="close-btn" onclick="document.getElementById('catalogo-emp-modal').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="catalogo-grid" id="catalogo-emp-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CANTIDAD Y COMPRA -->
+<div class="modal-overlay" id="compra-modal" onclick="e=>{ if(e.target===this) this.classList.remove('show'); }">
+  <div class="modal-sheet">
+    <div class="drag"></div>
+    <div class="modal-header">
+      <span class="modal-title">Seleccionar cantidad</span>
+      <button class="close-btn" onclick="document.getElementById('compra-modal').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div id="compra-prod-info" style="background:var(--gris);border-radius:14px;padding:14px;margin-bottom:14px;"></div>
+      <div class="cantidad-controls">
+        <button class="cant-btn" onclick="cambiarCantCompra(-1)"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="cant-num" id="compra-cant">1</div>
+        <button class="cant-btn" onclick="cambiarCantCompra(1)"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="total-wrap">
+        <div class="total-label">Total a pagar</div>
+        <div class="total-val" id="compra-total">$0.00</div>
+      </div>
+      <button class="btn-confirmar" onclick="confirmarCompra()">🛒 Generar orden y pagar →</button>
     </div>
   </div>
 </div>
@@ -119,6 +215,7 @@ const { createClient } = supabase;
 const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
 let userId='', userName='', chatActivo=null, suscripcion=null;
+let prodCompra=null, cantCompra=1, proveedorProds=[];
 
 const FILTROS=[/(\+?593|0)(9\d{8})/gi,/whatsapp/gi,/telegram/gi,/instagram/gi,/facebook/gi,/tiktok/gi,/@[a-z0-9._]+/gi,/https?:\/\/[^\s]+/gi,/\b\d{7,}\b/g];
 function filtrarMsg(t){ let r=t; FILTROS.forEach(f=>r=r.replace(f,'[bloqueado]')); return r; }
@@ -129,117 +226,115 @@ function filtrarMsg(t){ let r=t; FILTROS.forEach(f=>r=r.replace(f,'[bloqueado]')
   userId=session.user.id;
   const { data:u } = await sb.from('usuarios').select('nombre').eq('id',userId).single();
   userName=u?.nombre||'Emprendedor';
-
-  // Verificar si viene con chatId en URL
-  const params=new URLSearchParams(window.location.search);
-  const chatId=params.get('chat');
-  const provId=params.get('prov');
-  const provNombre=params.get('nombre');
-
-  if(provId&&provNombre){
-    // Abrir o crear chat con ese proveedor
-    let { data:chats } = await sb.from('chats').select('*').eq('emprendedor_id',userId).eq('proveedor_id',provId);
-    if(!chats?.length){
-      const { data:nuevo } = await sb.from('chats').insert({emprendedor_id:userId,proveedor_id:provId,proveedor_nombre:decodeURIComponent(provNombre),emprendedor_nombre:userName,ultimo_mensaje:'',no_leidos:0}).select().single();
-      chats=[nuevo];
-    }
-    abrirChat(chats[0]);
-  } else {
-    cargarChats();
-  }
+  cargarChats();
 })();
 
 async function cargarChats(){
   document.getElementById('lista-view').style.display='block';
   document.getElementById('conv-view').style.display='none';
-  const { data } = await sb.from('chats').select('*').eq('emprendedor_id',userId).order('created_at',{ascending:false});
+  const { data } = await sb.from('chats').select('*').eq('emprendedor_id',userId).order('updated_at',{ascending:false,nullsFirst:false});
   const lista=document.getElementById('chat-lista');
-  if(!data?.length){
-    lista.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Sin chats aún. Contacta a un proveedor desde un producto.</p></div>';
-    return;
-  }
+  if(!data?.length){ lista.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Sin chats aún</p></div>'; return; }
   lista.innerHTML='';
   for(const c of data){
-    // Cargar datos del proveedor para mostrar logo
-    const { data:prov } = await sb.from('usuarios').select('logo_empresa,foto_perfil').eq('id',c.proveedor_id).single();
+    const { data:prov } = await sb.from('usuarios').select('logo_empresa,foto_perfil,nombre,empresa').eq('id',c.proveedor_id).single();
     const logo=prov?.logo_empresa||prov?.foto_perfil||'';
+    const provNombre=c.proveedor_nombre||prov?.empresa||prov?.nombre||'Proveedor';
     const div=document.createElement('div'); div.className='chat-item';
-    div.onclick=()=>abrirChat(c);
+    div.onclick=()=>abrirChat(c,provNombre,logo);
     const hora=c.updated_at?new Date(c.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
     div.innerHTML=`
-      <div class="chat-avatar">${logo?`<img src="${logo}" alt="">`:(c.proveedor_nombre||'P')[0].toUpperCase()}</div>
-      <div class="chat-info">
-        <div class="chat-nombre">${c.proveedor_nombre||'Proveedor'}</div>
-        <div class="chat-preview">${c.ultimo_mensaje||'Iniciar conversación'}</div>
-      </div>
-      <div class="chat-meta">
-        <div class="chat-hora">${hora}</div>
-        ${c.no_leidos>0?`<div class="chat-badge">${c.no_leidos}</div>`:''}
-      </div>`;
+      <div class="chat-avatar">${logo?`<img src="${logo}" alt="">`:provNombre[0].toUpperCase()}</div>
+      <div class="chat-info"><div class="chat-nombre">${provNombre}</div><div class="chat-preview">${c.ultimo_mensaje||'Iniciar conversación'}</div></div>
+      <div class="chat-meta"><div class="chat-hora">${hora}</div>${c.no_leidos>0?`<div class="chat-badge">${c.no_leidos}</div>`:''}</div>`;
     lista.appendChild(div);
   }
 }
 
-async function abrirChat(chat){
+async function abrirChat(chat,provNombre,provLogo){
   chatActivo=chat;
   document.getElementById('lista-view').style.display='none';
   document.getElementById('conv-view').style.display='flex';
-
-  // Datos del proveedor
-  const { data:prov } = await sb.from('usuarios').select('nombre,empresa,logo_empresa,foto_perfil').eq('id',chat.proveedor_id).single();
-  const nombre=prov?.empresa||prov?.nombre||chat.proveedor_nombre||'Proveedor';
-  const logo=prov?.logo_empresa||prov?.foto_perfil||'';
+  const nombre=provNombre||chat.proveedor_nombre||'Proveedor';
   const avatar=document.getElementById('conv-avatar');
-  if(logo) avatar.innerHTML=`<img src="${logo}" alt="">`;
+  if(provLogo) avatar.innerHTML=`<img src="${provLogo}" alt="">`;
   else avatar.textContent=nombre[0].toUpperCase();
   document.getElementById('conv-nombre').textContent=nombre;
+  document.getElementById('catalogo-emp-title').textContent=`Catálogo de ${nombre}`;
 
-  // Marcar como leído
+  // Cargar productos del proveedor
+  const { data:prods } = await sb.from('productos').select('*').eq('proveedor_id',chat.proveedor_id).eq('activo',true);
+  proveedorProds=prods||[];
+
   await sb.from('chats').update({no_leidos:0}).eq('id',chat.id);
-
   cargarMensajes();
-
-  // Suscripción realtime
   if(suscripcion){ suscripcion.unsubscribe(); suscripcion=null; }
   suscripcion=sb.channel('chat-emp-'+chat.id)
     .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chat.id}`},
-      payload=>{ agregarMensajeUI(payload.new); })
+      payload=>agregarMensajeUI(payload.new,nombre))
     .subscribe();
-
-  // Auto-resize textarea
   const input=document.getElementById('msg-input');
-  input.addEventListener('input',()=>{
-    input.style.height='auto';
-    input.style.height=Math.min(input.scrollHeight,120)+'px';
-  });
-  input.addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensaje(); }
-  });
+  input.oninput=()=>{ input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,120)+'px'; };
+  input.onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensaje(); } };
 }
 
 async function cargarMensajes(){
   const { data } = await sb.from('mensajes').select('*').eq('chat_id',chatActivo.id).order('created_at',{ascending:true});
-  const wrap=document.getElementById('mensajes-wrap');
-  wrap.innerHTML='';
-  (data||[]).forEach(m=>agregarMensajeUI(m,false));
+  const wrap=document.getElementById('mensajes-wrap'); wrap.innerHTML='';
+  const provNombre=document.getElementById('conv-nombre').textContent;
+  (data||[]).forEach(m=>agregarMensajeUI(m,provNombre,false));
   wrap.scrollTop=wrap.scrollHeight;
 }
 
-function agregarMensajeUI(m,scroll=true){
+function agregarMensajeUI(m,provNombre,scroll=true){
   const wrap=document.getElementById('mensajes-wrap');
   const esEnviado=m.remitente_id===userId;
   const grupo=document.createElement('div');
   grupo.className='msg-grupo '+(esEnviado?'enviado':'recibido');
   const hora=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+  const senderName=esEnviado?'Tú':(provNombre||'Proveedor');
 
-  // Mostrar nombre del remitente
-  const senderName=esEnviado?'Tú':(chatActivo.proveedor_nombre||'Proveedor');
-  grupo.innerHTML=`
-    <div class="msg-sender">${senderName}</div>
-    <div class="msg ${esEnviado?'enviado':'recibido'}">
-      ${m.texto}
-      <div class="msg-hora">${hora}</div>
-    </div>`;
+  if(m.tipo==='producto'){
+    const d=m.datos_producto||{};
+    grupo.innerHTML=`
+      <div class="msg-sender">${senderName}</div>
+      <div class="msg-prod-card ${esEnviado?'enviado':''}">
+        ${d.imagen?`<img class="msg-prod-img" src="${d.imagen}" alt="">`:''}
+        <div class="msg-prod-body">
+          <div class="msg-prod-nombre">${d.nombre||'Producto'}</div>
+          <div class="msg-prod-precio">$${Number(d.precio||0).toFixed(2)} / ${d.unidad||'und'}</div>
+          ${!esEnviado?`<button class="btn-comprar-msg" onclick="abrirCompra(${JSON.stringify(d).replace(/"/g,'&quot;')})">🛒 Comprar este producto</button>`:'<div style="font-size:0.72rem;color:#bbb;">Enviaste este producto</div>'}
+        </div>
+      </div>
+      <div class="msg-hora" style="color:#bbb;font-size:0.6rem;margin-top:2px;">${hora}</div>`;
+  } else if(m.tipo==='video_producto'){
+    const d=m.datos_producto||{};
+    grupo.innerHTML=`
+      <div class="msg-sender">${senderName}</div>
+      <div class="msg-prod-card ${esEnviado?'enviado':''}">
+        <video class="msg-prod-video" src="${d.video_url}" controls playsinline preload="metadata"></video>
+        <div class="msg-prod-body">
+          <div class="msg-prod-nombre">${d.nombre||'Video de producto'}</div>
+          ${d.precio?`<div class="msg-prod-precio">$${Number(d.precio).toFixed(2)}</div>`:''}
+        </div>
+      </div>
+      <div class="msg-hora" style="color:#bbb;font-size:0.6rem;margin-top:2px;">${hora}</div>`;
+  } else if(m.tipo==='orden'){
+    const d=m.datos_orden||{};
+    grupo.innerHTML=`
+      <div class="msg-sender">${senderName}</div>
+      <div class="msg-orden-card ${esEnviado?'enviado':''}">
+        <div class="msg-orden-titulo">📋 Orden generada</div>
+        <div class="msg-orden-total">$${Number(d.total||0).toFixed(2)}</div>
+        <div class="msg-orden-items">${d.cantidad||1}x ${d.producto_nombre||'Producto'}</div>
+        ${!esEnviado?`<button class="btn-pagar-orden" onclick="abrirCompraOrden(${JSON.stringify(d).replace(/"/g,'&quot;')})">✓ Aceptar y pagar →</button>`:'<div style="font-size:0.72rem;color:#bbb;text-align:center;">Esperando confirmación</div>'}
+      </div>
+      <div class="msg-hora" style="color:#bbb;font-size:0.6rem;margin-top:2px;">${hora}</div>`;
+  } else {
+    grupo.innerHTML=`
+      <div class="msg-sender">${senderName}</div>
+      <div class="msg ${esEnviado?'enviado':'recibido'}">${m.texto||''}<div class="msg-hora">${hora}</div></div>`;
+  }
   wrap.appendChild(grupo);
   if(scroll) wrap.scrollTop=wrap.scrollHeight;
 }
@@ -248,35 +343,76 @@ window.enviarMensaje=async function(){
   const input=document.getElementById('msg-input');
   const texto=filtrarMsg(input.value.trim());
   if(!texto||!chatActivo) return;
-  const btn=document.getElementById('send-btn');
-  btn.disabled=true;
-  input.value='';
-  input.style.height='auto';
+  const btn=document.getElementById('send-btn'); btn.disabled=true;
+  input.value=''; input.style.height='auto';
+  await sb.from('mensajes').insert({chat_id:chatActivo.id,texto,remitente_id:userId,remitente_nombre:userName,tipo:'texto'});
+  await sb.from('chats').update({ultimo_mensaje:texto,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
+  btn.disabled=false; input.focus();
+};
 
-  const { error } = await sb.from('mensajes').insert({
-    chat_id:chatActivo.id,
-    texto,
-    remitente_id:userId,
-    remitente_nombre:userName,
-    tipo:'texto'
+// CATÁLOGO DEL PROVEEDOR
+window.abrirCatalogoEmp=function(){
+  const grid=document.getElementById('catalogo-emp-grid'); grid.innerHTML='';
+  if(!proveedorProds.length){ grid.innerHTML='<p style="color:#aaa;font-size:0.82rem;text-align:center;padding:20px;">Sin productos disponibles</p>'; }
+  proveedorProds.forEach(p=>{
+    const img=p.imagenes?.[0]||p.imagen||'';
+    const div=document.createElement('div'); div.className='cat-prod-card';
+    div.innerHTML=`<div class="cat-prod-img-wrap">${img?`<img src="${img}" alt="">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#ddd;"></div>'}</div><div class="cat-prod-body"><div class="cat-prod-nombre">${p.nombre||'Producto'}</div><div class="cat-prod-precio">$${Number(p.precio||0).toFixed(2)}</div></div>`;
+    div.onclick=()=>{ document.getElementById('catalogo-emp-modal').classList.remove('show'); abrirCompra({id:p.id,nombre:p.nombre,precio:p.precio,imagen:img,unidad:p.unidad||'und',minimo:p.minimo||1}); };
+    grid.appendChild(div);
   });
-
-  if(!error){
-    await sb.from('chats').update({
-      ultimo_mensaje:texto,
-      updated_at:new Date().toISOString()
-    }).eq('id',chatActivo.id);
-  }
-
-  btn.disabled=false;
-  input.focus();
+  document.getElementById('catalogo-emp-modal').classList.add('show');
 };
 
-window.volverLista=function(){
-  if(suscripcion){ suscripcion.unsubscribe(); suscripcion=null; }
-  chatActivo=null;
-  cargarChats();
+window.abrirCompra=function(prod){
+  prodCompra=prod; cantCompra=prod.minimo||1;
+  const img=prod.imagen||'';
+  document.getElementById('compra-prod-info').innerHTML=`<div style="display:flex;gap:10px;align-items:center;">${img?`<img src="${img}" style="width:50px;height:50px;border-radius:10px;object-fit:cover;" alt="">`:''}  <div><div style="font-size:0.88rem;font-weight:700;color:var(--negro);">${prod.nombre}</div><div style="font-size:0.78rem;color:var(--naranja);">$${Number(prod.precio||0).toFixed(2)} por ${prod.unidad||'und'}</div><div style="font-size:0.7rem;color:#aaa;">Mín: ${prod.minimo||1} ${prod.unidad||'und'}</div></div></div>`;
+  document.getElementById('compra-cant').textContent=cantCompra;
+  document.getElementById('compra-total').textContent='$'+(cantCompra*(prod.precio||0)).toFixed(2);
+  document.getElementById('compra-modal').classList.add('show');
 };
+
+window.abrirCompraOrden=function(datos){
+  abrirCompra({id:datos.producto_id,nombre:datos.producto_nombre,precio:datos.precio_unit||0,imagen:'',unidad:'und',minimo:datos.cantidad||1});
+};
+
+window.abrirOrdenEmp=function(){ abrirCatalogoEmp(); };
+
+window.cambiarCantCompra=function(delta){
+  if(!prodCompra) return;
+  const min=prodCompra.minimo||1;
+  cantCompra=Math.max(min,cantCompra+delta);
+  document.getElementById('compra-cant').textContent=cantCompra;
+  document.getElementById('compra-total').textContent='$'+(cantCompra*(prodCompra.precio||0)).toFixed(2);
+};
+
+window.confirmarCompra=async function(){
+  if(!prodCompra||!chatActivo) return;
+  const total=cantCompra*(prodCompra.precio||0);
+
+  // Guardar en localStorage para pagar.html
+  const ordenData={ producto_id:prodCompra.id, producto_nombre:prodCompra.nombre, cantidad:cantCompra, precio_unit:prodCompra.precio, total, proveedor_id:chatActivo.proveedor_id, proveedor_nombre:document.getElementById('conv-nombre').textContent, emprendedor_id:userId };
+  localStorage.setItem('orden_chat',JSON.stringify(ordenData));
+
+  // Enviar mensaje de confirmación
+  await sb.from('mensajes').insert({
+    chat_id:chatActivo.id, tipo:'orden',
+    texto:`Orden confirmada: ${cantCompra}x ${prodCompra.nombre} = $${total.toFixed(2)}`,
+    remitente_id:userId, remitente_nombre:userName,
+    datos_orden:ordenData
+  });
+  await sb.from('chats').update({ultimo_mensaje:`✓ Orden $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
+  document.getElementById('compra-modal').classList.remove('show');
+
+  // Ir a pagar
+  window.location.href='pagar.html?from=chat';
+};
+
+window.volverLista=function(){ if(suscripcion){ suscripcion.unsubscribe(); suscripcion=null; } chatActivo=null; cargarChats(); };
+
+document.getElementById('catalogo-emp-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('catalogo-emp-modal')) document.getElementById('catalogo-emp-modal').classList.remove('show'); });
+document.getElementById('compra-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('compra-modal')) document.getElementById('compra-modal').classList.remove('show'); });
 </script>
 </body>
 </html>
