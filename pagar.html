@@ -130,21 +130,33 @@ window.confirmarPedido=async function(){
   document.getElementById('btn-confirmar').disabled=true;
   document.getElementById('btn-confirmar').textContent='Enviando pedido...';
   const total=carrito.reduce((s,i)=>s+(i.precio*i.cantidad),0);
-  const { data:pedido } = await sb.from('pedidos').insert({
-  emprendedor_id: userId,
-  proveedor_id: g.proveedor_id||null,
-  nombre_proveedor: g.proveedor||null,
-  items: g.items,
-  total: subtotal,
-  metodo_pago: metodoPago,
-  estado: 'pendiente',
-  entrega:{
-    nombre, telefono, ciudad,
-    direccion: dir,
-    notas: document.getElementById('e-notas').value.trim()
+
+  // INICIO DE LA PARTE CORREGIDA PARA QUE NO SE TRABE
+  const { data:pedido, error } = await sb.from('pedidos').insert({
+    emprendedor_id: userId,
+    proveedor_id: carrito[0]?.proveedor_id || null,
+    nombre_proveedor: carrito[0]?.nombre_proveedor || null,
+    items: carrito,
+    total: total,
+    metodo_pago: metodoPago,
+    estado: 'pendiente',
+    entrega: {
+      nombre: nombre,
+      telefono: tel,
+      ciudad: ciudad,
+      direccion: dir,
+      notas: notas
+    }
+  }).select().single();
+  // FIN DE LA PARTE CORREGIDA
+
+  if(error){ 
+    alert('Error: '+error.message); 
+    document.getElementById('btn-confirmar').disabled=false; 
+    document.getElementById('btn-confirmar').textContent='CONFIRMAR PEDIDO →'; 
+    return; 
   }
-}).select().single();
-  if(error){ alert('Error: '+error.message); document.getElementById('btn-confirmar').disabled=false; document.getElementById('btn-confirmar').textContent='CONFIRMAR PEDIDO →'; return; }
+  
   localStorage.removeItem('carrito_proveed');
   document.getElementById('success-screen').classList.add('show');
 };
