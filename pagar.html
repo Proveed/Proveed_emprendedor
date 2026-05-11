@@ -130,7 +130,20 @@ window.confirmarPedido=async function(){
   document.getElementById('btn-confirmar').disabled=true;
   document.getElementById('btn-confirmar').textContent='Enviando pedido...';
   const total=carrito.reduce((s,i)=>s+(i.precio*i.cantidad),0);
-  const { error } = await sb.from('pedidos').insert({ emprendedor_id:userId, items:carrito, entrega:{nombre,tel,ciudad,direccion:dir}, notas, metodo_pago:metodoPago, estado:'pendiente', total });
+  const { data:pedido } = await sb.from('pedidos').insert({
+  emprendedor_id: userId,
+  proveedor_id: g.proveedor_id||null,
+  nombre_proveedor: g.proveedor||null,
+  items: g.items,
+  total: subtotal,
+  metodo_pago: metodoPago,
+  estado: 'pendiente',
+  entrega:{
+    nombre, telefono, ciudad,
+    direccion: dir,
+    notas: document.getElementById('e-notas').value.trim()
+  }
+}).select().single();
   if(error){ alert('Error: '+error.message); document.getElementById('btn-confirmar').disabled=false; document.getElementById('btn-confirmar').textContent='CONFIRMAR PEDIDO →'; return; }
   localStorage.removeItem('carrito_proveed');
   document.getElementById('success-screen').classList.add('show');
