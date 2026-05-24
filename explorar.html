@@ -6,157 +6,705 @@
 <title>PROVEED — Explorar</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:80px; -webkit-font-smoothing:antialiased; }
-  .header{ background:var(--negro); padding:44px 16px 16px; position:sticky; top:0; z-index:100; }
-  .header-top{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
-  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .page-title{ font-size:1.1rem; font-weight:700; color:white; flex:1; }
-  .filter-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
-  .filter-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2; }
-  .search-bar{ background:rgba(255,255,255,0.08); border-radius:12px; padding:11px 14px; display:flex; align-items:center; gap:10px; }
-  .search-bar input{ flex:1; background:transparent; border:none; outline:none; color:white; font-family:'Inter',sans-serif; font-size:0.9rem; }
-  .search-bar input::placeholder{ color:#555; }
-  .search-bar svg{ width:16px; height:16px; stroke:#555; fill:none; stroke-width:2.5; flex-shrink:0; }
-  .cats-scroll{ display:flex; gap:8px; padding:12px 16px; overflow-x:auto; scrollbar-width:none; background:white; border-bottom:1px solid #eee; }
-  .cats-scroll::-webkit-scrollbar{ display:none; }
-  .cat-pill{ padding:7px 14px; border-radius:20px; white-space:nowrap; border:1.5px solid #eee; background:white; font-size:0.76rem; font-weight:600; color:#aaa; cursor:pointer; transition:0.2s; }
-  .cat-pill.active{ background:var(--negro); color:white; border-color:var(--negro); }
-  .sort-row{ display:flex; gap:8px; padding:12px 16px; overflow-x:auto; scrollbar-width:none; background:white; border-bottom:1px solid #f0f0f0; }
-  .sort-row::-webkit-scrollbar{ display:none; }
-  .sort-pill{ padding:6px 12px; border-radius:20px; border:1.5px solid #eee; background:white; font-size:0.72rem; font-weight:600; color:#bbb; cursor:pointer; white-space:nowrap; transition:0.2s; }
-  .sort-pill.active{ border-color:var(--verde); color:var(--negro); }
-  .results-info{ padding:12px 16px 8px; font-size:0.78rem; color:#aaa; font-weight:500; }
-  .products-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:0 16px; }
-  .prod-card{ background:white; border-radius:14px; overflow:hidden; cursor:pointer; transition:0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
-  .prod-card:active{ transform:scale(0.97); }
-  .prod-img{ width:100%; height:155px; background:#f5f5f5; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .prod-img img{ width:100%; height:100%; object-fit:cover; }
-  .no-img{ width:40px; height:40px; stroke:#ddd; fill:none; stroke-width:1.5; }
-  .prod-cat-tag{ position:absolute; top:8px; left:8px; background:var(--naranja); color:white; font-size:0.56rem; font-weight:700; padding:2px 7px; border-radius:6px; text-transform:uppercase; }
-  .prod-video-tag{ position:absolute; top:8px; right:8px; background:rgba(168,230,61,0.9); color:var(--negro); font-size:0.56rem; font-weight:700; padding:2px 6px; border-radius:6px; }
-  .prod-body{ padding:10px 12px 12px; }
-  .prod-nombre{ font-size:0.82rem; font-weight:600; color:var(--negro); line-height:1.3; margin-bottom:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .prod-proveedor{ font-size:0.68rem; color:#bbb; margin-bottom:6px; }
-  .prod-precio{ font-size:0.95rem; font-weight:700; color:var(--naranja); }
-  .prod-min{ font-size:0.62rem; color:#ccc; }
-  .prod-footer{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
-  .add-btn{ width:30px; height:30px; border-radius:9px; background:var(--negro); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .add-btn svg{ width:14px; height:14px; stroke:white; fill:none; stroke-width:2.5; }
-  .skeleton{ background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; }
-  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
-  .skel-card{ background:white; border-radius:14px; overflow:hidden; }
-  .skel-img{ height:155px; }
-  .skel-line{ height:10px; margin:10px 12px 5px; border-radius:6px; }
-  .skel-line.s{ width:55%; height:8px; margin:0 12px 12px; }
-  .empty{ grid-column:1/-1; text-align:center; padding:48px 20px; color:#bbb; }
-  .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 12px; display:block; }
-  .empty p{ font-size:0.85rem; }
-  .toast{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--negro); color:white; padding:10px 20px; border-radius:24px; font-size:0.82rem; font-weight:600; opacity:0; transition:0.3s; pointer-events:none; z-index:400; white-space:nowrap; }
-  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; box-shadow:0 -4px 20px rgba(0,0,0,0.06); z-index:200; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
-  .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; }
-  .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
-  .tab.active .tab-dot{ display:block; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--acc:#FF8C00;--verde:#A8E63D;--negro:#0F0F0F;--gris:#F5F5F5;--rojo:#FF4D4D;}
+body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:80px;}
+
+/* SEARCH BAR */
+.search-top{background:white;padding:48px 14px 12px;border-bottom:1px solid #eee;}
+.search-box{display:flex;align-items:center;gap:10px;background:#F0F0F0;border-radius:28px;padding:11px 16px;}
+.search-box svg{width:18px;height:18px;stroke:#999;fill:none;stroke-width:2.5;flex-shrink:0;}
+.search-box input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.92rem;color:#111;}
+.search-box input::placeholder{color:#aaa;}
+.search-cam{width:34px;height:34px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:none;cursor:pointer;}
+.search-cam svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2;}
+
+/* PROMO BANNER */
+.promo-banner{background:#FFF8F2;border-bottom:1px solid #FFE8CC;padding:10px 14px;display:flex;align-items:center;gap:12px;overflow:hidden;}
+.promo-item{display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.promo-item svg{width:14px;height:14px;stroke:var(--acc);fill:none;stroke-width:2.5;}
+.promo-txt{font-size:0.72rem;font-weight:600;color:var(--acc);}
+.promo-div{color:#FFD0A0;font-size:0.9rem;}
+.promo-arrow{margin-left:auto;flex-shrink:0;}
+.promo-arrow svg{width:16px;height:16px;stroke:var(--acc);fill:none;stroke-width:2.5;}
+
+/* LAYOUT PRINCIPAL */
+.main-layout{display:flex;height:calc(100vh - 200px);overflow:hidden;}
+
+/* SIDEBAR CATEGORÍAS */
+.sidebar{width:115px;background:white;overflow-y:auto;flex-shrink:0;border-right:1px solid #f0f0f0;scrollbar-width:none;}
+.sidebar::-webkit-scrollbar{display:none;}
+.sidebar-item{padding:14px 12px;font-size:0.76rem;font-weight:500;color:#555;cursor:pointer;border-left:3px solid transparent;line-height:1.35;transition:0.15s;}
+.sidebar-item.active{color:#111;font-weight:800;border-left-color:var(--acc);background:#FFF8F2;}
+.sidebar-item:active{background:#f9f9f9;}
+
+/* CONTENIDO DERECHO */
+.content-right{flex:1;overflow-y:auto;scrollbar-width:none;background:#f5f5f5;}
+.content-right::-webkit-scrollbar{display:none;}
+.content-header{background:white;padding:12px 14px 10px;border-bottom:1px solid #f0f0f0;position:sticky;top:0;z-index:10;}
+.content-title{font-size:0.92rem;font-weight:800;color:#111;margin-bottom:8px;}
+
+/* SUBCATEGORÍAS */
+.subcats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px;}
+.subcat-card{background:white;border-radius:14px;overflow:hidden;cursor:pointer;transition:0.15s;border:1px solid #eee;}
+.subcat-card:active{transform:scale(0.96);}
+.subcat-img{width:100%;height:72px;object-fit:cover;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;position:relative;overflow:hidden;}
+.subcat-img img{width:100%;height:100%;object-fit:cover;}
+.subcat-badge{position:absolute;top:5px;left:5px;font-size:0.55rem;font-weight:800;padding:2px 6px;border-radius:20px;text-transform:uppercase;}
+.badge-hot{background:#FF4D4D;color:white;}
+.badge-new{background:var(--verde);color:#111;}
+.badge-oferta{background:var(--acc);color:white;display:flex;align-items:center;gap:2px;}
+.subcat-nombre{font-size:0.68rem;font-weight:600;color:#111;padding:6px 8px 8px;text-align:center;line-height:1.3;}
+
+/* PRODUCTOS GRID */
+.prods-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 6px;font-size:0.72rem;color:#aaa;font-weight:600;}
+.prods-count{color:#888;}
+.prods-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 12px;}
+.prod-card{background:white;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid #eee;}
+.prod-card:active{transform:scale(0.97);}
+.prod-img{width:100%;height:140px;object-fit:cover;background:#f5f5f5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.prod-img img{width:100%;height:100%;object-fit:cover;}
+.prod-cat-badge{position:absolute;top:8px;left:8px;font-size:0.58rem;font-weight:800;padding:3px 8px;border-radius:20px;text-transform:uppercase;color:white;}
+.prod-play{position:absolute;top:8px;right:8px;width:26px;height:26px;background:rgba(0,0,0,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.prod-play svg{width:12px;height:12px;fill:white;}
+.prod-body{padding:10px;}
+.prod-nombre{font-size:0.82rem;font-weight:700;color:#111;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.35;}
+.prod-proveedor{font-size:0.65rem;color:#aaa;margin-bottom:6px;}
+.prod-precio{font-size:1rem;font-weight:900;color:var(--acc);}
+.prod-min{font-size:0.6rem;color:#bbb;margin-top:1px;}
+.prod-add{width:30px;height:30px;background:#111;border-radius:9px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;float:right;margin-top:-32px;}
+.prod-add svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2.5;}
+
+/* FILTROS ORDEN */
+.orden-row{display:flex;gap:8px;padding:8px 12px;overflow-x:auto;scrollbar-width:none;}
+.orden-row::-webkit-scrollbar{display:none;}
+.orden-btn{padding:7px 14px;border-radius:20px;border:1.5px solid #ddd;background:transparent;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:600;color:#555;cursor:pointer;white-space:nowrap;}
+.orden-btn.active{border-color:var(--verde);color:#111;font-weight:800;}
+
+/* TAB BAR */
+.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0 18px;z-index:200;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;}
+.tab svg{width:22px;height:22px;stroke:#bbb;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tab span{font-size:0.58rem;font-weight:700;color:#bbb;text-transform:uppercase;}
+.tab.active svg{stroke:#111;}
+.tab.active span{color:#111;}
+.tab-dot{width:5px;height:5px;border-radius:50%;background:var(--verde);display:none;}
+.tab.active .tab-dot{display:block;}
+.carrito-badge{position:relative;}
+.carrito-num{position:absolute;top:-4px;right:-8px;background:var(--acc);color:white;font-size:0.55rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;}
 </style>
 </head>
 <body>
-<div class="header">
-  <div class="header-top">
-    <button class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <div class="page-title">Explorar</div>
-    <button class="filter-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="18" x2="12" y2="18"/></svg></button>
-  </div>
-  <div class="search-bar">
+
+<!-- SEARCH -->
+<div class="search-top">
+  <div class="search-box">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <input type="text" id="search-input" placeholder="Buscar productos..." oninput="buscar(this.value)">
+    <input type="text" id="search-input" placeholder="Buscar productos, proveedores..." oninput="buscar(this.value)">
+    <button class="search-cam"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2l2-3h10l2 3a2 2 0 0 0 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
   </div>
 </div>
 
-<div class="cats-scroll">
-  <div class="cat-pill active" data-cat="todos" onclick="selCat('todos',this)">Todos</div>
-  <div class="cat-pill" data-cat="textiles" onclick="selCat('textiles',this)">Textiles</div>
-  <div class="cat-pill" data-cat="tecnologia" onclick="selCat('tecnologia',this)">Tecnología</div>
-  <div class="cat-pill" data-cat="alimentos" onclick="selCat('alimentos',this)">Alimentos</div>
-  <div class="cat-pill" data-cat="cosmeticos" onclick="selCat('cosmeticos',this)">Cosméticos</div>
-  <div class="cat-pill" data-cat="construccion" onclick="selCat('construccion',this)">Construcción</div>
-  <div class="cat-pill" data-cat="maquinaria" onclick="selCat('maquinaria',this)">Maquinaria</div>
-  <div class="cat-pill" data-cat="agricultura" onclick="selCat('agricultura',this)">Agricultura</div>
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+  <div class="promo-item">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    <span class="promo-txt">Envío gratis</span>
+  </div>
+  <div class="promo-div">|</div>
+  <div class="promo-item">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    <span class="promo-txt">Devoluciones en 30 días</span>
+  </div>
+  <div class="promo-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
 </div>
 
-<div class="sort-row">
-  <div class="sort-pill active" data-sort="recientes" onclick="selSort('recientes',this)">Más recientes</div>
-  <div class="sort-pill" data-sort="precio_asc" onclick="selSort('precio_asc',this)">Menor precio</div>
-  <div class="sort-pill" data-sort="precio_desc" onclick="selSort('precio_desc',this)">Mayor precio</div>
-  <div class="sort-pill" data-sort="vistas" onclick="selSort('vistas',this)">Más vistos</div>
+<!-- LAYOUT PRINCIPAL -->
+<div class="main-layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <!-- Se genera con JS -->
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content-right" id="content-right">
+    <div class="content-header">
+      <div class="content-title" id="content-title">Comprar por categoría</div>
+      <div class="orden-row" id="orden-row" style="display:none;">
+        <button class="orden-btn active" onclick="ordenar('recientes',this)">Más recientes</button>
+        <button class="orden-btn" onclick="ordenar('menor',this)">Menor precio</button>
+        <button class="orden-btn" onclick="ordenar('mayor',this)">Mayor precio</button>
+        <button class="orden-btn" onclick="ordenar('popular',this)">Más vendidos</button>
+      </div>
+    </div>
+    <div id="content-body">
+      <!-- Se genera con JS -->
+    </div>
+  </div>
+
 </div>
 
-<div class="results-info" id="results-info">Cargando productos...</div>
-<div class="products-grid" id="products-grid">
-  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
-  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
-  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
-  <div class="skel-card"><div class="skel-img skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line s skeleton"></div></div>
-</div>
-<div class="toast" id="toast"></div>
-
+<!-- TAB BAR -->
 <nav class="tab-bar">
-  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
-  <a class="tab active" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
-  <a class="tab" href="tips.html"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg><span>Tips</span><div class="tab-dot"></div></a>
-  <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
-  <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span><div class="tab-dot"></div></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+  <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></button>
+  <a class="tab" href="tips.html"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span>Tips</span></a>
+  <a class="tab carrito-badge" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="carrito-num" id="carrito-num">0</div></a>
+  <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span></a>
 </nav>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const { createClient } = supabase;
 const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-let todosProds=[], catActiva='todos', sortActivo='recientes', busquedaActual='';
-let carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 
+// =============================================
+// ÁRBOL DE CATEGORÍAS COMPLETO
+// =============================================
+const CATEGORIAS = [
+  {
+    id:'destacado', nombre:'Destacado', emoji:'⭐',
+    subs:[
+      {nombre:'Ofertas del día', emoji:'⚡', badge:'oferta'},
+      {nombre:'Más vendidos', emoji:'🔥', badge:'hot'},
+      {nombre:'Nuevos ingresos', emoji:'✨', badge:'new'},
+      {nombre:'Liquidación', emoji:'🏷️', badge:'oferta'},
+    ]
+  },
+  {
+    id:'ropa-mujer', nombre:'Ropa de mujer', emoji:'👗',
+    subs:[
+      {nombre:'Vestidos', emoji:'👗'},
+      {nombre:'Blusas y camisas', emoji:'👚'},
+      {nombre:'Pantalones', emoji:'👖'},
+      {nombre:'Faldas', emoji:'🩱'},
+      {nombre:'Conjuntos', emoji:'👔'},
+      {nombre:'Ropa deportiva', emoji:'🏃'},
+      {nombre:'Pijamas', emoji:'😴'},
+      {nombre:'Ropa interior', emoji:'🩲'},
+      {nombre:'Abrigos y chaquetas', emoji:'🧥'},
+      {nombre:'Camisetas', emoji:'👕'},
+    ]
+  },
+  {
+    id:'mujer-curvy', nombre:'Mujer curvy', emoji:'💃',
+    subs:[
+      {nombre:'Vestidos talla grande', emoji:'👗', badge:'hot'},
+      {nombre:'Blusas talla grande', emoji:'👚'},
+      {nombre:'Pantalones talla grande', emoji:'👖'},
+      {nombre:'Ropa interior talla grande', emoji:'🩲'},
+    ]
+  },
+  {
+    id:'calzado-mujer', nombre:'Calzado de mujer', emoji:'👠',
+    subs:[
+      {nombre:'Tacones', emoji:'👠'},
+      {nombre:'Sandalias', emoji:'🩴'},
+      {nombre:'Zapatillas', emoji:'👟'},
+      {nombre:'Botas', emoji:'🥾'},
+      {nombre:'Mocasines', emoji:'🥿'},
+      {nombre:'Flats', emoji:'🩰'},
+    ]
+  },
+  {
+    id:'lenceria', nombre:'Lencería y pijamas', emoji:'🩲',
+    subs:[
+      {nombre:'Sujetadores', emoji:'👙', badge:'hot'},
+      {nombre:'Panties', emoji:'🩲', badge:'hot'},
+      {nombre:'Conjuntos lencería', emoji:'💝'},
+      {nombre:'Pijamas mujer', emoji:'😴'},
+      {nombre:'Batas', emoji:'🛀'},
+    ]
+  },
+  {
+    id:'ropa-hombre', nombre:'Ropa de hombre', emoji:'👔',
+    subs:[
+      {nombre:'Camisetas', emoji:'👕'},
+      {nombre:'Camisas', emoji:'👔'},
+      {nombre:'Pantalones', emoji:'👖'},
+      {nombre:'Shorts', emoji:'🩳'},
+      {nombre:'Ropa deportiva', emoji:'🏋️', badge:'hot'},
+      {nombre:'Trajes y blazers', emoji:'🤵'},
+      {nombre:'Abrigos', emoji:'🧥'},
+      {nombre:'Ropa interior', emoji:'🩲'},
+      {nombre:'Pijamas hombre', emoji:'😴'},
+    ]
+  },
+  {
+    id:'calzado-hombre', nombre:'Calzado de hombre', emoji:'👞',
+    subs:[
+      {nombre:'Zapatos formales', emoji:'👞'},
+      {nombre:'Zapatillas deportivas', emoji:'👟', badge:'hot'},
+      {nombre:'Sandalias', emoji:'🩴'},
+      {nombre:'Botas', emoji:'🥾'},
+      {nombre:'Mocasines', emoji:'🥿'},
+    ]
+  },
+  {
+    id:'hombre-grande', nombre:'Hombre talla grande', emoji:'🧔',
+    subs:[
+      {nombre:'Camisetas talla grande', emoji:'👕'},
+      {nombre:'Pantalones talla grande', emoji:'👖'},
+      {nombre:'Ropa deportiva grande', emoji:'🏋️'},
+    ]
+  },
+  {
+    id:'moda-infantil', nombre:'Moda infantil', emoji:'🧒',
+    subs:[
+      {nombre:'Ropa niñas', emoji:'👧'},
+      {nombre:'Ropa niños', emoji:'👦'},
+      {nombre:'Calzado niños', emoji:'👟'},
+      {nombre:'Bebé 0-24 meses', emoji:'👶'},
+      {nombre:'Ropa escolar', emoji:'🎒'},
+    ]
+  },
+  {
+    id:'bebe-maternidad', nombre:'Bebé y maternidad', emoji:'🍼',
+    subs:[
+      {nombre:'Ropa de bebé', emoji:'👶'},
+      {nombre:'Maternidad', emoji:'🤱'},
+      {nombre:'Accesorios bebé', emoji:'🧸'},
+      {nombre:'Pañaleras', emoji:'🎒'},
+    ]
+  },
+  {
+    id:'joyeria', nombre:'Joyería y accesorios', emoji:'💍',
+    subs:[
+      {nombre:'Collares', emoji:'📿', badge:'hot'},
+      {nombre:'Aretes', emoji:'💎'},
+      {nombre:'Pulseras', emoji:'📿'},
+      {nombre:'Anillos', emoji:'💍'},
+      {nombre:'Relojes mujer', emoji:'⌚'},
+      {nombre:'Relojes hombre', emoji:'⌚'},
+      {nombre:'Cinturones', emoji:'🪢'},
+      {nombre:'Gafas de sol', emoji:'🕶️'},
+      {nombre:'Gorras y sombreros', emoji:'🧢'},
+      {nombre:'Bufandas', emoji:'🧣'},
+    ]
+  },
+  {
+    id:'bolsas', nombre:'Bolsas y equipaje', emoji:'👜',
+    subs:[
+      {nombre:'Bolsos de mujer', emoji:'👜', badge:'hot'},
+      {nombre:'Mochilas', emoji:'🎒'},
+      {nombre:'Maletines', emoji:'💼'},
+      {nombre:'Maletas de viaje', emoji:'🧳'},
+      {nombre:'Billeteras', emoji:'👛'},
+      {nombre:'Riñoneras', emoji:'🎽'},
+    ]
+  },
+  {
+    id:'hogar-cocina', nombre:'Hogar y cocina', emoji:'🏠',
+    subs:[
+      {nombre:'Decoración del hogar', emoji:'🖼️', badge:'hot'},
+      {nombre:'Cocina y comedor', emoji:'🍳'},
+      {nombre:'Cama y baño', emoji:'🛏️'},
+      {nombre:'Limpieza', emoji:'🧹'},
+      {nombre:'Almacenamiento', emoji:'📦'},
+      {nombre:'Iluminación', emoji:'💡'},
+      {nombre:'Jardín', emoji:'🌿'},
+      {nombre:'Herramientas hogar', emoji:'🔧'},
+    ]
+  },
+  {
+    id:'electrodomesticos', nombre:'Electrodomésticos', emoji:'🏠',
+    subs:[
+      {nombre:'Pequeños electrodomésticos', emoji:'⚡'},
+      {nombre:'Aire acondicionado', emoji:'❄️'},
+      {nombre:'Lavadoras', emoji:'🌀'},
+      {nombre:'Refrigeradoras', emoji:'🧊'},
+      {nombre:'Televisores', emoji:'📺'},
+    ]
+  },
+  {
+    id:'telefonia', nombre:'Telefonía y tecnología', emoji:'📱',
+    subs:[
+      {nombre:'Celulares', emoji:'📱', badge:'hot'},
+      {nombre:'Fundas y estuches', emoji:'📱'},
+      {nombre:'Accesorios celular', emoji:'🎧'},
+      {nombre:'Tablets', emoji:'📟'},
+      {nombre:'Computadoras', emoji:'💻'},
+      {nombre:'Accesorios PC', emoji:'🖥️'},
+      {nombre:'Smartwatches', emoji:'⌚'},
+      {nombre:'Audio y audífonos', emoji:'🎧', badge:'hot'},
+    ]
+  },
+  {
+    id:'hogar-inteligente', nombre:'Hogar inteligente', emoji:'🏡',
+    subs:[
+      {nombre:'Cámaras seguridad', emoji:'📷'},
+      {nombre:'Timbres inteligentes', emoji:'🔔'},
+      {nombre:'Control de iluminación', emoji:'💡'},
+      {nombre:'Enchufes inteligentes', emoji:'🔌'},
+    ]
+  },
+  {
+    id:'belleza', nombre:'Belleza y salud', emoji:'💄',
+    subs:[
+      {nombre:'Maquillaje', emoji:'💄', badge:'hot'},
+      {nombre:'Cuidado de la piel', emoji:'🧴'},
+      {nombre:'Cuidado del cabello', emoji:'💇'},
+      {nombre:'Perfumes', emoji:'🌸'},
+      {nombre:'Uñas', emoji:'💅'},
+      {nombre:'Salud y bienestar', emoji:'💊'},
+      {nombre:'Depilación', emoji:'✂️'},
+      {nombre:'Afeitado hombre', emoji:'🪒'},
+    ]
+  },
+  {
+    id:'deporte', nombre:'Deporte y aire libre', emoji:'⚽',
+    subs:[
+      {nombre:'Ropa deportiva', emoji:'🏃'},
+      {nombre:'Calzado deportivo', emoji:'👟', badge:'hot'},
+      {nombre:'Gimnasio y fitness', emoji:'🏋️'},
+      {nombre:'Fútbol', emoji:'⚽'},
+      {nombre:'Ciclismo', emoji:'🚴'},
+      {nombre:'Natación', emoji:'🏊'},
+      {nombre:'Camping y senderismo', emoji:'⛺'},
+      {nombre:'Yoga y pilates', emoji:'🧘'},
+    ]
+  },
+  {
+    id:'juguetes', nombre:'Juguetes', emoji:'🧸',
+    subs:[
+      {nombre:'Juguetes bebé', emoji:'🍼'},
+      {nombre:'Juguetes niños', emoji:'🚂'},
+      {nombre:'Juguetes niñas', emoji:'🪆'},
+      {nombre:'Juegos de mesa', emoji:'🎲'},
+      {nombre:'Educativos', emoji:'📚'},
+      {nombre:'Electrónicos', emoji:'🎮'},
+    ]
+  },
+  {
+    id:'mascotas', nombre:'Mascotas', emoji:'🐾',
+    subs:[
+      {nombre:'Ropa para mascotas', emoji:'🐶'},
+      {nombre:'Alimento mascotas', emoji:'🦴'},
+      {nombre:'Accesorios mascotas', emoji:'🦮'},
+      {nombre:'Higiene mascotas', emoji:'🛁'},
+      {nombre:'Juguetes mascotas', emoji:'🎾'},
+    ]
+  },
+  {
+    id:'alimentos', nombre:'Alimentos y despensa', emoji:'🛒',
+    subs:[
+      {nombre:'Abarrotes', emoji:'🛒', badge:'hot'},
+      {nombre:'Bebidas', emoji:'🧃'},
+      {nombre:'Snacks', emoji:'🍿'},
+      {nombre:'Condimentos', emoji:'🧂'},
+      {nombre:'Productos naturales', emoji:'🌿'},
+      {nombre:'Dulces y confitería', emoji:'🍬'},
+    ]
+  },
+  {
+    id:'oficina', nombre:'Oficina y escuela', emoji:'📚',
+    subs:[
+      {nombre:'Útiles escolares', emoji:'✏️'},
+      {nombre:'Papelería', emoji:'📝'},
+      {nombre:'Impresión', emoji:'🖨️'},
+      {nombre:'Mobiliario oficina', emoji:'🪑'},
+      {nombre:'Organización', emoji:'🗂️'},
+    ]
+  },
+  {
+    id:'instrumentos', nombre:'Instrumentos musicales', emoji:'🎵',
+    subs:[
+      {nombre:'Guitarras', emoji:'🎸'},
+      {nombre:'Teclados y pianos', emoji:'🎹'},
+      {nombre:'Percusión', emoji:'🥁'},
+      {nombre:'Viento', emoji:'🎺'},
+      {nombre:'Accesorios musicales', emoji:'🎼'},
+      {nombre:'Audio profesional', emoji:'🎙️'},
+    ]
+  },
+  {
+    id:'automotriz', nombre:'Automotriz', emoji:'🚗',
+    subs:[
+      {nombre:'Accesorios auto', emoji:'🚗'},
+      {nombre:'Cuidado del auto', emoji:'✨'},
+      {nombre:'Herramientas auto', emoji:'🔧'},
+      {nombre:'Navegación GPS', emoji:'🗺️'},
+      {nombre:'Motos y accesorios', emoji:'🏍️'},
+    ]
+  },
+  {
+    id:'herramientas', nombre:'Herramientas y construcción', emoji:'🔧',
+    subs:[
+      {nombre:'Herramientas manuales', emoji:'🔨'},
+      {nombre:'Herramientas eléctricas', emoji:'🔌'},
+      {nombre:'Materiales construcción', emoji:'🧱'},
+      {nombre:'Plomería', emoji:'🚿'},
+      {nombre:'Electricidad', emoji:'⚡'},
+      {nombre:'Pintura', emoji:'🎨'},
+    ]
+  },
+  {
+    id:'negocios', nombre:'Negocios e industria', emoji:'🏭',
+    subs:[
+      {nombre:'Equipos industriales', emoji:'⚙️'},
+      {nombre:'Insumos empresariales', emoji:'📦'},
+      {nombre:'Seguridad industrial', emoji:'⛑️'},
+      {nombre:'Limpieza industrial', emoji:'🧹'},
+      {nombre:'Distribución al por mayor', emoji:'🏭', badge:'hot'},
+    ]
+  },
+  {
+    id:'libros', nombre:'Libros y medios', emoji:'📚',
+    subs:[
+      {nombre:'Libros físicos', emoji:'📖'},
+      {nombre:'Libros educativos', emoji:'📚'},
+      {nombre:'Revistas', emoji:'📰'},
+      {nombre:'Material didáctico', emoji:'🎓'},
+    ]
+  },
+  {
+   id:'ropa-playa', nombre:'Ropa de playa', emoji:'🏖️',
+    subs:[
+      {nombre:'Trajes de baño mujer', emoji:'👙', badge:'hot'},
+      {nombre:'Trajes de baño hombre', emoji:'🩳'},
+      {nombre:'Pareos y coverups', emoji:'🌊'},
+      {nombre:'Sandalias playa', emoji:'🩴'},
+      {nombre:'Accesorios playa', emoji:'🕶️'},
+    ]
+  },
+  {
+    id:'muebles', nombre:'Muebles', emoji:'🛋️',
+    subs:[
+      {nombre:'Sala', emoji:'🛋️'},
+      {nombre:'Comedor', emoji:'🍽️'},
+      {nombre:'Dormitorio', emoji:'🛏️'},
+      {nombre:'Oficina en casa', emoji:'💼'},
+      {nombre:'Exterior', emoji:'⛱️'},
+    ]
+  },
+  {
+    id:'patio-jardin', nombre:'Patio y jardín', emoji:'🌿',
+    subs:[
+      {nombre:'Plantas y macetas', emoji:'🪴'},
+      {nombre:'Muebles exterior', emoji:'🪑'},
+      {nombre:'Herramientas jardín', emoji:'🌱'},
+      {nombre:'Decoración exterior', emoji:'🏡'},
+    ]
+  },
+  {
+    id:'manualidades', nombre:'Manualidades y arte', emoji:'🎨',
+    subs:[
+      {nombre:'Pintura y dibujo', emoji:'🖌️'},
+      {nombre:'Costura y tejido', emoji:'🧵'},
+      {nombre:'Scrapbooking', emoji:'✂️'},
+      {nombre:'Materiales manualidades', emoji:'🎨'},
+    ]
+  },
+];
+
+// =============================================
+// ESTADO
+// =============================================
+let categoriaActiva=null, subcatActiva=null, orden='recientes', busqActual='', productos=[], carritoCount=0;
+
+// =============================================
+// INIT
+// =============================================
 (async()=>{
-  const { data:{session} } = await sb.auth.getSession();
-  if(!session){ window.location.href='login.html'; return; }
-  cargarProductos();
+  renderSidebar();
+  activarCategoria(CATEGORIAS[0]);
+
+  // Carrito count
+  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  carritoCount=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+  const cn=document.getElementById('carrito-num');
+  if(cn) cn.textContent=carritoCount;
+
+  // Cargar productos de supabase
+  const {data}=await sb.from('productos').select('*').eq('activo',true).order('created_at',{ascending:false}).limit(100);
+  productos=data||[];
 })();
 
-async function cargarProductos(){
-  const { data } = await sb.from('productos').select('*').eq('activo',true);
-  todosProds = data||[];
-  renderGrid();
-}
-
-function renderGrid(){
-  let lista=[...todosProds];
-  if(catActiva!=='todos') lista=lista.filter(p=>p.categoria===catActiva);
-  if(busquedaActual) lista=lista.filter(p=>(p.nombre||'').toLowerCase().includes(busquedaActual)||(p.nombre_proveedor||'').toLowerCase().includes(busquedaActual)||(p.descripcion||'').toLowerCase().includes(busquedaActual));
-  if(sortActivo==='precio_asc') lista.sort((a,b)=>a.precio-b.precio);
-  else if(sortActivo==='precio_desc') lista.sort((a,b)=>b.precio-a.precio);
-  else if(sortActivo==='vistas') lista.sort((a,b)=>(b.vistas||0)-(a.vistas||0));
-  else lista.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-  document.getElementById('results-info').textContent=`${lista.length} producto${lista.length!==1?'s':''} encontrado${lista.length!==1?'s':''}`;
-  const grid=document.getElementById('products-grid');
-  if(!lista.length){ grid.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><p>Sin productos en esta categoría</p></div>'; return; }
-  grid.innerHTML='';
-  lista.forEach(p=>{
-    const img=p.imagenes?.[0]||p.imagen||'';
-    const div=document.createElement('div'); div.className='prod-card';
-    div.onclick=()=>window.location.href=`producto.html?id=${p.id}`;
-    div.innerHTML=`<div class="prod-img">${img?`<img src="${img}" alt="" loading="lazy">`:`<svg class="no-img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}${p.categoria?`<div class="prod-cat-tag">${p.categoria}</div>`:''}${p.video_url?`<div class="prod-video-tag">▶</div>`:''}</div><div class="prod-body"><div class="prod-nombre">${p.nombre||'Producto'}</div><div class="prod-proveedor">${p.nombre_proveedor||'Proveedor'}</div><div class="prod-footer"><div><div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div><div class="prod-min">Mín: ${p.minimo||1}</div></div><button class="add-btn" onclick="agregar(event,'${p.id}','${(p.nombre||'').replace(/'/g,"\\'")}',${p.precio||0},${p.minimo||1},'${img}','${(p.nombre_proveedor||'').replace(/'/g,"\\'")}')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>`;
-    grid.appendChild(div);
+// =============================================
+// SIDEBAR
+// =============================================
+function renderSidebar(){
+  const sb_el=document.getElementById('sidebar');
+  sb_el.innerHTML='';
+  CATEGORIAS.forEach((cat,idx)=>{
+    const div=document.createElement('div');
+    div.className='sidebar-item'+(idx===0?' active':'');
+    div.textContent=cat.nombre;
+    div.onclick=()=>activarCategoria(cat,div);
+    sb_el.appendChild(div);
   });
 }
 
-window.selCat=(cat,el)=>{ catActiva=cat; document.querySelectorAll('.cat-pill').forEach(c=>c.classList.remove('active')); el.classList.add('active'); renderGrid(); };
-window.selSort=(sort,el)=>{ sortActivo=sort; document.querySelectorAll('.sort-pill').forEach(s=>s.classList.remove('active')); el.classList.add('active'); renderGrid(); };
-window.buscar=v=>{ busquedaActual=v.toLowerCase().trim(); renderGrid(); };
-window.agregar=function(e,id,nombre,precio,minimo,imagen,proveedor){ e.stopPropagation(); carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]'); const idx=carrito.findIndex(i=>i.id===id); if(idx>=0) carrito[idx].cantidad+=minimo; else carrito.push({id,nombre,precio,cantidad:minimo,minimo,imagen,proveedor}); localStorage.setItem('carrito_proveed',JSON.stringify(carrito)); const t=document.getElementById('toast'); t.textContent=`✓ ${nombre} añadido`; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); };
+function activarCategoria(cat,el){
+  categoriaActiva=cat;
+  subcatActiva=null;
+  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('content-title').textContent=cat.nombre;
+  document.getElementById('orden-row').style.display='none';
+  renderSubcats(cat.subs||[]);
+}
+
+// =============================================
+// SUBCATEGORÍAS
+// =============================================
+function renderSubcats(subs){
+  const body=document.getElementById('content-body');
+  body.innerHTML='';
+  if(!subs.length){ body.innerHTML='<div style="text-align:center;padding:30px;color:#bbb;">Sin subcategorías</div>'; return; }
+
+  const grid=document.createElement('div');
+  grid.className='subcats';
+  subs.forEach(sub=>{
+    const card=document.createElement('div');
+    card.className='subcat-card';
+    card.onclick=()=>abrirSubcat(sub);
+    let badgeHTML='';
+    if(sub.badge==='hot') badgeHTML=`<div class="subcat-badge badge-hot">🔥 HOT</div>`;
+    else if(sub.badge==='new') badgeHTML=`<div class="subcat-badge badge-new">NEW</div>`;
+    else if(sub.badge==='oferta') badgeHTML=`<div class="subcat-badge badge-oferta">⚡ OFERTA</div>`;
+    card.innerHTML=`
+      <div class="subcat-img" style="background:#f5f0eb;">
+        <span style="font-size:2rem;">${sub.emoji||'📦'}</span>
+        ${badgeHTML}
+      </div>
+      <div class="subcat-nombre">${sub.nombre}</div>`;
+    grid.appendChild(card);
+  });
+  body.appendChild(grid);
+}
+
+// =============================================
+// PRODUCTOS DE SUBCATEGORÍA
+// =============================================
+function abrirSubcat(sub){
+  subcatActiva=sub;
+  document.getElementById('content-title').textContent=sub.nombre;
+  document.getElementById('orden-row').style.display='flex';
+  renderProductos(sub.nombre);
+}
+
+function renderProductos(subcat){
+  const body=document.getElementById('content-body');
+  let lista=productos;
+
+  // Filtrar por búsqueda o subcategoría
+  if(busqActual){ lista=lista.filter(p=>(p.nombre||'').toLowerCase().includes(busqActual)||(p.categoria||'').toLowerCase().includes(busqActual)); }
+  else if(subcat){ lista=lista.filter(p=>(p.categoria||'').toLowerCase().includes(subcat.toLowerCase().split(' ')[0]))||lista; }
+
+  // Ordenar
+  if(orden==='menor') lista=[...lista].sort((a,b)=>(a.precio||0)-(b.precio||0));
+  else if(orden==='mayor') lista=[...lista].sort((a,b)=>(b.precio||0)-(a.precio||0));
+  else lista=[...lista].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+
+  body.innerHTML='';
+  const header=document.createElement('div');
+  header.className='prods-header';
+  header.innerHTML=`<span class="prods-count">${lista.length} productos encontrados</span>`;
+  body.appendChild(header);
+
+  if(!lista.length){
+    const em=document.createElement('div');
+    em.style.cssText='text-align:center;padding:40px;color:#bbb;font-size:0.82rem;';
+    em.innerHTML=`<div style="font-size:2.5rem;margin-bottom:10px;">📦</div>Sin productos en esta categoría`;
+    body.appendChild(em);
+    return;
+  }
+
+  const grid=document.createElement('div');
+  grid.className='prods-grid';
+  lista.forEach(p=>grid.appendChild(crearTarjetaProducto(p)));
+  body.appendChild(grid);
+}
+
+function crearTarjetaProducto(p){
+  const card=document.createElement('div');
+  card.className='prod-card';
+  const img=p.imagenes?.[0]||p.imagen||'';
+  const catColor=colorCategoria(p.categoria||'');
+  const tieneVideo=p.video_url?true:false;
+
+  card.onclick=()=>window.location.href=`producto.html?id=${p.id}`;
+  card.innerHTML=`
+    <div class="prod-img" style="background:${catColor}18;">
+      ${img?`<img src="${img}" alt="${p.nombre||''}">`:
+        `<span style="font-size:3rem;">${emojiCategoria(p.categoria||'')}</span>`}
+      <div class="prod-cat-badge" style="background:${catColor};">${(p.categoria||'General').toUpperCase()}</div>
+      ${tieneVideo?`<div class="prod-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="white"/></svg></div>`:''}
+    </div>
+    <div class="prod-body">
+      <div class="prod-nombre">${p.nombre||'Producto'}</div>
+      <div class="prod-proveedor">${p.nombre_proveedor||p.proveedor||'Proveedor'}</div>
+      <div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div>
+      <div class="prod-min">Min: ${p.minimo||1}</div>
+      <button class="prod-add" onclick="agregarCarrito(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0})">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>`;
+  return card;
+}
+
+function colorCategoria(cat){
+  const map={
+    'Ropa':'#FF8C00','Textil':'#FF8C00','Vestido':'#FF8C00',
+    'Tecnolog':'#007AFF','Electr':'#007AFF','Celular':'#007AFF',
+    'Alimento':'#22C55E','Comida':'#22C55E','Abarrote':'#22C55E',
+    'Belleza':'#FF69B4','Cosmé':'#FF69B4','Maquill':'#FF69B4',
+    'Deporte':'#A855F7','Gym':'#A855F7',
+    'Hogar':'#F59E0B','Mueble':'#F59E0B',
+    'Joyería':'#EF4444','Acceso':'#EF4444',
+  };
+  for(const k in map){ if(cat.includes(k)) return map[k]; }
+  return '#888';
+}
+
+function emojiCategoria(cat){
+  const map={'Ropa':'👗','Vestido':'👗','Camiseta':'👕','Pantalon':'👖','Calzado':'👟','Joya':'💍','Tecnolog':'📱','Celular':'📱','Alimento':'🛒','Belleza':'💄','Deporte':'⚽','Hogar':'🏠','Mueble':'🛋️','Juguete':'🧸','Mascota':'🐾','Herramienta':'🔧'};
+  for(const k in map){ if(cat.includes(k)) return map[k]; }
+  return '📦';
+}
+
+// =============================================
+// BÚSQUEDA
+// =============================================
+function buscar(q){
+  busqActual=q.toLowerCase();
+  if(!q){ if(categoriaActiva) activarCategoria(categoriaActiva); return; }
+  document.getElementById('content-title').textContent=`Resultados: "${q}"`;
+  document.getElementById('orden-row').style.display='flex';
+  renderProductos(null);
+}
+
+// =============================================
+// ORDENAR
+// =============================================
+function ordenar(tipo,el){
+  orden=tipo;
+  document.querySelectorAll('.orden-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderProductos(subcatActiva?.nombre||null);
+}
+
+// =============================================
+// CARRITO
+// =============================================
+function agregarCarrito(e,id,nombre,precio){
+  e.stopPropagation();
+  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const idx=carrito.findIndex(i=>i.id===id);
+  if(idx>=0){ carrito[idx].cantidad=(carrito[idx].cantidad||1)+1; }
+  else { carrito.push({id,nombre,precio,cantidad:1}); }
+  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
+  carritoCount=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+  const cn=document.getElementById('carrito-num');
+  if(cn) cn.textContent=carritoCount;
+
+  // Animación rápida
+  const btn=e.currentTarget;
+  btn.style.background='var(--verde)';
+  setTimeout(()=>{ btn.style.background='#111'; },400);
+}
 </script>
 </body>
 </html>
