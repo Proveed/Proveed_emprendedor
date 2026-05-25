@@ -6,183 +6,234 @@
 <title>PROVEED — Mi Perfil</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; padding-bottom:90px; -webkit-font-smoothing:antialiased; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--acc:#FF8C00;--verde:#A8E63D;--negro:#111;--gris:#F5F6F2;--rojo:#FF4D4D;--azul:#007AFF;}
+body{background:var(--gris);font-family:'Inter',sans-serif;padding-bottom:90px;-webkit-font-smoothing:antialiased;}
 
-  .header{ background:var(--negro); padding:44px 16px 24px; }
-  .header-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
-  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
-  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .header-title{ font-size:1.1rem; font-weight:700; color:white; }
-  .btn-editar{ background:rgba(255,255,255,0.08); color:white; border:none; padding:8px 14px; border-radius:10px; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:600; cursor:pointer; }
+/* HEADER */
+.header{background:var(--negro);padding:44px 16px 20px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.back-btn{width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
+.back-btn svg{width:18px;height:18px;stroke:white;fill:none;stroke-width:2.5;}
+.hdr-title{font-size:1rem;font-weight:700;color:white;}
+.btn-edit{background:rgba(255,255,255,0.08);color:white;border:none;padding:7px 14px;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:600;cursor:pointer;}
 
-  .perfil-hero{ display:flex; align-items:center; gap:14px; }
-  .perfil-avatar-wrap{ position:relative; flex-shrink:0; }
-  .perfil-avatar{ width:68px; height:68px; border-radius:20px; background:var(--verde); display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:800; color:var(--negro); overflow:hidden; }
-  .perfil-avatar img{ width:100%; height:100%; object-fit:cover; }
-  .cambiar-foto-btn{ position:absolute; bottom:-4px; right:-4px; width:24px; height:24px; background:var(--negro); border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px solid var(--gris); }
-  .cambiar-foto-btn svg{ width:12px; height:12px; stroke:var(--verde); fill:none; stroke-width:2.5; }
-  .foto-input{ position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-  .perfil-info{ flex:1; }
-  .perfil-nombre{ font-size:1.2rem; font-weight:800; color:white; }
-  .perfil-email{ font-size:0.78rem; color:#555; margin-top:2px; }
-  .perfil-ciudad{ font-size:0.76rem; color:#666; margin-top:4px; }
-  .perfil-verificado{ font-size:0.68rem; color:var(--verde); margin-top:4px; font-weight:700; }
+.perfil-hero{display:flex;align-items:center;gap:14px;}
+.avatar-wrap{position:relative;flex-shrink:0;}
+.avatar{width:66px;height:66px;border-radius:20px;background:var(--verde);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:800;color:var(--negro);overflow:hidden;}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+.cam-btn{position:absolute;bottom:-4px;right:-4px;width:24px;height:24px;background:white;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1.5px solid var(--gris);box-shadow:0 2px 6px rgba(0,0,0,0.15);}
+.cam-btn svg{width:11px;height:11px;stroke:#333;fill:none;stroke-width:2;}
+.perfil-info{flex:1;}
+.perfil-nombre{font-size:1.15rem;font-weight:800;color:white;letter-spacing:-0.3px;}
+.perfil-email{font-size:0.74rem;color:#555;margin-top:2px;}
+.perfil-ciudad{font-size:0.72rem;color:#555;margin-top:2px;}
+.perfil-verif{font-size:0.64rem;color:var(--verde);font-weight:700;margin-top:4px;}
 
-  .stats-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:14px 16px; }
-  .stat-card{ background:white; border-radius:16px; padding:14px 10px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .stat-val{ font-size:1.3rem; font-weight:800; color:var(--negro); }
-  .stat-val.naranja{ color:var(--naranja); }
-  .stat-lbl{ font-size:0.6rem; color:#bbb; font-weight:600; margin-top:3px; }
+/* STATS */
+.stats-row{display:flex;gap:10px;padding:14px 16px;overflow-x:auto;scrollbar-width:none;}
+.stats-row::-webkit-scrollbar{display:none;}
+.stat{background:white;border-radius:16px;padding:14px;min-width:100px;flex-shrink:0;border:1px solid #eee;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+.stat-val{font-size:1.35rem;font-weight:900;color:#111;}
+.stat-val.acc{color:var(--acc);}
+.stat-val.azul{color:var(--azul);}
+.stat-lbl{font-size:0.58rem;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:0.5px;margin-top:5px;}
 
-  .section-card{ margin:0 16px 12px; background:white; border-radius:18px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .section-title-bar{ font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:1px; padding:14px 16px 8px; }
-  .menu-item{ display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid #f8f8f8; cursor:pointer; transition:0.15s; }
-  .menu-item:last-child{ border-bottom:none; }
-  .menu-item:active{ background:#f8f8f8; }
-  .menu-icon{ width:36px; height:36px; border-radius:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .menu-icon svg{ width:18px; height:18px; fill:none; stroke-width:2; }
-  .menu-label{ flex:1; font-size:0.88rem; font-weight:600; color:var(--negro); }
-  .menu-sub{ font-size:0.72rem; color:#bbb; margin-top:2px; }
-  .menu-arrow{ width:16px; height:16px; stroke:#ddd; fill:none; stroke-width:2.5; }
-  .menu-item.danger .menu-label{ color:var(--rojo); }
-  .menu-item.danger .menu-icon{ background:rgba(255,77,77,0.08); }
-  .menu-item.danger .menu-icon svg{ stroke:var(--rojo); }
-  .huella-badge{ font-size:0.62rem; font-weight:700; padding:3px 8px; border-radius:6px; }
-  .huella-on{ background:rgba(168,230,61,0.12); color:var(--verde); }
-  .huella-off{ background:#f5f5f5; color:#bbb; }
+/* SECCIONES */
+.sec{background:white;border-radius:18px;margin:0 16px 12px;border:1px solid #eee;box-shadow:0 1px 6px rgba(0,0,0,0.04);overflow:hidden;}
+.sec-lbl{font-size:0.65rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 6px;}
+.menu-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f8f8f8;cursor:pointer;transition:0.15s;}
+.menu-item:last-child{border-bottom:none;}
+.menu-item:active{background:#f9f9f9;}
+.menu-ico{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.menu-ico svg{width:17px;height:17px;fill:none;stroke-width:2;}
+.menu-txt{flex:1;}
+.menu-lbl{font-size:0.88rem;font-weight:600;color:#111;}
+.menu-sub{font-size:0.7rem;color:#bbb;margin-top:1px;}
+.menu-arrow{width:15px;height:15px;stroke:#ddd;fill:none;stroke-width:2.5;}
+.badge-pill{font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:20px;}
+.badge-verde{background:rgba(168,230,61,0.12);color:#3a7a00;}
+.badge-off{background:#f5f5f5;color:#bbb;}
+.menu-item.danger .menu-lbl{color:var(--rojo);}
+.menu-item.danger .menu-ico{background:rgba(255,77,77,0.07);}
+.menu-item.danger .menu-ico svg{stroke:var(--rojo);}
 
-  /* MODALES */
-  .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:flex-end; z-index:500; }
-  .modal-overlay.show{ display:flex; }
-  .modal-sheet{ background:white; width:100%; border-radius:24px 24px 0 0; padding:0; transform:translateY(100%); transition:0.4s cubic-bezier(0.16,1,0.3,1); max-height:90vh; display:flex; flex-direction:column; overflow:hidden; }
-  .modal-overlay.show .modal-sheet{ transform:translateY(0); }
-  .drag{ width:36px; height:4px; background:#e0e0e0; border-radius:4px; margin:14px auto 0; flex-shrink:0; }
-  .modal-header{ padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f5f5f5; flex-shrink:0; }
-  .modal-title{ font-size:1rem; font-weight:700; color:var(--negro); }
-  .close-btn{ width:30px; height:30px; background:#f5f5f5; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
-  .close-btn svg{ width:14px; height:14px; stroke:#666; fill:none; stroke-width:2.5; }
-  .modal-body{ overflow-y:auto; padding:16px 16px 32px; flex:1; }
-  .field{ margin-bottom:14px; }
-  .field label{ display:block; font-size:0.7rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
-  .field input,.field select,.field textarea{ width:100%; padding:13px 15px; background:var(--gris); border:1.5px solid #eee; border-radius:13px; font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--negro); outline:none; -webkit-appearance:none; transition:border-color 0.2s; }
-  .field input:focus,.field select:focus{ border-color:var(--verde); }
-  .field input::placeholder{ color:#bbb; }
-  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .btn-guardar{ width:100%; padding:14px; background:var(--negro); color:white; border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:800; cursor:pointer; margin-top:4px; }
-  .btn-guardar:disabled{ opacity:0.5; cursor:not-allowed; }
-  .msg-ok{ display:none; background:rgba(168,230,61,0.1); border:1px solid rgba(168,230,61,0.3); border-radius:12px; padding:10px 14px; font-size:0.82rem; color:#3a7a00; margin-bottom:12px; }
-  .msg-ok.show{ display:block; }
-  .msg-err{ display:none; background:rgba(255,77,77,0.08); border:1px solid rgba(255,77,77,0.2); border-radius:12px; padding:10px 14px; font-size:0.82rem; color:var(--rojo); margin-bottom:12px; }
-  .msg-err.show{ display:block; }
+/* PEDIDOS SECTION */
+.pedidos-lista{padding:0 16px 4px;}
+.pedido-card{background:white;border-radius:16px;margin-bottom:10px;border:1px solid #eee;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+.ped-head{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #f5f5f5;}
+.ped-emoji{font-size:1.2rem;flex-shrink:0;}
+.ped-info{flex:1;}
+.ped-num{font-size:0.82rem;font-weight:800;color:#111;}
+.ped-fecha{font-size:0.65rem;color:#bbb;margin-top:1px;}
+.ped-badge{font-size:0.58rem;font-weight:800;padding:3px 8px;border-radius:20px;flex-shrink:0;text-transform:uppercase;}
+.badge-pendiente{background:rgba(255,140,0,0.1);color:var(--acc);}
+.badge-proceso{background:rgba(0,122,255,0.1);color:var(--azul);}
+.badge-enviado{background:rgba(175,82,222,0.1);color:#AF52DE;}
+.badge-entregado{background:rgba(168,230,61,0.12);color:#3a7a00;}
+.badge-cancelado{background:rgba(255,77,77,0.08);color:var(--rojo);}
+.ped-body{padding:12px 14px;}
+.ped-prov{font-size:0.76rem;color:#aaa;margin-bottom:6px;}
+.ped-items{font-size:0.78rem;color:#555;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ped-footer{display:flex;align-items:center;justify-content:space-between;}
+.ped-total{font-size:1rem;font-weight:900;color:var(--acc);}
+.ped-track{display:flex;gap:4px;align-items:center;}
+.track-dot{width:8px;height:8px;border-radius:50%;background:#eee;}
+.track-dot.done{background:var(--verde);}
+.track-dot.active{background:var(--acc);}
+.track-line{width:18px;height:2px;background:#eee;}
+.track-line.done{background:var(--verde);}
+.empty-pedidos{text-align:center;padding:40px 20px;color:#bbb;}
+.empty-pedidos div{font-size:2.5rem;margin-bottom:10px;}
+.empty-pedidos p{font-size:0.82rem;font-weight:600;}
 
-  /* HUELLA */
-  .huella-screen{ text-align:center; padding:24px 0; }
-  .huella-icon{ width:80px; height:80px; background:var(--gris); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
-  .huella-icon svg{ width:36px; height:36px; stroke:var(--negro); fill:none; stroke-width:1.5; }
-  .huella-icon.activa{ background:rgba(168,230,61,0.12); }
-  .huella-icon.activa svg{ stroke:var(--verde); }
-  .huella-title{ font-size:1rem; font-weight:700; color:var(--negro); margin-bottom:6px; }
-  .huella-sub{ font-size:0.82rem; color:#aaa; line-height:1.5; margin-bottom:20px; }
-  .btn-huella{ width:100%; padding:14px; background:var(--negro); color:white; border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; }
-  .btn-huella-off{ width:100%; padding:14px; background:rgba(255,77,77,0.08); color:var(--rojo); border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; margin-top:8px; }
+/* MODALES */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:flex-end;z-index:500;}
+.modal-overlay.show{display:flex;}
+.modal-sheet{background:white;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:0.4s cubic-bezier(0.16,1,0.3,1);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.modal-overlay.show .modal-sheet{transform:translateY(0);}
+.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
+.modal-hdr{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f5f5f5;flex-shrink:0;}
+.modal-title{font-size:0.95rem;font-weight:700;color:#111;}
+.close-btn{width:28px;height:28px;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
+.close-btn svg{width:13px;height:13px;stroke:#666;fill:none;stroke-width:2.5;}
+.modal-body{overflow-y:auto;padding:16px 16px 32px;flex:1;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;background:var(--gris);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;-webkit-appearance:none;transition:0.2s;}
+.field input:focus,.field select:focus{border-color:var(--acc);}
+.field input::placeholder,.field textarea::placeholder{color:#bbb;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-save{width:100%;padding:14px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;margin-top:4px;}
+.msg-ok{display:none;background:rgba(168,230,61,0.08);border:1px solid rgba(168,230,61,0.2);border-radius:12px;padding:10px 14px;font-size:0.8rem;color:#3a7a00;margin-bottom:12px;}
+.msg-ok.show{display:block;}
+.msg-err{display:none;background:rgba(255,77,77,0.07);border:1px solid rgba(255,77,77,0.2);border-radius:12px;padding:10px 14px;font-size:0.8rem;color:var(--rojo);margin-bottom:12px;}
+.msg-err.show{display:block;}
 
-  /* FACTURACIÓN PREVIEW */
-  .factura-preview{ background:var(--gris); border-radius:14px; padding:14px; margin-bottom:14px; border:1px solid #eee; }
-  .factura-preview-title{ font-size:0.68rem; font-weight:700; color:#aaa; text-transform:uppercase; margin-bottom:8px; }
-  .factura-dato{ font-size:0.82rem; color:#666; margin-bottom:3px; }
-  .factura-dato span{ color:var(--negro); font-weight:600; }
+/* HUELLA */
+.huella-wrap{text-align:center;padding:20px 0;}
+.huella-ico{width:76px;height:76px;background:var(--gris);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.huella-ico svg{width:34px;height:34px;stroke:#999;fill:none;stroke-width:1.5;}
+.huella-ico.on{background:rgba(168,230,61,0.1);}
+.huella-ico.on svg{stroke:var(--verde);}
+.huella-title{font-size:0.98rem;font-weight:700;color:#111;margin-bottom:6px;}
+.huella-sub{font-size:0.8rem;color:#aaa;line-height:1.5;margin-bottom:18px;}
+.btn-huella{width:100%;padding:13px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;}
+.btn-huella-off{width:100%;padding:12px;background:rgba(255,77,77,0.07);color:var(--rojo);border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:700;cursor:pointer;}
 
-  /* FOTO MODAL */
-  .foto-opciones{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .foto-opcion{ background:var(--gris); border-radius:14px; padding:20px 14px; text-align:center; cursor:pointer; border:none; font-family:'Inter',sans-serif; transition:0.2s; }
-  .foto-opcion:active{ transform:scale(0.96); }
-  .foto-opcion svg{ width:28px; height:28px; stroke:var(--negro); fill:none; stroke-width:1.5; display:block; margin:0 auto 8px; }
-  .foto-opcion span{ font-size:0.78rem; font-weight:600; color:var(--negro); }
-  .foto-input-hidden{ display:none; }
-  .foto-preview-wrap{ text-align:center; margin-bottom:14px; }
-  .foto-preview-wrap img{ width:100px; height:100px; border-radius:20px; object-fit:cover; }
+/* FOTO MODAL */
+.foto-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.foto-opt{background:var(--gris);border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:0.15s;}
+.foto-opt:active{transform:scale(0.96);}
+.foto-opt svg{width:26px;height:26px;stroke:#333;fill:none;stroke-width:1.5;display:block;margin:0 auto 7px;}
+.foto-opt span{font-size:0.76rem;font-weight:600;color:#333;}
+.foto-hidden{display:none;}
+.foto-prev-wrap{text-align:center;margin-bottom:12px;}
+.foto-prev-wrap img{width:90px;height:90px;border-radius:18px;object-fit:cover;}
 
-  .upload-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; flex-direction:column; align-items:center; justify-content:center; z-index:1000; }
-  .upload-overlay.show{ display:flex; }
-  .upload-box{ background:white; border-radius:20px; padding:24px; width:80%; max-width:280px; text-align:center; }
-  .upload-box p{ font-size:0.88rem; color:#666; margin-top:8px; }
-  .spinner{ width:36px; height:36px; border:3px solid #f0f0f0; border-top-color:var(--negro); border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
+/* UPLOAD */
+.upload-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:1000;}
+.upload-overlay.show{display:flex;}
+.upload-box{background:white;border-radius:18px;padding:24px;width:80%;max-width:270px;text-align:center;}
+.spinner{width:34px;height:34px;border:3px solid #eee;border-top-color:#111;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 10px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.upload-box p{font-size:0.82rem;color:#666;}
 
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; z-index:200; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
-  .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; }
-  .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
-  .tab.active .tab-dot{ display:block; }
+/* TAB BAR */
+.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
+.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:0.2s;}
+.tab span{font-size:0.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
+.tab.active svg{stroke:var(--acc);}
+.tab.active span{color:var(--acc);}
+.tab-rel{position:relative;}
+.tab-badge{position:absolute;top:-2px;right:6px;background:var(--rojo);color:white;font-size:0.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-top">
-    <button class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <div class="header-title">Mi Perfil</div>
-    <button class="btn-editar" onclick="abrirEditar()">Editar</button>
+    <button class="back-btn" onclick="window.location.href='index.html'">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="hdr-title">Mi Perfil</div>
+    <button class="btn-edit" onclick="abrirEditar()">Editar</button>
   </div>
   <div class="perfil-hero">
-    <div class="perfil-avatar-wrap">
-      <div class="perfil-avatar" id="p-avatar">U</div>
-      <div class="cambiar-foto-btn" onclick="abrirFotoModal()">
+    <div class="avatar-wrap">
+      <div class="avatar" id="p-avatar">U</div>
+      <div class="cam-btn" onclick="abrirFotoModal()">
         <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
       </div>
     </div>
     <div class="perfil-info">
       <div class="perfil-nombre" id="p-nombre">Cargando...</div>
       <div class="perfil-email" id="p-email">—</div>
-      <div class="perfil-ciudad" id="p-ciudad">—</div>
-      <div class="perfil-verificado" id="p-verificado"></div>
+      <div class="perfil-ciudad" id="p-ciudad"></div>
+      <div class="perfil-verif" id="p-verif"></div>
     </div>
   </div>
 </div>
 
-<div class="stats-grid">
-  <div class="stat-card"><div class="stat-val" id="st-pedidos">—</div><div class="stat-lbl">Pedidos</div></div>
-  <div class="stat-card"><div class="stat-val naranja" id="st-gastado">—</div><div class="stat-lbl">Gastado</div></div>
-  <div class="stat-card"><div class="stat-val" id="st-chats">—</div><div class="stat-lbl">Chats</div></div>
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat"><div class="stat-val acc" id="st-pedidos">—</div><div class="stat-lbl">Pedidos</div></div>
+  <div class="stat"><div class="stat-val" id="st-gastado">—</div><div class="stat-lbl">Comprado</div></div>
+  <div class="stat"><div class="stat-val azul" id="st-chats">—</div><div class="stat-lbl">Chats</div></div>
+  <div class="stat"><div class="stat-val" id="st-provs">—</div><div class="stat-lbl">Proveedores</div></div>
 </div>
 
-<div class="section-card">
-  <div class="section-title-bar">Mi cuenta</div>
-  <div class="menu-item" onclick="window.location.href='pedidos.html'">
-    <div class="menu-icon" style="background:rgba(17,17,17,0.05)"><svg style="stroke:var(--negro)" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg></div>
-    <div class="flex-1"><div class="menu-label">Mis pedidos</div></div>
+<!-- CUENTA -->
+<div class="sec">
+  <div class="sec-lbl">Mi cuenta</div>
+  <div class="menu-item" onclick="abrirFacturacion()">
+    <div class="menu-ico" style="background:rgba(255,140,0,0.08)"><svg style="stroke:var(--acc)" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+    <div class="menu-txt"><div class="menu-lbl">Datos de facturación</div><div class="menu-sub" id="fact-sub">Agregar para facturas automáticas</div></div>
     <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
   </div>
   <div class="menu-item" onclick="window.location.href='chat.html'">
-    <div class="menu-icon" style="background:rgba(168,230,61,0.1)"><svg style="stroke:var(--verde)" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-    <div class="flex-1"><div class="menu-label">Mis chats</div></div>
+    <div class="menu-ico" style="background:rgba(0,122,255,0.07)"><svg style="stroke:var(--azul)" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <div class="menu-txt"><div class="menu-lbl">Mis chats</div></div>
     <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
   </div>
-  <div class="menu-item" onclick="abrirFacturacion()">
-    <div class="menu-icon" style="background:rgba(255,140,0,0.1)"><svg style="stroke:var(--naranja)" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-    <div class="flex-1"><div class="menu-label">Datos de facturación</div><div class="menu-sub" id="fact-sub">Agregar datos para facturas</div></div>
+  <div class="menu-item" onclick="window.location.href='favoritos.html'">
+    <div class="menu-ico" style="background:rgba(255,77,77,0.07)"><svg style="stroke:var(--rojo)" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <div class="menu-txt"><div class="menu-lbl">Favoritos</div></div>
     <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-  </div>
-  <div class="menu-item" onclick="abrirCambioPass()">
-    <div class="menu-icon" style="background:rgba(0,122,255,0.08)"><svg style="stroke:#007AFF" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-    <div class="flex-1"><div class="menu-label">Cambiar contraseña</div></div>
-    <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-  </div>
-  <div class="menu-item" onclick="abrirHuella()">
-    <div class="menu-icon" style="background:rgba(175,82,222,0.08)"><svg style="stroke:#AF52DE" viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="flex-1"><div class="menu-label">Acceso con huella</div><div class="menu-sub">Touch ID / Face ID</div></div>
-    <span class="huella-badge" id="huella-badge">Desactivado</span>
   </div>
 </div>
 
-<div class="section-card">
+<!-- SEGURIDAD -->
+<div class="sec">
+  <div class="sec-lbl">Seguridad</div>
+  <div class="menu-item" onclick="abrirCambioPass()">
+    <div class="menu-ico" style="background:rgba(0,122,255,0.07)"><svg style="stroke:var(--azul)" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="menu-txt"><div class="menu-lbl">Cambiar contraseña</div></div>
+    <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </div>
+  <div class="menu-item" onclick="abrirHuella()">
+    <div class="menu-ico" style="background:rgba(175,82,222,0.07)"><svg style="stroke:#AF52DE" viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><circle cx="12" cy="12" r="3"/></svg></div>
+    <div class="menu-txt"><div class="menu-lbl">Acceso con huella</div><div class="menu-sub">Touch ID / Face ID</div></div>
+    <span class="badge-pill" id="huella-badge">Desactivado</span>
+  </div>
+</div>
+
+<!-- PEDIDOS -->
+<div style="padding:0 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+  <div style="font-size:0.65rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;">Mis pedidos</div>
+  <div style="font-size:0.7rem;font-weight:700;color:var(--acc);cursor:pointer;" id="pedidos-filtro" onclick="toggleFiltro()">Todos</div>
+</div>
+<div class="pedidos-lista" id="pedidos-lista">
+  <div class="empty-pedidos"><div>📦</div><p>Cargando pedidos...</p></div>
+</div>
+
+<!-- CERRAR SESIÓN -->
+<div class="sec" style="margin-top:4px;">
   <div class="menu-item danger" onclick="cerrarSesion()">
-    <div class="menu-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
-    <div class="menu-label">Cerrar sesión</div>
+    <div class="menu-ico"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+    <div class="menu-lbl">Cerrar sesión</div>
   </div>
 </div>
 
@@ -190,7 +241,7 @@
 <div class="modal-overlay" id="modal-editar" onclick="cerrarModal('modal-editar',event)">
   <div class="modal-sheet">
     <div class="drag"></div>
-    <div class="modal-header">
+    <div class="modal-hdr">
       <span class="modal-title">Editar perfil</span>
       <button class="close-btn" onclick="document.getElementById('modal-editar').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
@@ -201,26 +252,27 @@
         <div class="field"><label>Ciudad</label><input type="text" id="e-ciudad" placeholder="Ciudad"></div>
         <div class="field"><label>Teléfono</label><input type="tel" id="e-tel" placeholder="0991234567"></div>
       </div>
+      <div class="field"><label>Empresa / Negocio</label><input type="text" id="e-empresa" placeholder="Nombre de tu negocio (opcional)"></div>
       <div class="field"><label>Cédula</label><input type="text" id="e-cedula" placeholder="1712345678" maxlength="10"></div>
-      <button class="btn-guardar" onclick="guardarPerfil()">Guardar cambios</button>
+      <button class="btn-save" onclick="guardarPerfil()">Guardar cambios</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL CAMBIAR CONTRASEÑA -->
+<!-- MODAL CONTRASEÑA -->
 <div class="modal-overlay" id="modal-pass" onclick="cerrarModal('modal-pass',event)">
   <div class="modal-sheet">
     <div class="drag"></div>
-    <div class="modal-header">
+    <div class="modal-hdr">
       <span class="modal-title">Cambiar contraseña</span>
       <button class="close-btn" onclick="document.getElementById('modal-pass').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
-      <div class="msg-ok" id="pass-ok">✓ Contraseña actualizada correctamente</div>
+      <div class="msg-ok" id="pass-ok">✓ Contraseña actualizada</div>
       <div class="msg-err" id="pass-err">Las contraseñas no coinciden</div>
       <div class="field"><label>Nueva contraseña *</label><input type="password" id="p-nueva" placeholder="Mínimo 6 caracteres"></div>
-      <div class="field"><label>Confirmar nueva contraseña *</label><input type="password" id="p-confirmar" placeholder="Repite la contraseña"></div>
-      <button class="btn-guardar" onclick="cambiarPassword()">Cambiar contraseña</button>
+      <div class="field"><label>Confirmar contraseña *</label><input type="password" id="p-conf" placeholder="Repite la contraseña"></div>
+      <button class="btn-save" onclick="cambiarPassword()">Actualizar contraseña</button>
     </div>
   </div>
 </div>
@@ -229,47 +281,43 @@
 <div class="modal-overlay" id="modal-huella" onclick="cerrarModal('modal-huella',event)">
   <div class="modal-sheet">
     <div class="drag"></div>
-    <div class="modal-header">
+    <div class="modal-hdr">
       <span class="modal-title">Acceso biométrico</span>
       <button class="close-btn" onclick="document.getElementById('modal-huella').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
-      <div class="huella-screen" id="huella-screen">
-        <div class="huella-icon" id="huella-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><path d="M12 8c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4"/><circle cx="12" cy="12" r="1"/></svg>
-        </div>
-        <div class="huella-title" id="huella-title">Activar acceso biométrico</div>
-        <div class="huella-sub" id="huella-sub">Usa tu huella dactilar o Face ID para entrar más rápido sin escribir tu contraseña</div>
-        <button class="btn-huella" id="btn-huella-accion" onclick="toggleHuella()">🔒 Activar huella / Face ID</button>
-        <div id="btn-huella-off-wrap"></div>
+      <div class="huella-wrap">
+        <div class="huella-ico" id="h-ico"><svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="huella-title" id="h-title">Activar acceso biométrico</div>
+        <div class="huella-sub" id="h-sub">Usa tu huella dactilar o Face ID para entrar sin escribir contraseña cada vez.</div>
+        <button class="btn-huella" id="h-btn" onclick="toggleHuella()">🔒 Activar huella / Face ID</button>
+        <div id="h-off-wrap"></div>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- MODAL FACTURACIÓN -->
 <div class="modal-overlay" id="modal-factura" onclick="cerrarModal('modal-factura',event)">
   <div class="modal-sheet">
     <div class="drag"></div>
-    <div class="modal-header">
+    <div class="modal-hdr">
       <span class="modal-title">Datos de facturación</span>
       <button class="close-btn" onclick="document.getElementById('modal-factura').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="msg-ok" id="fact-ok">✓ Datos de facturación guardados</div>
-      <p style="font-size:0.8rem;color:#aaa;margin-bottom:14px;">Estos datos se usarán automáticamente al generar facturas o pedidos.</p>
+      <p style="font-size:0.78rem;color:#aaa;margin-bottom:14px;">Se llenan automáticamente en tus pedidos y facturas.</p>
       <div class="field"><label>Nombre completo / Razón social *</label><input type="text" id="f-nombre" placeholder="Juan Torres o Mi Empresa S.A."></div>
       <div class="field"><label>Cédula / RUC *</label><input type="text" id="f-ruc" placeholder="1712345678 o 1234567890001" maxlength="13"></div>
       <div class="field"><label>Correo para facturas *</label><input type="email" id="f-email" placeholder="facturas@ejemplo.com"></div>
       <div class="field"><label>Teléfono</label><input type="tel" id="f-tel" placeholder="0991234567"></div>
-      <div class="field"><label>Dirección completa *</label><input type="text" id="f-dir" placeholder="Av. Principal y Calle 5, Edificio XYZ"></div>
+      <div class="field"><label>Dirección completa *</label><input type="text" id="f-dir" placeholder="Av. Principal y Calle 5, Ref..."></div>
       <div class="field-row">
         <div class="field"><label>Ciudad *</label><input type="text" id="f-ciudad" placeholder="Quito"></div>
-        <div class="field"><label>Provincia</label><input type="text" id="f-provincia" placeholder="Pichincha"></div>
+        <div class="field"><label>Provincia</label><input type="text" id="f-prov" placeholder="Pichincha"></div>
       </div>
-      <div class="field"><label>País</label><input type="text" id="f-pais" placeholder="Ecuador" value="Ecuador"></div>
-      <button class="btn-guardar" onclick="guardarFacturacion()">Guardar datos de facturación</button>
+      <button class="btn-save" onclick="guardarFacturacion()">Guardar datos</button>
     </div>
   </div>
 </div>
@@ -278,99 +326,127 @@
 <div class="modal-overlay" id="modal-foto" onclick="cerrarModal('modal-foto',event)">
   <div class="modal-sheet">
     <div class="drag"></div>
-    <div class="modal-header">
-      <span class="modal-title">Cambiar foto de perfil</span>
+    <div class="modal-hdr">
+      <span class="modal-title">Foto de perfil</span>
       <button class="close-btn" onclick="document.getElementById('modal-foto').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
-      <div class="foto-preview-wrap" id="foto-preview-wrap" style="display:none;">
-        <img id="foto-preview-img" src="" alt="">
-      </div>
-      <div class="foto-opciones">
-        <button class="foto-opcion" onclick="document.getElementById('foto-camara').click()">
+      <div class="foto-prev-wrap" id="foto-prev-wrap" style="display:none;"><img id="foto-prev-img" src="" alt=""></div>
+      <div class="foto-opts">
+        <button class="foto-opt" onclick="document.getElementById('foto-cam').click()">
           <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
           <span>Tomar foto</span>
         </button>
-        <button class="foto-opcion" onclick="document.getElementById('foto-galeria').click()">
+        <button class="foto-opt" onclick="document.getElementById('foto-gal').click()">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           <span>Galería</span>
         </button>
       </div>
-      <input type="file" id="foto-camara" accept="image/*" capture="user" class="foto-input-hidden" onchange="previsualizarFoto(this)">
-      <input type="file" id="foto-galeria" accept="image/*" class="foto-input-hidden" onchange="previsualizarFoto(this)">
-      <button class="btn-guardar" id="btn-subir-foto" onclick="subirFoto()" style="display:none;margin-top:14px;">Guardar foto</button>
+      <input type="file" id="foto-cam" accept="image/*" capture="user" class="foto-hidden" onchange="prevFoto(this)">
+      <input type="file" id="foto-gal" accept="image/*" class="foto-hidden" onchange="prevFoto(this)">
+      <button class="btn-save" id="btn-subir" onclick="subirFoto()" style="display:none;margin-top:12px;">Guardar foto</button>
     </div>
   </div>
 </div>
 
 <div class="upload-overlay" id="upload-overlay">
-  <div class="upload-box">
-    <div class="spinner"></div>
-    <p>Subiendo foto...</p>
-  </div>
+  <div class="upload-box"><div class="spinner"></div><p id="upload-txt">Guardando...</p></div>
 </div>
 
+<!-- TAB BAR -->
 <nav class="tab-bar">
-  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
-  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
-  <a class="tab" href="tips.html"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/></svg><span>Tips</span><div class="tab-dot"></div></a>
-  <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
-  <a class="tab active" href="perfil.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span><div class="tab-dot"></div></a>
+  <a class="tab" href="index.html">
+    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Inicio</span>
+  </a>
+  <a class="tab" href="explorar.html">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>Explorar</span>
+  </a>
+  <a class="tab" href="tips.html">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    <span>Tips</span>
+  </a>
+  <a class="tab tab-rel" href="carrito.html">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span>Carrito</span>
+    <div class="tab-badge" id="carrito-badge" style="display:none;">0</div>
+  </a>
+  <a class="tab active" href="perfil-emprendedor.html">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Perfil</span>
+  </a>
 </nav>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const { createClient } = supabase;
 const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-let userId='', userData={}, fotoNueva=null;
-const HUELLA_KEY='proveed_biometrico_emp';
+
+let userId='', userData={}, fotoFile=null;
+let pedidos=[], filtroPed='todos';
+const HUELLA_KEY='proveed_bio_emp';
 
 (async()=>{
   const { data:{session} } = await sb.auth.getSession();
   if(!session){ window.location.href='login.html'; return; }
   userId=session.user.id;
 
-  // Caché inmediata
-  const cached=localStorage.getItem('proveed_perfil');
-  if(cached){ mostrarPerfil(JSON.parse(cached),session.user.email); }
+  // Cache rápida
+  const cached=localStorage.getItem('proveed_perfil_emp');
+  if(cached){ renderPerfil(JSON.parse(cached),session.user.email); }
 
-  // Cargar datos frescos en paralelo
-  const [{ data:u },{ data:pedidos },{ data:chats }] = await Promise.all([
+  // Cargar datos en paralelo
+  const [{ data:u },{ data:peds },{ data:chats }] = await Promise.all([
     sb.from('usuarios').select('*').eq('id',userId).single(),
-    sb.from('pedidos').select('total').eq('emprendedor_id',userId),
+    sb.from('pedidos').select('*').eq('emprendedor_id',userId).order('created_at',{ascending:false}),
     sb.from('chats').select('id').eq('emprendedor_id',userId)
   ]);
+
   if(u){
     userData=u;
-    localStorage.setItem('proveed_perfil',JSON.stringify(u));
-    mostrarPerfil(u,session.user.email);
-    precargarFormularios(u);
+    localStorage.setItem('proveed_perfil_emp',JSON.stringify(u));
+    renderPerfil(u,session.user.email);
+    precargarForms(u);
   }
-  document.getElementById('st-pedidos').textContent=(pedidos||[]).length;
-  document.getElementById('st-gastado').textContent='$'+((pedidos||[]).reduce((s,p)=>s+(p.total||0),0)).toFixed(0);
+
+  pedidos=peds||[];
+  const gastado=pedidos.reduce((s,p)=>s+(p.total||0),0);
+  const provs=new Set(pedidos.map(p=>p.proveedor_id).filter(Boolean)).size;
+
+  document.getElementById('st-pedidos').textContent=pedidos.length;
+  document.getElementById('st-gastado').textContent='$'+gastado.toFixed(0);
   document.getElementById('st-chats').textContent=(chats||[]).length;
+  document.getElementById('st-provs').textContent=provs;
+
+  renderPedidos();
   verificarHuella();
+
+  // Carrito badge
+  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const cnt=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+  if(cnt>0){ const b=document.getElementById('carrito-badge'); b.style.display='flex'; b.textContent=cnt>9?'9+':cnt; }
 })();
 
-function mostrarPerfil(u,email){
-  const nombre=u.nombre||'Sin nombre';
-  const avatar=document.getElementById('p-avatar');
-  if(u.foto_perfil){ avatar.innerHTML=`<img src="${u.foto_perfil}" alt="">`; }
-  else { avatar.textContent=nombre[0].toUpperCase(); avatar.style.background=''; }
+function renderPerfil(u,email){
+  const nombre=u.nombre||'Emprendedor';
+  const av=document.getElementById('p-avatar');
+  if(u.foto_perfil){ av.innerHTML=`<img src="${u.foto_perfil}" alt="">`; }
+  else { av.textContent=nombre[0].toUpperCase(); av.style.background=''; }
   document.getElementById('p-nombre').textContent=nombre;
   document.getElementById('p-email').textContent=email||'—';
   document.getElementById('p-ciudad').textContent=u.ciudad?`📍 ${u.ciudad}`:'';
-  document.getElementById('p-verificado').textContent=u.verificado?'✓ Cuenta verificada':'';
-  // Facturación sub
+  document.getElementById('p-verif').textContent=u.verificado?'✓ Cuenta verificada':'';
   if(u.facturacion?.nombre){
-    document.getElementById('fact-sub').textContent=u.facturacion.nombre+' · '+( u.facturacion.ruc||'');
+    document.getElementById('fact-sub').textContent=u.facturacion.nombre+' · '+(u.facturacion.ruc||'');
   }
 }
 
-function precargarFormularios(u){
+function precargarForms(u){
   document.getElementById('e-nombre').value=u.nombre||'';
   document.getElementById('e-ciudad').value=u.ciudad||'';
   document.getElementById('e-tel').value=u.telefono||'';
+  document.getElementById('e-empresa').value=u.empresa||'';
   document.getElementById('e-cedula').value=u.cedula||'';
   const f=u.facturacion||{};
   document.getElementById('f-nombre').value=f.nombre||u.nombre||'';
@@ -379,78 +455,142 @@ function precargarFormularios(u){
   document.getElementById('f-tel').value=f.telefono||u.telefono||'';
   document.getElementById('f-dir').value=f.direccion||'';
   document.getElementById('f-ciudad').value=f.ciudad||u.ciudad||'';
-  document.getElementById('f-provincia').value=f.provincia||'';
-  document.getElementById('f-pais').value=f.pais||'Ecuador';
+  document.getElementById('f-prov').value=f.provincia||'';
 }
 
-// EDITAR PERFIL
-window.abrirEditar=()=>document.getElementById('modal-editar').classList.add('show');
+// =====================
+// PEDIDOS
+// =====================
+const ESTADOS=['pendiente','proceso','enviado','entregado'];
+const ESTADO_LABELS={pendiente:'Pendiente',proceso:'En proceso',enviado:'Enviado',entregado:'Entregado',cancelado:'Cancelado'};
+const ESTADO_EMOJIS={pendiente:'📦',proceso:'⚙️',enviado:'🚚',entregado:'✅',cancelado:'❌'};
+
+function renderPedidos(){
+  const cont=document.getElementById('pedidos-lista');
+  let lista=pedidos;
+  if(filtroPed!=='todos') lista=pedidos.filter(p=>p.estado===filtroPed);
+
+  if(!lista.length){
+    cont.innerHTML=`<div class="empty-pedidos"><div>📦</div><p>${filtroPed==='todos'?'Aún no tienes pedidos':'Sin pedidos con este estado'}</p></div>`;
+    return;
+  }
+
+  cont.innerHTML='';
+  lista.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='pedido-card';
+    const items=p.items||[];
+    const itemsTxt=items.map(i=>`${i.nombre||'Producto'} x${i.cantidad||1}`).join(', ')||'Sin detalle';
+    const fecha=new Date(p.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'});
+    const num=p.id.slice(-8).toUpperCase();
+    const estado=p.estado||'pendiente';
+    const badgeClass='badge-'+estado;
+    const estadoIdx=ESTADOS.indexOf(estado);
+
+    // Tracking dots
+    let tracking='';
+    ESTADOS.forEach((e,i)=>{
+      if(i>0) tracking+=`<div class="track-line${i<=estadoIdx?' done':''}"></div>`;
+      tracking+=`<div class="track-dot${i<estadoIdx?' done':i===estadoIdx?' active':''}"></div>`;
+    });
+
+    card.innerHTML=`
+      <div class="ped-head">
+        <div class="ped-emoji">${ESTADO_EMOJIS[estado]||'📦'}</div>
+        <div class="ped-info">
+          <div class="ped-num">#${num}</div>
+          <div class="ped-fecha">${fecha}</div>
+        </div>
+        <span class="ped-badge ${badgeClass}">${ESTADO_LABELS[estado]||estado}</span>
+      </div>
+      <div class="ped-body">
+        <div class="ped-prov">${p.nombre_proveedor||p.proveedor||'Proveedor'}</div>
+        <div class="ped-items">${itemsTxt}</div>
+        <div class="ped-footer">
+          <div class="ped-total">$${Number(p.total||0).toFixed(2)}</div>
+          ${estado!=='cancelado'?`<div class="ped-track">${tracking}</div>`:''}
+        </div>
+      </div>`;
+    cont.appendChild(card);
+  });
+}
+
+window.toggleFiltro=function(){
+  const opciones=['todos','pendiente','proceso','enviado','entregado'];
+  const idx=(opciones.indexOf(filtroPed)+1)%opciones.length;
+  filtroPed=opciones[idx];
+  const labels={todos:'Todos',pendiente:'Pendientes',proceso:'En proceso',enviado:'Enviados',entregado:'Entregados'};
+  document.getElementById('pedidos-filtro').textContent=labels[filtroPed];
+  renderPedidos();
+};
+
+// =====================
+// PERFIL
+// =====================
+window.abrirEditar=()=>{ document.getElementById('edit-ok').classList.remove('show'); document.getElementById('modal-editar').classList.add('show'); };
+
 window.guardarPerfil=async function(){
   const nombre=document.getElementById('e-nombre').value.trim();
   const ciudad=document.getElementById('e-ciudad').value.trim();
   const telefono=document.getElementById('e-tel').value.trim();
+  const empresa=document.getElementById('e-empresa').value.trim();
   const cedula=document.getElementById('e-cedula').value.trim();
-  await sb.from('usuarios').update({nombre,ciudad,telefono,cedula}).eq('id',userId);
-  const updated={...userData,nombre,ciudad,telefono,cedula};
+  await sb.from('usuarios').update({nombre,ciudad,telefono,empresa,cedula}).eq('id',userId);
+  const updated={...userData,nombre,ciudad,telefono,empresa,cedula};
   userData=updated;
-  localStorage.setItem('proveed_perfil',JSON.stringify(updated));
+  localStorage.setItem('proveed_perfil_emp',JSON.stringify(updated));
   const { data:{session} }=await sb.auth.getSession();
-  mostrarPerfil(updated,session.user.email);
+  renderPerfil(updated,session.user.email);
   document.getElementById('edit-ok').classList.add('show');
   setTimeout(()=>{ document.getElementById('edit-ok').classList.remove('show'); document.getElementById('modal-editar').classList.remove('show'); },1500);
 };
 
-// CAMBIAR CONTRASEÑA
-window.abrirCambioPass=()=>{ document.getElementById('pass-ok').classList.remove('show'); document.getElementById('pass-err').classList.remove('show'); document.getElementById('modal-pass').classList.add('show'); };
+// =====================
+// CONTRASEÑA
+// =====================
+window.abrirCambioPass=()=>{ ['pass-ok','pass-err'].forEach(id=>document.getElementById(id).classList.remove('show')); document.getElementById('p-nueva').value=''; document.getElementById('p-conf').value=''; document.getElementById('modal-pass').classList.add('show'); };
+
 window.cambiarPassword=async function(){
   const nueva=document.getElementById('p-nueva').value;
-  const confirmar=document.getElementById('p-confirmar').value;
+  const conf=document.getElementById('p-conf').value;
   document.getElementById('pass-err').classList.remove('show');
   document.getElementById('pass-ok').classList.remove('show');
   if(nueva.length<6){ document.getElementById('pass-err').textContent='Mínimo 6 caracteres'; document.getElementById('pass-err').classList.add('show'); return; }
-  if(nueva!==confirmar){ document.getElementById('pass-err').classList.add('show'); return; }
+  if(nueva!==conf){ document.getElementById('pass-err').textContent='Las contraseñas no coinciden'; document.getElementById('pass-err').classList.add('show'); return; }
   const { error }=await sb.auth.updateUser({password:nueva});
   if(error){ document.getElementById('pass-err').textContent='Error: '+error.message; document.getElementById('pass-err').classList.add('show'); return; }
   document.getElementById('pass-ok').classList.add('show');
-  document.getElementById('p-nueva').value=''; document.getElementById('p-confirmar').value='';
+  document.getElementById('p-nueva').value=''; document.getElementById('p-conf').value='';
   setTimeout(()=>document.getElementById('modal-pass').classList.remove('show'),2000);
 };
 
+// =====================
 // HUELLA
+// =====================
 function verificarHuella(){
-  const activa=localStorage.getItem(HUELLA_KEY)==='true';
-  const badge=document.getElementById('huella-badge');
-  badge.textContent=activa?'Activado':'Desactivado';
-  badge.className='huella-badge '+(activa?'huella-on':'huella-off');
+  const on=localStorage.getItem(HUELLA_KEY)==='true';
+  const b=document.getElementById('huella-badge');
+  b.textContent=on?'Activado':'Desactivado';
+  b.className='badge-pill '+(on?'badge-verde':'badge-off');
 }
 
 window.abrirHuella=function(){
-  const activa=localStorage.getItem(HUELLA_KEY)==='true';
-  const icon=document.getElementById('huella-icon');
-  const title=document.getElementById('huella-title');
-  const sub=document.getElementById('huella-sub');
-  const btn=document.getElementById('btn-huella-accion');
-  const btnOffWrap=document.getElementById('btn-huella-off-wrap');
-  if(activa){
-    icon.classList.add('activa'); title.textContent='Huella activa';
-    sub.textContent='El acceso biométrico está activado. Puedes desactivarlo en cualquier momento.';
-    btn.textContent='🔓 Probar huella ahora'; btn.onclick=probarHuella;
-    btnOffWrap.innerHTML=`<button class="btn-huella-off" onclick="desactivarHuella()">Desactivar acceso biométrico</button>`;
-  } else {
-    icon.classList.remove('activa'); title.textContent='Activar acceso biométrico';
-    sub.textContent='Usa tu huella dactilar o Face ID para entrar sin escribir tu contraseña cada vez.';
-    btn.textContent='🔒 Activar huella / Face ID'; btn.onclick=toggleHuella;
-    btnOffWrap.innerHTML='';
-  }
+  const on=localStorage.getItem(HUELLA_KEY)==='true';
+  document.getElementById('h-ico').className='huella-ico'+(on?' on':'');
+  document.getElementById('h-title').textContent=on?'Huella activa':'Activar acceso biométrico';
+  document.getElementById('h-sub').textContent=on?'El acceso biométrico está activado.':'Usa tu huella dactilar o Face ID para entrar más rápido.';
+  const btn=document.getElementById('h-btn');
+  if(on){ btn.textContent='🔓 Probar huella ahora'; btn.onclick=probarHuella; document.getElementById('h-off-wrap').innerHTML=`<button class="btn-huella-off" onclick="desactivarHuella()">Desactivar acceso biométrico</button>`; }
+  else { btn.textContent='🔒 Activar huella / Face ID'; btn.onclick=toggleHuella; document.getElementById('h-off-wrap').innerHTML=''; }
   document.getElementById('modal-huella').classList.add('show');
 };
 
 window.toggleHuella=async function(){
   if(!window.PublicKeyCredential){ alert('Tu dispositivo no soporta autenticación biométrica'); return; }
   try{
-    const available=await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-    if(!available){ alert('No se detectó huella dactilar o Face ID en este dispositivo'); return; }
-    const credential=await navigator.credentials.create({publicKey:{
+    const ok=await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+    if(!ok){ alert('No se detectó huella dactilar o Face ID'); return; }
+    const c=await navigator.credentials.create({publicKey:{
       challenge:new Uint8Array(32),
       rp:{name:'PROVEED',id:window.location.hostname},
       user:{id:new TextEncoder().encode(userId),name:userData.email||userId,displayName:userData.nombre||'Usuario'},
@@ -458,33 +598,25 @@ window.toggleHuella=async function(){
       authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},
       timeout:60000
     }});
-    if(credential){ localStorage.setItem(HUELLA_KEY,'true'); verificarHuella(); abrirHuella(); }
-  } catch(e){
-    if(e.name!=='NotAllowedError') alert('Error al activar: '+e.message);
-  }
+    if(c){ localStorage.setItem(HUELLA_KEY,'true'); verificarHuella(); abrirHuella(); }
+  } catch(e){ if(e.name!=='NotAllowedError') alert('Error: '+e.message); }
 };
 
 window.probarHuella=async function(){
-  try{
-    await navigator.credentials.get({publicKey:{
-      challenge:new Uint8Array(32),
-      timeout:60000,
-      userVerification:'required'
-    }});
-    alert('✓ Huella verificada correctamente');
-  } catch(e){ alert('No se pudo verificar: '+e.message); }
+  try{ await navigator.credentials.get({publicKey:{challenge:new Uint8Array(32),timeout:60000,userVerification:'required'}}); alert('✓ Huella verificada'); } catch(e){ alert('Error: '+e.message); }
 };
 
 window.desactivarHuella=function(){
   if(!confirm('¿Desactivar el acceso biométrico?')) return;
-  localStorage.removeItem(HUELLA_KEY);
-  verificarHuella();
+  localStorage.removeItem(HUELLA_KEY); verificarHuella();
   document.getElementById('modal-huella').classList.remove('show');
 };
 
-
+// =====================
 // FACTURACIÓN
+// =====================
 window.abrirFacturacion=()=>{ document.getElementById('fact-ok').classList.remove('show'); document.getElementById('modal-factura').classList.add('show'); };
+
 window.guardarFacturacion=async function(){
   const facturacion={
     nombre:document.getElementById('f-nombre').value.trim(),
@@ -493,53 +625,52 @@ window.guardarFacturacion=async function(){
     telefono:document.getElementById('f-tel').value.trim(),
     direccion:document.getElementById('f-dir').value.trim(),
     ciudad:document.getElementById('f-ciudad').value.trim(),
-    provincia:document.getElementById('f-provincia').value.trim(),
-    pais:document.getElementById('f-pais').value.trim()||'Ecuador'
+    provincia:document.getElementById('f-prov').value.trim(),
+    pais:'Ecuador'
   };
-  if(!facturacion.nombre||!facturacion.ruc||!facturacion.direccion||!facturacion.ciudad){ alert('Completa los campos obligatorios'); return; }
+  if(!facturacion.nombre||!facturacion.ruc||!facturacion.direccion){ alert('Completa nombre, RUC y dirección'); return; }
   await sb.from('usuarios').update({facturacion}).eq('id',userId);
   userData={...userData,facturacion};
-  localStorage.setItem('proveed_perfil',JSON.stringify(userData));
+  localStorage.setItem('proveed_perfil_emp',JSON.stringify(userData));
   document.getElementById('fact-sub').textContent=facturacion.nombre+' · '+facturacion.ruc;
   document.getElementById('fact-ok').classList.add('show');
   setTimeout(()=>{ document.getElementById('fact-ok').classList.remove('show'); document.getElementById('modal-factura').classList.remove('show'); },1800);
 };
 
+// =====================
 // FOTO
-window.abrirFotoModal=()=>{ fotoNueva=null; document.getElementById('foto-preview-wrap').style.display='none'; document.getElementById('btn-subir-foto').style.display='none'; document.getElementById('modal-foto').classList.add('show'); };
-window.previsualizarFoto=function(input){
-  const file=input.files[0]; if(!file) return;
-  fotoNueva=file;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    document.getElementById('foto-preview-img').src=e.target.result;
-    document.getElementById('foto-preview-wrap').style.display='block';
-    document.getElementById('btn-subir-foto').style.display='block';
-  };
-  reader.readAsDataURL(file);
+// =====================
+window.abrirFotoModal=()=>{ fotoFile=null; document.getElementById('foto-prev-wrap').style.display='none'; document.getElementById('btn-subir').style.display='none'; document.getElementById('modal-foto').classList.add('show'); };
+
+window.prevFoto=function(input){
+  const f=input.files[0]; if(!f) return;
+  fotoFile=f;
+  const r=new FileReader();
+  r.onload=e=>{ document.getElementById('foto-prev-img').src=e.target.result; document.getElementById('foto-prev-wrap').style.display='block'; document.getElementById('btn-subir').style.display='block'; };
+  r.readAsDataURL(f);
 };
 
 window.subirFoto=async function(){
-  if(!fotoNueva) return;
+  if(!fotoFile) return;
   document.getElementById('modal-foto').classList.remove('show');
+  document.getElementById('upload-txt').textContent='Subiendo foto...';
   document.getElementById('upload-overlay').classList.add('show');
   try{
-    const ext=fotoNueva.name.split('.').pop();
+    const ext=fotoFile.name.split('.').pop();
     const path=`perfiles/${userId}/foto.${ext}`;
-    const { error }=await sb.storage.from('proveed-media').upload(path,fotoNueva,{upsert:true});
+    const { error }=await sb.storage.from('proveed-media').upload(path,fotoFile,{upsert:true});
     if(error) throw error;
     const { data }=sb.storage.from('proveed-media').getPublicUrl(path);
     await sb.from('usuarios').update({foto_perfil:data.publicUrl}).eq('id',userId);
     userData={...userData,foto_perfil:data.publicUrl};
-    localStorage.setItem('proveed_perfil',JSON.stringify(userData));
-    const avatar=document.getElementById('p-avatar');
-    avatar.innerHTML=`<img src="${data.publicUrl}?t=${Date.now()}" alt="">`;
+    localStorage.setItem('proveed_perfil_emp',JSON.stringify(userData));
+    document.getElementById('p-avatar').innerHTML=`<img src="${data.publicUrl}?t=${Date.now()}" alt="">`;
   } catch(e){ alert('Error: '+e.message); }
   document.getElementById('upload-overlay').classList.remove('show');
 };
 
 window.cerrarSesion=async function(){
-  localStorage.removeItem('proveed_perfil');
+  localStorage.removeItem('proveed_perfil_emp');
   await sb.auth.signOut();
   window.location.href='login.html';
 };
