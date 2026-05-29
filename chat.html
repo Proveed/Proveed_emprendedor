@@ -6,413 +6,809 @@
 <title>PROVEED — Chat</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{ --verde:#A8E63D; --naranja:#FF8C00; --negro:#111111; --gris:#F5F6F2; --rojo:#FF4D4D; --azul:#007AFF; }
-  body{ background:var(--gris); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
-  .lista-view{ display:block; }
-  .conv-view{ display:none; flex-direction:column; height:100vh; background:var(--gris); }
-  .header{ background:var(--negro); padding:44px 16px 16px; display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100; }
-  .back-btn{ width:36px; height:36px; background:rgba(255,255,255,0.08); border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; flex-shrink:0; }
-  .back-btn svg{ width:18px; height:18px; stroke:white; fill:none; stroke-width:2.5; }
-  .header-title{ font-size:1.1rem; font-weight:700; color:white; flex:1; }
-  .chat-lista{ padding:14px 16px; padding-bottom:90px; }
-  .chat-item{ display:flex; gap:12px; align-items:center; padding:14px; background:white; border-radius:16px; margin-bottom:10px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition:0.15s; }
-  .chat-item:active{ transform:scale(0.98); }
-  .chat-avatar{ width:48px; height:48px; border-radius:14px; background:var(--naranja); display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:800; color:white; flex-shrink:0; overflow:hidden; }
-  .chat-avatar img{ width:100%; height:100%; object-fit:cover; }
-  .chat-info{ flex:1; min-width:0; }
-  .chat-nombre{ font-size:0.9rem; font-weight:700; color:var(--negro); }
-  .chat-preview{ font-size:0.76rem; color:#aaa; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .chat-meta{ display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
-  .chat-hora{ font-size:0.68rem; color:#bbb; }
-  .chat-badge{ background:var(--verde); color:var(--negro); font-size:0.62rem; font-weight:800; padding:2px 7px; border-radius:10px; }
-  .empty{ text-align:center; padding:60px 20px; color:#bbb; }
-  .empty svg{ width:52px; height:52px; stroke:#ddd; fill:none; stroke-width:1.2; margin:0 auto 14px; display:block; }
-  .empty p{ font-size:0.85rem; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--acc:#A8E63D;--acc2:#7BC234;--gris:#F5F6F2;--naranja:#FF8C00;--rojo:#FF4D4D;--azul:#007AFF;}
+body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
 
-  .conv-header{ background:var(--negro); padding:44px 16px 12px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
-  .conv-avatar{ width:38px; height:38px; border-radius:12px; background:var(--naranja); display:flex; align-items:center; justify-content:center; font-size:0.9rem; font-weight:800; color:white; flex-shrink:0; overflow:hidden; }
-  .conv-avatar img{ width:100%; height:100%; object-fit:cover; }
-  .conv-info{ flex:1; }
-  .conv-nombre{ font-size:0.92rem; font-weight:700; color:white; }
-  .conv-estado{ font-size:0.7rem; color:var(--verde); }
-  .btn-catalogo-header{ background:rgba(168,230,61,0.15); color:var(--verde); border:none; padding:7px 12px; border-radius:10px; font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0; }
+/* ===== VISTA LISTA CHATS ===== */
+#vista-lista{display:block;}
+#vista-chat{display:none;}
 
-  .mensajes-wrap{ flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:8px; -webkit-overflow-scrolling:touch; }
-  .msg-grupo{ display:flex; flex-direction:column; gap:4px; }
-  .msg-grupo.enviado{ align-items:flex-end; }
-  .msg-grupo.recibido{ align-items:flex-start; }
-  .msg-sender{ font-size:0.65rem; color:#aaa; font-weight:600; padding:0 4px; margin-bottom:2px; }
-  .msg{ max-width:78%; padding:10px 13px; border-radius:18px; font-size:0.88rem; line-height:1.5; word-break:break-word; }
-  .msg.enviado{ background:var(--negro); color:white; border-radius:18px 4px 18px 18px; }
-  .msg.recibido{ background:white; color:var(--negro); border-radius:4px 18px 18px 18px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
-  .msg-hora{ font-size:0.6rem; color:rgba(255,255,255,0.4); text-align:right; margin-top:3px; }
-  .msg.recibido .msg-hora{ color:#bbb; text-align:left; }
+/* HEADER LISTA — blanco con verde lima */
+.header-lista{
+  background:white;
+  padding:48px 16px 14px;
+  border-bottom:1px solid #eee;
+  position:sticky;top:0;z-index:100;
+}
+.header-lista-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.hl-title{font-size:1.1rem;font-weight:900;color:#111;letter-spacing:-0.5px;}
+.hl-title span{color:var(--acc2);}
+.hl-badge{background:var(--acc);color:#111;font-size:0.65rem;font-weight:800;padding:3px 9px;border-radius:20px;}
+.search-chats{display:flex;align-items:center;gap:8px;background:var(--gris);border-radius:24px;padding:10px 14px;border:1px solid #eee;}
+.search-chats svg{width:15px;height:15px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
+.search-chats input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
+.search-chats input::placeholder{color:#ccc;}
 
-  .msg-prod-card{ max-width:240px; background:white; border:1px solid #eee; border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-  .msg-prod-card.enviado{ background:#f8fff0; border-color:rgba(168,230,61,0.3); }
-  .msg-prod-img{ width:100%; height:130px; object-fit:cover; display:block; }
-  .msg-prod-video{ width:100%; height:130px; object-fit:cover; display:block; }
-  .msg-prod-body{ padding:10px 12px; }
-  .msg-prod-nombre{ font-size:0.82rem; font-weight:700; color:var(--negro); margin-bottom:2px; }
-  .msg-prod-precio{ font-size:0.9rem; font-weight:800; color:var(--naranja); margin-bottom:8px; }
-  .btn-comprar-msg{ width:100%; padding:8px; background:var(--negro); color:white; border:none; border-radius:8px; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; }
-  .btn-comprar-msg:active{ transform:scale(0.97); }
+/* LISTA */
+.chats-lista{padding:8px 0;overflow-y:auto;height:calc(100vh - 160px);}
+.chat-item{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;transition:0.15s;border-bottom:1px solid #f5f5f5;background:white;}
+.chat-item:active{background:#f9f9f9;}
+.chat-item.no-leido{background:rgba(168,230,61,0.04);}
+.ci-avatar{width:46px;height:46px;border-radius:14px;background:var(--naranja);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:white;flex-shrink:0;overflow:hidden;position:relative;}
+.ci-avatar img{width:100%;height:100%;object-fit:cover;}
+.ci-online{position:absolute;bottom:1px;right:1px;width:10px;height:10px;background:var(--acc);border-radius:50%;border:2px solid white;}
+.ci-info{flex:1;min-width:0;}
+.ci-nombre{font-size:0.88rem;font-weight:700;color:#111;margin-bottom:3px;}
+.ci-prod{font-size:0.7rem;color:var(--acc2);font-weight:600;margin-bottom:3px;}
+.ci-ultimo{font-size:0.76rem;color:#aaa;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.ci-hora{font-size:0.62rem;color:#bbb;font-weight:500;}
+.ci-unread{width:18px;height:18px;background:var(--acc2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:800;color:#111;}
+.ci-negocio-badge{font-size:0.58rem;font-weight:800;padding:2px 7px;border-radius:20px;background:rgba(255,140,0,0.1);color:var(--naranja);}
+.empty-chats{text-align:center;padding:60px 20px;color:#bbb;}
+.empty-chats div{font-size:3rem;margin-bottom:12px;}
+.empty-chats p{font-size:0.82rem;}
 
-  .msg-orden-card{ max-width:240px; background:white; border:1px solid #eee; border-radius:16px; padding:14px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
-  .msg-orden-card.enviado{ background:#f8fff0; border-color:rgba(168,230,61,0.3); }
-  .msg-orden-titulo{ font-size:0.72rem; font-weight:700; color:#aaa; text-transform:uppercase; margin-bottom:6px; }
-  .msg-orden-total{ font-size:1.1rem; font-weight:800; color:var(--naranja); margin-bottom:4px; }
-  .msg-orden-items{ font-size:0.76rem; color:#aaa; margin-bottom:10px; }
-  .btn-pagar-orden{ width:100%; padding:8px; background:var(--negro); color:white; border:none; border-radius:8px; font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; }
+/* ===== VISTA CHAT INDIVIDUAL ===== */
+.chat-header{
+  background:white;
+  padding:44px 14px 12px;
+  border-bottom:1px solid #eee;
+  display:flex;align-items:center;gap:10px;
+  position:sticky;top:0;z-index:100;
+}
+.ch-back{width:34px;height:34px;background:var(--gris);border-radius:10px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
+.ch-back svg{width:17px;height:17px;stroke:#333;fill:none;stroke-width:2.5;}
+.ch-avatar{width:38px;height:38px;border-radius:11px;background:var(--naranja);display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:800;color:white;flex-shrink:0;overflow:hidden;}
+.ch-avatar img{width:100%;height:100%;object-fit:cover;}
+.ch-info{flex:1;min-width:0;}
+.ch-nombre{font-size:0.92rem;font-weight:800;color:#111;}
+.ch-prod{font-size:0.68rem;color:var(--acc2);font-weight:600;margin-top:1px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.ch-actions{display:flex;gap:6px;}
+.ch-btn{width:32px;height:32px;border-radius:10px;background:var(--gris);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.ch-btn svg{width:16px;height:16px;stroke:#555;fill:none;stroke-width:2;}
 
-  .input-area{ background:white; border-top:1px solid #eee; flex-shrink:0; }
-  .acciones-row{ display:flex; gap:8px; padding:8px 12px 4px; overflow-x:auto; scrollbar-width:none; }
-  .acciones-row::-webkit-scrollbar{ display:none; }
-  .accion-btn{ display:flex; align-items:center; gap:5px; background:var(--gris); border-radius:20px; padding:6px 12px; cursor:pointer; white-space:nowrap; border:none; font-family:'Inter',sans-serif; }
-  .accion-btn svg{ width:14px; height:14px; stroke:var(--negro); fill:none; stroke-width:2; flex-shrink:0; }
-  .accion-btn span{ font-size:0.72rem; color:#555; font-weight:600; }
-  .input-row{ display:flex; gap:8px; align-items:flex-end; padding:8px 12px; padding-bottom:max(10px,env(safe-area-inset-bottom)); }
-  .msg-input{ flex:1; background:var(--gris); border:1.5px solid #eee; border-radius:20px; padding:10px 16px; font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--negro); outline:none; resize:none; max-height:120px; line-height:1.4; -webkit-appearance:none; }
-  .msg-input:focus{ border-color:var(--verde); background:white; }
-  .send-btn{ width:42px; height:42px; border-radius:50%; background:var(--negro); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
-  .send-btn:active{ transform:scale(0.9); }
-  .send-btn svg{ width:16px; height:16px; stroke:white; fill:none; stroke-width:2.5; margin-left:2px; }
-  .send-btn:disabled{ opacity:0.4; }
+/* PRODUCTO BANNER */
+.prod-banner{background:white;border-bottom:1px solid #eee;padding:10px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.pb-img{width:44px;height:44px;border-radius:10px;background:var(--gris);object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;overflow:hidden;}
+.pb-img img{width:100%;height:100%;object-fit:cover;}
+.pb-info{flex:1;}
+.pb-nombre{font-size:0.82rem;font-weight:700;color:#111;}
+.pb-precio{font-size:0.75rem;color:var(--naranja);font-weight:800;}
+.pb-precio.negociado{color:var(--acc2);}
+.btn-negociar{padding:7px 14px;background:var(--acc);color:#111;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;flex-shrink:0;}
 
-  /* MODALES */
-  .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; z-index:500; align-items:flex-end; }
-  .modal-overlay.show{ display:flex; }
-  .modal-sheet{ background:white; width:100%; max-height:85vh; border-radius:24px 24px 0 0; transform:translateY(100%); transition:0.4s cubic-bezier(0.16,1,0.3,1); display:flex; flex-direction:column; overflow:hidden; }
-  .modal-overlay.show .modal-sheet{ transform:translateY(0); }
-  .drag{ width:36px; height:4px; background:#e0e0e0; border-radius:4px; margin:14px auto 0; flex-shrink:0; }
-  .modal-header{ padding:12px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f5f5f5; flex-shrink:0; }
-  .modal-title{ font-size:1rem; font-weight:700; color:var(--negro); }
-  .close-btn{ width:30px; height:30px; background:#f5f5f5; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:none; }
-  .close-btn svg{ width:14px; height:14px; stroke:#666; fill:none; stroke-width:2.5; }
-  .modal-body{ overflow-y:auto; padding:14px 16px 28px; flex:1; }
-  .catalogo-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
-  .cat-prod-card{ background:var(--gris); border-radius:14px; overflow:hidden; cursor:pointer; border:2px solid transparent; transition:0.2s; }
-  .cat-prod-card.selected{ border-color:var(--naranja); }
-  .cat-prod-img-wrap{ width:100%; height:100px; background:#e8e8e8; overflow:hidden; }
-  .cat-prod-img-wrap img{ width:100%; height:100%; object-fit:cover; }
-  .cat-prod-body{ padding:8px 10px; }
-  .cat-prod-nombre{ font-size:0.78rem; font-weight:700; color:var(--negro); margin-bottom:2px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .cat-prod-precio{ font-size:0.82rem; font-weight:700; color:var(--naranja); }
+/* MENSAJES */
+.mensajes-wrap{
+  height:calc(100vh - 240px);
+  overflow-y:auto;
+  padding:12px 14px;
+  display:flex;flex-direction:column;gap:6px;
+  background:var(--gris);
+  scrollbar-width:none;
+}
+.mensajes-wrap::-webkit-scrollbar{display:none;}
 
-  /* CANTIDAD MODAL */
-  .cantidad-controls{ display:flex; align-items:center; gap:16px; justify-content:center; margin:16px 0; }
-  .cant-btn{ width:44px; height:44px; border-radius:14px; background:var(--gris); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-  .cant-btn svg{ width:18px; height:18px; stroke:var(--negro); fill:none; stroke-width:2.5; }
-  .cant-num{ font-size:1.6rem; font-weight:800; color:var(--negro); min-width:60px; text-align:center; }
-  .total-wrap{ background:var(--gris); border-radius:14px; padding:14px; text-align:center; margin-bottom:14px; }
-  .total-label{ font-size:0.72rem; color:#aaa; text-transform:uppercase; font-weight:600; margin-bottom:4px; }
-  .total-val{ font-size:1.4rem; font-weight:800; color:var(--naranja); }
-  .btn-confirmar{ width:100%; padding:14px; background:var(--negro); color:white; border:none; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; }
+.msg{display:flex;flex-direction:column;max-width:78%;}
+.msg.mio{align-self:flex-end;align-items:flex-end;}
+.msg.suyo{align-self:flex-start;align-items:flex-start;}
 
-  .tab-bar{ position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; align-items:center; padding:10px 0 18px; border-top:1px solid #eee; z-index:200; }
-  .tab{ display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; flex:1; color:#ccc; text-decoration:none; }
-  .tab.active{ color:var(--negro); }
-  .tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  .tab span{ font-size:0.56rem; font-weight:600; text-transform:uppercase; }
-  .tab-dot{ width:4px; height:4px; background:var(--verde); border-radius:50%; display:none; }
-  .tab.active .tab-dot{ display:block; }
+.msg-burbuja{
+  padding:10px 13px;border-radius:18px;
+  font-size:0.86rem;line-height:1.5;
+  word-break:break-word;
+}
+.msg.mio .msg-burbuja{background:var(--acc);color:#111;border-bottom-right-radius:4px;}
+.msg.suyo .msg-burbuja{background:white;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+
+.msg-hora{font-size:0.58rem;color:#bbb;margin-top:3px;padding:0 4px;}
+.msg-status{font-size:0.6rem;color:var(--acc2);}
+
+/* MENSAJE NEGOCIACIÓN */
+.msg-negocio{
+  background:white;border:2px solid var(--acc);
+  border-radius:18px;padding:12px 14px;
+  max-width:85%;
+  align-self:center;
+  box-shadow:0 2px 10px rgba(168,230,61,0.15);
+}
+.mn-title{font-size:0.68rem;font-weight:800;color:var(--acc2);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.mn-prod{font-size:0.84rem;font-weight:700;color:#111;margin-bottom:4px;}
+.mn-precios{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.mn-precio-old{font-size:0.8rem;color:#bbb;text-decoration:line-through;}
+.mn-precio-new{font-size:1rem;font-weight:900;color:var(--acc2);}
+.mn-cantidad{font-size:0.72rem;color:#666;}
+.mn-acciones{display:flex;gap:8px;}
+.mn-btn{flex:1;padding:9px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:800;cursor:pointer;}
+.mn-btn.aceptar{background:var(--acc);color:#111;}
+.mn-btn.rechazar{background:rgba(255,77,77,0.08);color:var(--rojo);}
+.mn-btn.contraoferta{background:var(--gris);color:#555;}
+.mn-estado{font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;text-align:center;margin-top:6px;}
+.mn-estado.aceptado{background:rgba(168,230,61,0.1);color:var(--acc2);}
+.mn-estado.rechazado{background:rgba(255,77,77,0.06);color:var(--rojo);}
+.mn-estado.pendiente{background:rgba(255,140,0,0.08);color:var(--naranja);}
+
+/* MENSAJE CARRITO */
+.msg-carrito{
+  background:white;border:1.5px solid #eee;
+  border-radius:18px;padding:12px 14px;
+  max-width:85%;align-self:center;
+}
+.mc-title{font-size:0.65rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;}
+.mc-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;}
+.mc-item:last-of-type{border-bottom:none;}
+.mc-img{width:32px;height:32px;border-radius:8px;background:var(--gris);object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9rem;overflow:hidden;}
+.mc-img img{width:100%;height:100%;object-fit:cover;}
+.mc-nombre{flex:1;font-size:0.78rem;font-weight:600;color:#111;}
+.mc-precio{font-size:0.78rem;font-weight:800;color:var(--naranja);}
+.mc-total{display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;}
+.mc-total-lbl{font-size:0.72rem;color:#aaa;}
+.mc-total-val{font-size:0.88rem;font-weight:900;color:var(--acc2);}
+
+/* INPUT ÁREA */
+.input-area{
+  background:white;
+  padding:10px 12px;
+  padding-bottom:max(10px,env(safe-area-inset-bottom));
+  border-top:1px solid #eee;
+  position:sticky;bottom:0;
+}
+.input-row{display:flex;align-items:flex-end;gap:8px;}
+.input-extras{display:flex;gap:6px;margin-bottom:8px;}
+.btn-extra{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:white;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.btn-extra.negociar-btn{border-color:var(--acc);color:var(--acc2);background:rgba(168,230,61,0.06);}
+.btn-extra svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.msg-input-wrap{flex:1;background:var(--gris);border-radius:22px;padding:10px 14px;display:flex;align-items:flex-end;gap:8px;border:1.5px solid #eee;}
+.msg-input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;resize:none;max-height:100px;line-height:1.4;}
+.msg-input::placeholder{color:#ccc;}
+.btn-send{width:38px;height:38px;background:var(--acc);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
+.btn-send svg{width:16px;height:16px;stroke:#111;fill:none;stroke-width:2.5;}
+
+/* MODAL NEGOCIAR */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:flex-end;z-index:500;}
+.modal-overlay.show{display:flex;}
+.modal-sheet{background:white;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:0.4s cubic-bezier(0.16,1,0.3,1);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.modal-overlay.show .modal-sheet{transform:translateY(0);}
+.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
+.modal-hdr{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f5f5f5;flex-shrink:0;}
+.modal-title{font-size:0.95rem;font-weight:800;color:#111;}
+.close-btn{width:28px;height:28px;background:var(--gris);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
+.close-btn svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
+.modal-body{overflow-y:auto;padding:16px 16px 32px;flex:1;}
+
+/* NEGOCIAR MODAL */
+.neg-prod-card{background:var(--gris);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.neg-prod-img{width:48px;height:48px;border-radius:10px;background:white;display:flex;align-items:center;justify-content:center;font-size:1.4rem;overflow:hidden;flex-shrink:0;}
+.neg-prod-img img{width:100%;height:100%;object-fit:cover;}
+.neg-prod-nombre{font-size:0.88rem;font-weight:700;color:#111;}
+.neg-prod-precio{font-size:0.78rem;color:var(--naranja);font-weight:700;margin-top:2px;}
+.neg-items{margin-bottom:14px;}
+.neg-item{display:flex;align-items:center;gap:10px;background:var(--gris);border-radius:12px;padding:10px;margin-bottom:8px;position:relative;}
+.neg-item-img{width:36px;height:36px;border-radius:8px;background:white;display:flex;align-items:center;justify-content:center;font-size:1rem;overflow:hidden;flex-shrink:0;}
+.neg-item-img img{width:100%;height:100%;object-fit:cover;}
+.neg-item-info{flex:1;}
+.neg-item-nombre{font-size:0.8rem;font-weight:700;color:#111;}
+.neg-item-det{font-size:0.68rem;color:#aaa;margin-top:1px;}
+.neg-item-precio{text-align:right;}
+.neg-item-orig{font-size:0.65rem;color:#bbb;text-decoration:line-through;}
+.neg-item-nuevo{font-size:0.88rem;font-weight:900;color:var(--acc2);}
+.neg-precio-input{width:80px;padding:6px 8px;background:white;border:1.5px solid var(--acc);border-radius:8px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;color:#111;text-align:center;outline:none;}
+
+.neg-total{background:rgba(168,230,61,0.08);border:1px solid rgba(123,194,52,0.2);border-radius:12px;padding:12px 14px;margin-bottom:14px;}
+.neg-total-row{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;}
+.neg-total-lbl{color:#aaa;}
+.neg-total-val{font-weight:700;color:#111;}
+.neg-total-final{display:flex;justify-content:space-between;padding-top:6px;border-top:1px solid rgba(123,194,52,0.2);}
+.neg-total-final-lbl{font-size:0.88rem;font-weight:800;color:#111;}
+.neg-total-final-val{font-size:1rem;font-weight:900;color:var(--acc2);}
+
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+.field textarea{width:100%;padding:12px 14px;background:var(--gris);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:70px;}
+.field textarea:focus{border-color:var(--acc);}
+.btn-enviar-neg{width:100%;padding:14px;background:var(--acc);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;}
+.btn-enviar-carrito{width:100%;padding:12px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;margin-top:8px;}
+
+/* TAB BAR */
+.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
+.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tab span{font-size:0.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
+.tab.active svg{stroke:var(--acc2);}
+.tab.active span{color:var(--acc2);}
+.tab-rel{position:relative;}
+.tab-badge{position:absolute;top:-2px;right:6px;background:var(--rojo);color:white;font-size:0.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:white;padding:10px 20px;border-radius:24px;font-size:0.8rem;font-weight:600;opacity:0;transition:0.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 
-<!-- LISTA -->
-<div class="lista-view" id="lista-view">
-  <div class="header">
-    <button class="back-btn" onclick="window.location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <div class="header-title">Mis Chats</div>
+<!-- ===== VISTA LISTA CHATS ===== -->
+<div id="vista-lista">
+  <div class="header-lista">
+    <div class="header-lista-top">
+      <div class="hl-title">PRO<span>VEED</span> · Chats</div>
+      <div class="hl-badge" id="badge-no-leidos" style="display:none;">0</div>
+    </div>
+    <div class="search-chats">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" placeholder="Buscar conversación..." oninput="filtrarChats(this.value)">
+    </div>
   </div>
-  <div class="chat-lista" id="chat-lista">
-    <div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Cargando...</p></div>
+  <div class="chats-lista" id="chats-lista">
+    <div class="empty-chats"><div>💬</div><p>Cargando chats...</p></div>
   </div>
-  <nav class="tab-bar">
-    <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span><div class="tab-dot"></div></a>
-    <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></a>
-    <a class="tab active" href="chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span><div class="tab-dot"></div></a>
-    <a class="tab" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-dot"></div></a>
-    <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span><div class="tab-dot"></div></a>
-  </nav>
 </div>
 
-<!-- CONVERSACIÓN -->
-<div class="conv-view" id="conv-view">
-  <div class="conv-header">
-    <button class="back-btn" onclick="volverLista()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <div class="conv-avatar" id="conv-avatar">P</div>
-    <div class="conv-info">
-      <div class="conv-nombre" id="conv-nombre">Proveedor</div>
-      <div class="conv-estado">En línea</div>
+<!-- ===== VISTA CHAT INDIVIDUAL ===== -->
+<div id="vista-chat">
+  <div class="chat-header">
+    <button class="ch-back" onclick="volverLista()">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="ch-avatar" id="ch-avatar">P</div>
+    <div class="ch-info">
+      <div class="ch-nombre" id="ch-nombre">—</div>
+      <div class="ch-prod" id="ch-prod">—</div>
     </div>
-    <button class="btn-catalogo-header" onclick="abrirCatalogoEmp()">🛍 Ver catálogo</button>
-  </div>
-  <div class="mensajes-wrap" id="mensajes-wrap"></div>
-  <div class="input-area">
-    <div class="acciones-row">
-      <button class="accion-btn" onclick="abrirCatalogoEmp()">
-        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-        <span>Ver catálogo</span>
+    <div class="ch-actions">
+      <button class="ch-btn" onclick="abrirNegociar()">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
       </button>
-      <button class="accion-btn" onclick="abrirOrdenEmp()">
-        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
-        <span>Generar orden</span>
+    </div>
+  </div>
+
+  <!-- BANNER PRODUCTO -->
+  <div class="prod-banner" id="prod-banner" style="display:none;">
+    <div class="pb-img" id="pb-img">📦</div>
+    <div class="pb-info">
+      <div class="pb-nombre" id="pb-nombre">Producto</div>
+      <div class="pb-precio" id="pb-precio">$0.00</div>
+    </div>
+    <button class="btn-negociar" onclick="abrirNegociar()">🤝 Negociar</button>
+  </div>
+
+  <!-- MENSAJES -->
+  <div class="mensajes-wrap" id="mensajes-wrap"></div>
+
+  <!-- INPUT -->
+  <div class="input-area">
+    <div class="input-extras">
+      <button class="btn-extra negociar-btn" onclick="abrirNegociar()">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+        🤝 Negociar precio
+      </button>
+      <button class="btn-extra" onclick="enviarCarrito()">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        📦 Carrito
       </button>
     </div>
     <div class="input-row">
-      <textarea class="msg-input" id="msg-input" placeholder="Escribe un mensaje..." rows="1"></textarea>
-      <button class="send-btn" id="send-btn" onclick="enviarMensaje()">
+      <div class="msg-input-wrap">
+        <textarea class="msg-input" id="msg-input" placeholder="Escribe un mensaje..." rows="1" onkeydown="teclaMsg(event)" oninput="autoResize(this)"></textarea>
+      </div>
+      <button class="btn-send" onclick="enviarMensaje()">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
     </div>
   </div>
 </div>
 
-<!-- MODAL CATÁLOGO DEL PROVEEDOR -->
-<div class="modal-overlay" id="catalogo-emp-modal" onclick="e=>{ if(e.target===this) this.classList.remove('show'); }">
+<!-- MODAL NEGOCIAR -->
+<div class="modal-overlay" id="modal-negociar" onclick="cerrarModalNeg(event)">
   <div class="modal-sheet">
     <div class="drag"></div>
-    <div class="modal-header">
-      <span class="modal-title" id="catalogo-emp-title">Catálogo del proveedor</span>
-      <button class="close-btn" onclick="document.getElementById('catalogo-emp-modal').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="modal-hdr">
+      <span class="modal-title">🤝 Negociar precio</span>
+      <button class="close-btn" onclick="document.getElementById('modal-negociar').classList.remove('show')">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
     <div class="modal-body">
-      <div class="catalogo-grid" id="catalogo-emp-grid"></div>
+      <p style="font-size:0.8rem;color:#aaa;margin-bottom:14px;line-height:1.5;">Propón un precio para cada producto. El proveedor podrá aceptar, rechazar o contraofertarte.</p>
+
+      <!-- ITEMS A NEGOCIAR -->
+      <div class="neg-items" id="neg-items"></div>
+
+      <!-- TOTAL NEGOCIADO -->
+      <div class="neg-total" id="neg-total">
+        <div class="neg-total-row"><span class="neg-total-lbl">Precio original</span><span class="neg-total-val" id="neg-orig">$0.00</span></div>
+        <div class="neg-total-row"><span class="neg-total-lbl">Tu oferta</span><span class="neg-total-val" id="neg-oferta">$0.00</span></div>
+        <div class="neg-total-final"><span class="neg-total-final-lbl">Ahorro propuesto</span><span class="neg-total-final-val" id="neg-ahorro">$0.00</span></div>
+      </div>
+
+      <div class="field">
+        <label>Mensaje adicional (opcional)</label>
+        <textarea id="neg-msg" placeholder="Ej: Compraré 10 cajas, ¿puedes mejorar el precio?"></textarea>
+      </div>
+
+      <button class="btn-enviar-neg" onclick="enviarNegociacion()">🚀 Enviar propuesta de precio</button>
+      <button class="btn-enviar-carrito" onclick="enviarCarritoDesdeNeg()">📦 Enviar carrito sin negociar</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL CANTIDAD Y COMPRA -->
-<div class="modal-overlay" id="compra-modal" onclick="e=>{ if(e.target===this) this.classList.remove('show'); }">
-  <div class="modal-sheet">
-    <div class="drag"></div>
-    <div class="modal-header">
-      <span class="modal-title">Seleccionar cantidad</span>
-      <button class="close-btn" onclick="document.getElementById('compra-modal').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div id="compra-prod-info" style="background:var(--gris);border-radius:14px;padding:14px;margin-bottom:14px;"></div>
-      <div class="cantidad-controls">
-        <button class="cant-btn" onclick="cambiarCantCompra(-1)"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-        <div class="cant-num" id="compra-cant">1</div>
-        <button class="cant-btn" onclick="cambiarCantCompra(1)"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
-      </div>
-      <div class="total-wrap">
-        <div class="total-label">Total a pagar</div>
-        <div class="total-val" id="compra-total">$0.00</div>
-      </div>
-      <button class="btn-confirmar" onclick="confirmarCompra()">🛒 Generar orden y pagar →</button>
-    </div>
-  </div>
-</div>
+<!-- TAB BAR EMPRENDEDOR -->
+<nav class="tab-bar" id="tab-bar-emp">
+  <a class="tab" href="dashboard-emp.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
+  <a class="tab active"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
+  <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span></a>
+  <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const { createClient } = supabase;
-const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const {createClient}=supabase;
+const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
-let userId='', userName='', chatActivo=null, suscripcion=null;
-let prodCompra=null, cantCompra=1, proveedorProds=[];
+const ROL = document.body.dataset.rol || 'emprendedor';
+let userId='',userData={};
+let chatActivo=null,todosChats=[],mensajes=[];
+let productoActivo=null,carritoLocal=[];
+let preciosNegociados={};
+let realtimeSub=null;
 
-const FILTROS=[/(\+?593|0)(9\d{8})/gi,/whatsapp/gi,/telegram/gi,/instagram/gi,/facebook/gi,/tiktok/gi,/@[a-z0-9._]+/gi,/https?:\/\/[^\s]+/gi,/\b\d{7,}\b/g];
-function filtrarMsg(t){ let r=t; FILTROS.forEach(f=>r=r.replace(f,'[bloqueado]')); return r; }
+const params=new URLSearchParams(location.search);
+const paramProvId=params.get('proveedor_id');
+const paramProdId=params.get('prod_id');
 
 (async()=>{
-  const { data:{session} } = await sb.auth.getSession();
-  if(!session){ window.location.href='login.html'; return; }
+  const{data:{session}}=await sb.auth.getSession();
+  if(!session){window.location.href='login.html';return;}
   userId=session.user.id;
-  const { data:u } = await sb.from('usuarios').select('nombre').eq('id',userId).single();
-  userName=u?.nombre||'Emprendedor';
-  cargarChats();
+  const{data:u}=await sb.from('usuarios').select('*').eq('id',userId).single();
+  if(u)userData=u;
+
+  carritoLocal=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+
+  await cargarChats();
+
+  // Si viene con proveedor_id por URL abrir directo
+  if(paramProvId){
+    const chat=todosChats.find(c=>c.proveedor_id===paramProvId||c.emprendedor_id===paramProvId);
+    if(chat){ abrirChat(chat); }
+    else { await crearChat(paramProvId,paramProdId); }
+  }
 })();
 
+// =============================================
+// CARGAR CHATS
+// =============================================
 async function cargarChats(){
-  document.getElementById('lista-view').style.display='block';
-  document.getElementById('conv-view').style.display='none';
-  const { data } = await sb.from('chats').select('*').eq('emprendedor_id',userId).order('updated_at',{ascending:false,nullsFirst:false});
-  const lista=document.getElementById('chat-lista');
-  if(!data?.length){ lista.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>Sin chats aún</p></div>'; return; }
-  lista.innerHTML='';
-  for(const c of data){
-    const { data:prov } = await sb.from('usuarios').select('logo_empresa,foto_perfil,nombre,empresa').eq('id',c.proveedor_id).single();
-    const logo=prov?.logo_empresa||prov?.foto_perfil||'';
-    const provNombre=c.proveedor_nombre||prov?.empresa||prov?.nombre||'Proveedor';
-    const div=document.createElement('div'); div.className='chat-item';
-    div.onclick=()=>abrirChat(c,provNombre,logo);
+  const campo=ROL==='proveedor'?'proveedor_id':'emprendedor_id';
+  const{data}=await sb.from('chats').select('*').eq(campo,userId).order('updated_at',{ascending:false});
+  todosChats=data||[];
+  renderChats(todosChats);
+
+  const noLeidos=todosChats.filter(c=>c.no_leido>0).length;
+  const badge=document.getElementById('badge-no-leidos');
+  if(noLeidos>0){badge.textContent=noLeidos;badge.style.display='inline-flex';}
+  else badge.style.display='none';
+}
+
+function renderChats(lista){
+  const cont=document.getElementById('chats-lista');
+  if(!lista.length){
+    cont.innerHTML='<div class="empty-chats"><div>💬</div><p>Aún no tienes conversaciones.<br>Toca un producto para iniciar un chat.</p></div>';
+    return;
+  }
+  cont.innerHTML='';
+  lista.forEach(c=>{
+    const esEmp=ROL==='emprendedor';
+    const nombre=esEmp?(c.proveedor_nombre||'Proveedor'):(c.emprendedor_nombre||'Emprendedor');
+    const avatar=(nombre[0]||'?').toUpperCase();
     const hora=c.updated_at?new Date(c.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
-    div.innerHTML=`
-      <div class="chat-avatar">${logo?`<img src="${logo}" alt="">`:provNombre[0].toUpperCase()}</div>
-      <div class="chat-info"><div class="chat-nombre">${provNombre}</div><div class="chat-preview">${c.ultimo_mensaje||'Iniciar conversación'}</div></div>
-      <div class="chat-meta"><div class="chat-hora">${hora}</div>${c.no_leidos>0?`<div class="chat-badge">${c.no_leidos}</div>`:''}</div>`;
-    lista.appendChild(div);
-  }
+    const item=document.createElement('div');
+    item.className='chat-item'+(c.no_leido>0?' no-leido':'');
+    item.innerHTML=`
+      <div class="ci-avatar" style="background:${colorAvatar(nombre)};">
+        ${avatar}
+        <div class="ci-online"></div>
+      </div>
+      <div class="ci-info">
+        <div class="ci-nombre">${nombre}</div>
+        ${c.producto_nombre?`<div class="ci-prod">📦 ${c.producto_nombre}</div>`:''}
+        <div class="ci-ultimo">${c.ultimo_mensaje||'Nueva conversación'}</div>
+      </div>
+      <div class="ci-right">
+        <div class="ci-hora">${hora}</div>
+        ${c.no_leido>0?`<div class="ci-unread">${c.no_leido}</div>`:''}
+        ${c.negociacion_activa?`<div class="ci-negocio-badge">🤝 Negociando</div>`:''}
+      </div>`;
+    item.onclick=()=>abrirChat(c);
+    cont.appendChild(item);
+  });
 }
 
-async function abrirChat(chat,provNombre,provLogo){
+window.filtrarChats=function(q){
+  const ql=q.toLowerCase();
+  const filtrados=todosChats.filter(c=>
+    (c.proveedor_nombre||'').toLowerCase().includes(ql)||
+    (c.emprendedor_nombre||'').toLowerCase().includes(ql)||
+    (c.producto_nombre||'').toLowerCase().includes(ql)||
+    (c.ultimo_mensaje||'').toLowerCase().includes(ql)
+  );
+  renderChats(filtrados);
+};
+
+// =============================================
+// ABRIR CHAT
+// =============================================
+async function abrirChat(chat){
   chatActivo=chat;
-  document.getElementById('lista-view').style.display='none';
-  document.getElementById('conv-view').style.display='flex';
-  const nombre=provNombre||chat.proveedor_nombre||'Proveedor';
-  const avatar=document.getElementById('conv-avatar');
-  if(provLogo) avatar.innerHTML=`<img src="${provLogo}" alt="">`;
-  else avatar.textContent=nombre[0].toUpperCase();
-  document.getElementById('conv-nombre').textContent=nombre;
-  document.getElementById('catalogo-emp-title').textContent=`Catálogo de ${nombre}`;
+  document.getElementById('vista-lista').style.display='none';
+  document.getElementById('vista-chat').style.display='block';
 
-  // Cargar productos del proveedor
-  const { data:prods } = await sb.from('productos').select('*').eq('proveedor_id',chat.proveedor_id).eq('activo',true);
-  proveedorProds=prods||[];
+  const esEmp=ROL==='emprendedor';
+  const nombre=esEmp?(chat.proveedor_nombre||'Proveedor'):(chat.emprendedor_nombre||'Emprendedor');
+  document.getElementById('ch-nombre').textContent=nombre;
+  document.getElementById('ch-prod').textContent=chat.producto_nombre||'';
+  document.getElementById('ch-avatar').textContent=(nombre[0]||'?').toUpperCase();
+  document.getElementById('ch-avatar').style.background=colorAvatar(nombre);
 
-  await sb.from('chats').update({no_leidos:0}).eq('id',chat.id);
-  cargarMensajes();
-  if(suscripcion){ suscripcion.unsubscribe(); suscripcion=null; }
-  suscripcion=sb.channel('chat-emp-'+chat.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chat.id}`},
-      payload=>agregarMensajeUI(payload.new,nombre))
-    .subscribe();
-  const input=document.getElementById('msg-input');
-  input.oninput=()=>{ input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,120)+'px'; };
-  input.onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); enviarMensaje(); } };
-}
-
-async function cargarMensajes(){
-  const { data } = await sb.from('mensajes').select('*').eq('chat_id',chatActivo.id).order('created_at',{ascending:true});
-  const wrap=document.getElementById('mensajes-wrap'); wrap.innerHTML='';
-  const provNombre=document.getElementById('conv-nombre').textContent;
-  (data||[]).forEach(m=>agregarMensajeUI(m,provNombre,false));
-  wrap.scrollTop=wrap.scrollHeight;
-}
-
-function agregarMensajeUI(m,provNombre,scroll=true){
-  const wrap=document.getElementById('mensajes-wrap');
-  const esEnviado=m.remitente_id===userId;
-  const grupo=document.createElement('div');
-  grupo.className='msg-grupo '+(esEnviado?'enviado':'recibido');
-  const hora=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-  const senderName=esEnviado?'Tú':(provNombre||'Proveedor');
-
-  if(m.tipo==='producto'){
-    const d=m.datos_producto||{};
-    grupo.innerHTML=`
-      <div class="msg-sender">${senderName}</div>
-      <div class="msg-prod-card ${esEnviado?'enviado':''}">
-        ${d.imagen?`<img class="msg-prod-img" src="${d.imagen}" alt="">`:''}
-        <div class="msg-prod-body">
-          <div class="msg-prod-nombre">${d.nombre||'Producto'}</div>
-          <div class="msg-prod-precio">$${Number(d.precio||0).toFixed(2)} / ${d.unidad||'und'}</div>
-          ${!esEnviado?`<button class="btn-comprar-msg" onclick="abrirCompra(${JSON.stringify(d).replace(/"/g,'&quot;')})">🛒 Comprar este producto</button>`:'<div style="font-size:0.72rem;color:#bbb;">Enviaste este producto</div>'}
-        </div>
-      </div>
-      <div class="msg-hora" style="color:#bbb;font-size:0.6rem;margin-top:2px;">${hora}</div>`;
-  } else if(m.tipo==='video_producto'){
-    const d=m.datos_producto||{};
-    grupo.innerHTML=`
-      <div class="msg-sender">${senderName}</div>
-      <div class="msg-prod-card ${esEnviado?'enviado':''}">
-        <video class="msg-prod-video" src="${d.video_url}" controls playsinline preload="metadata"></video>
-        <div class="msg-prod-body">
-          <div class="msg-prod-nombre">${d.nombre||'Video de producto'}</div>
-          ${d.precio?`<div class="msg-prod-precio">$${Number(d.precio).toFixed(2)}</div>`:''}
-        </div>
-      </div>
-      <div class="msg-hora" style="color:#bbb;font-size:0.6rem;margin-top:2px;">${hora}</div>`;
-  } else if(m.tipo==='orden'){
-    const d=m.datos_orden||{};
-    grupo.innerHTML=`
-      <div class="msg-sender">${senderName}</div>
-      <div class="msg-orden-card ${esEnviado?'enviado':''}">
-        <div class="msg-orden-titulo">📋 Orden generada</div>
-        <div class="msg-orden-total">$${Number(d.total||0).toFixed(2)}</div>
-        <div class="msg-orden-items">${d.cantidad||1}x ${d.producto_nombre||'Producto'}</div>
-        ${!esEnviado?`<button class="btn-pagar-orden" onclick="abrirCompraOrden(${JSON.stringify(d).replace(/"/g,'&quot;')})">✓ Aceptar y pagar →</button>`:'<div style="font-size:0.72rem;color:#bbb;text-align:center;">Esperando confirmación</div>'}
-      </div>
-      <div class="msg-hora" style="color:#bbb;font-size:0.6rem;margin-top:2px;">${hora}</div>`;
-  } else {
-    grupo.innerHTML=`
-      <div class="msg-sender">${senderName}</div>
-      <div class="msg ${esEnviado?'enviado':'recibido'}">${m.texto||''}<div class="msg-hora">${hora}</div></div>`;
+  // Producto activo
+  if(chat.producto_id){
+    const{data:p}=await sb.from('productos').select('*').eq('id',chat.producto_id).single();
+    if(p){
+      productoActivo=p;
+      const banner=document.getElementById('prod-banner');
+      banner.style.display='flex';
+      const img=p.imagenes?.[0]||p.imagen||'';
+      const pbImg=document.getElementById('pb-img');
+      if(img) pbImg.innerHTML=`<img src="${img}" alt="">`;
+      document.getElementById('pb-nombre').textContent=p.nombre||'Producto';
+      document.getElementById('pb-precio').textContent=`$${Number(p.precio||0).toFixed(2)} / ${p.unidad||'und'}`;
+    }
   }
-  wrap.appendChild(grupo);
-  if(scroll) wrap.scrollTop=wrap.scrollHeight;
+
+  // Marcar como leído
+  await sb.from('chats').update({no_leido:0}).eq('id',chat.id);
+
+  await cargarMensajes();
+  suscribirRealtime();
 }
 
+async function crearChat(provId,prodId){
+  const{data:prov}=await sb.from('usuarios').select('nombre,empresa').eq('id',provId).single();
+  const{data:prod}=prodId?await sb.from('productos').select('nombre,precio').eq('id',prodId).single():{data:null};
+
+  const{data:chatExiste}=await sb.from('chats').select('*').eq('emprendedor_id',userId).eq('proveedor_id',provId).maybeSingle();
+  if(chatExiste){abrirChat(chatExiste);return;}
+
+  const{data:chat}=await sb.from('chats').insert({
+    emprendedor_id:userId,
+    emprendedor_nombre:userData.nombre||'Emprendedor',
+    proveedor_id:provId,
+    proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
+    producto_id:prodId||null,
+    producto_nombre:prod?.nombre||null,
+    ultimo_mensaje:'Chat iniciado',
+    no_leido:0
+  }).select().single();
+
+  if(chat){todosChats.unshift(chat);abrirChat(chat);}
+}
+
+// =============================================
+// MENSAJES
+// =============================================
+async function cargarMensajes(){
+  const{data}=await sb.from('mensajes').select('*').eq('chat_id',chatActivo.id).order('created_at',{ascending:true});
+  mensajes=data||[];
+  renderMensajes();
+  scrollAbajo();
+}
+
+function renderMensajes(){
+  const wrap=document.getElementById('mensajes-wrap');
+  wrap.innerHTML='';
+  mensajes.forEach(m=>wrap.appendChild(crearElementoMsg(m)));
+  scrollAbajo();
+}
+
+function crearElementoMsg(m){
+  const esMio=m.autor_id===userId;
+  const hora=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+
+  if(m.tipo==='negociacion'){
+    return crearMsgNegociacion(m,esMio,hora);
+  }
+  if(m.tipo==='carrito'){
+    return crearMsgCarrito(m,hora);
+  }
+
+  const div=document.createElement('div');
+  div.className=`msg ${esMio?'mio':'suyo'}`;
+  div.innerHTML=`
+    <div class="msg-burbuja">${m.texto||''}</div>
+    <div class="msg-hora">${hora} ${esMio?'<span class="msg-status">✓✓</span>':''}</div>`;
+  return div;
+}
+
+function crearMsgNegociacion(m,esMio,hora){
+  const data=m.data||{};
+  const estado=data.estado||'pendiente';
+  const div=document.createElement('div');
+  div.style.cssText='display:flex;justify-content:center;padding:4px 0;width:100%;';
+  const card=document.createElement('div');
+  card.className='msg-negocio';
+
+  let itemsHtml='';
+  (data.items||[]).forEach(it=>{
+    itemsHtml+=`<div style="display:flex;justify-content:space-between;font-size:0.76rem;padding:3px 0;border-bottom:1px solid #f5f5f5;">
+      <span style="color:#555;flex:1;">${it.nombre} ×${it.cantidad||1}</span>
+      <span style="text-decoration:line-through;color:#bbb;margin-right:8px;">$${Number(it.precioOriginal||0).toFixed(2)}</span>
+      <span style="font-weight:800;color:#3a7a00;">$${Number(it.precioOfertado||0).toFixed(2)}</span>
+    </div>`;
+  });
+const estuPropuesta=m.autor_id===userId;
+  const puedoResponder=!estuPropuesta&&estado==='pendiente'&&ROL==='proveedor';
+
+  card.innerHTML=`
+    <div class="mn-title">🤝 Propuesta de precio${esMio?' · Enviada':' · Recibida'}</div>
+    ${itemsHtml?`<div style="margin-bottom:8px;">${itemsHtml}</div>`:''}
+    <div class="mn-precios">
+      <span class="mn-precio-old">$${Number(data.totalOriginal||0).toFixed(2)}</span>
+      <span style="color:#aaa;">→</span>
+      <span class="mn-precio-new">$${Number(data.totalOfertado||0).toFixed(2)}</span>
+    </div>
+    ${data.mensaje?`<div style="font-size:0.76rem;color:#666;margin-bottom:8px;font-style:italic;">"${data.mensaje}"</div>`:''}
+    ${estado==='pendiente'&&puedoResponder?`
+      <div class="mn-acciones">
+        <button class="mn-btn aceptar" onclick="responderNeg('${m.id}','aceptado')">✓ Aceptar</button>
+        <button class="mn-btn contraoferta" onclick="abrirContraoferta('${m.id}')">↔ Contraoferta</button>
+        <button class="mn-btn rechazar" onclick="responderNeg('${m.id}','rechazado')">✕ Rechazar</button>
+      </div>`:
+      `<div class="mn-estado ${estado}">${estado==='aceptado'?'✓ Precio aceptado':estado==='rechazado'?'✕ Rechazado':'⏳ Esperando respuesta...'}</div>`}
+    <div style="font-size:0.6rem;color:#bbb;text-align:right;margin-top:4px;">${hora}</div>`;
+  div.appendChild(card);
+  return div;
+}
+
+function crearMsgCarrito(m,hora){
+  const data=m.data||{};
+  const div=document.createElement('div');
+  div.style.cssText='display:flex;justify-content:center;padding:4px 0;width:100%;';
+  const card=document.createElement('div');
+  card.className='msg-carrito';
+  let itemsHtml='';
+  (data.items||[]).forEach(it=>{
+    itemsHtml+=`<div class="mc-item">
+      <div class="mc-img">${it.imagen?`<img src="${it.imagen}" alt="">`:it.emoji||'📦'}</div>
+      <div class="mc-nombre">${it.nombre} ×${it.cantidad||1}</div>
+      <div class="mc-precio">$${Number(it.precio||0).toFixed(2)}</div>
+    </div>`;
+  });
+  card.innerHTML=`
+    <div class="mc-title">📦 Carrito compartido</div>
+    ${itemsHtml}
+    <div class="mc-total">
+      <span class="mc-total-lbl">Total</span>
+      <span class="mc-total-val">$${Number(data.total||0).toFixed(2)}</span>
+    </div>
+    <div style="font-size:0.6rem;color:#bbb;text-align:right;margin-top:6px;">${hora}</div>`;
+  div.appendChild(card);
+  return div;
+}
+
+// =============================================
+// ENVIAR MENSAJE
+// =============================================
 window.enviarMensaje=async function(){
   const input=document.getElementById('msg-input');
-  const texto=filtrarMsg(input.value.trim());
-  if(!texto||!chatActivo) return;
-  const btn=document.getElementById('send-btn'); btn.disabled=true;
-  input.value=''; input.style.height='auto';
-  await sb.from('mensajes').insert({chat_id:chatActivo.id,texto,remitente_id:userId,remitente_nombre:userName,tipo:'texto'});
-  await sb.from('chats').update({ultimo_mensaje:texto,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
-  btn.disabled=false; input.focus();
+  const txt=input.value.trim();
+  if(!txt||!chatActivo)return;
+  input.value='';
+  autoResize(input);
+
+  const msg={
+    chat_id:chatActivo.id,
+    autor_id:userId,
+    autor_nombre:userData.nombre||userData.empresa||'Usuario',
+    texto:txt,
+    tipo:'texto',
+    created_at:new Date().toISOString()
+  };
+  const{data}=await sb.from('mensajes').insert(msg).select().single();
+  if(data){mensajes.push(data);renderMensajes();}
+  await sb.from('chats').update({ultimo_mensaje:txt,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
 };
 
-// CATÁLOGO DEL PROVEEDOR
-window.abrirCatalogoEmp=function(){
-  const grid=document.getElementById('catalogo-emp-grid'); grid.innerHTML='';
-  if(!proveedorProds.length){ grid.innerHTML='<p style="color:#aaa;font-size:0.82rem;text-align:center;padding:20px;">Sin productos disponibles</p>'; }
-  proveedorProds.forEach(p=>{
-    const img=p.imagenes?.[0]||p.imagen||'';
-    const div=document.createElement('div'); div.className='cat-prod-card';
-    div.innerHTML=`<div class="cat-prod-img-wrap">${img?`<img src="${img}" alt="">`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#ddd;"></div>'}</div><div class="cat-prod-body"><div class="cat-prod-nombre">${p.nombre||'Producto'}</div><div class="cat-prod-precio">$${Number(p.precio||0).toFixed(2)}</div></div>`;
-    div.onclick=()=>{ document.getElementById('catalogo-emp-modal').classList.remove('show'); abrirCompra({id:p.id,nombre:p.nombre,precio:p.precio,imagen:img,unidad:p.unidad||'und',minimo:p.minimo||1}); };
-    grid.appendChild(div);
+window.teclaMsg=function(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMensaje();}
+};
+
+window.autoResize=function(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,120)+'px';
+};
+
+// =============================================
+// NEGOCIAR
+// =============================================
+window.abrirNegociar=function(){
+  const items=carritoLocal.filter(i=>!chatActivo?.proveedor_id||i.proveedor_id===chatActivo.proveedor_id);
+  const allItems=items.length?items:(productoActivo?[{id:productoActivo.id,nombre:productoActivo.nombre,precio:productoActivo.precio,cantidad:1,imagen:productoActivo.imagenes?.[0]||''}]:[]);
+
+  if(!allItems.length){showToast('Agrega productos al carrito primero');return;}
+
+  preciosNegociados={};
+  allItems.forEach(i=>{preciosNegociados[i.id]={precio:i.precio,nombre:i.nombre,cantidad:i.cantidad||1,imagen:i.imagen||''};});
+
+  const cont=document.getElementById('neg-items');
+  cont.innerHTML='';
+  allItems.forEach(it=>{
+    preciosNegociados[it.id].oferta=it.precio;
+    const div=document.createElement('div');
+    div.className='neg-item';
+    div.innerHTML=`
+      <div class="neg-item-img">${it.imagen?`<img src="${it.imagen}" alt="">`:it.emoji||'📦'}</div>
+      <div class="neg-item-info">
+        <div class="neg-item-nombre">${it.nombre}</div>
+        <div class="neg-item-det">Cant: ${it.cantidad||1} · Precio original: $${Number(it.precio||0).toFixed(2)}</div>
+      </div>
+      <div class="neg-item-precio">
+        <div class="neg-item-orig">$${Number(it.precio||0).toFixed(2)}</div>
+        <input class="neg-precio-input" type="number" value="${it.precio}" min="0" step="0.01"
+          onchange="actualizarOferta('${it.id}',this.value)"
+          oninput="actualizarOferta('${it.id}',this.value)">
+      </div>`;
+    cont.appendChild(div);
   });
-  document.getElementById('catalogo-emp-modal').classList.add('show');
+
+  actualizarTotalNeg();
+  document.getElementById('neg-msg').value='';
+  document.getElementById('modal-negociar').classList.add('show');
 };
 
-window.abrirCompra=function(prod){
-  prodCompra=prod; cantCompra=prod.minimo||1;
-  const img=prod.imagen||'';
-  document.getElementById('compra-prod-info').innerHTML=`<div style="display:flex;gap:10px;align-items:center;">${img?`<img src="${img}" style="width:50px;height:50px;border-radius:10px;object-fit:cover;" alt="">`:''}  <div><div style="font-size:0.88rem;font-weight:700;color:var(--negro);">${prod.nombre}</div><div style="font-size:0.78rem;color:var(--naranja);">$${Number(prod.precio||0).toFixed(2)} por ${prod.unidad||'und'}</div><div style="font-size:0.7rem;color:#aaa;">Mín: ${prod.minimo||1} ${prod.unidad||'und'}</div></div></div>`;
-  document.getElementById('compra-cant').textContent=cantCompra;
-  document.getElementById('compra-total').textContent='$'+(cantCompra*(prod.precio||0)).toFixed(2);
-  document.getElementById('compra-modal').classList.add('show');
+window.actualizarOferta=function(id,val){
+  if(preciosNegociados[id]) preciosNegociados[id].oferta=parseFloat(val)||0;
+  actualizarTotalNeg();
 };
 
-window.abrirCompraOrden=function(datos){
-  abrirCompra({id:datos.producto_id,nombre:datos.producto_nombre,precio:datos.precio_unit||0,imagen:'',unidad:'und',minimo:datos.cantidad||1});
-};
-
-window.abrirOrdenEmp=function(){ abrirCatalogoEmp(); };
-
-window.cambiarCantCompra=function(delta){
-  if(!prodCompra) return;
-  const min=prodCompra.minimo||1;
-  cantCompra=Math.max(min,cantCompra+delta);
-  document.getElementById('compra-cant').textContent=cantCompra;
-  document.getElementById('compra-total').textContent='$'+(cantCompra*(prodCompra.precio||0)).toFixed(2);
-};
-
-window.confirmarCompra=async function(){
-  if(!prodCompra||!chatActivo) return;
-  const total=cantCompra*(prodCompra.precio||0);
-
-  // Guardar en localStorage para pagar.html
-  const ordenData={ producto_id:prodCompra.id, producto_nombre:prodCompra.nombre, cantidad:cantCompra, precio_unit:prodCompra.precio, total, proveedor_id:chatActivo.proveedor_id, proveedor_nombre:document.getElementById('conv-nombre').textContent, emprendedor_id:userId };
-  localStorage.setItem('orden_chat',JSON.stringify(ordenData));
-
-  // Enviar mensaje de confirmación
-  await sb.from('mensajes').insert({
-    chat_id:chatActivo.id, tipo:'orden',
-    texto:`Orden confirmada: ${cantCompra}x ${prodCompra.nombre} = $${total.toFixed(2)}`,
-    remitente_id:userId, remitente_nombre:userName,
-    datos_orden:ordenData
+function actualizarTotalNeg(){
+  let orig=0,oferta=0;
+  Object.values(preciosNegociados).forEach(p=>{
+    orig+=Number(p.precio||0)*Number(p.cantidad||1);
+    oferta+=Number(p.oferta||0)*Number(p.cantidad||1);
   });
-  await sb.from('chats').update({ultimo_mensaje:`✓ Orden $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
-  document.getElementById('compra-modal').classList.remove('show');
+  document.getElementById('neg-orig').textContent='$'+orig.toFixed(2);
+  document.getElementById('neg-oferta').textContent='$'+oferta.toFixed(2);
+  document.getElementById('neg-ahorro').textContent='$'+(orig-oferta).toFixed(2);
+  document.getElementById('neg-ahorro').style.color=oferta<orig?'#3a7a00':'#aaa';
+}
 
-  // Ir a pagar
-  window.location.href='pagar.html?from=chat';
+window.enviarNegociacion=async function(){
+  if(!chatActivo)return;
+  const items=Object.entries(preciosNegociados).map(([id,p])=>({
+    id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,
+    precioOriginal:p.precio,precioOfertado:p.oferta
+  }));
+  const totalOriginal=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
+  const totalOfertado=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
+  const mensaje=document.getElementById('neg-msg').value.trim();
+
+  const msg={
+    chat_id:chatActivo.id,
+    autor_id:userId,
+    autor_nombre:userData.nombre||'Usuario',
+    texto:`Propuesta de precio: $${totalOfertado.toFixed(2)} (original $${totalOriginal.toFixed(2)})`,
+    tipo:'negociacion',
+    data:{items,totalOriginal,totalOfertado,mensaje,estado:'pendiente'},
+    created_at:new Date().toISOString()
+  };
+
+  const{data}=await sb.from('mensajes').insert(msg).select().single();
+  if(data){mensajes.push(data);renderMensajes();}
+  await sb.from('chats').update({
+    ultimo_mensaje:`🤝 Propuesta $${totalOfertado.toFixed(2)}`,
+    negociacion_activa:true,
+    updated_at:new Date().toISOString()
+  }).eq('id',chatActivo.id);
+
+  document.getElementById('modal-negociar').classList.remove('show');
+  showToast('✓ Propuesta enviada');
 };
 
-window.volverLista=function(){ if(suscripcion){ suscripcion.unsubscribe(); suscripcion=null; } chatActivo=null; cargarChats(); };
+window.responderNeg=async function(msgId,estado){
+  const msg=mensajes.find(m=>m.id===msgId); if(!msg)return;
+  const data={...msg.data,estado};
+  await sb.from('mensajes').update({data}).eq('id',msgId);
 
-document.getElementById('catalogo-emp-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('catalogo-emp-modal')) document.getElementById('catalogo-emp-modal').classList.remove('show'); });
-document.getElementById('compra-modal').addEventListener('click',e=>{ if(e.target===document.getElementById('compra-modal')) document.getElementById('compra-modal').classList.remove('show'); });
+  // Si aceptado → actualizar carrito con precios negociados
+  if(estado==='aceptado'&&msg.data?.items){
+    const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+    msg.data.items.forEach(it=>{
+      const idx=carrito.findIndex(c=>c.id===it.id);
+      if(idx>=0) carrito[idx].precio=it.precioOfertado;
+    });
+    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
+
+    // Mensaje de confirmación
+    const confirmMsg={
+      chat_id:chatActivo.id,autor_id:userId,
+      autor_nombre:userData.nombre||'Proveedor',
+      texto:`✅ Precio aceptado: $${Number(msg.data.totalOfertado||0).toFixed(2)}. El carrito fue actualizado.`,
+      tipo:'texto',created_at:new Date().toISOString()
+    };
+    await sb.from('mensajes').insert(confirmMsg);
+    await sb.from('chats').update({negociacion_activa:false,ultimo_mensaje:'✅ Precio acordado',updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
+    showToast('✓ Precio aceptado — carrito actualizado');
+  } else if(estado==='rechazado'){
+    await sb.from('chats').update({negociacion_activa:false,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
+    showToast('Propuesta rechazada');
+  }
+
+  const idx=mensajes.findIndex(m=>m.id===msgId);
+  if(idx>=0) mensajes[idx].data=data;
+  renderMensajes();
+};
+
+window.abrirContraoferta=function(msgId){
+  document.getElementById('neg-msg').value='Te hago una contraoferta:';
+  abrirNegociar();
+};
+
+// ENVIAR CARRITO
+window.enviarCarrito=async function(){
+  const items=carritoLocal.filter(i=>!chatActivo?.proveedor_id||i.proveedor_id===chatActivo.proveedor_id);
+  if(!items.length){showToast('El carrito está vacío');return;}
+  const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
+  const msg={
+    chat_id:chatActivo.id,autor_id:userId,
+    autor_nombre:userData.nombre||'Usuario',
+    texto:`📦 Carrito: ${items.length} producto${items.length!==1?'s':''} · $${total.toFixed(2)}`,
+    tipo:'carrito',
+    data:{items,total},
+    created_at:new Date().toISOString()
+  };
+  const{data}=await sb.from('mensajes').insert(msg).select().single();
+  if(data){mensajes.push(data);renderMensajes();}
+  await sb.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
+  showToast('✓ Carrito compartido');
+};
+
+window.enviarCarritoDesdeNeg=function(){
+  document.getElementById('modal-negociar').classList.remove('show');
+  enviarCarrito();
+};
+
+// REALTIME
+function suscribirRealtime(){
+  if(realtimeSub) sb.removeChannel(realtimeSub);
+  realtimeSub=sb.channel(`chat-${chatActivo.id}`)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActivo.id}`},
+      payload=>{
+        if(payload.new.autor_id!==userId){
+          mensajes.push(payload.new);
+          renderMensajes();
+        }
+      })
+    .subscribe();
+}
+
+function volverLista(){
+  if(realtimeSub) sb.removeChannel(realtimeSub);
+  chatActivo=null;productoActivo=null;
+  document.getElementById('vista-chat').style.display='none';
+  document.getElementById('vista-lista').style.display='block';
+  cargarChats();
+}
+
+function scrollAbajo(){
+  const w=document.getElementById('mensajes-wrap');
+  setTimeout(()=>w.scrollTop=w.scrollHeight,50);
+}
+
+function colorAvatar(n){const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];}
+window.cerrarModalNeg=e=>{if(e.target===document.getElementById('modal-negociar'))document.getElementById('modal-negociar').classList.remove('show');};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 </script>
 </body>
 </html>
