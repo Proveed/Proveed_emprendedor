@@ -9,12 +9,9 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{--acc:#A8E63D;--acc2:#7BC234;--gris:#F5F6F2;--naranja:#FF8C00;--rojo:#FF4D4D;}
 body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
-
-/* VISTA LISTA */
 #vista-lista{display:block;}
 #vista-chat{display:none;}
 
-/* HEADER BLANCO VERDE */
 .header-lista{background:white;padding:48px 16px 12px;border-bottom:2.5px solid var(--acc);position:sticky;top:0;z-index:50;}
 .hl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .hl-logo{display:flex;align-items:center;gap:8px;}
@@ -25,7 +22,6 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .search-wrap svg{width:15px;height:15px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
 .search-wrap input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
 .search-wrap input::placeholder{color:#ccc;}
-
 .chats-scroll{overflow-y:auto;padding-bottom:90px;}
 .chat-item{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #f5f5f5;background:white;}
 .chat-item:active{background:var(--gris);}
@@ -45,15 +41,8 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .empty-chats div{font-size:3rem;margin-bottom:10px;}
 .empty-chats p{font-size:0.82rem;line-height:1.6;}
 
-/* ====== CHAT INDIVIDUAL — LAYOUT FIJO CON POSITION FIXED ====== */
-.chat-header{
-  position:fixed;top:0;left:0;right:0;
-  background:white;
-  padding:44px 12px 12px;
-  border-bottom:2.5px solid var(--acc);
-  display:flex;align-items:center;gap:10px;
-  z-index:100;
-}
+/* CHAT FIXED */
+.chat-header{position:fixed;top:0;left:0;right:0;background:white;padding:44px 12px 12px;border-bottom:2.5px solid var(--acc);display:flex;align-items:center;gap:10px;z-index:100;}
 .ch-back{width:36px;height:36px;background:rgba(168,230,61,0.12);border-radius:11px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
 .ch-back svg{width:18px;height:18px;stroke:var(--acc2);fill:none;stroke-width:2.5;}
 .ch-av{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:800;color:white;flex-shrink:0;overflow:hidden;}
@@ -65,14 +54,7 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .ch-btn{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .ch-btn svg{width:15px;height:15px;stroke:var(--acc2);fill:none;stroke-width:2;}
 
-/* BANNER PRODUCTO — fixed debajo del header */
-.prod-banner{
-  position:fixed;left:0;right:0;
-  background:white;border-bottom:1px solid #eee;
-  padding:10px 14px;
-  display:flex;align-items:center;gap:10px;
-  z-index:99;
-}
+.prod-banner{position:fixed;left:0;right:0;background:white;border-bottom:1px solid #eee;padding:10px 14px;display:flex;align-items:center;gap:10px;z-index:99;}
 .pb-img{width:42px;height:42px;border-radius:10px;background:var(--gris);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
 .pb-img img{width:100%;height:100%;object-fit:cover;}
 .pb-info{flex:1;min-width:0;}
@@ -80,25 +62,9 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .pb-precio{font-size:0.75rem;color:var(--naranja);font-weight:800;margin-top:1px;}
 .btn-neg-banner{padding:7px 14px;background:var(--acc);color:#111;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;white-space:nowrap;}
 
-/* MENSAJES — scroll con padding para header y input */
-.msgs-wrap{
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  padding:12px 14px;
-  background:var(--gris);
-  display:flex;flex-direction:column;gap:6px;
-}
+.msgs-wrap{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px;background:var(--gris);display:flex;flex-direction:column;gap:6px;}
 
-/* INPUT — FIXED AL FONDO */
-.input-area{
-  position:fixed;
-  bottom:0;left:0;right:0;
-  background:white;
-  border-top:1px solid #eee;
-  padding:8px 12px;
-  padding-bottom:max(12px,env(safe-area-inset-bottom));
-  z-index:100;
-}
+.input-area{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:100;}
 .input-extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
 .input-extras::-webkit-scrollbar{display:none;}
 .btn-extra{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:white;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:4px;}
@@ -111,14 +77,36 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .btn-send{width:40px;height:40px;background:var(--acc);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
 .btn-send svg{width:16px;height:16px;stroke:#111;fill:none;stroke-width:2.5;}
 
-/* MENSAJES TIPOS */
-.msg{display:flex;flex-direction:column;}
+/* MENSAJES */
+.msg{display:flex;flex-direction:column;position:relative;}
 .msg.mio{align-items:flex-end;}
 .msg.suyo{align-items:flex-start;}
-.msg-b{padding:10px 13px;border-radius:18px;font-size:0.86rem;line-height:1.5;max-width:78%;word-break:break-word;}
+.msg-b{padding:10px 13px;border-radius:18px;font-size:0.86rem;line-height:1.5;max-width:78%;word-break:break-word;cursor:pointer;user-select:none;-webkit-user-select:none;}
 .msg.mio .msg-b{background:var(--acc);color:#111;border-bottom-right-radius:4px;}
 .msg.suyo .msg-b{background:white;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.07);}
 .msg-hora{font-size:0.58rem;color:#bbb;margin-top:3px;padding:0 4px;}
+
+/* MENÚ BORRAR */
+.msg-menu{
+  position:absolute;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  padding:4px;
+  z-index:300;
+  border:1px solid #eee;
+  display:none;
+}
+.msg-menu.show{display:block;}
+.msg-menu button{
+  display:flex;align-items:center;gap:8px;
+  width:100%;padding:9px 14px;
+  background:transparent;border:none;
+  font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:600;
+  color:var(--rojo);cursor:pointer;border-radius:8px;white-space:nowrap;
+}
+.msg-menu button:hover{background:rgba(255,77,77,0.06);}
+.msg-menu button svg{width:14px;height:14px;stroke:var(--rojo);fill:none;stroke-width:2;}
 
 .msg-especial{display:flex;justify-content:center;width:100%;padding:4px 0;}
 .msg-neg-card{background:white;border:2px solid var(--acc);border-radius:18px;padding:14px;width:92%;max-width:340px;box-shadow:0 3px 14px rgba(168,230,61,0.12);}
@@ -195,7 +183,6 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .btn-env-neg{width:100%;padding:14px;background:var(--acc);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
 .btn-solo-car{width:100%;padding:12px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
 
-/* CATÁLOGO */
 .cat-search-m{display:flex;align-items:center;gap:8px;background:var(--gris);border-radius:20px;padding:10px 14px;border:1.5px solid #eee;margin-bottom:12px;}
 .cat-search-m svg{width:14px;height:14px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
 .cat-search-m input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
@@ -211,7 +198,6 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .pcc-min{font-size:0.6rem;color:#bbb;margin-bottom:6px;}
 .pcc-add-btn{width:100%;padding:7px;background:#111;color:white;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;}
 
-/* TAB BAR */
 .tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -220,14 +206,15 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 .tab.active span{color:var(--acc2);}
 .tab-rel{position:relative;}
 .tab-badge{position:absolute;top:-2px;right:6px;background:var(--rojo);color:white;font-size:0.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
-
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:white;padding:10px 20px;border-radius:24px;font-size:0.8rem;font-weight:600;opacity:0;transition:0.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.overlay-cierra{position:fixed;inset:0;z-index:299;display:none;}
+.overlay-cierra.show{display:block;}
 </style>
 </head>
 <body>
 
-<!-- ===== VISTA LISTA ===== -->
+<!-- LISTA -->
 <div id="vista-lista">
   <div class="header-lista">
     <div class="hl-top">
@@ -250,10 +237,8 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
   </div>
 </div>
 
-<!-- ===== VISTA CHAT ===== -->
+<!-- CHAT -->
 <div id="vista-chat">
-
-  <!-- HEADER FIXED -->
   <div class="chat-header" id="chat-header">
     <button class="ch-back" onclick="volverLista()">
       <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -264,16 +249,15 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
       <div class="ch-sub" id="ch-sub">—</div>
     </div>
     <div class="ch-btns">
-      <button class="ch-btn" onclick="abrirCatalogo()" title="Catálogo">
+      <button class="ch-btn" onclick="abrirCatalogo()">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
-      <button class="ch-btn" onclick="window.location.href='dashboard-emp.html'" title="Inicio">
+      <button class="ch-btn" onclick="window.location.href='dashboard-emp.html'">
         <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </button>
     </div>
   </div>
 
-  <!-- BANNER FIXED debajo del header -->
   <div class="prod-banner" id="prod-banner" style="display:none;">
     <div class="pb-img" id="pb-img">📦</div>
     <div class="pb-info">
@@ -283,10 +267,8 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
     <button class="btn-neg-banner" onclick="abrirNeg()">🤝 Negociar</button>
   </div>
 
-  <!-- MENSAJES con padding dinámico -->
   <div class="msgs-wrap" id="msgs-wrap"></div>
 
-  <!-- INPUT FIXED AL FONDO -->
   <div class="input-area" id="input-area">
     <div class="input-extras">
       <button class="btn-extra verde" onclick="abrirNeg()">
@@ -312,7 +294,15 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
       </button>
     </div>
   </div>
+</div>
 
+<!-- MENÚ CONTEXTUAL BORRAR -->
+<div class="overlay-cierra" id="overlay-menu" onclick="cerrarMenu()"></div>
+<div class="msg-menu" id="msg-menu">
+  <button onclick="borrarMsgConfirm()">
+    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    Eliminar mensaje
+  </button>
 </div>
 
 <!-- MODAL NEGOCIAR -->
@@ -321,9 +311,7 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
     <div class="drag"></div>
     <div class="modal-hdr">
       <span class="modal-title">🤝 Negociar precio</span>
-      <button class="close-btn" onclick="document.getElementById('modal-neg').classList.remove('show')">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="close-btn" onclick="document.getElementById('modal-neg').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
       <p class="neg-intro">Cambia el precio de cada producto. El proveedor puede aceptar, rechazar o contraofertar.</p>
@@ -349,9 +337,7 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
     <div class="drag"></div>
     <div class="modal-hdr">
       <span class="modal-title">🔍 Catálogo del proveedor</span>
-      <button class="close-btn" onclick="document.getElementById('modal-cat').classList.remove('show')">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="close-btn" onclick="document.getElementById('modal-cat').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="cat-search-m">
@@ -365,29 +351,12 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
   </div>
 </div>
 
-<!-- TAB BAR -->
 <nav class="tab-bar">
-  <a class="tab" href="dashboard-emp.html">
-    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Inicio</span>
-  </a>
-  <a class="tab" href="explorar.html">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <span>Explorar</span>
-  </a>
-  <a class="tab active">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>Chats</span>
-  </a>
-  <a class="tab tab-rel" href="carrito.html">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-    <span>Carrito</span>
-    <div class="tab-badge" id="carrito-badge" style="display:none;">0</div>
-  </a>
-  <a class="tab" href="perfil-emprendedor.html">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Perfil</span>
-  </a>
+  <a class="tab" href="dashboard-emp.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
+  <a class="tab active"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
+  <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-badge" id="carrito-badge" style="display:none;">0</div></a>
+  <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
 </nav>
 
 <div class="toast" id="toast"></div>
@@ -397,40 +366,32 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 const {createClient}=supabase;
 const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
-let userId='',userData={},chatActivo=null,todosChats=[],msgs=[],prodActivo=null,rtSub=null;
-let itemsNeg={},catalogoAll=[];
+let userId='',userData={},chatActivo=null,todosChats=[],msgs=[],prodActivo=null;
+let rtSub=null,itemsNeg={},catalogoAll=[];
+let msgMenuId=null; // id del mensaje seleccionado para borrar
 const QS=new URLSearchParams(location.search);
 
 let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 function syncBadge(){const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);const b=document.getElementById('carrito-badge');if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';}
 syncBadge();
 
-// CALCULAR ALTURAS para posicionamiento correcto
 function ajustarAlturas(){
-  if(document.getElementById('vista-chat').style.display==='none') return;
+  if(document.getElementById('vista-chat').style.display==='none')return;
   const hdrH=document.getElementById('chat-header').offsetHeight;
   const bannerEl=document.getElementById('prod-banner');
   const bannerH=bannerEl.style.display!=='none'?bannerEl.offsetHeight:0;
   const inputEl=document.getElementById('input-area');
   const inputH=inputEl.offsetHeight;
   const tabH=document.querySelector('.tab-bar').offsetHeight;
-
-  // Posicionar banner debajo del header
   bannerEl.style.top=hdrH+'px';
-
-  // Posicionar input arriba del tab bar
   inputEl.style.bottom=tabH+'px';
-
-  // Mensajes ocupan el espacio entre header+banner y input+tabbar
-  const msgsWrap=document.getElementById('msgs-wrap');
-  msgsWrap.style.marginTop=(hdrH+bannerH)+'px';
-  msgsWrap.style.marginBottom=(inputH+tabH)+'px';
-  msgsWrap.style.minHeight='100px';
-  msgsWrap.style.position='relative';
-
-  // Scroll al fondo
-  setTimeout(()=>msgsWrap.scrollTop=msgsWrap.scrollHeight,50);
+  const w=document.getElementById('msgs-wrap');
+  w.style.marginTop=(hdrH+bannerH)+'px';
+  w.style.marginBottom=(inputH+tabH)+'px';
+  w.style.minHeight='100px';
+  setTimeout(()=>{w.scrollTop=w.scrollHeight;},50);
 }
+window.addEventListener('resize',ajustarAlturas);
 
 (async()=>{
   const{data:{session}}=await sb.auth.getSession();
@@ -443,7 +404,7 @@ function ajustarAlturas(){
   const prodId=QS.get('prod_id');
   if(pId){
     const ex=todosChats.find(c=>c.proveedor_id===pId);
-    if(ex) await abrirChat(ex,null,false);
+    if(ex)await abrirChat(ex,null,false);
     else await crearChat(pId,prodId);
   }
 })();
@@ -501,48 +462,39 @@ async function abrirChat(chat,prodData=null,esNuevo=false){
   chatActivo=chat;
   document.getElementById('vista-lista').style.display='none';
   document.getElementById('vista-chat').style.display='block';
-
   const nombre=chat.proveedor_nombre||'Proveedor';
   document.getElementById('ch-av').textContent=nombre[0].toUpperCase();
   document.getElementById('ch-av').style.background=bgCol(nombre);
   document.getElementById('ch-nombre').textContent=nombre;
   document.getElementById('ch-sub').textContent=chat.producto_nombre||'Conversación general';
-
   if(chat.producto_id){
     const prod=prodData||(await sb.from('productos').select('*').eq('id',chat.producto_id).single()).data;
     if(prod){
       prodActivo=prod;
-      const ban=document.getElementById('prod-banner');
-      ban.style.display='flex';
+      document.getElementById('prod-banner').style.display='flex';
       const img=prod.imagenes?.[0]||prod.imagen||'';
-      if(img) document.getElementById('pb-img').innerHTML=`<img src="${img}" alt="">`;
+      if(img)document.getElementById('pb-img').innerHTML=`<img src="${img}" alt="">`;
       document.getElementById('pb-nombre').textContent=prod.nombre||'Producto';
       document.getElementById('pb-precio').textContent=`$${Number(prod.precio||0).toFixed(2)} / ${prod.unidad||'und'}`;
     }
-  } else {
-    prodActivo=null;
-    document.getElementById('prod-banner').style.display='none';
-  }
-
+  } else {prodActivo=null;document.getElementById('prod-banner').style.display='none';}
   await sb.from('chats').update({no_leido:0}).eq('id',chat.id);
   await cargarMsgs();
+  setTimeout(ajustarAlturas,100);
 
-  // Ajustar alturas DESPUÉS de que todo esté renderizado
-  setTimeout(ajustarAlturas, 100);
-
+  // MENSAJE PRE-ESCRITO automático si chat nuevo desde producto
   if(esNuevo&&prodActivo){
     const ta=document.getElementById('msg-ta');
-    ta.value=`Hola, soy ${userData.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodActivo.nombre}"?`;
+    ta.value=`Hola buenas, soy ${userData.nombre||'un emprendedor'}. ¿Me podría dar información acerca de "${prodActivo.nombre}"? Me interesa saber precio, disponibilidad y condiciones de envío.`;
     resizeTA(ta);
+    ta.focus();
   }
-
   suscribir();
 }
 
 async function cargarMsgs(){
   const{data}=await sb.from('mensajes').select('*').eq('chat_id',chatActivo.id).order('created_at',{ascending:true});
-  msgs=data||[];
-  renderMsgs();
+  msgs=data||[];renderMsgs();
 }
 
 function renderMsgs(){
@@ -559,13 +511,62 @@ function renderMsgs(){
 function crearElMsg(m){
   const mio=m.autor_id===userId;
   const hora=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-  if(m.tipo==='negociacion') return crearElNeg(m,mio,hora);
-  if(m.tipo==='carrito') return crearElCarrito(m,mio,hora);
+  if(m.tipo==='negociacion')return crearElNeg(m,mio,hora);
+  if(m.tipo==='carrito')return crearElCarrito(m,mio,hora);
+
   const d=document.createElement('div');
   d.className=`msg ${mio?'mio':'suyo'}`;
-  d.innerHTML=`<div class="msg-b">${escH(m.texto||'')}</div><div class="msg-hora">${hora}${mio?' ✓✓':''}</div>`;
+  d.dataset.id=m.id;
+
+  const burbuja=document.createElement('div');
+  burbuja.className='msg-b';
+  burbuja.textContent=m.texto||'';
+
+  // MANTENER PRESIONADO — borrar (solo mensajes propios)
+  if(mio){
+    let pressTimer;
+    burbuja.addEventListener('touchstart',e=>{pressTimer=setTimeout(()=>mostrarMenu(m.id,e.touches[0].clientX,e.touches[0].clientY),600);},{passive:true});
+    burbuja.addEventListener('touchend',()=>clearTimeout(pressTimer),{passive:true});
+    burbuja.addEventListener('touchmove',()=>clearTimeout(pressTimer),{passive:true});
+    // Click derecho en desktop
+    burbuja.addEventListener('contextmenu',e=>{e.preventDefault();mostrarMenu(m.id,e.clientX,e.clientY);});
+  }
+
+  const horaEl=document.createElement('div');
+  horaEl.className='msg-hora';
+  horaEl.textContent=hora+(mio?' ✓✓':'');
+
+  d.appendChild(burbuja);
+  d.appendChild(horaEl);
   return d;
 }
+
+function mostrarMenu(msgId,x,y){
+  msgMenuId=msgId;
+  const menu=document.getElementById('msg-menu');
+  const ov=document.getElementById('overlay-menu');
+  // Posicionar cerca del toque
+  const mx=Math.min(x,window.innerWidth-160);
+  const my=Math.min(y,window.innerHeight-80);
+  menu.style.left=mx+'px';
+  menu.style.top=my+'px';
+  menu.classList.add('show');
+  ov.classList.add('show');
+}
+window.cerrarMenu=function(){
+  document.getElementById('msg-menu').classList.remove('show');
+  document.getElementById('overlay-menu').classList.remove('show');
+  msgMenuId=null;
+};
+
+window.borrarMsgConfirm=async function(){
+  if(!msgMenuId)return;
+  cerrarMenu();
+  await sb.from('mensajes').delete().eq('id',msgMenuId);
+  msgs=msgs.filter(m=>m.id!==msgMenuId);
+  renderMsgs();
+  showToast('Mensaje eliminado');
+};
 
 function crearElNeg(m,mio,hora){
   const dat=m.data||{};const est=dat.estado||'pendiente';
@@ -575,7 +576,7 @@ function crearElNeg(m,mio,hora){
   const wrap=document.createElement('div');wrap.className='msg-especial';
   const card=document.createElement('div');card.className='msg-neg-card';
   card.innerHTML=`
-    <div class="mn-head">🤝 Propuesta · ${mio?'Enviada':'Del proveedor'}</div>
+    <div class="mn-head">🤝 ${mio?'Propuesta enviada':'Propuesta del proveedor'}</div>
     ${iHtml?`<div style="margin-bottom:8px;">${iHtml}</div>`:''}
     <div class="mn-totales"><span class="mn-tot-orig">$${Number(dat.totalOriginal||0).toFixed(2)}</span><span style="color:#bbb;margin:0 4px;">→</span><span class="mn-tot-new">$${Number(dat.totalOfertado||0).toFixed(2)}</span></div>
     ${dat.mensaje?`<div class="mn-nota-txt">"${escH(dat.mensaje)}"</div>`:''}
@@ -597,19 +598,34 @@ function crearElCarrito(m,mio,hora){
   wrap.appendChild(card);return wrap;
 }
 
+// ENVIAR MENSAJE
 window.enviarMsg=async function(){
   const ta=document.getElementById('msg-ta');
   const txt=ta.value.trim();
   if(!txt||!chatActivo)return;
   ta.value='';resizeTA(ta);
-  const{data:nm}=await sb.from('mensajes').insert({chat_id:chatActivo.id,autor_id:userId,autor_nombre:userData.nombre||'Emprendedor',texto:txt,tipo:'texto',created_at:new Date().toISOString()}).select().single();
-  if(nm){msgs.push(nm);renderMsgs();}
+  // Insertar optimista localmente
+  const temp={id:'tmp_'+Date.now(),chat_id:chatActivo.id,autor_id:userId,autor_nombre:userData.nombre||'Emprendedor',texto:txt,tipo:'texto',created_at:new Date().toISOString()};
+  msgs.push(temp);renderMsgs();
+  const{data:nm,error}=await sb.from('mensajes').insert({
+    chat_id:chatActivo.id,autor_id:userId,
+    autor_nombre:userData.nombre||'Emprendedor',
+    texto:txt,tipo:'texto',
+    created_at:new Date().toISOString()
+  }).select().single();
+  if(nm){
+    // Reemplazar temp con real
+    const idx=msgs.findIndex(m=>m.id===temp.id);
+    if(idx>=0)msgs[idx]=nm;
+    renderMsgs();
+  }
   await sb.from('chats').update({ultimo_mensaje:txt.slice(0,60),updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
 };
 
 window.keyMsg=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarMsg();}};
 window.resizeTA=function(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';setTimeout(ajustarAlturas,50);};
 
+// NEGOCIAR
 window.abrirNeg=function(){
   const filtrados=carrito.filter(i=>!chatActivo?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatActivo.proveedor_id);
   const usar=filtrados.length?filtrados:(prodActivo?[{id:prodActivo.id,nombre:prodActivo.nombre,precio:prodActivo.precio,imagen:prodActivo.imagenes?.[0]||'',cantidad:1,proveedor_id:chatActivo?.proveedor_id}]:[]);
@@ -620,7 +636,6 @@ window.abrirNeg=function(){
   document.getElementById('neg-nota').value='';
   document.getElementById('modal-neg').classList.add('show');
 };
-
 function renderNegItems(){
   const wrap=document.getElementById('neg-items-wrap');wrap.innerHTML='';
   Object.entries(itemsNeg).forEach(([id,it])=>{
@@ -629,7 +644,6 @@ function renderNegItems(){
     wrap.appendChild(d);
   });
 }
-
 window.updOf=function(id,v){if(itemsNeg[id])itemsNeg[id].oferta=parseFloat(v)||0;calcResumen();};
 function calcResumen(){
   let orig=0,of=0;Object.values(itemsNeg).forEach(p=>{orig+=p.precio*p.cantidad;of+=p.oferta*p.cantidad;});
@@ -637,7 +651,6 @@ function calcResumen(){
   document.getElementById('nr-oferta').textContent='$'+of.toFixed(2);
   const ah=orig-of;const el=document.getElementById('nr-ahorro');el.textContent='$'+Math.abs(ah).toFixed(2);el.style.color=ah>0?'#3a7a00':'#aaa';
 }
-
 window.enviarNeg=async function(){
   if(!chatActivo)return;
   const items=Object.entries(itemsNeg).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
@@ -649,7 +662,6 @@ window.enviarNeg=async function(){
   await sb.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,negociacion_activa:true,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
   document.getElementById('modal-neg').classList.remove('show');showToast('✓ Propuesta enviada');
 };
-
 window.respNeg=async function(msgId,estado){
   const m=msgs.find(x=>x.id===msgId);if(!m)return;
   const dat={...m.data,estado};
@@ -669,7 +681,6 @@ window.respNeg=async function(msgId,estado){
   const idx=msgs.findIndex(x=>x.id===msgId);if(idx>=0)msgs[idx].data=dat;
   await cargarMsgs();
 };
-
 window.compartirCarrito=async function(){
   const items=carrito.filter(i=>!chatActivo?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatActivo.proveedor_id);
   if(!items.length){showToast('Carrito vacío');return;}
@@ -679,9 +690,7 @@ window.compartirCarrito=async function(){
   await sb.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatActivo.id);
   showToast('✓ Carrito compartido');
 };
-
 window.soloCarrito=function(){document.getElementById('modal-neg').classList.remove('show');compartirCarrito();};
-
 window.pedidoDesdeChat=async function(dat){
   if(!chatActivo||!dat?.items?.length)return;
   const total=dat.items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
@@ -691,7 +700,6 @@ window.pedidoDesdeChat=async function(dat){
   await sb.from('mensajes').insert({chat_id:chatActivo.id,autor_id:userId,autor_nombre:userData.nombre||'Emprendedor',texto:`🛒 ¡Pedido realizado! Total: $${total.toFixed(2)}`,tipo:'texto',created_at:new Date().toISOString()});
   await cargarMsgs();showToast('✅ ¡Pedido realizado!');
 };
-
 window.abrirCatalogo=async function(){
   if(!chatActivo?.proveedor_id){showToast('Abre un chat primero');return;}
   document.getElementById('modal-cat').classList.add('show');
@@ -699,7 +707,6 @@ window.abrirCatalogo=async function(){
   const{data}=await sb.from('productos').select('*').eq('proveedor_id',chatActivo.proveedor_id).eq('activo',true).order('created_at',{ascending:false});
   catalogoAll=data||[];renderCat(catalogoAll);
 };
-
 function renderCat(lista){
   const wrap=document.getElementById('prods-cat-grid');
   if(!lista.length){wrap.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:0.8rem;">Sin productos</div>';return;}
@@ -709,17 +716,41 @@ function renderCat(lista){
   lista.forEach(p=>{
     const img=p.imagenes?.[0]||p.imagen||'';const col=cc(p.categoria||'');
     const card=document.createElement('div');card.className='pcc';
-    card.innerHTML=`<div class="pcc-img" style="background:${col}15;">${img?`<img src="${img}" alt="" loading="lazy">`:`<span>${ec(p.categoria||'')}</span>`}<div class="pcc-badge" style="background:${col};">${(p.categoria||'General').slice(0,8).toUpperCase()}</div></div><div class="pcc-body"><div class="pcc-nombre">${p.nombre||'Producto'}</div><div class="pcc-precio">$${Number(p.precio||0).toFixed(2)}</div><div class="pcc-min">Mín: ${p.minimo||1} ${p.unidad||'und'}</div><button class="pcc-add-btn" onclick="addDesdeCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatActivo?.proveedor_id||''}')">+ Agregar al carrito</button></div>`;
+    card.innerHTML=`<div class="pcc-img" style="background:${col}15;">${img?`<img src="${img}" alt="" loading="lazy">`:`<span>${ec(p.categoria||'')}</span>`}<div class="pcc-badge" style="background:${col};">${(p.categoria||'').slice(0,8).toUpperCase()}</div></div><div class="pcc-body"><div class="pcc-nombre">${p.nombre||'Producto'}</div><div class="pcc-precio">$${Number(p.precio||0).toFixed(2)}</div><div class="pcc-min">Mín: ${p.minimo||1} ${p.unidad||'und'}</div><button class="pcc-add-btn" onclick="addDesdeCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatActivo?.proveedor_id||''}')">+ Agregar al carrito</button></div>`;
     wrap.appendChild(card);
   });
 }
-
 window.filtrarCat=q=>{const ql=q.toLowerCase();renderCat(catalogoAll.filter(p=>(p.nombre||'').toLowerCase().includes(ql)||(p.categoria||'').toLowerCase().includes(ql)));};
 window.addDesdeCat=function(id,nombre,precio,imagen,provId){const idx=carrito.findIndex(c=>c.id===id);if(idx>=0)carrito[idx].cantidad=(carrito[idx].cantidad||1)+1;else carrito.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});localStorage.setItem('carrito_proveed',JSON.stringify(carrito));syncBadge();showToast(`✓ ${nombre.slice(0,20)} agregado`);};
 
+// REALTIME — SUSCRIPCIÓN CORRECTA
 function suscribir(){
   if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel(`cemp-${chatActivo.id}`).on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActivo.id}`},pld=>{if(pld.new.autor_id!==userId){msgs.push(pld.new);renderMsgs();}}).subscribe();
+  rtSub=sb.channel('chat-emp-'+chatActivo.id)
+    .on('postgres_changes',{
+      event:'INSERT',
+      schema:'public',
+      table:'mensajes',
+      filter:'chat_id=eq.'+chatActivo.id
+    },pld=>{
+      // Agregar mensaje solo si no es mío y no está ya en la lista
+      if(pld.new.autor_id!==userId&&!msgs.find(m=>m.id===pld.new.id)){
+        msgs.push(pld.new);
+        renderMsgs();
+      }
+    })
+    .on('postgres_changes',{
+      event:'DELETE',
+      schema:'public',
+      table:'mensajes',
+      filter:'chat_id=eq.'+chatActivo.id
+    },pld=>{
+      msgs=msgs.filter(m=>m.id!==pld.old.id);
+      renderMsgs();
+    })
+    .subscribe(status=>{
+      console.log('Realtime status:',status);
+    });
 }
 
 function volverLista(){
@@ -730,7 +761,6 @@ function volverLista(){
   cargarChats();
 }
 
-window.addEventListener('resize',ajustarAlturas);
 function bgCol(n){const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];}
 window.cerrarMod=(id,e)=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('show');};
 function escH(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -738,4 +768,3 @@ function showToast(m){const t=document.getElementById('toast');t.textContent=m;t
 </script>
 </body>
 </html>
-     
