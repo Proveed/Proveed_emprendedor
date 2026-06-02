@@ -588,25 +588,27 @@ window.addCat=(id,nombre,precio,imagen,provId)=>{const i=carrito.findIndex(c=>c.
 
 // REALTIME — suscripción correcta
 function suscribir(){
-  if(rtSub)sb.removeChannel(rtSub);
-  rtSub=sb.channel('cemp-'+chatActivo.id+'-'+Date.now())
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActivo.id}`},pld=>{
-      const n=pld.new;
-      if(n.autor_id===userId){
-        // Reemplazar temporal si existe
-        const i=msgs.findIndex(m=>m.id&&m.id.startsWith('tmp_')&&m.texto===n.texto&&m.autor_id===n.autor_id);
-        if(i>=0)msgs[i]=n;else if(!msgs.find(m=>m.id===n.id))msgs.push(n);
-      } else {
-        if(!msgs.find(m=>m.id===n.id))msgs.push(n);
-      }
-      renderMsgs();
+  if(rtSub) sb.removeChannel(rtSub);
+  rtSub = sb.channel('room-emp-' + chatActivo.id)
+    .on('postgres_changes',{
+      event:'INSERT',
+      schema:'public',
+      table:'mensajes',
+      filter:`chat_id=eq.${chatActivo.id}`
+    }, async () => {
+      // Recargar TODOS los mensajes desde Supabase siempre
+      await cargarMsgs();
     })
-    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActivo.id}`},pld=>{
-      msgs=msgs.filter(m=>m.id!==pld.old.id);renderMsgs();
+    .on('postgres_changes',{
+      event:'DELETE',
+      schema:'public',
+      table:'mensajes',
+      filter:`chat_id=eq.${chatActivo.id}`
+    }, async () => {
+      await cargarMsgs();
     })
-    .subscribe(s=>console.log('RT emp:',s));
+    .subscribe();
 }
-
 function volverLista(){
   if(rtSub)sb.removeChannel(rtSub);
   chatActivo=null;prodActivo=null;msgs=[];
