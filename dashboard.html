@@ -446,6 +446,15 @@ function addCarrito(e,id,nombre,precio){
   btn.style.background='var(--acc2)'; btn.style.transition='0.3s';
   setTimeout(()=>btn.style.background='#111',500);
 }
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(r => console.log('SW registrado'))
+      .catch(e => console.log('SW error:', e));
+  });
+}
+</script>
 </script>
 </body>
 </html>
