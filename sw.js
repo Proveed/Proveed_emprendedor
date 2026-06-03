@@ -24,18 +24,23 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Solo cachear GET, no requests a Supabase
+  // Ignorar peticiones externas (Supabase, Google Fonts, etc.)
   if(e.request.method !== 'GET') return;
   if(e.request.url.includes('supabase.co')) return;
   if(e.request.url.includes('googleapis.com')) return;
 
   e.respondWith(
-    fetch(e.request)
-      .then(res => {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
-        return res;
-      })
-      .catch(() => caches.match(e.request))
+    caches.match(e.request).then(cachedResponse => {
+      // Si está en caché, lo devolvemos al instante
+      const fetchPromise = fetch(e.request).then(networkResponse => {
+        // Actualizamos el caché en segundo plano
+        caches.open(CACHE).then(cache => {
+          cache.put(e.request, networkResponse.clone());
+        });
+        return networkResponse;
+      });
+
+      return cachedResponse || fetchPromise;
+    })
   );
 });
