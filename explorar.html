@@ -7,704 +7,605 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--acc:#FF8C00;--verde:#A8E63D;--negro:#0F0F0F;--gris:#F5F5F5;--rojo:#FF4D4D;}
+:root{--acc:#A8E63D;--acc2:#7BC234;--gris:#F5F6F2;--naranja:#FF8C00;--rojo:#FF4D4D;--azul:#007AFF;}
 body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:80px;}
 
-/* SEARCH BAR */
-.search-top{background:white;padding:48px 14px 12px;border-bottom:1px solid #eee;}
-.search-box{display:flex;align-items:center;gap:10px;background:#F0F0F0;border-radius:28px;padding:11px 16px;}
-.search-box svg{width:18px;height:18px;stroke:#999;fill:none;stroke-width:2.5;flex-shrink:0;}
-.search-box input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.92rem;color:#111;}
-.search-box input::placeholder{color:#aaa;}
-.search-cam{width:34px;height:34px;background:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:none;cursor:pointer;}
-.search-cam svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2;}
+/* HEADER */
+.header{background:white;padding:48px 14px 10px;position:sticky;top:0;z-index:100;border-bottom:1px solid #eee;}
+.search-box{display:flex;align-items:center;gap:9px;background:var(--gris);border-radius:28px;padding:11px 14px;border:1px solid #eee;margin-bottom:0;}
+.search-box svg{width:16px;height:16px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
+.search-box input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;}
+.search-box input::placeholder{color:#ccc;}
+.search-cams{display:flex;gap:6px;flex-shrink:0;}
+.cam-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
+.cam-btn.galeria{background:#111;}
+.cam-btn.camara{background:var(--acc);}
+.cam-btn svg{width:15px;height:15px;fill:none;stroke-width:2;}
+.cam-btn.galeria svg{stroke:white;}
+.cam-btn.camara svg{stroke:#111;}
 
-/* PROMO BANNER */
-.promo-banner{background:#FFF8F2;border-bottom:1px solid #FFE8CC;padding:10px 14px;display:flex;align-items:center;gap:12px;overflow:hidden;}
-.promo-item{display:flex;align-items:center;gap:5px;white-space:nowrap;}
-.promo-item svg{width:14px;height:14px;stroke:var(--acc);fill:none;stroke-width:2.5;}
-.promo-txt{font-size:0.72rem;font-weight:600;color:var(--acc);}
-.promo-div{color:#FFD0A0;font-size:0.9rem;}
-.promo-arrow{margin-left:auto;flex-shrink:0;}
-.promo-arrow svg{width:16px;height:16px;stroke:var(--acc);fill:none;stroke-width:2.5;}
+/* PROMO STRIP */
+.promo-strip{background:rgba(255,140,0,0.06);padding:8px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #eee;}
+.promo-item{display:flex;align-items:center;gap:5px;}
+.promo-item svg{width:13px;height:13px;stroke:var(--naranja);fill:none;stroke-width:2.5;}
+.promo-txt{font-size:0.68rem;font-weight:600;color:var(--naranja);}
+.promo-sep{color:#ddd;font-size:0.8rem;}
+.promo-strip-arrow{margin-left:auto;}
+.promo-strip-arrow svg{width:13px;height:13px;stroke:#ccc;fill:none;stroke-width:2;}
 
-/* LAYOUT PRINCIPAL */
-.main-layout{display:flex;height:calc(100vh - 200px);overflow:hidden;}
+/* LAYOUT */
+.main-layout{display:flex;height:calc(100vh - 148px);position:sticky;top:148px;}
 
-/* SIDEBAR CATEGORÍAS */
-.sidebar{width:115px;background:white;overflow-y:auto;flex-shrink:0;border-right:1px solid #f0f0f0;scrollbar-width:none;}
+/* SIDEBAR */
+.sidebar{width:115px;background:white;overflow-y:auto;flex-shrink:0;scrollbar-width:none;border-right:1px solid #eee;}
 .sidebar::-webkit-scrollbar{display:none;}
-.sidebar-item{padding:14px 12px;font-size:0.76rem;font-weight:500;color:#555;cursor:pointer;border-left:3px solid transparent;line-height:1.35;transition:0.15s;}
-.sidebar-item.active{color:#111;font-weight:800;border-left-color:var(--acc);background:#FFF8F2;}
-.sidebar-item:active{background:#f9f9f9;}
+.cat-menu-item{padding:14px 12px;cursor:pointer;border-bottom:1px solid #f5f5f5;transition:0.15s;display:flex;align-items:center;gap:8px;}
+.cat-menu-item:active{background:var(--gris);}
+.cat-menu-item.active{background:rgba(168,230,61,0.08);border-right:3px solid var(--acc2);}
+.cat-menu-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cat-menu-icon svg{width:16px;height:16px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.cat-menu-txt{font-size:0.72rem;font-weight:600;color:#555;line-height:1.3;}
+.cat-menu-item.active .cat-menu-txt{color:var(--acc2);font-weight:700;}
 
-/* CONTENIDO DERECHO */
-.content-right{flex:1;overflow-y:auto;scrollbar-width:none;background:#f5f5f5;}
-.content-right::-webkit-scrollbar{display:none;}
-.content-header{background:white;padding:12px 14px 10px;border-bottom:1px solid #f0f0f0;position:sticky;top:0;z-index:10;}
-.content-title{font-size:0.92rem;font-weight:800;color:#111;margin-bottom:8px;}
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:12px;scrollbar-width:none;}
+.content::-webkit-scrollbar{display:none;}
+.cat-titulo{font-size:1rem;font-weight:900;color:#111;margin-bottom:12px;letter-spacing:-0.3px;}
 
-/* SUBCATEGORÍAS */
-.subcats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px;}
-.subcat-card{background:white;border-radius:14px;overflow:hidden;cursor:pointer;transition:0.15s;border:1px solid #eee;}
+/* SUBCATEGORÍAS CHIPS */
+.subcats{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px;padding-bottom:2px;}
+.subcats::-webkit-scrollbar{display:none;}
+.subcat-chip{padding:6px 12px;border-radius:20px;background:white;border:1.5px solid #eee;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:600;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:0.15s;}
+.subcat-chip.active{border-color:var(--acc2);color:var(--acc2);background:rgba(168,230,61,0.06);}
+
+/* SUBCATS CARDS (para Destacado) */
+.subcat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.subcat-card{background:white;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;border:1px solid #eee;transition:0.15s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
 .subcat-card:active{transform:scale(0.96);}
-.subcat-img{width:100%;height:72px;object-fit:cover;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;position:relative;overflow:hidden;}
-.subcat-img img{width:100%;height:100%;object-fit:cover;}
-.subcat-badge{position:absolute;top:5px;left:5px;font-size:0.55rem;font-weight:800;padding:2px 6px;border-radius:20px;text-transform:uppercase;}
-.badge-hot{background:#FF4D4D;color:white;}
-.badge-new{background:var(--verde);color:#111;}
-.badge-oferta{background:var(--acc);color:white;display:flex;align-items:center;gap:2px;}
-.subcat-nombre{font-size:0.68rem;font-weight:600;color:#111;padding:6px 8px 8px;text-align:center;line-height:1.3;}
+.subcat-card-badge{display:inline-block;font-size:0.56rem;font-weight:800;padding:2px 7px;border-radius:20px;color:white;margin-bottom:8px;text-transform:uppercase;}
+.subcat-card-icon{width:40px;height:40px;border-radius:12px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;}
+.subcat-card-icon svg{width:22px;height:22px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.subcat-card-lbl{font-size:0.72rem;font-weight:700;color:#111;}
 
-/* PRODUCTOS GRID */
-.prods-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 6px;font-size:0.72rem;color:#aaa;font-weight:600;}
-.prods-count{color:#888;}
-.prods-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 12px;}
-.prod-card{background:white;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid #eee;}
+/* PRODUCTOS */
+.prods-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.prod-card{background:white;border-radius:14px;overflow:hidden;border:1px solid #eee;box-shadow:0 1px 6px rgba(0,0,0,0.04);cursor:pointer;transition:0.15s;}
 .prod-card:active{transform:scale(0.97);}
-.prod-img{width:100%;height:140px;object-fit:cover;background:#f5f5f5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.prod-img{width:100%;height:120px;background:var(--gris);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
 .prod-img img{width:100%;height:100%;object-fit:cover;}
-.prod-cat-badge{position:absolute;top:8px;left:8px;font-size:0.58rem;font-weight:800;padding:3px 8px;border-radius:20px;text-transform:uppercase;color:white;}
-.prod-play{position:absolute;top:8px;right:8px;width:26px;height:26px;background:rgba(0,0,0,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.prod-play svg{width:12px;height:12px;fill:white;}
-.prod-body{padding:10px;}
-.prod-nombre{font-size:0.82rem;font-weight:700;color:#111;margin-bottom:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.35;}
-.prod-proveedor{font-size:0.65rem;color:#aaa;margin-bottom:6px;}
-.prod-precio{font-size:1rem;font-weight:900;color:var(--acc);}
-.prod-min{font-size:0.6rem;color:#bbb;margin-top:1px;}
-.prod-add{width:30px;height:30px;background:#111;border-radius:9px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;float:right;margin-top:-32px;}
-.prod-add svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2.5;}
+.prod-img-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;}
+.prod-img-icon svg{width:36px;height:36px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.prod-cat-badge{position:absolute;top:6px;left:6px;font-size:0.52rem;font-weight:800;padding:2px 6px;border-radius:20px;color:white;text-transform:uppercase;}
+.prod-body{padding:9px;}
+.prod-nombre{font-size:0.76rem;font-weight:700;color:#111;margin-bottom:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;}
+.prod-prov{font-size:0.62rem;color:#bbb;margin-bottom:5px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;}
+.prod-precio{font-size:0.9rem;font-weight:900;color:var(--naranja);}
+.prod-add{width:26px;height:26px;background:var(--acc);border-radius:8px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.prod-add svg{width:12px;height:12px;stroke:#111;fill:none;stroke-width:2.5;}
 
-/* FILTROS ORDEN */
-.orden-row{display:flex;gap:8px;padding:8px 12px;overflow-x:auto;scrollbar-width:none;}
-.orden-row::-webkit-scrollbar{display:none;}
-.orden-btn{padding:7px 14px;border-radius:20px;border:1.5px solid #ddd;background:transparent;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:600;color:#555;cursor:pointer;white-space:nowrap;}
-.orden-btn.active{border-color:var(--verde);color:#111;font-weight:800;}
+.empty-cat{text-align:center;padding:40px 20px;color:#bbb;}
+.empty-cat svg{width:48px;height:48px;stroke:#ddd;fill:none;stroke-width:1.5;margin:0 auto 12px;display:block;}
+.empty-cat p{font-size:0.82rem;font-weight:600;}
+
+/* BÚSQUEDA RESULTADOS */
+.search-results{display:none;}
+.search-results.show{display:block;}
+.search-header{font-size:0.8rem;font-weight:700;color:#aaa;margin-bottom:12px;}
+
+/* MODAL CÁMARA */
+.modal-cam{position:fixed;inset:0;background:black;z-index:2000;display:none;flex-direction:column;}
+.modal-cam.show{display:flex;}
+.cam-header{padding:44px 16px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.cam-back{width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.cam-back svg{width:18px;height:18px;stroke:white;fill:none;stroke-width:2.5;}
+.cam-titulo{font-size:0.95rem;font-weight:700;color:white;}
+.cam-preview{flex:1;position:relative;overflow:hidden;}
+#cam-video{width:100%;height:100%;object-fit:cover;}
+.cam-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.cam-frame{width:240px;height:240px;border:2px solid var(--acc);border-radius:20px;}
+.cam-footer{padding:20px;display:flex;align-items:center;justify-content:center;gap:24px;flex-shrink:0;}
+.cam-capture{width:70px;height:70px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;border:4px solid rgba(255,255,255,0.3);cursor:pointer;}
+.cam-capture svg{width:28px;height:28px;stroke:#111;fill:none;stroke-width:2;}
+.cam-flip{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.cam-flip svg{width:20px;height:20px;stroke:white;fill:none;stroke-width:2;}
+
+/* INPUT HIDDEN */
+.foto-hidden{display:none;}
+
+/* LOADING */
+.searching-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}
+.searching-overlay.show{display:flex;}
+.searching-box{background:white;border-radius:20px;padding:28px 32px;text-align:center;}
+.spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:var(--acc);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.searching-box p{font-size:0.82rem;color:#555;font-weight:600;}
 
 /* TAB BAR */
-.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0 18px;z-index:200;}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;}
-.tab svg{width:22px;height:22px;stroke:#bbb;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.tab span{font-size:0.58rem;font-weight:700;color:#bbb;text-transform:uppercase;}
-.tab.active svg{stroke:#111;}
-.tab.active span{color:#111;}
-.tab-dot{width:5px;height:5px;border-radius:50%;background:var(--verde);display:none;}
-.tab.active .tab-dot{display:block;}
-.carrito-badge{position:relative;}
-.carrito-num{position:absolute;top:-4px;right:-8px;background:var(--acc);color:white;font-size:0.55rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;}
+.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
+.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:0.2s;}
+.tab span{font-size:0.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
+.tab.active svg{stroke:var(--acc2);}
+.tab.active span{color:var(--acc2);}
+.tab-rel{position:relative;}
+.tab-badge{position:absolute;top:-2px;right:6px;background:var(--rojo);color:white;font-size:0.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:white;padding:10px 20px;border-radius:24px;font-size:0.8rem;font-weight:600;opacity:0;transition:0.3s;pointer-events:none;z-index:3000;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 
-<!-- SEARCH -->
-<div class="search-top">
+<!-- HEADER -->
+<div class="header">
   <div class="search-box">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <input type="text" id="search-input" placeholder="Buscar productos, proveedores..." oninput="buscar(this.value)">
-    <button class="search-cam"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2l2-3h10l2 3a2 2 0 0 0 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
+    <input type="text" id="search-input" placeholder="Buscar productos, proveedores..."
+      oninput="buscarTexto(this.value)" onclick="activarBusqueda()">
+    <div class="search-cams">
+      <!-- Galería de fotos -->
+      <button class="cam-btn galeria" onclick="document.getElementById('foto-galeria').click()" title="Buscar por imagen">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </button>
+      <!-- Cámara en tiempo real -->
+      <button class="cam-btn camara" onclick="abrirCamara()" title="Usar cámara">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="promo-strip">
+    <div class="promo-item">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      <span class="promo-txt">Envío gratis</span>
+    </div>
+    <div class="promo-sep">|</div>
+    <div class="promo-item">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      <span class="promo-txt">Devoluciones en 30 días</span>
+    </div>
+    <div class="promo-strip-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
   </div>
 </div>
 
-<!-- PROMO BANNER -->
-<div class="promo-banner">
-  <div class="promo-item">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    <span class="promo-txt">Envío gratis</span>
-  </div>
-  <div class="promo-div">|</div>
-  <div class="promo-item">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    <span class="promo-txt">Devoluciones en 30 días</span>
-  </div>
-  <div class="promo-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+<!-- INPUT GALERÍA OCULTO -->
+<input type="file" id="foto-galeria" class="foto-hidden" accept="image/*" onchange="buscarPorImagen(this)">
+
+<!-- RESULTADOS BÚSQUEDA -->
+<div class="search-results" id="search-results" style="padding:12px;">
+  <div class="search-header" id="search-header">Buscando...</div>
+  <div class="prods-grid" id="search-grid"></div>
 </div>
 
-<!-- LAYOUT PRINCIPAL -->
-<div class="main-layout">
-
-  <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <!-- Se genera con JS -->
-  </div>
-
+<!-- MAIN LAYOUT -->
+<div class="main-layout" id="main-layout">
+  <!-- SIDEBAR CATEGORÍAS -->
+  <div class="sidebar" id="sidebar"></div>
   <!-- CONTENIDO -->
-  <div class="content-right" id="content-right">
-    <div class="content-header">
-      <div class="content-title" id="content-title">Comprar por categoría</div>
-      <div class="orden-row" id="orden-row" style="display:none;">
-        <button class="orden-btn active" onclick="ordenar('recientes',this)">Más recientes</button>
-        <button class="orden-btn" onclick="ordenar('menor',this)">Menor precio</button>
-        <button class="orden-btn" onclick="ordenar('mayor',this)">Mayor precio</button>
-        <button class="orden-btn" onclick="ordenar('popular',this)">Más vendidos</button>
-      </div>
-    </div>
-    <div id="content-body">
-      <!-- Se genera con JS -->
+  <div class="content" id="content"></div>
+</div>
+
+<!-- MODAL CÁMARA -->
+<div class="modal-cam" id="modal-cam">
+  <div class="cam-header">
+    <button class="cam-back" onclick="cerrarCamara()">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <span class="cam-titulo">Apunta al producto</span>
+  </div>
+  <div class="cam-preview">
+    <video id="cam-video" autoplay muted playsinline></video>
+    <div class="cam-overlay">
+      <div class="cam-frame"></div>
     </div>
   </div>
+  <div class="cam-footer">
+    <button class="cam-flip" onclick="flipCamara()">
+      <svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+    </button>
+    <button class="cam-capture" onclick="capturarFoto()">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    </button>
+    <div style="width:44px;"></div>
+  </div>
+</div>
 
+<!-- LOADING -->
+<div class="searching-overlay" id="searching-overlay">
+  <div class="searching-box">
+    <div class="spinner"></div>
+    <p id="searching-txt">Analizando imagen con IA...</p>
+  </div>
 </div>
 
 <!-- TAB BAR -->
 <nav class="tab-bar">
-  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
-  <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span><div class="tab-dot"></div></button>
-  <a class="tab" href="tips.html"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span>Tips</span></a>
-  <a class="tab carrito-badge" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="carrito-num" id="carrito-num">0</div></a>
-  <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span></a>
+  <a class="tab" href="dashboard-emp.html">
+    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Inicio</span>
+  </a>
+  <a class="tab active">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>Explorar</span>
+  </a>
+  <a class="tab" href="tips.html">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    <span>Tips</span>
+  </a>
+  <a class="tab tab-rel" href="carrito.html">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <span>Carrito</span>
+    <div class="tab-badge" id="carrito-badge" style="display:none;">0</div>
+  </a>
+  <a class="tab tab-rel" href="pedidos.html">
+    <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+    <span>Pedidos</span>
+  </a>
 </nav>
+
+<div class="toast" id="toast"></div>
+<canvas id="cam-canvas" style="display:none;"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const { createClient } = supabase;
-const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const {createClient}=supabase;
+const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
-// =============================================
-// ÁRBOL DE CATEGORÍAS COMPLETO
-// =============================================
-const CATEGORIAS = [
+let todosProductos=[],catActiva='Destacado',subcatActiva='',streamCam=null,camaraFrontal=false;
+
+// ── CARRITO BADGE ──
+const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+const cnt=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+if(cnt>0){const b=document.getElementById('carrito-badge');b.style.display='flex';b.textContent=cnt>9?'9+':cnt;}
+
+
+// ── DEFINICIÓN DE CATEGORÍAS ──
+const CATEGORIAS=[
   {
-    id:'destacado', nombre:'Destacado', emoji:'⭐',
+    id:'destacado',nombre:'Destacado',
+    color:'#FF8C00',stroke:'#FF8C00',
+    icon:`<svg viewBox="0 0 24 24" stroke="#FF8C00"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
     subs:[
-      {nombre:'Ofertas del día', emoji:'⚡', badge:'oferta'},
-      {nombre:'Más vendidos', emoji:'🔥', badge:'hot'},
-      {nombre:'Nuevos ingresos', emoji:'✨', badge:'new'},
-      {nombre:'Liquidación', emoji:'🏷️', badge:'oferta'},
+      {nombre:'Ofertas del día',badge:'OFERTA',badgeColor:'#FF8C00',icon:`<svg viewBox="0 0 24 24" stroke="#FF8C00"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,bg:'rgba(255,140,0,0.08)'},
+      {nombre:'Más vendidos',badge:'HOT',badgeColor:'#FF4D4D',icon:`<svg viewBox="0 0 24 24" stroke="#FF4D4D"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,bg:'rgba(255,77,77,0.08)'},
+      {nombre:'Nuevos ingresos',badge:'NEW',badgeColor:'#A8E63D',icon:`<svg viewBox="0 0 24 24" stroke="#7BC234"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,bg:'rgba(168,230,61,0.08)'},
+      {nombre:'Liquidación',badge:'OFERTA',badgeColor:'#FF8C00',icon:`<svg viewBox="0 0 24 24" stroke="#FF8C00"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>`,bg:'rgba(255,140,0,0.08)'}
     ]
   },
-  {
-    id:'ropa-mujer', nombre:'Ropa de mujer', emoji:'👗',
-    subs:[
-      {nombre:'Vestidos', emoji:'👗'},
-      {nombre:'Blusas y camisas', emoji:'👚'},
-      {nombre:'Pantalones', emoji:'👖'},
-      {nombre:'Faldas', emoji:'🩱'},
-      {nombre:'Conjuntos', emoji:'👔'},
-      {nombre:'Ropa deportiva', emoji:'🏃'},
-      {nombre:'Pijamas', emoji:'😴'},
-      {nombre:'Ropa interior', emoji:'🩲'},
-      {nombre:'Abrigos y chaquetas', emoji:'🧥'},
-      {nombre:'Camisetas', emoji:'👕'},
-    ]
-  },
-  {
-    id:'mujer-curvy', nombre:'Mujer curvy', emoji:'💃',
-    subs:[
-      {nombre:'Vestidos talla grande', emoji:'👗', badge:'hot'},
-      {nombre:'Blusas talla grande', emoji:'👚'},
-      {nombre:'Pantalones talla grande', emoji:'👖'},
-      {nombre:'Ropa interior talla grande', emoji:'🩲'},
-    ]
-  },
-  {
-    id:'calzado-mujer', nombre:'Calzado de mujer', emoji:'👠',
-    subs:[
-      {nombre:'Tacones', emoji:'👠'},
-      {nombre:'Sandalias', emoji:'🩴'},
-      {nombre:'Zapatillas', emoji:'👟'},
-      {nombre:'Botas', emoji:'🥾'},
-      {nombre:'Mocasines', emoji:'🥿'},
-      {nombre:'Flats', emoji:'🩰'},
-    ]
-  },
-  {
-    id:'lenceria', nombre:'Lencería y pijamas', emoji:'🩲',
-    subs:[
-      {nombre:'Sujetadores', emoji:'👙', badge:'hot'},
-      {nombre:'Panties', emoji:'🩲', badge:'hot'},
-      {nombre:'Conjuntos lencería', emoji:'💝'},
-      {nombre:'Pijamas mujer', emoji:'😴'},
-      {nombre:'Batas', emoji:'🛀'},
-    ]
-  },
-  {
-    id:'ropa-hombre', nombre:'Ropa de hombre', emoji:'👔',
-    subs:[
-      {nombre:'Camisetas', emoji:'👕'},
-      {nombre:'Camisas', emoji:'👔'},
-      {nombre:'Pantalones', emoji:'👖'},
-      {nombre:'Shorts', emoji:'🩳'},
-      {nombre:'Ropa deportiva', emoji:'🏋️', badge:'hot'},
-      {nombre:'Trajes y blazers', emoji:'🤵'},
-      {nombre:'Abrigos', emoji:'🧥'},
-      {nombre:'Ropa interior', emoji:'🩲'},
-      {nombre:'Pijamas hombre', emoji:'😴'},
-    ]
-  },
-  {
-    id:'calzado-hombre', nombre:'Calzado de hombre', emoji:'👞',
-    subs:[
-      {nombre:'Zapatos formales', emoji:'👞'},
-      {nombre:'Zapatillas deportivas', emoji:'👟', badge:'hot'},
-      {nombre:'Sandalias', emoji:'🩴'},
-      {nombre:'Botas', emoji:'🥾'},
-      {nombre:'Mocasines', emoji:'🥿'},
-    ]
-  },
-  {
-    id:'hombre-grande', nombre:'Hombre talla grande', emoji:'🧔',
-    subs:[
-      {nombre:'Camisetas talla grande', emoji:'👕'},
-      {nombre:'Pantalones talla grande', emoji:'👖'},
-      {nombre:'Ropa deportiva grande', emoji:'🏋️'},
-    ]
-  },
-  {
-    id:'moda-infantil', nombre:'Moda infantil', emoji:'🧒',
-    subs:[
-      {nombre:'Ropa niñas', emoji:'👧'},
-      {nombre:'Ropa niños', emoji:'👦'},
-      {nombre:'Calzado niños', emoji:'👟'},
-      {nombre:'Bebé 0-24 meses', emoji:'👶'},
-      {nombre:'Ropa escolar', emoji:'🎒'},
-    ]
-  },
-  {
-    id:'bebe-maternidad', nombre:'Bebé y maternidad', emoji:'🍼',
-    subs:[
-      {nombre:'Ropa de bebé', emoji:'👶'},
-      {nombre:'Maternidad', emoji:'🤱'},
-      {nombre:'Accesorios bebé', emoji:'🧸'},
-      {nombre:'Pañaleras', emoji:'🎒'},
-    ]
-  },
-  {
-    id:'joyeria', nombre:'Joyería y accesorios', emoji:'💍',
-    subs:[
-      {nombre:'Collares', emoji:'📿', badge:'hot'},
-      {nombre:'Aretes', emoji:'💎'},
-      {nombre:'Pulseras', emoji:'📿'},
-      {nombre:'Anillos', emoji:'💍'},
-      {nombre:'Relojes mujer', emoji:'⌚'},
-      {nombre:'Relojes hombre', emoji:'⌚'},
-      {nombre:'Cinturones', emoji:'🪢'},
-      {nombre:'Gafas de sol', emoji:'🕶️'},
-      {nombre:'Gorras y sombreros', emoji:'🧢'},
-      {nombre:'Bufandas', emoji:'🧣'},
-    ]
-  },
-  {
-    id:'bolsas', nombre:'Bolsas y equipaje', emoji:'👜',
-    subs:[
-      {nombre:'Bolsos de mujer', emoji:'👜', badge:'hot'},
-      {nombre:'Mochilas', emoji:'🎒'},
-      {nombre:'Maletines', emoji:'💼'},
-      {nombre:'Maletas de viaje', emoji:'🧳'},
-      {nombre:'Billeteras', emoji:'👛'},
-      {nombre:'Riñoneras', emoji:'🎽'},
-    ]
-  },
-  {
-    id:'hogar-cocina', nombre:'Hogar y cocina', emoji:'🏠',
-    subs:[
-      {nombre:'Decoración del hogar', emoji:'🖼️', badge:'hot'},
-      {nombre:'Cocina y comedor', emoji:'🍳'},
-      {nombre:'Cama y baño', emoji:'🛏️'},
-      {nombre:'Limpieza', emoji:'🧹'},
-      {nombre:'Almacenamiento', emoji:'📦'},
-      {nombre:'Iluminación', emoji:'💡'},
-      {nombre:'Jardín', emoji:'🌿'},
-      {nombre:'Herramientas hogar', emoji:'🔧'},
-    ]
-  },
-  {
-    id:'electrodomesticos', nombre:'Electrodomésticos', emoji:'🏠',
-    subs:[
-      {nombre:'Pequeños electrodomésticos', emoji:'⚡'},
-      {nombre:'Aire acondicionado', emoji:'❄️'},
-      {nombre:'Lavadoras', emoji:'🌀'},
-      {nombre:'Refrigeradoras', emoji:'🧊'},
-      {nombre:'Televisores', emoji:'📺'},
-    ]
-  },
-  {
-    id:'telefonia', nombre:'Telefonía y tecnología', emoji:'📱',
-    subs:[
-      {nombre:'Celulares', emoji:'📱', badge:'hot'},
-      {nombre:'Fundas y estuches', emoji:'📱'},
-      {nombre:'Accesorios celular', emoji:'🎧'},
-      {nombre:'Tablets', emoji:'📟'},
-      {nombre:'Computadoras', emoji:'💻'},
-      {nombre:'Accesorios PC', emoji:'🖥️'},
-      {nombre:'Smartwatches', emoji:'⌚'},
-      {nombre:'Audio y audífonos', emoji:'🎧', badge:'hot'},
-    ]
-  },
-  {
-    id:'hogar-inteligente', nombre:'Hogar inteligente', emoji:'🏡',
-    subs:[
-      {nombre:'Cámaras seguridad', emoji:'📷'},
-      {nombre:'Timbres inteligentes', emoji:'🔔'},
-      {nombre:'Control de iluminación', emoji:'💡'},
-      {nombre:'Enchufes inteligentes', emoji:'🔌'},
-    ]
-  },
-  {
-    id:'belleza', nombre:'Belleza y salud', emoji:'💄',
-    subs:[
-      {nombre:'Maquillaje', emoji:'💄', badge:'hot'},
-      {nombre:'Cuidado de la piel', emoji:'🧴'},
-      {nombre:'Cuidado del cabello', emoji:'💇'},
-      {nombre:'Perfumes', emoji:'🌸'},
-      {nombre:'Uñas', emoji:'💅'},
-      {nombre:'Salud y bienestar', emoji:'💊'},
-      {nombre:'Depilación', emoji:'✂️'},
-      {nombre:'Afeitado hombre', emoji:'🪒'},
-    ]
-  },
-  {
-    id:'deporte', nombre:'Deporte y aire libre', emoji:'⚽',
-    subs:[
-      {nombre:'Ropa deportiva', emoji:'🏃'},
-      {nombre:'Calzado deportivo', emoji:'👟', badge:'hot'},
-      {nombre:'Gimnasio y fitness', emoji:'🏋️'},
-      {nombre:'Fútbol', emoji:'⚽'},
-      {nombre:'Ciclismo', emoji:'🚴'},
-      {nombre:'Natación', emoji:'🏊'},
-      {nombre:'Camping y senderismo', emoji:'⛺'},
-      {nombre:'Yoga y pilates', emoji:'🧘'},
-    ]
-  },
-  {
-    id:'juguetes', nombre:'Juguetes', emoji:'🧸',
-    subs:[
-      {nombre:'Juguetes bebé', emoji:'🍼'},
-      {nombre:'Juguetes niños', emoji:'🚂'},
-      {nombre:'Juguetes niñas', emoji:'🪆'},
-      {nombre:'Juegos de mesa', emoji:'🎲'},
-      {nombre:'Educativos', emoji:'📚'},
-      {nombre:'Electrónicos', emoji:'🎮'},
-    ]
-  },
-  {
-    id:'mascotas', nombre:'Mascotas', emoji:'🐾',
-    subs:[
-      {nombre:'Ropa para mascotas', emoji:'🐶'},
-      {nombre:'Alimento mascotas', emoji:'🦴'},
-      {nombre:'Accesorios mascotas', emoji:'🦮'},
-      {nombre:'Higiene mascotas', emoji:'🛁'},
-      {nombre:'Juguetes mascotas', emoji:'🎾'},
-    ]
-  },
-  {
-    id:'alimentos', nombre:'Alimentos y despensa', emoji:'🛒',
-    subs:[
-      {nombre:'Abarrotes', emoji:'🛒', badge:'hot'},
-      {nombre:'Bebidas', emoji:'🧃'},
-      {nombre:'Snacks', emoji:'🍿'},
-      {nombre:'Condimentos', emoji:'🧂'},
-      {nombre:'Productos naturales', emoji:'🌿'},
-      {nombre:'Dulces y confitería', emoji:'🍬'},
-    ]
-  },
-  {
-    id:'oficina', nombre:'Oficina y escuela', emoji:'📚',
-    subs:[
-      {nombre:'Útiles escolares', emoji:'✏️'},
-      {nombre:'Papelería', emoji:'📝'},
-      {nombre:'Impresión', emoji:'🖨️'},
-      {nombre:'Mobiliario oficina', emoji:'🪑'},
-      {nombre:'Organización', emoji:'🗂️'},
-    ]
-  },
-  {
-    id:'instrumentos', nombre:'Instrumentos musicales', emoji:'🎵',
-    subs:[
-      {nombre:'Guitarras', emoji:'🎸'},
-      {nombre:'Teclados y pianos', emoji:'🎹'},
-      {nombre:'Percusión', emoji:'🥁'},
-      {nombre:'Viento', emoji:'🎺'},
-      {nombre:'Accesorios musicales', emoji:'🎼'},
-      {nombre:'Audio profesional', emoji:'🎙️'},
-    ]
-  },
-  {
-    id:'automotriz', nombre:'Automotriz', emoji:'🚗',
-    subs:[
-      {nombre:'Accesorios auto', emoji:'🚗'},
-      {nombre:'Cuidado del auto', emoji:'✨'},
-      {nombre:'Herramientas auto', emoji:'🔧'},
-      {nombre:'Navegación GPS', emoji:'🗺️'},
-      {nombre:'Motos y accesorios', emoji:'🏍️'},
-    ]
-  },
-  {
-    id:'herramientas', nombre:'Herramientas y construcción', emoji:'🔧',
-    subs:[
-      {nombre:'Herramientas manuales', emoji:'🔨'},
-      {nombre:'Herramientas eléctricas', emoji:'🔌'},
-      {nombre:'Materiales construcción', emoji:'🧱'},
-      {nombre:'Plomería', emoji:'🚿'},
-      {nombre:'Electricidad', emoji:'⚡'},
-      {nombre:'Pintura', emoji:'🎨'},
-    ]
-  },
-  {
-    id:'negocios', nombre:'Negocios e industria', emoji:'🏭',
-    subs:[
-      {nombre:'Equipos industriales', emoji:'⚙️'},
-      {nombre:'Insumos empresariales', emoji:'📦'},
-      {nombre:'Seguridad industrial', emoji:'⛑️'},
-      {nombre:'Limpieza industrial', emoji:'🧹'},
-      {nombre:'Distribución al por mayor', emoji:'🏭', badge:'hot'},
-    ]
-  },
-  {
-    id:'libros', nombre:'Libros y medios', emoji:'📚',
-    subs:[
-      {nombre:'Libros físicos', emoji:'📖'},
-      {nombre:'Libros educativos', emoji:'📚'},
-      {nombre:'Revistas', emoji:'📰'},
-      {nombre:'Material didáctico', emoji:'🎓'},
-    ]
-  },
-  {
-   id:'ropa-playa', nombre:'Ropa de playa', emoji:'🏖️',
-    subs:[
-      {nombre:'Trajes de baño mujer', emoji:'👙', badge:'hot'},
-      {nombre:'Trajes de baño hombre', emoji:'🩳'},
-      {nombre:'Pareos y coverups', emoji:'🌊'},
-      {nombre:'Sandalias playa', emoji:'🩴'},
-      {nombre:'Accesorios playa', emoji:'🕶️'},
-    ]
-  },
-  {
-    id:'muebles', nombre:'Muebles', emoji:'🛋️',
-    subs:[
-      {nombre:'Sala', emoji:'🛋️'},
-      {nombre:'Comedor', emoji:'🍽️'},
-      {nombre:'Dormitorio', emoji:'🛏️'},
-      {nombre:'Oficina en casa', emoji:'💼'},
-      {nombre:'Exterior', emoji:'⛱️'},
-    ]
-  },
-  {
-    id:'patio-jardin', nombre:'Patio y jardín', emoji:'🌿',
-    subs:[
-      {nombre:'Plantas y macetas', emoji:'🪴'},
-      {nombre:'Muebles exterior', emoji:'🪑'},
-      {nombre:'Herramientas jardín', emoji:'🌱'},
-      {nombre:'Decoración exterior', emoji:'🏡'},
-    ]
-  },
-  {
-    id:'manualidades', nombre:'Manualidades y arte', emoji:'🎨',
-    subs:[
-      {nombre:'Pintura y dibujo', emoji:'🖌️'},
-      {nombre:'Costura y tejido', emoji:'🧵'},
-      {nombre:'Scrapbooking', emoji:'✂️'},
-      {nombre:'Materiales manualidades', emoji:'🎨'},
-    ]
-  },
+  {id:'ropa-mujer',nombre:'Ropa de mujer',color:'#FF69B4',stroke:'#FF69B4',icon:`<svg viewBox="0 0 24 24" stroke="#FF69B4"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>`,subs:['Vestidos','Blusas y camisas','Pantalones mujer','Faldas','Conjuntos mujer','Ropa deportiva mujer','Pijamas mujer','Ropa interior mujer','Abrigos y chaquetas','Camisetas mujer']},
+  {id:'mujer-curvy',nombre:'Mujer curvy',color:'#E91E8C',stroke:'#E91E8C',icon:`<svg viewBox="0 0 24 24" stroke="#E91E8C"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,subs:['Vestidos talla grande','Blusas talla grande','Pantalones talla grande','Ropa interior talla grande']},
+  {id:'calzado-mujer',nombre:'Calzado de mujer',color:'#9C27B0',stroke:'#9C27B0',icon:`<svg viewBox="0 0 24 24" stroke="#9C27B0"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 1.9-1.7 3.2-1.7h5"/><path d="m18 8 3 3-3 3"/><path d="M2 6h16"/><path d="M2 14h16"/></svg>`,subs:['Tacones','Sandalias mujer','Zapatillas mujer','Botas mujer','Mocasines mujer','Flats']},
+  {id:'lenceria',nombre:'Lencería y pijamas',color:'#E91E63',stroke:'#E91E63',icon:`<svg viewBox="0 0 24 24" stroke="#E91E63"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,subs:['Sujetadores','Panties','Conjuntos lencería','Pijamas mujer','Batas','Bodies','Fajas']},
+  {id:'ropa-hombre',nombre:'Ropa de hombre',color:'#2196F3',stroke:'#2196F3',icon:`<svg viewBox="0 0 24 24" stroke="#2196F3"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>`,subs:['Camisetas hombre','Camisas hombre','Pantalones hombre','Shorts hombre','Ropa deportiva hombre','Trajes y blazers','Abrigos hombre','Ropa interior hombre','Pijamas hombre']},
+  {id:'calzado-hombre',nombre:'Calzado de hombre',color:'#607D8B',stroke:'#607D8B',icon:`<svg viewBox="0 0 24 24" stroke="#607D8B"><path d="M3 17H1v-2l.63-3.14A3 3 0 0 1 4.56 9.5L8 9l5-5 5 5-2 4 1 4H3z"/></svg>`,subs:['Zapatos formales','Zapatillas deportivas','Sandalias hombre','Botas hombre','Mocasines hombre']},
+  {id:'hombre-grande',nombre:'Hombre talla grande',color:'#455A64',stroke:'#455A64',icon:`<svg viewBox="0 0 24 24" stroke="#455A64"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>`,subs:['Camisetas talla grande','Pantalones talla grande','Ropa deportiva grande']},
+  {id:'moda-infantil',nombre:'Moda infantil',color:'#FF9800',stroke:'#FF9800',icon:`<svg viewBox="0 0 24 24" stroke="#FF9800"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44l-1.02-5.03A2 2 0 0 0 4.06 12.5H2"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44l1.02-5.03A2 2 0 0 1 19.94 12.5H22"/></svg>`,subs:['Ropa niñas 2-12 años','Ropa niños 2-12 años','Calzado niños','Ropa escolar','Uniformes','Disfraces niños']},
+  {id:'bebe-maternidad',nombre:'Bebé y maternidad',color:'#81C784',stroke:'#81C784',icon:`<svg viewBox="0 0 24 24" stroke="#81C784"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,subs:['Ropa bebé 0-24 meses','Ropa maternidad','Accesorios bebé','Pañaleras','Zapatos bebé']},
+  {id:'joyeria',nombre:'Joyería y accesorios',color:'#FFC107',stroke:'#FFC107',icon:`<svg viewBox="0 0 24 24" stroke="#FFC107"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>`,subs:['Collares','Aretes','Pulseras','Anillos','Relojes mujer','Relojes hombre','Cinturones','Gafas de sol','Gorras y sombreros','Bisutería']},
+  {id:'bolsas',nombre:'Bolsas y equipaje',color:'#8D6E63',stroke:'#8D6E63',icon:`<svg viewBox="0 0 24 24" stroke="#8D6E63"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,subs:['Bolsos de mujer','Carteras','Mochilas','Maletines','Maletas de viaje','Billeteras','Riñoneras']},
+  {id:'hogar-cocina',nombre:'Hogar y cocina',color:'#26A69A',stroke:'#26A69A',icon:`<svg viewBox="0 0 24 24" stroke="#26A69A"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,subs:['Decoración','Cocina y comedor','Cama y baño','Limpieza','Iluminación','Textiles hogar']},
+  {id:'electrodomesticos',nombre:'Electrodomésticos',color:'#FF5722',stroke:'#FF5722',icon:`<svg viewBox="0 0 24 24" stroke="#FF5722"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,subs:['Pequeños electrodomésticos','Licuadoras','Freidoras de aire','Aires acondicionados','Lavadoras','Refrigeradoras','Televisores','Microondas']},
+  {id:'telefonia',nombre:'Telefonía y tecnología',color:'#3F51B5',stroke:'#3F51B5',icon:`<svg viewBox="0 0 24 24" stroke="#3F51B5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,subs:['Celulares','Fundas y estuches','Accesorios celular','Tablets','Laptops','Accesorios PC','Smartwatches','Audífonos','Cámaras','Consolas','Impresoras']},
+  {id:'hogar-inteligente',nombre:'Hogar inteligente',color:'#00BCD4',stroke:'#00BCD4',icon:`<svg viewBox="0 0 24 24" stroke="#00BCD4"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,subs:['Cámaras de seguridad','Timbres inteligentes','Iluminación smart','Enchufes inteligentes','Parlantes inteligentes']},
+  {id:'belleza',nombre:'Belleza y salud',color:'#F06292',stroke:'#F06292',icon:`<svg viewBox="0 0 24 24" stroke="#F06292"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,subs:['Maquillaje','Labiales','Sombras y paletas','Cuidado piel','Cuidado cabello','Perfumes','Cuidado de uñas','Salud y bienestar']},
+  {id:'deporte',nombre:'Deporte y aire libre',color:'#4CAF50',stroke:'#4CAF50',icon:`<svg viewBox="0 0 24 24" stroke="#4CAF50"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,subs:['Ropa deportiva','Calzado deportivo','Equipos de gimnasio','Fútbol','Ciclismo','Natación','Camping','Yoga','Running']},
+  {id:'juguetes',nombre:'Juguetes',color:'#FF9800',stroke:'#FF9800',icon:`<svg viewBox="0 0 24 24" stroke="#FF9800"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,subs:['Juguetes bebé','Juguetes niños','Juguetes niñas','Juegos de mesa','Educativos','Legos']},
+  {id:'mascotas',nombre:'Mascotas',color:'#795548',stroke:'#795548',icon:`<svg viewBox="0 0 24 24" stroke="#795548"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.928 2.344-3"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.96-1.928-2.344-3"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>`,subs:['Alimento perros','Alimento gatos','Accesorios mascotas','Higiene mascotas','Juguetes mascotas']},
+  {id:'alimentos',nombre:'Alimentos y despensa',color:'#8BC34A',stroke:'#8BC34A',icon:`<svg viewBox="0 0 24 24" stroke="#8BC34A"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><circle cx="12" cy="13" r="4"/></svg>`,subs:['Abarrotes','Aceites y condimentos','Bebidas','Snacks','Dulces','Conservas','Productos naturales','Café y té','Harinas y repostería']},
+  {id:'oficina',nombre:'Oficina y escuela',color:'#009688',stroke:'#009688',icon:`<svg viewBox="0 0 24 24" stroke="#009688"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,subs:['Útiles escolares','Papelería','Impresión','Mobiliario oficina','Material didáctico']},
+  {id:'instrumentos',nombre:'Instrumentos musicales',color:'#7B1FA2',stroke:'#7B1FA2',icon:`<svg viewBox="0 0 24 24" stroke="#7B1FA2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,subs:['Guitarras','Ukuleles','Teclados','Percusión','Micrófonos','Audio profesional']},
+  {id:'automotriz',nombre:'Automotriz',color:'#616161',stroke:'#616161',icon:`<svg viewBox="0 0 24 24" stroke="#616161"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,subs:['Accesorios auto','Cuidado auto','Herramientas auto','Motos y accesorios']},
+  {id:'herramientas',nombre:'Herramientas',color:'#F44336',stroke:'#F44336',icon:`<svg viewBox="0 0 24 24" stroke="#F44336"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,subs:['Herramientas manuales','Herramientas eléctricas','Materiales construcción','Plomería','Electricidad','Pintura']},
+  {id:'negocios',nombre:'Negocios e industria',color:'#455A64',stroke:'#455A64',icon:`<svg viewBox="0 0 24 24" stroke="#455A64"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,subs:['Equipos industriales','Insumos empresariales','Seguridad industrial','Limpieza industrial','Empaques']},
+  {id:'muebles',nombre:'Muebles',color:'#6D4C41',stroke:'#6D4C41',icon:`<svg viewBox="0 0 24 24" stroke="#6D4C41"><path d="M20 9V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0z"/><line x1="6" y1="18" x2="6" y2="22"/><line x1="18" y1="18" x2="18" y2="22"/></svg>`,subs:['Sala','Comedor','Dormitorio','Oficina en casa','Exterior','Estantes']},
+  {id:'patio-jardin',nombre:'Patio y jardín',color:'#2E7D32',stroke:'#2E7D32',icon:`<svg viewBox="0 0 24 24" stroke="#2E7D32"><path d="M12 22V12"/><path d="M17 8c0 3-2 5.5-5 6.5C9 13.5 7 11 7 8a5 5 0 0 1 10 0z"/><path d="M12 12C9.5 11 8 8 8 6s1.5-5 4-5 4 2.5 4 5-1.5 5-4 6z" opacity=".5"/></svg>`,subs:['Plantas naturales','Plantas artificiales','Macetas','Herramientas jardín','Decoración exterior']},
+  {id:'manualidades',nombre:'Manualidades y arte',color:'#E91E63',stroke:'#E91E63',icon:`<svg viewBox="0 0 24 24" stroke="#E91E63"><circle cx="13.5" cy="6.5" r=".5" fill="#E91E63"/><circle cx="17.5" cy="10.5" r=".5" fill="#E91E63"/><circle cx="8.5" cy="7.5" r=".5" fill="#E91E63"/><circle cx="6.5" cy="12.5" r=".5" fill="#E91E63"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,subs:['Pinturas y pinceles','Dibujo','Costura y tejido','Resina y moldes','Foami','Telas']},
+  {id:'navidad',nombre:'Temporada y fiestas',color:'#C62828',stroke:'#C62828',icon:`<svg viewBox="0 0 24 24" stroke="#C62828"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,subs:['Decoración navideña','Árbol y adornos','Disfraces','Decoración cumpleaños','Artículos de fiesta']},
+  {id:'ropa-playa',nombre:'Ropa de playa',color:'#00ACC1',stroke:'#00ACC1',icon:`<svg viewBox="0 0 24 24" stroke="#00ACC1"><path d="M2 12h20M2 12C2 6.5 6.5 2 12 2s10 4.5 10 10"/><path d="M2 12c0 5.5 4.5 10 10 10s10-4.5 10-10"/></svg>`,subs:['Trajes de baño mujer','Bikinis','Trajes de baño hombre','Pareos','Sandalias playa']},
+  {id:'libros',nombre:'Libros y medios',color:'#5C6BC0',stroke:'#5C6BC0',icon:`<svg viewBox="0 0 24 24" stroke="#5C6BC0"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,subs:['Libros físicos','Libros educativos','Revistas','Material didáctico']},
 ];
 
-// =============================================
-// ESTADO
-// =============================================
-let categoriaActiva=null, subcatActiva=null, orden='recientes', busqActual='', productos=[], carritoCount=0;
-
-// =============================================
-// INIT
-// =============================================
+// ── INIT ──
 (async()=>{
+  const{data}=await sb.from('productos').select('*').eq('activo',true).order('created_at',{ascending:false});
+  todosProductos=data||[];
   renderSidebar();
-  activarCategoria(CATEGORIAS[0]);
-
-  // Carrito count
-  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-  carritoCount=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  const cn=document.getElementById('carrito-num');
-  if(cn) cn.textContent=carritoCount;
-
-  // Cargar productos de supabase
-  const {data}=await sb.from('productos').select('*').eq('activo',true).order('created_at',{ascending:false}).limit(100);
-  productos=data||[];
+  seleccionarCat('Destacado');
 })();
 
-// =============================================
-// SIDEBAR
-// =============================================
+// ── SIDEBAR ──
 function renderSidebar(){
   const sb_el=document.getElementById('sidebar');
   sb_el.innerHTML='';
-  CATEGORIAS.forEach((cat,idx)=>{
-    const div=document.createElement('div');
-    div.className='sidebar-item'+(idx===0?' active':'');
-    div.textContent=cat.nombre;
-    div.onclick=()=>activarCategoria(cat,div);
-    sb_el.appendChild(div);
-  });
-}
-
-function activarCategoria(cat,el){
-  categoriaActiva=cat;
-  subcatActiva=null;
-  document.querySelectorAll('.sidebar-item').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
-  document.getElementById('content-title').textContent=cat.nombre;
-  document.getElementById('orden-row').style.display='none';
-  renderSubcats(cat.subs||[]);
-}
-
-// =============================================
-// SUBCATEGORÍAS
-// =============================================
-function renderSubcats(subs){
-  const body=document.getElementById('content-body');
-  body.innerHTML='';
-  if(!subs.length){ body.innerHTML='<div style="text-align:center;padding:30px;color:#bbb;">Sin subcategorías</div>'; return; }
-
-  const grid=document.createElement('div');
-  grid.className='subcats';
-  subs.forEach(sub=>{
-    const card=document.createElement('div');
-    card.className='subcat-card';
-    card.onclick=()=>abrirSubcat(sub);
-    let badgeHTML='';
-    if(sub.badge==='hot') badgeHTML=`<div class="subcat-badge badge-hot">🔥 HOT</div>`;
-    else if(sub.badge==='new') badgeHTML=`<div class="subcat-badge badge-new">NEW</div>`;
-    else if(sub.badge==='oferta') badgeHTML=`<div class="subcat-badge badge-oferta">⚡ OFERTA</div>`;
-    card.innerHTML=`
-      <div class="subcat-img" style="background:#f5f0eb;">
-        <span style="font-size:2rem;">${sub.emoji||'📦'}</span>
-        ${badgeHTML}
+  CATEGORIAS.forEach(cat=>{
+    const item=document.createElement('div');
+    item.className='cat-menu-item'+(cat.nombre===catActiva?' active':'');
+    item.dataset.cat=cat.nombre;
+    item.innerHTML=`
+      <div class="cat-menu-icon" style="background:${cat.color}15;">
+        ${cat.icon}
       </div>
-      <div class="subcat-nombre">${sub.nombre}</div>`;
-    grid.appendChild(card);
+      <div class="cat-menu-txt">${cat.nombre}</div>`;
+    item.onclick=()=>seleccionarCat(cat.nombre);
+    sb_el.appendChild(item);
   });
-  body.appendChild(grid);
 }
 
-// =============================================
-// PRODUCTOS DE SUBCATEGORÍA
-// =============================================
-function abrirSubcat(sub){
-  subcatActiva=sub;
-  document.getElementById('content-title').textContent=sub.nombre;
-  document.getElementById('orden-row').style.display='flex';
-  renderProductos(sub.nombre);
+function seleccionarCat(nombre){
+  catActiva=nombre;
+  subcatActiva='';
+  // Ocultar búsqueda
+  document.getElementById('search-results').classList.remove('show');
+  document.getElementById('main-layout').style.display='flex';
+  // Update sidebar activo
+  document.querySelectorAll('.cat-menu-item').forEach(el=>{
+    el.classList.toggle('active',el.dataset.cat===nombre);
+  });
+  // Scroll sidebar a activo
+  const activeEl=document.querySelector('.cat-menu-item.active');
+  if(activeEl) activeEl.scrollIntoView({block:'nearest',behavior:'smooth'});
+  renderContent();
 }
 
-function renderProductos(subcat){
-  const body=document.getElementById('content-body');
-  let lista=productos;
+// ── CONTENIDO ──
+function renderContent(){
+  const cont=document.getElementById('content');
+  const cat=CATEGORIAS.find(c=>c.nombre===catActiva);
+  if(!cat){cont.innerHTML='';return;}
 
-  // Filtrar por búsqueda o subcategoría
-  if(busqActual){ lista=lista.filter(p=>(p.nombre||'').toLowerCase().includes(busqActual)||(p.categoria||'').toLowerCase().includes(busqActual)); }
-  else if(subcat){ lista=lista.filter(p=>(p.categoria||'').toLowerCase().includes(subcat.toLowerCase().split(' ')[0]))||lista; }
+  let html=`<div class="cat-titulo">${cat.nombre}</div>`;
 
-  // Ordenar
-  if(orden==='menor') lista=[...lista].sort((a,b)=>(a.precio||0)-(b.precio||0));
-  else if(orden==='mayor') lista=[...lista].sort((a,b)=>(b.precio||0)-(a.precio||0));
-  else lista=[...lista].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-
-  body.innerHTML='';
-  const header=document.createElement('div');
-  header.className='prods-header';
-  header.innerHTML=`<span class="prods-count">${lista.length} productos encontrados</span>`;
-  body.appendChild(header);
-
-  if(!lista.length){
-    const em=document.createElement('div');
-    em.style.cssText='text-align:center;padding:40px;color:#bbb;font-size:0.82rem;';
-    em.innerHTML=`<div style="font-size:2.5rem;margin-bottom:10px;">📦</div>Sin productos en esta categoría`;
-    body.appendChild(em);
-    return;
+  // Subcategorías como chips o cards (Destacado usa cards)
+  if(cat.nombre==='Destacado'){
+    html+=`<div class="subcat-grid">`;
+    cat.subs.forEach(sub=>{
+      html+=`<div class="subcat-card" onclick="seleccionarSubcat('${sub.nombre}')">
+        <div class="subcat-card-badge" style="background:${sub.badgeColor}">${sub.badge}</div>
+        <div class="subcat-card-icon" style="background:${sub.bg}">${sub.icon}</div>
+        <div class="subcat-card-lbl">${sub.nombre}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  } else if(cat.subs?.length){
+    const subs=Array.isArray(cat.subs)&&typeof cat.subs[0]==='string'?cat.subs:cat.subs.map(s=>s.nombre);
+    html+=`<div class="subcats" id="subcats-row">
+      <div class="subcat-chip ${!subcatActiva?'active':''}" onclick="seleccionarSubcat('')">Todos</div>`;
+    subs.forEach(s=>{
+      html+=`<div class="subcat-chip ${subcatActiva===s?'active':''}" onclick="seleccionarSubcat('${s}')">${s}</div>`;
+    });
+    html+=`</div>`;
   }
 
-  const grid=document.createElement('div');
-  grid.className='prods-grid';
-  lista.forEach(p=>grid.appendChild(crearTarjetaProducto(p)));
-  body.appendChild(grid);
+  // Productos
+  const prods=filtrarProductos(cat,subcatActiva);
+  html+=renderProductos(prods,cat);
+
+  cont.innerHTML=html;
 }
 
-function crearTarjetaProducto(p){
-  const card=document.createElement('div');
-  card.className='prod-card';
-  const img=p.imagenes?.[0]||p.imagen||'';
-  const catColor=colorCategoria(p.categoria||'');
-  const tieneVideo=p.video_url?true:false;
+function filtrarProductos(cat,subcat){
+  if(cat.nombre==='Destacado'){
+    if(!subcat) return todosProductos.slice(0,20);
+    // Filtrar por subcategoría de destacado según tags o creados recientemente
+    if(subcat==='Nuevos ingresos') return todosProductos.slice(0,12);
+    if(subcat==='Más vendidos') return [...todosProductos].sort(()=>Math.random()-0.5).slice(0,12);
+    if(subcat==='Ofertas del día'||subcat==='Liquidación') return todosProductos.filter(p=>p.descuento||p.oferta).slice(0,12);
+    return todosProductos.slice(0,12);
+  }
+  return todosProductos.filter(p=>{
+    const catMatch=(p.categoria||'').toLowerCase().includes(cat.nombre.toLowerCase())||
+      cat.nombre.toLowerCase().includes((p.categoria||'').toLowerCase().split(' ')[0]);
+    if(!catMatch) return false;
+    if(subcat){
+      const s=subcat.toLowerCase();
+      return (p.subcategoria||'').toLowerCase().includes(s)||
+        (p.nombre||'').toLowerCase().includes(s)||
+        (p.tags||[]).some(t=>t.toLowerCase().includes(s));
+    }
+    return true;
+  });
+}
 
-  card.onclick=()=>window.location.href=`producto.html?id=${p.id}`;
-  card.innerHTML=`
-    <div class="prod-img" style="background:${catColor}18;">
-      ${img?`<img src="${img}" alt="${p.nombre||''}">`:
-        `<span style="font-size:3rem;">${emojiCategoria(p.categoria||'')}</span>`}
-      <div class="prod-cat-badge" style="background:${catColor};">${(p.categoria||'General').toUpperCase()}</div>
-      ${tieneVideo?`<div class="prod-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="white"/></svg></div>`:''}
-    </div>
-    <div class="prod-body">
-      <div class="prod-nombre">${p.nombre||'Producto'}</div>
-      <div class="prod-proveedor">${p.nombre_proveedor||p.proveedor||'Proveedor'}</div>
-      <div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div>
-      <div class="prod-min">Min: ${p.minimo||1}</div>
-      <button class="prod-add" onclick="agregarCarrito(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0})">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </button>
+function renderProductos(prods,cat){
+  if(!prods.length){
+    return `<div class="empty-cat">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <p>Aún no hay productos en esta categoría.<br><span style="font-size:0.72rem;color:#ccc;">Los proveedores están agregando productos</span></p>
     </div>`;
-  return card;
+  }
+  let html=`<div class="prods-grid">`;
+  prods.forEach(p=>{
+    const img=p.imagenes?.[0]||p.imagen||'';
+    const color=cat?.color||getColorCat(p.categoria||'');
+    html+=`<div class="prod-card" onclick="irProducto('${p.id}')">
+      <div class="prod-img" style="background:${color}12;">
+        ${img?`<img src="${img}" alt="" loading="lazy">`:`<div class="prod-img-icon" style="stroke:${color};">${cat?.icon||iconCat(p.categoria)}</div>`}
+        <div class="prod-cat-badge" style="background:${color};">${(p.categoria||'General').slice(0,8).toUpperCase()}</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-nombre">${p.nombre||'Producto'}</div>
+        <div class="prod-prov">${p.nombre_proveedor||'Proveedor'}</div>
+        <div class="prod-footer">
+          <div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div>
+          <button class="prod-add" onclick="addCarrito(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}')">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  });
+  html+=`</div>`;
+  return html;
 }
 
-function colorCategoria(cat){
-  const map={
-    'Ropa':'#FF8C00','Textil':'#FF8C00','Vestido':'#FF8C00',
-    'Tecnolog':'#007AFF','Electr':'#007AFF','Celular':'#007AFF',
-    'Alimento':'#22C55E','Comida':'#22C55E','Abarrote':'#22C55E',
-    'Belleza':'#FF69B4','Cosmé':'#FF69B4','Maquill':'#FF69B4',
-    'Deporte':'#A855F7','Gym':'#A855F7',
-    'Hogar':'#F59E0B','Mueble':'#F59E0B',
-    'Joyería':'#EF4444','Acceso':'#EF4444',
-  };
-  for(const k in map){ if(cat.includes(k)) return map[k]; }
-  return '#888';
+function seleccionarSubcat(s){
+  subcatActiva=s;
+  renderContent();
 }
 
-function emojiCategoria(cat){
-  const map={'Ropa':'👗','Vestido':'👗','Camiseta':'👕','Pantalon':'👖','Calzado':'👟','Joya':'💍','Tecnolog':'📱','Celular':'📱','Alimento':'🛒','Belleza':'💄','Deporte':'⚽','Hogar':'🏠','Mueble':'🛋️','Juguete':'🧸','Mascota':'🐾','Herramienta':'🔧'};
-  for(const k in map){ if(cat.includes(k)) return map[k]; }
-  return '📦';
-}
+function irProducto(id){window.location.href=`producto.html?id=${id}`;}
 
-// =============================================
-// BÚSQUEDA
-// =============================================
-function buscar(q){
-  busqActual=q.toLowerCase();
-  if(!q){ if(categoriaActiva) activarCategoria(categoriaActiva); return; }
-  document.getElementById('content-title').textContent=`Resultados: "${q}"`;
-  document.getElementById('orden-row').style.display='flex';
-  renderProductos(null);
-}
-
-// =============================================
-// ORDENAR
-// =============================================
-function ordenar(tipo,el){
-  orden=tipo;
-  document.querySelectorAll('.orden-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  renderProductos(subcatActiva?.nombre||null);
-}
-
-// =============================================
-// CARRITO
-// =============================================
-function agregarCarrito(e,id,nombre,precio){
+function addCarrito(e,id,nombre,precio,imagen){
   e.stopPropagation();
-  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-  const idx=carrito.findIndex(i=>i.id===id);
-  if(idx>=0){ carrito[idx].cantidad=(carrito[idx].cantidad||1)+1; }
-  else { carrito.push({id,nombre,precio,cantidad:1}); }
-  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
-  carritoCount=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  const cn=document.getElementById('carrito-num');
-  if(cn) cn.textContent=carritoCount;
-
-  // Animación rápida
+  const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const idx=c.findIndex(i=>i.id===id);
+  if(idx>=0) c[idx].cantidad=(c[idx].cantidad||1)+1;
+  else c.push({id,nombre,precio,imagen,cantidad:1});
+  localStorage.setItem('carrito_proveed',JSON.stringify(c));
+  const cnt=c.reduce((s,i)=>s+(i.cantidad||1),0);
+  const b=document.getElementById('carrito-badge');
+  b.style.display='flex';b.textContent=cnt>9?'9+':cnt;
   const btn=e.currentTarget;
-  btn.style.background='var(--verde)';
-  setTimeout(()=>{ btn.style.background='#111'; },400);
+  btn.style.background='var(--acc2)';setTimeout(()=>btn.style.background='var(--acc)',500);
+  showToast('✓ Agregado al carrito');
 }
+
+// ── BÚSQUEDA TEXTO ──
+let searchTimer;
+window.buscarTexto=function(q){
+  clearTimeout(searchTimer);
+  if(!q.trim()){
+    document.getElementById('search-results').classList.remove('show');
+    document.getElementById('main-layout').style.display='flex';
+    return;
+  }
+  searchTimer=setTimeout(()=>{
+    const ql=q.toLowerCase();
+    const res=todosProductos.filter(p=>
+      (p.nombre||'').toLowerCase().includes(ql)||
+      (p.categoria||'').toLowerCase().includes(ql)||
+      (p.nombre_proveedor||'').toLowerCase().includes(ql)||
+      (p.descripcion||'').toLowerCase().includes(ql)
+    );
+    document.getElementById('search-results').classList.add('show');
+    document.getElementById('main-layout').style.display='none';
+    document.getElementById('search-header').textContent=`${res.length} resultado${res.length!==1?'s':''} para "${q}"`;
+    const grid=document.getElementById('search-grid');
+    if(!res.length){grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:#bbb;font-size:0.82rem;">Sin resultados para "${q}"</div>`;return;}
+    grid.innerHTML='';
+    res.forEach(p=>{
+      const img=p.imagenes?.[0]||p.imagen||'';
+      const color=getColorCat(p.categoria||'');
+      const card=document.createElement('div');card.className='prod-card';
+      card.onclick=()=>irProducto(p.id);
+      card.innerHTML=`<div class="prod-img" style="background:${color}12;">${img?`<img src="${img}" alt="" loading="lazy">`:`<div class="prod-img-icon">${iconCat(p.categoria)}</div>`}<div class="prod-cat-badge" style="background:${color};">${(p.categoria||'General').slice(0,8).toUpperCase()}</div></div><div class="prod-body"><div class="prod-nombre">${p.nombre||'Producto'}</div><div class="prod-prov">${p.nombre_proveedor||'Proveedor'}</div><div class="prod-footer"><div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div><button class="prod-add" onclick="addCarrito(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>`;
+      grid.appendChild(card);
+    });
+  },300);
+};
+
+window.activarBusqueda=function(){
+  if(!document.getElementById('search-input').value) return;
+  buscarTexto(document.getElementById('search-input').value);
+};
+
+// ── BÚSQUEDA POR IMAGEN (GALERÍA) ──
+window.buscarPorImagen=async function(input){
+  const file=input.files[0];if(!file)return;
+  procesarImagenBusqueda(file);
+};
+
+async function procesarImagenBusqueda(file){
+  document.getElementById('searching-overlay').classList.add('show');
+  document.getElementById('searching-txt').textContent='Analizando imagen con IA...';
+  try{
+    const b64=await fileToBase64(file);
+    const mediaType=file.type||'image/jpeg';
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:500,
+        messages:[{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:mediaType,data:b64}},
+          {type:'text',text:'Analiza este producto. Responde SOLO en JSON con: {"nombre":"...","categoria":"...","color":"...","material":"...","tags":["...","...","..."]}. Máximo 5 tags relevantes para búsqueda en marketplace ecuatoriano.'}
+        ]}]
+      })
+    });
+    const data=await res.json();
+    const txt=data.content?.[0]?.text||'{}';
+    const clean=txt.replace(/```json|```/g,'').trim();
+    const info=JSON.parse(clean);
+    document.getElementById('searching-overlay').classList.remove('show');
+    buscarPorTerminos(info);
+  }catch(e){
+    document.getElementById('searching-overlay').classList.remove('show');
+    showToast('Error al analizar imagen');
+  }
+  document.getElementById('foto-galeria').value='';
+}
+
+function buscarPorTerminos(info){
+  const terminos=[info.nombre,info.categoria,...(info.tags||[])].filter(Boolean).join(' ');
+  document.getElementById('search-input').value=terminos;
+  buscarTexto(terminos);
+}
+
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>res(e.target.result.split(',')[1]);
+    r.onerror=()=>rej(new Error('Error leyendo archivo'));
+    r.readAsDataURL(file);
+  });
+}
+
+// ── CÁMARA EN TIEMPO REAL ──
+window.abrirCamara=async function(){
+  try{
+    const constraints={video:{facingMode:camaraFrontal?'user':'environment',width:{ideal:1280},height:{ideal:720}}};
+    streamCam=await navigator.mediaDevices.getUserMedia(constraints);
+    document.getElementById('cam-video').srcObject=streamCam;
+    document.getElementById('modal-cam').classList.add('show');
+  }catch(e){
+    showToast('No se pudo acceder a la cámara');
+    // Fallback a galería
+    document.getElementById('foto-galeria').click();
+  }
+};
+
+window.cerrarCamara=function(){
+  if(streamCam){streamCam.getTracks().forEach(t=>t.stop());streamCam=null;}
+  document.getElementById('modal-cam').classList.remove('show');
+};
+
+window.flipCamara=async function(){
+  camaraFrontal=!camaraFrontal;
+  if(streamCam){streamCam.getTracks().forEach(t=>t.stop());}
+  try{
+    const constraints={video:{facingMode:camaraFrontal?'user':'environment'}};
+    streamCam=await navigator.mediaDevices.getUserMedia(constraints);
+    document.getElementById('cam-video').srcObject=streamCam;
+  }catch(e){showToast('Error al cambiar cámara');}
+};
+
+window.capturarFoto=function(){
+  const video=document.getElementById('cam-video');
+  const canvas=document.getElementById('cam-canvas');
+  canvas.width=video.videoWidth;
+  canvas.height=video.videoHeight;
+  canvas.getContext('2d').drawImage(video,0,0);
+  canvas.toBlob(async blob=>{
+    cerrarCamara();
+    if(blob){
+      const file=new File([blob],'foto.jpg',{type:'image/jpeg'});
+      await procesarImagenBusqueda(file);
+    }
+  },'image/jpeg',0.85);
+};
+
+// ── HELPERS ──
+function getColorCat(c){
+  const cat=CATEGORIAS.find(x=>x.nombre.toLowerCase().includes((c||'').toLowerCase().split(' ')[0]));
+  return cat?.color||'#888';
+}
+
+function iconCat(c){
+  const cat=CATEGORIAS.find(x=>x.nombre.toLowerCase().includes((c||'').toLowerCase().split(' ')[0]));
+  return cat?.icon||`<svg viewBox="0 0 24 24" stroke="#888"><rect x="2" y="2" width="20" height="20" rx="3"/></svg>`;
+}
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 </script>
 </body>
 </html>
