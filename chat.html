@@ -1,707 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Chat</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--acc:#A8E63D;--acc2:#7BC234;--gris:#F5F6F2;--naranja:#FF8C00;--rojo:#FF4D4D;}
-body{background:var(--gris);font-family:'Inter',sans-serif;}
-#vista-lista{display:block;}
-#vista-chat{display:none;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROVEED - Chat Final</title>
+    <style>
+        :root {
+            --verde: #32CD32;
+            --negro: #1A1A1A;
+            --gris-fondo: #F0F2F5;
+            --blanco: #FFFFFF;
+            --rojo: #D32F2F;
+            --dorado: #FFD700;
+        }
 
-/* LISTA */
-.header-lista{background:white;padding:48px 16px 12px;border-bottom:2.5px solid var(--acc);position:sticky;top:0;z-index:50;}
-.hl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.hl-logo{display:flex;align-items:center;gap:8px;}
-.hl-title{font-size:1rem;font-weight:900;color:#111;}
-.hl-title span{color:var(--acc2);}
-.search-wrap{display:flex;align-items:center;gap:8px;background:var(--gris);border-radius:24px;padding:10px 14px;border:1.5px solid #eee;}
-.search-wrap svg{width:15px;height:15px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
-.search-wrap input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
-.search-wrap input::placeholder{color:#ccc;}
-.chats-scroll{overflow-y:auto;padding-bottom:90px;}
-.chat-item{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid #f5f5f5;background:white;}
-.chat-item:active{background:var(--gris);}
-.chat-item.noleido{border-left:3px solid var(--acc);}
-.ci-av{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:white;flex-shrink:0;position:relative;}
-.ci-dot{position:absolute;bottom:1px;right:1px;width:9px;height:9px;background:var(--acc);border-radius:50%;border:2px solid white;}
-.ci-info{flex:1;min-width:0;}
-.ci-nombre{font-size:0.88rem;font-weight:700;color:#111;margin-bottom:2px;}
-.ci-prod{font-size:0.68rem;color:var(--acc2);font-weight:600;margin-bottom:2px;}
-.ci-msg{font-size:0.75rem;color:#aaa;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
-.ci-hora{font-size:0.6rem;color:#bbb;}
-.ci-unread{width:18px;height:18px;background:var(--acc2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:800;color:#111;}
-.empty-txt{text-align:center;padding:60px 20px;color:#bbb;font-size:0.82rem;line-height:1.6;}
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--gris-fondo); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-/* CHAT — todo position:fixed para Android */
-.chat-header{position:fixed;top:0;left:0;right:0;background:white;padding:44px 12px 12px;border-bottom:2.5px solid var(--acc);display:flex;align-items:center;gap:10px;z-index:100;}
-.ch-back{width:36px;height:36px;background:rgba(168,230,61,0.12);border-radius:11px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
-.ch-back svg{width:18px;height:18px;stroke:var(--acc2);fill:none;stroke-width:2.5;}
-.ch-av{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:800;color:white;flex-shrink:0;}
-.ch-info{flex:1;min-width:0;}
-.ch-nombre{font-size:0.9rem;font-weight:800;color:#111;}
-.ch-sub{font-size:0.68rem;color:var(--acc2);font-weight:600;margin-top:1px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.ch-btns{display:flex;gap:6px;}
-.ch-btn{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,0.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.ch-btn svg{width:15px;height:15px;stroke:var(--acc2);fill:none;stroke-width:2;}
+        /* Pantalla Inicial */
+        .security-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--negro); z-index: 1000; display: flex; align-items: center; justify-content: center;
+        }
+        .security-card { background: white; width: 80%; max-width: 320px; padding: 40px 20px; border-radius: 30px; text-align: center; }
+        .shield-icon { width: 70px; height: 70px; background: #f0fff0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
 
-.prod-banner{position:fixed;left:0;right:0;background:white;border-bottom:1px solid #eee;padding:10px 14px;display:flex;align-items:center;gap:10px;z-index:99;}
-.pb-img{width:42px;height:42px;border-radius:10px;background:var(--gris);flex-shrink:0;overflow:hidden;}
-.pb-img img{width:100%;height:100%;object-fit:cover;}
-.pb-info{flex:1;min-width:0;}
-.pb-nombre{font-size:0.82rem;font-weight:700;color:#111;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.pb-precio{font-size:0.75rem;color:var(--naranja);font-weight:800;}
-.btn-neg-b{padding:7px 14px;background:var(--acc);color:#111;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;white-space:nowrap;}
+        /* Header */
+        .chat-header { background: var(--verde); padding: 45px 20px 10px; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-top { display: flex; align-items: center; margin-bottom: 8px; }
+        .back-arrow { cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        
+        /* Calificación */
+        .rating-chip {
+            background: rgba(0,0,0,0.1); border-radius: 20px; padding: 6px 15px;
+            display: inline-flex; align-items: center; font-size: 0.7rem; cursor: pointer;
+        }
+        .stars-row { color: var(--dorado); margin-right: 8px; font-size: 0.9rem; }
 
-/* MENSAJES — ocupa espacio dinámico */
-.msgs-wrap{position:fixed;left:0;right:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px;background:var(--gris);display:flex;flex-direction:column;gap:6px;}
+        /* Experiencia Popup */
+        .experience-popup {
+            position: absolute; top: 115px; left: 50%; transform: translateX(-50%);
+            width: 85%; background: white; border-radius: 20px; padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; z-index: 500;
+        }
+        .experience-input { width: 100%; border: 1px solid #eee; border-radius: 12px; padding: 10px; font-size: 0.8rem; box-sizing: border-box; outline: none; }
 
-/* INPUT — siempre visible */
-.input-area{position:fixed;left:0;right:0;background:white;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));z-index:100;}
-.input-extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
-.input-extras::-webkit-scrollbar{display:none;}
-.btn-ext{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:white;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.btn-ext.verde{border-color:var(--acc);color:var(--acc2);background:rgba(168,230,61,0.06);}
-.input-row{display:flex;align-items:flex-end;gap:8px;}
-.input-box{flex:1;background:var(--gris);border-radius:22px;padding:10px 14px;display:flex;align-items:flex-end;border:1.5px solid #eee;}
-/* TEXTAREA — CLAVE: color:#111 para que se vea */
-.msg-ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;display:block;}
-.msg-ta::placeholder{color:#bbb;}
-.btn-send{width:42px;height:42px;background:var(--acc);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
-.btn-send svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
+        /* Chat */
+        .message-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .bubble { max-width: 75%; padding: 12px; border-radius: 18px; font-size: 0.9rem; }
+        .sent { background: var(--verde); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .received { background: white; align-self: flex-start; border-bottom-left-radius: 2px; }
 
-/* BURBUJAS */
-.msg{display:flex;flex-direction:column;}
-.msg.mio{align-items:flex-end;}
-.msg.suyo{align-items:flex-start;}
-.msg-b{padding:10px 14px;border-radius:18px;font-size:0.88rem;line-height:1.5;max-width:80%;word-break:break-word;cursor:pointer;-webkit-user-select:none;user-select:none;}
-.msg.mio .msg-b{background:var(--acc);color:#111;border-bottom-right-radius:4px;font-weight:500;}
-.msg.suyo .msg-b{background:white;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
-.msg-hora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
+        /* Alerta Toast */
+        .alert-toast {
+            position: fixed; top: 120px; left: 50%; transform: translateX(-50%);
+            background: var(--rojo); color: white; padding: 12px 20px; border-radius: 30px;
+            font-size: 0.75rem; font-weight: 700; display: none; z-index: 600;
+        }
 
-/* MENÚ BORRAR */
-.msg-menu{position:fixed;background:white;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,0.18);padding:4px;z-index:700;border:1px solid #eee;display:none;}
-.msg-menu.show{display:block;}
-.msg-menu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;color:var(--rojo);cursor:pointer;border-radius:8px;white-space:nowrap;}
-.msg-menu button svg{width:14px;height:14px;stroke:var(--rojo);fill:none;stroke-width:2.2;}
-.overlay-menu{position:fixed;inset:0;z-index:699;display:none;}
-.overlay-menu.show{display:block;}
-
-/* NEGOCIACIÓN */
-.neg-card{background:white;border:2px solid var(--acc);border-radius:18px;padding:14px;width:94%;max-width:340px;box-shadow:0 2px 12px rgba(168,230,61,0.1);}
-.neg-head{font-size:0.66rem;font-weight:800;color:var(--acc2);text-transform:uppercase;margin-bottom:8px;}
-.neg-item{display:flex;justify-content:space-between;font-size:0.76rem;padding:4px 0;border-bottom:1px solid #f5f5f5;}
-.neg-item:last-child{border:none;}
-.neg-totales{display:flex;align-items:center;gap:8px;margin:8px 0;}
-.neg-orig{font-size:0.8rem;color:#bbb;text-decoration:line-through;}
-.neg-new{font-size:1rem;font-weight:900;color:var(--acc2);}
-.neg-nota{font-size:0.74rem;color:#666;font-style:italic;padding:8px;background:var(--gris);border-radius:8px;margin-bottom:10px;line-height:1.4;}
-.neg-bts{display:flex;gap:6px;}
-.neg-bt{flex:1;padding:9px 4px;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;}
-.neg-bt.ok{background:var(--acc);color:#111;}
-.neg-bt.no{background:rgba(255,77,77,0.08);color:var(--rojo);}
-.neg-bt.cnt{background:var(--gris);color:#555;}
-.neg-st{text-align:center;font-size:0.72rem;font-weight:700;padding:7px;border-radius:10px;margin-top:4px;}
-.neg-st.aceptado{background:rgba(168,230,61,0.1);color:var(--acc2);}
-.neg-st.rechazado{background:rgba(255,77,77,0.06);color:var(--rojo);}
-.neg-st.pendiente{background:rgba(255,140,0,0.08);color:var(--naranja);}
-.neg-hora{font-size:0.58rem;color:#bbb;text-align:right;margin-top:4px;}
-.especial{display:flex;justify-content:center;width:100%;padding:4px 0;}
-
-/* MODALES */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:flex-end;z-index:500;}
-.modal-ov.show{display:flex;}
-.modal-sh{background:white;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:0.4s cubic-bezier(0.16,1,0.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
-.modal-ov.show .modal-sh{transform:translateY(0);}
-.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
-.modal-hdr{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;flex-shrink:0;}
-.modal-tit{font-size:0.95rem;font-weight:800;color:#111;}
-.cls-btn{width:28px;height:28px;background:var(--gris);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
-.cls-btn svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
-.modal-body{overflow-y:auto;padding:16px 16px 40px;flex:1;}
-.field{margin-bottom:12px;}
-.field label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;}
-.field input,.field textarea,.field select{width:100%;padding:12px 14px;background:var(--gris);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;}
-.field input:focus,.field textarea:focus{border-color:var(--acc);}
-.neg-intro{font-size:0.8rem;color:#aaa;line-height:1.6;margin-bottom:14px;}
-.neg-item-card{background:var(--gris);border-radius:14px;padding:12px;margin-bottom:10px;}
-.nic-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.nic-img{width:38px;height:38px;border-radius:9px;background:white;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.nic-img img{width:100%;height:100%;object-fit:cover;}
-.nic-info{flex:1;}
-.nic-nombre{font-size:0.82rem;font-weight:700;color:#111;}
-.nic-cant{font-size:0.68rem;color:#aaa;}
-.nic-precios{display:flex;align-items:center;gap:10px;}
-.nic-orig{font-size:0.76rem;color:#bbb;text-decoration:line-through;white-space:nowrap;}
-.nic-input{flex:1;padding:9px 12px;background:white;border:2px solid var(--acc);border-radius:10px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:800;color:#111;text-align:center;outline:none;}
-.nic-unit{font-size:0.68rem;color:#aaa;white-space:nowrap;}
-.resumen-neg{background:rgba(168,230,61,0.07);border:1px solid rgba(123,194,52,0.2);border-radius:14px;padding:14px;margin-bottom:14px;}
-.rn-row{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px;}
-.rn-lbl{color:#aaa;}
-.rn-val{font-weight:700;color:#111;}
-.rn-final{display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(123,194,52,0.2);}
-.rn-lbl2{font-size:0.88rem;font-weight:800;color:#111;}
-.rn-val2{font-size:1rem;font-weight:900;color:var(--acc2);}
-.btn-ppal{width:100%;padding:14px;background:var(--acc);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
-.btn-sec{width:100%;padding:12px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
-
-/* TAB BAR */
-.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
-.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.tab span{font-size:0.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
-.tab.active svg{stroke:var(--acc2);}
-.tab.active span{color:var(--acc2);}
-.tab-rel{position:relative;}
-.tab-badge{position:absolute;top:-2px;right:6px;background:var(--rojo);color:white;font-size:0.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:white;padding:10px 20px;border-radius:24px;font-size:0.8rem;font-weight:600;opacity:0;transition:0.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-</style>
+        .footer-input { background: white; padding: 15px; display: flex; gap: 10px; }
+        .footer-input input { flex: 1; border: 1px solid #eee; border-radius: 30px; padding: 12px 18px; outline: none; }
+    </style>
 </head>
 <body>
 
-<!-- LISTA CHATS -->
-<div id="vista-lista">
-  <div class="header-lista">
-    <div class="hl-top">
-      <div class="hl-logo">
-        <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span class="hl-title">PRO<span>VEED</span> · Chats</span>
-      </div>
+    <div class="security-screen" id="welcome">
+        <div class="security-card">
+            <div class="shield-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#32CD32" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h2 style="margin:0 0 10px">Chat Seguro</h2>
+            <p style="font-size:0.85rem; color:#666">Por seguridad nacional, PROVEED bloquea automáticamente el envío de WhatsApp, Facebook o teléfonos.</p>
+            <button onclick="document.getElementById('welcome').style.display='none'" style="background:var(--verde); color:white; border:none; width:100%; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer">ACEPTAR</button>
+        </div>
     </div>
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" placeholder="Buscar conversación..." oninput="filtrarChats(this.value)">
+
+    <div class="chat-header">
+        <div class="header-top">
+            <div class="back-arrow" onclick="window.location.href='dashboard_emprendedor.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </div>
+            <strong style="margin-left:15px">Proveedor Textil San Juan</strong>
+        </div>
+        
+        <div class="rating-chip" onclick="showExp()">
+            <span class="stars-row">★★★★★</span>
+            <span>Calificar experiencia</span>
+        </div>
     </div>
-  </div>
-  <div class="chats-scroll" id="chats-scroll">
-    <div style="text-align:center;padding:40px;color:#bbb;font-size:0.82rem;">Cargando...</div>
-  </div>
-</div>
 
-<!-- CHAT INDIVIDUAL -->
-<div id="vista-chat">
-  <div class="chat-header" id="chat-header">
-    <button class="ch-back" onclick="volverLista()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-    <div class="ch-av" id="ch-av">P</div>
-    <div class="ch-info">
-      <div class="ch-nombre" id="ch-nombre">—</div>
-      <div class="ch-sub" id="ch-sub">—</div>
+    <div class="experience-popup" id="expPopup">
+        <p style="margin:0 0 8px; font-size:0.75rem; font-weight:700">¿Cómo fue tu experiencia?</p>
+        <textarea class="experience-input" id="expTxt" rows="2" placeholder="Cuéntanos brevemente..."></textarea>
+        <button onclick="saveExp()" style="background:var(--negro); color:white; border:none; width:100%; padding:8px; border-radius:8px; font-size:0.75rem; font-weight:bold; margin-top:10px;">GUARDAR EXPERIENCIA</button>
     </div>
-    <div class="ch-btns">
-      <button class="ch-btn" onclick="abrirCatalogo()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
-      <button class="ch-btn" onclick="location.href='dashboard-emp.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
+
+    <div class="message-area" id="chat">
+        <div class="bubble received">¡Hola! Tu despacho se realizó con éxito. ¿Recibiste todo bien?</div>
     </div>
-  </div>
-  <div class="prod-banner" id="prod-banner" style="display:none;">
-    <div class="pb-img" id="pb-img"></div>
-    <div class="pb-info">
-      <div class="pb-nombre" id="pb-nombre">—</div>
-      <div class="pb-precio" id="pb-precio">—</div>
+
+    <div class="alert-toast" id="toast">⚠️ BLOQUEO DE SEGURIDAD</div>
+
+    <div class="footer-input">
+        <input type="text" id="userInput" placeholder="Escribe un mensaje seguro...">
+        <button onclick="send()" style="background:var(--verde); border:none; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
     </div>
-    <button class="btn-neg-b" onclick="abrirNeg()">🤝 Negociar</button>
-  </div>
-  <div class="msgs-wrap" id="msgs-wrap"></div>
-  <div class="input-area" id="input-area">
-    <div class="input-extras">
-      <button class="btn-ext verde" onclick="abrirNeg()">🤝 Negociar</button>
-      <button class="btn-ext" onclick="compartirCarrito()">📦 Carrito</button>
-      <button class="btn-ext" onclick="abrirCatalogo()">🔍 Catálogo</button>
-    </div>
-    <div class="input-row">
-      <div class="input-box">
-        <textarea class="msg-ta" id="msg-ta" placeholder="Escribe un mensaje..." rows="1"
-          onkeydown="onKey(event)" oninput="autoResize(this)"></textarea>
-      </div>
-      <button class="btn-send" onclick="enviar()">
-        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
-    </div>
-  </div>
-</div>
 
-<!-- MENÚ BORRAR -->
-<div class="overlay-menu" id="ov-menu" onclick="cerrarMenu()"></div>
-<div class="msg-menu" id="msg-menu">
-  <button onclick="borrarMsg()">
-    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-    Eliminar mensaje
-  </button>
-</div>
+    <script>
+        let fails = 0;
 
-<!-- MODAL NEGOCIAR -->
-<div class="modal-ov" id="modal-neg" onclick="cmodal('modal-neg',event)">
-  <div class="modal-sh">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-tit">🤝 Negociar precio</span>
-      <button class="cls-btn" onclick="document.getElementById('modal-neg').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <p class="neg-intro">Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.</p>
-      <div id="neg-items"></div>
-      <div class="resumen-neg">
-        <div class="rn-row"><span class="rn-lbl">Original</span><span class="rn-val" id="rn-orig">$0.00</span></div>
-        <div class="rn-row"><span class="rn-lbl">Tu oferta</span><span class="rn-val" id="rn-oferta">$0.00</span></div>
-        <div class="rn-final"><span class="rn-lbl2">Ahorro</span><span class="rn-val2" id="rn-ahorro">$0.00</span></div>
-      </div>
-      <div class="field"><label>Mensaje al proveedor</label><textarea id="neg-nota" placeholder="Ej: Compraré regularmente..." style="height:60px;"></textarea></div>
-      <button class="btn-ppal" onclick="enviarNeg()">🚀 Enviar propuesta</button>
-      <button class="btn-sec" onclick="soloCarrito()">📦 Enviar carrito sin negociar</button>
-    </div>
-  </div>
-</div>
+        function showExp() {
+            const p = document.getElementById('expPopup');
+            p.style.display = (p.style.display === 'block') ? 'none' : 'block';
+        }
 
-<!-- MODAL CATÁLOGO -->
-<div class="modal-ov" id="modal-cat" onclick="cmodal('modal-cat',event)">
-  <div class="modal-sh">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-tit">🔍 Catálogo del proveedor</span>
-      <button class="cls-btn" onclick="document.getElementById('modal-cat').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="search-wrap" style="margin-bottom:12px;">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" placeholder="Buscar producto..." oninput="filtrarCat(this.value)">
-      </div>
-      <div id="cat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;"></div>
-    </div>
-  </div>
-</div>
+        function saveExp() {
+            alert("¡Gracias por tu reseña!");
+            document.getElementById('expPopup').style.display = 'none';
+        }
 
-<!-- TAB BAR -->
-<nav class="tab-bar">
-  <a class="tab" href="dashboard-emp.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
-  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
-  <a class="tab active"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
-  <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-badge" id="carrito-badge" style="display:none;">0</div></a>
-  <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
-</nav>
+        function send() {
+            const input = document.getElementById('userInput');
+            const toast = document.getElementById('toast');
+            const val = input.value.toLowerCase();
+            const banned = ['whatsapp', 'telegram', 'facebook', 'numero', 'celular', 'telefono', 'wp', '09'];
+            const isIllegal = banned.some(b => val.includes(b)) || /\d{7,}/.test(val);
 
-<div class="toast" id="toast"></div>
+            if(isIllegal) {
+                fails++;
+                input.value = "";
+                if(fails <= 2) {
+                    toast.style.display = 'block';
+                    setTimeout(() => toast.style.display = 'none', 3000);
+                }
+                return;
+            }
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SB = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-const {createClient} = supabase;
-const SB2 = supabase.createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-
-// Usar solo SB2
-let uid='', uData={}, chatActual=null, chats=[], msgs=[], prodActual=null, rtCh=null;
-let negItems={}, catAll=[], menuMsgId=null;
-const QS = new URLSearchParams(location.search);
-let carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-
-// Badge carrito
-function badge(){
-  const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  const b=document.getElementById('carrito-badge');
-  if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';
-}
-badge();
-
-// ── ALTURAS DINÁMICAS ──
-function calcAlturas(){
-  if(document.getElementById('vista-chat').style.display==='none') return;
-  const hdrH = document.getElementById('chat-header').offsetHeight;
-  const banEl = document.getElementById('prod-banner');
-  const banH = banEl.style.display!=='none' ? banEl.offsetHeight : 0;
-  const inputEl = document.getElementById('input-area');
-  const inputH = inputEl.offsetHeight;
-  const tabH = document.querySelector('.tab-bar').offsetHeight;
-
-  banEl.style.top = hdrH + 'px';
-  inputEl.style.bottom = tabH + 'px';
-
-  const msgs = document.getElementById('msgs-wrap');
-  msgs.style.top = (hdrH + banH) + 'px';
-  msgs.style.bottom = (inputH + tabH) + 'px';
-}
-window.addEventListener('resize', calcAlturas);
-
-// ── INIT ──
-(async()=>{
-  const {data:{session}} = await SB2.auth.getSession();
-  if(!session){location.href='login.html';return;}
-  uid = session.user.id;
-  const {data:u} = await SB2.from('usuarios').select('*').eq('id',uid).single();
-  if(u) uData = u;
-  await cargarChats();
-  const pId = QS.get('proveedor_id');
-  const prodId = QS.get('prod_id');
-  if(pId){
-    const ex = chats.find(c=>c.proveedor_id===pId);
-    if(ex) await abrirChat(ex, null, false);
-    else await crearChat(pId, prodId);
-  }
-})();
-
-async function cargarChats(){
-  const {data} = await SB2.from('chats').select('*').eq('emprendedor_id',uid).order('updated_at',{ascending:false});
-  chats = data||[];
-  renderChats(chats);
-}
-
-function renderChats(lista){
-  const c = document.getElementById('chats-scroll');
-  if(!lista.length){c.innerHTML='<div class="empty-txt">Sin conversaciones.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
-  c.innerHTML='';
-  lista.forEach(ch=>{
-    const nom = ch.proveedor_nombre||'Proveedor';
-    const hora = ch.updated_at ? new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}) : '';
-    const d = document.createElement('div');
-    d.className = 'chat-item' + (ch.no_leido>0?' noleido':'');
-    d.innerHTML = `<div class="ci-av" style="background:${col(nom)};">${nom[0].toUpperCase()}<div class="ci-dot"></div></div>
-      <div class="ci-info">
-        <div class="ci-nombre">${nom}</div>
-        ${ch.producto_nombre?`<div class="ci-prod">📦 ${ch.producto_nombre}</div>`:''}
-        <div class="ci-msg">${ch.ultimo_mensaje||'Nueva conversación'}</div>
-      </div>
-      <div class="ci-right">
-        <div class="ci-hora">${hora}</div>
-        ${ch.no_leido>0?`<div class="ci-unread">${ch.no_leido}</div>`:''}
-      </div>`;
-    d.onclick = ()=>abrirChat(ch, null, false);
-    c.appendChild(d);
-  });
-}
-
-window.filtrarChats = q=>{
-  const ql = q.toLowerCase();
-  renderChats(chats.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));
-};
-
-async function crearChat(provId, prodId){
-  const {data:prov} = await SB2.from('usuarios').select('nombre,empresa').eq('id',provId).single();
-  const {data:prod} = prodId ? await SB2.from('productos').select('*').eq('id',prodId).single() : {data:null};
-  const {data:ch} = await SB2.from('chats').insert({
-    emprendedor_id:uid, emprendedor_nombre:uData.nombre||'Emprendedor',
-    proveedor_id:provId, proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
-    producto_id:prodId||null, producto_nombre:prod?.nombre||null,
-    ultimo_mensaje:'Chat iniciado', no_leido:0, updated_at:new Date().toISOString()
-  }).select().single();
-  if(ch){ chats.unshift(ch); await abrirChat(ch, prod, true); }
-}
-
-async function abrirChat(chat, prodData=null, esNuevo=false){
-  chatActual = chat; msgs = [];
-  document.getElementById('vista-lista').style.display = 'none';
-  document.getElementById('vista-chat').style.display = 'block';
-  document.getElementById('msgs-wrap').innerHTML = '<div style="text-align:center;padding:30px;color:#bbb;font-size:0.8rem;">Cargando...</div>';
-
-  const nom = chat.proveedor_nombre||'Proveedor';
-  const av = document.getElementById('ch-av');
-  av.textContent = nom[0].toUpperCase();
-  av.style.background = col(nom);
-  document.getElementById('ch-nombre').textContent = nom;
-  document.getElementById('ch-sub').textContent = chat.producto_nombre||'Conversación general';
-
-  if(chat.producto_id){
-    const prod = prodData || (await SB2.from('productos').select('*').eq('id',chat.producto_id).single()).data;
-    if(prod){
-      prodActual = prod;
-      const ban = document.getElementById('prod-banner');
-      ban.style.display = 'flex';
-      const img = prod.imagenes?.[0]||prod.imagen||'';
-      const pi = document.getElementById('pb-img');
-      pi.innerHTML = img ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">` : '';
-      document.getElementById('pb-nombre').textContent = prod.nombre||'Producto';
-      document.getElementById('pb-precio').textContent = `$${Number(prod.precio||0).toFixed(2)} / ${prod.unidad||'und'}`;
-    }
-  } else {
-    prodActual = null;
-    document.getElementById('prod-banner').style.display = 'none';
-  }
-
-  await SB2.from('chats').update({no_leido:0}).eq('id',chat.id);
-  await recargarMsgs();
-  setTimeout(calcAlturas, 80);
-
-  if(esNuevo && prodActual){
-    const ta = document.getElementById('msg-ta');
-    ta.value = `Hola buenas, soy ${uData.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodActual.nombre}"? Me interesa precio, disponibilidad y condiciones de envío.`;
-    autoResize(ta);
-    ta.focus();
-  }
-  suscribir();
-}
-
-// ── CARGAR MENSAJES SIEMPRE DESDE SUPABASE ──
-async function recargarMsgs(){
-  const {data, error} = await SB2.from('mensajes').select('*').eq('chat_id', chatActual.id).order('created_at',{ascending:true});
-  if(error){ console.error(error); return; }
-  msgs = data||[];
-  renderMsgs();
-}
-
-function renderMsgs(){
-  const wrap = document.getElementById('msgs-wrap');
-  if(!msgs.length){
-    wrap.innerHTML = '<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:0.84rem;">¡Envía el primer mensaje! 👋</div>';
-    return;
-  }
-  wrap.innerHTML = '';
-  msgs.forEach(m => wrap.appendChild(mkMsg(m)));
-  setTimeout(()=>wrap.scrollTop=wrap.scrollHeight, 80);
-}
-
-function mkMsg(m){
-  const mio = m.autor_id === uid;
-  const hora = new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-  if(m.tipo==='negociacion') return mkNeg(m, mio, hora);
-  if(m.tipo==='carrito') return mkCart(m, mio, hora);
-
-  const d = document.createElement('div');
-  d.className = `msg ${mio?'mio':'suyo'}`;
-  const b = document.createElement('div');
-  b.className = 'msg-b';
-  b.textContent = m.texto||'';
-
-  if(mio){
-    let pt;
-    b.addEventListener('touchstart', e=>{pt=setTimeout(()=>abrirMenu(m.id,e.touches[0].clientX,e.touches[0].clientY),600);},{passive:true});
-    b.addEventListener('touchend', ()=>clearTimeout(pt),{passive:true});
-    b.addEventListener('touchmove', ()=>clearTimeout(pt),{passive:true});
-    b.addEventListener('contextmenu', e=>{e.preventDefault();abrirMenu(m.id,e.clientX,e.clientY);});
-  }
-  const h = document.createElement('div');
-  h.className = 'msg-hora';
-  h.textContent = hora + (mio?' ✓✓':'');
-  d.appendChild(b); d.appendChild(h);
-  return d;
-}
-
-function mkNeg(m, mio, hora){
-  const dat = m.data||{}; const est = dat.estado||'pendiente';
-  const puedeR = !mio && est==='pendiente';
-  let iH='';
-  (dat.items||[]).forEach(it=>{iH+=`<div class="neg-item"><span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span><span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span><span style="font-weight:800;color:var(--acc2);">$${Number(it.precioOfertado||0).toFixed(2)}</span></div>`;});
-  const w=document.createElement('div'); w.className='especial';
-  const c=document.createElement('div'); c.className='neg-card';
-  c.innerHTML=`<div class="neg-head">🤝 ${mio?'Propuesta enviada':'Propuesta del proveedor'}</div>
-    ${iH?`<div style="margin-bottom:8px;">${iH}</div>`:''}
-    <div class="neg-totales">
-      <span class="neg-orig">$${Number(dat.totalOriginal||0).toFixed(2)}</span>
-      <span style="color:#bbb;margin:0 6px;">→</span>
-      <span class="neg-new">$${Number(dat.totalOfertado||0).toFixed(2)}</span>
-    </div>
-    ${dat.mensaje?`<div class="neg-nota">"${esc(dat.mensaje)}"</div>`:''}
-    ${puedeR?`<div class="neg-bts">
-      <button class="neg-bt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button>
-      <button class="neg-bt cnt" onclick="abrirNeg()">↔ Contraofertar</button>
-      <button class="neg-bt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button>
-    </div>` : `<div class="neg-st ${est}">${est==='aceptado'?'✅ Aceptado':est==='rechazado'?'❌ Rechazada':'⏳ Esperando respuesta...'}</div>`}
-    <div class="neg-hora">${hora}</div>`;
-  w.appendChild(c); return w;
-}
-function mkCart(m, mio, hora){
-  const dat = m.data||{}; let iH='';
-  (dat.items||[]).forEach(it=>{iH+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;">
-    <div style="width:28px;height:28px;border-radius:7px;background:var(--gris);overflow:hidden;flex-shrink:0;">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}</div>
-    <div style="flex:1;"><div style="font-size:0.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:0.62rem;color:#aaa;">×${it.cantidad||1}</div></div>
-    <div style="font-size:0.78rem;font-weight:800;color:var(--naranja);">$${Number(it.precio||0).toFixed(2)}</div>
-  </div>`;});
-  const w=document.createElement('div'); w.className='especial';
-  const c=document.createElement('div');
-  c.style.cssText='background:white;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;box-shadow:0 1px 6px rgba(0,0,0,0.05);';
-  c.innerHTML=`<div style="font-size:0.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 Carrito compartido</div>
-    ${iH}
-    <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;">
-      <span style="font-size:0.72rem;color:#aaa;">Total</span>
-      <span style="font-size:0.9rem;font-weight:900;color:var(--acc2);">$${Number(dat.total||0).toFixed(2)}</span>
-    </div>
-    ${mio?`<button onclick="pedidoChat(${JSON.stringify(dat).replace(/"/g,'&quot;')})" style="width:100%;margin-top:8px;padding:10px;background:#111;color:white;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;">🛒 Hacer pedido ahora</button>`:''}
-    <div style="font-size:0.58rem;color:#bbb;text-align:right;margin-top:4px;">${hora}</div>`;
-  w.appendChild(c); return w;
-}
-
-// ── ENVIAR — muestra inmediatamente + guarda en BD ──
-window.enviar = async function(){
-  const ta = document.getElementById('msg-ta');
-  const txt = ta.value.trim();
-  if(!txt || !chatActual) return;
-  ta.value = '';
-  autoResize(ta);
-  setTimeout(calcAlturas, 50);
-
-  // Insertar en Supabase
-  const {error} = await SB2.from('mensajes').insert({
-    chat_id: chatActual.id,
-    autor_id: uid,
-    autor_nombre: uData.nombre||'Emprendedor',
-    texto: txt,
-    tipo: 'texto',
-    created_at: new Date().toISOString()
-  });
-  if(error){ console.error(error); toast('Error al enviar'); return; }
-
-  await SB2.from('chats').update({ultimo_mensaje:txt.slice(0,60), updated_at:new Date().toISOString()}).eq('id', chatActual.id);
-  // Recargar para mostrar el mensaje
-  await recargarMsgs();
-};
-
-window.onKey = e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();} };
-window.autoResize = el=>{ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; setTimeout(calcAlturas,50); };
-
-// ── MENÚ BORRAR ──
-function abrirMenu(id, x, y){
-  menuMsgId = id;
-  const m = document.getElementById('msg-menu');
-  m.style.left = Math.min(x, window.innerWidth-170)+'px';
-  m.style.top = Math.min(y, window.innerHeight-80)+'px';
-  m.classList.add('show');
-  document.getElementById('ov-menu').classList.add('show');
-}
-window.cerrarMenu = ()=>{ document.getElementById('msg-menu').classList.remove('show'); document.getElementById('ov-menu').classList.remove('show'); menuMsgId=null; };
-window.borrarMsg = async()=>{
-  if(!menuMsgId) return; cerrarMenu();
-  await SB2.from('mensajes').delete().eq('id', menuMsgId);
-  await recargarMsgs();
-  toast('Mensaje eliminado');
-};
-
-// ── NEGOCIAR ──
-window.abrirNeg = function(){
-  const f = carrito.filter(i=>!chatActual?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatActual.proveedor_id);
-  const usar = f.length ? f : (prodActual ? [{id:prodActual.id,nombre:prodActual.nombre,precio:prodActual.precio,imagen:prodActual.imagenes?.[0]||'',cantidad:1,proveedor_id:chatActual?.proveedor_id}] : []);
-  if(!usar.length){ toast('Agrega productos al carrito primero'); return; }
-  negItems = {};
-  usar.forEach(i=>{negItems[i.id]={nombre:i.nombre,precio:Number(i.precio||0),oferta:Number(i.precio||0),cantidad:i.cantidad||1,imagen:i.imagen||''};});
-  renderNegItems(); calcResumen();
-  document.getElementById('neg-nota').value = '';
-  document.getElementById('modal-neg').classList.add('show');
-};
-
-function renderNegItems(){
-  const w = document.getElementById('neg-items'); w.innerHTML='';
-  Object.entries(negItems).forEach(([id,it])=>{
-    const d=document.createElement('div'); d.className='neg-item-card';
-    d.innerHTML=`<div class="nic-top"><div class="nic-img">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}</div><div class="nic-info"><div class="nic-nombre">${it.nombre}</div><div class="nic-cant">Cantidad: ${it.cantidad}</div></div></div>
-      <div class="nic-precios"><span class="nic-orig">$${it.precio.toFixed(2)}</span><input class="nic-input" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)"><span class="nic-unit">c/u</span></div>`;
-    w.appendChild(d);
-  });
-}
-window.updNeg = (id,v)=>{ if(negItems[id]) negItems[id].oferta=parseFloat(v)||0; calcResumen(); };
-function calcResumen(){
-  let o=0,f=0; Object.values(negItems).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});
-  document.getElementById('rn-orig').textContent='$'+o.toFixed(2);
-  document.getElementById('rn-oferta').textContent='$'+f.toFixed(2);
-  const a=o-f; const el=document.getElementById('rn-ahorro');
-  el.textContent='$'+Math.abs(a).toFixed(2); el.style.color=a>0?'#3a7a00':'#aaa';
-}
-
-window.enviarNeg = async()=>{
-  if(!chatActual) return;
-  const items=Object.entries(negItems).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
-  const tO=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
-  const tN=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
-  const nota=document.getElementById('neg-nota').value.trim();
-  await SB2.from('mensajes').insert({chat_id:chatActual.id,autor_id:uid,autor_nombre:uData.nombre||'Emprendedor',texto:`🤝 Propuesta $${tN.toFixed(2)}`,tipo:'negociacion',data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},created_at:new Date().toISOString()});
-  await SB2.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,negociacion_activa:true,updated_at:new Date().toISOString()}).eq('id',chatActual.id);
-  document.getElementById('modal-neg').classList.remove('show');
-  await recargarMsgs(); toast('✓ Propuesta enviada');
-};
-
-window.respNeg = async(msgId,estado)=>{
-  const m=msgs.find(x=>x.id===msgId); if(!m) return;
-  const dat={...m.data,estado};
-  await SB2.from('mensajes').update({data:dat}).eq('id',msgId);
-  if(estado==='aceptado'&&m.data?.items){
-    const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-    m.data.items.forEach(it=>{const i=c.findIndex(x=>x.id===it.id);if(i>=0)c[i].precio=it.precioOfertado;else c.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatActual.proveedor_id});});
-    localStorage.setItem('carrito_proveed',JSON.stringify(c)); carrito=c; badge();
-    await SB2.from('mensajes').insert({chat_id:chatActual.id,autor_id:uid,autor_nombre:uData.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',created_at:new Date().toISOString()});
-    await SB2.from('chats').update({negociacion_activa:false,ultimo_mensaje:'✅ Precio acordado',updated_at:new Date().toISOString()}).eq('id',chatActual.id);
-    toast('✅ Precio aceptado');
-  } else {
-    await SB2.from('mensajes').insert({chat_id:chatActual.id,autor_id:uid,autor_nombre:uData.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',created_at:new Date().toISOString()});
-    await SB2.from('chats').update({negociacion_activa:false,updated_at:new Date().toISOString()}).eq('id',chatActual.id);
-    toast('Propuesta rechazada');
-  }
-  await recargarMsgs();
-};
-
-window.compartirCarrito = async()=>{
-  const items=carrito.filter(i=>!chatActual?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatActual.proveedor_id);
-  if(!items.length){ toast('Carrito vacío'); return; }
-  const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await SB2.from('mensajes').insert({chat_id:chatActual.id,autor_id:uid,autor_nombre:uData.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',data:{items,total},created_at:new Date().toISOString()});
-  await SB2.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatActual.id);
-  await recargarMsgs(); toast('✓ Carrito compartido');
-};
-window.soloCarrito = ()=>{ document.getElementById('modal-neg').classList.remove('show'); compartirCarrito(); };
-
-window.pedidoChat = async(dat)=>{
-  if(!chatActual||!dat?.items?.length) return;
-  const total=dat.items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await SB2.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:uData.nombre||'',proveedor_id:chatActual.proveedor_id,nombre_proveedor:chatActual.proveedor_nombre||'',items:dat.items,total,estado:'pendiente',origen:'chat',metodo_pago:'a_coordinar',facturacion:uData.facturacion||{}});
-  const rest=carrito.filter(c=>!dat.items.find(i=>i.id===c.id));
-  localStorage.setItem('carrito_proveed',JSON.stringify(rest)); carrito=rest; badge();
-  await SB2.from('mensajes').insert({chat_id:chatActual.id,autor_id:uid,autor_nombre:uData.nombre||'Emprendedor',texto:`🛒 ¡Pedido realizado! $${total.toFixed(2)}`,tipo:'texto',created_at:new Date().toISOString()});
-  await recargarMsgs(); toast('✅ ¡Pedido realizado!');
-};
-
-// CATÁLOGO
-window.abrirCatalogo = async()=>{
-  if(!chatActual?.proveedor_id){ toast('Abre un chat primero'); return; }
-  document.getElementById('modal-cat').classList.add('show');
-  document.getElementById('cat-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:0.8rem;">Cargando...</div>';
-  const {data} = await SB2.from('productos').select('*').eq('proveedor_id',chatActual.proveedor_id).eq('activo',true).order('created_at',{ascending:false});
-  catAll = data||[]; renderCat(catAll);
-};
-function renderCat(l){
-  const w=document.getElementById('cat-grid');
-  if(!l.length){w.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:0.8rem;">Sin productos</div>';return;}
-  w.innerHTML='';
-  l.forEach(p=>{
-    const img=p.imagenes?.[0]||p.imagen||'';
-    const card=document.createElement('div');
-    card.style.cssText='background:white;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;';
-    card.innerHTML=`<div style="width:100%;height:90px;background:var(--gris);overflow:hidden;display:flex;align-items:center;justify-content:center;">${img?`<img src="${img}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">`:'📦'}</div>
-      <div style="padding:8px;">
-        <div style="font-size:0.76rem;font-weight:700;color:#111;margin-bottom:3px;">${p.nombre||'Producto'}</div>
-        <div style="font-size:0.86rem;font-weight:900;color:var(--naranja);">$${Number(p.precio||0).toFixed(2)}</div>
-        <button onclick="addCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatActual?.proveedor_id||''}')" style="width:100%;padding:6px;background:#111;color:white;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;margin-top:5px;">+ Agregar</button>
-      </div>`;
-    w.appendChild(card);
-  });
-}
-window.filtrarCat = q=>{ const ql=q.toLowerCase(); renderCat(catAll.filter(p=>(p.nombre||'').toLowerCase().includes(ql))); };
-window.addCat = (id,nombre,precio,imagen,provId)=>{
-  const i=carrito.findIndex(c=>c.id===id);
-  if(i>=0) carrito[i].cantidad=(carrito[i].cantidad||1)+1;
-  else carrito.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});
-  localStorage.setItem('carrito_proveed',JSON.stringify(carrito)); badge();
-  toast(`✓ ${nombre.slice(0,20)} agregado`);
-};
-
-// ── REALTIME — recarga completa al recibir cualquier evento ──
-function suscribir(){
-  if(rtCh) SB2.removeChannel(rtCh);
-  rtCh = SB2.channel('ch-emp-' + chatActual.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActual.id}`}, async ()=>{ await recargarMsgs(); })
-    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActual.id}`}, async ()=>{ await recargarMsgs(); })
-    .subscribe(s=>console.log('RT-EMP:',s));
-}
-
-function volverLista(){
-  if(rtCh) SB2.removeChannel(rtCh);
-  chatActual=null; prodActual=null; msgs=[];
-  document.getElementById('vista-chat').style.display='none';
-  document.getElementById('vista-lista').style.display='block';
-  cargarChats();
-}
-
-// helpers
-function col(n){const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];}
-window.cmodal=(id,e)=>{if(e.target===document.getElementById(id))document.getElementById(id).classList.remove('show');};
-function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-</script>
+            if(input.value.trim() !== "") {
+                const b = document.createElement('div');
+                b.className = 'bubble sent';
+                b.innerText = input.value;
+                document.getElementById('chat').appendChild(b);
+                input.value = "";
+                document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+                document.getElementById('expPopup').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
