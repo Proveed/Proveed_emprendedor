@@ -1,152 +1,771 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROVEED - Chat Final</title>
-    <style>
-        :root {
-            --verde: #32CD32;
-            --negro: #1A1A1A;
-            --gris-fondo: #F0F2F5;
-            --blanco: #FFFFFF;
-            --rojo: #D32F2F;
-            --dorado: #FFD700;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Inter',sans-serif;background:var(--F);}
 
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--gris-fondo); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+/* ── LISTA ── */
+#pLista{height:100%;display:flex;flex-direction:column;}
+#pChat{height:100%;display:none;flex-direction:column;}
 
-        /* Pantalla Inicial */
-        .security-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--negro); z-index: 1000; display: flex; align-items: center; justify-content: center;
-        }
-        .security-card { background: white; width: 80%; max-width: 320px; padding: 40px 20px; border-radius: 30px; text-align: center; }
-        .shield-icon { width: 70px; height: 70px; background: #f0fff0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.hLista{background:#fff;padding:48px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
+.hTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.hLogo{display:flex;align-items:center;gap:8px;}
+.hTit{font-size:1rem;font-weight:900;color:#111;}
+.hTit b{color:var(--G2);}
+.sBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:24px;padding:10px 14px;border:1.5px solid #eee;}
+.sBus svg{width:14px;height:14px;stroke:#ccc;fill:none;stroke-width:2.5;flex-shrink:0;}
+.sBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
+.sBus input::placeholder{color:#ccc;}
+.listaScroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px;}
 
-        /* Header */
-        .chat-header { background: var(--verde); padding: 45px 20px 10px; color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .header-top { display: flex; align-items: center; margin-bottom: 8px; }
-        .back-arrow { cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        
-        /* Calificación */
-        .rating-chip {
-            background: rgba(0,0,0,0.1); border-radius: 20px; padding: 6px 15px;
-            display: inline-flex; align-items: center; font-size: 0.7rem; cursor: pointer;
-        }
-        .stars-row { color: var(--dorado); margin-right: 8px; font-size: 0.9rem; }
+.chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f5f5f5;cursor:pointer;-webkit-user-select:none;}
+.chatItem:active{background:var(--F);}
+.chatItem.new{border-left:3px solid var(--G);}
+.ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;}
+.ciDot{position:absolute;bottom:1px;right:1px;width:9px;height:9px;background:var(--G);border-radius:50%;border:2px solid #fff;}
+.ciInf{flex:1;min-width:0;}
+.ciNom{font-size:0.88rem;font-weight:700;color:#111;margin-bottom:2px;}
+.ciProd{font-size:0.66rem;color:var(--G2);font-weight:600;margin-bottom:2px;}
+.ciMsg{font-size:0.74rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ciR{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.ciHora{font-size:0.6rem;color:#bbb;}
+.ciUnread{width:18px;height:18px;background:var(--G2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:800;color:#111;}
+.vacio{text-align:center;padding:60px 20px;color:#bbb;font-size:0.82rem;line-height:1.7;}
 
-        /* Experiencia Popup */
-        .experience-popup {
-            position: absolute; top: 115px; left: 50%; transform: translateX(-50%);
-            width: 85%; background: white; border-radius: 20px; padding: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; z-index: 500;
-        }
-        .experience-input { width: 100%; border: 1px solid #eee; border-radius: 12px; padding: 10px; font-size: 0.8rem; box-sizing: border-box; outline: none; }
+/* ── CHAT ── */
+.cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.cBack{width:36px;height:36px;background:rgba(168,230,61,.12);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
+.cAv{width:38px;height:38px;border-radius:11px;font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cInf{flex:1;min-width:0;}
+.cNom{font-size:0.9rem;font-weight:800;color:#111;}
+.cSub{font-size:0.68rem;color:var(--G2);font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cBts{display:flex;gap:6px;}
+.cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
 
-        /* Chat */
-        .message-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .bubble { max-width: 75%; padding: 12px; border-radius: 18px; font-size: 0.9rem; }
-        .sent { background: var(--verde); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .received { background: white; align-self: flex-start; border-bottom-left-radius: 2px; }
+.banProd{background:#fff;border-bottom:1px solid #eee;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.bpImg{width:42px;height:42px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
+.bpImg img{width:100%;height:100%;object-fit:cover;}
+.bpInf{flex:1;min-width:0;}
+.bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bpPre{font-size:0.74rem;color:var(--O);font-weight:800;}
+.btnNegB{padding:7px 14px;background:var(--G);color:#111;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 
-        /* Alerta Toast */
-        .alert-toast {
-            position: fixed; top: 120px; left: 50%; transform: translateX(-50%);
-            background: var(--rojo); color: white; padding: 12px 20px; border-radius: 30px;
-            font-size: 0.75rem; font-weight: 700; display: none; z-index: 600;
-        }
+/* ── MENSAJES ── */
+.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px;background:var(--F);display:flex;flex-direction:column;gap:6px;}
 
-        .footer-input { background: white; padding: 15px; display: flex; gap: 10px; }
-        .footer-input input { flex: 1; border: 1px solid #eee; border-radius: 30px; padding: 12px 18px; outline: none; }
-    </style>
+/* ── INPUT ── */
+.inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
+.extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
+.extras::-webkit-scrollbar{display:none;}
+.xBtn{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.xBtn.g{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,.06);}
+.iRow{display:flex;align-items:flex-end;gap:8px;}
+.iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
+/* CRÍTICO: textarea con color:#111 para que el texto sea visible */
+textarea#ta{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:'Inter',sans-serif;font-size:0.9rem;
+  color:#111 !important;
+  -webkit-text-fill-color:#111 !important;
+  resize:none;line-height:1.4;
+  min-height:22px;max-height:120px;width:100%;display:block;
+  caret-color:#111;
+}
+textarea#ta::placeholder{color:#bbb;}
+.sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
+
+/* ── BURBUJAS ── */
+.msg{display:flex;flex-direction:column;}
+.msg.yo{align-items:flex-end;}
+.msg.el{align-items:flex-start;}
+.bub{
+  padding:10px 14px;border-radius:18px;
+  font-size:0.88rem;line-height:1.5;
+  max-width:80%;word-break:break-word;
+  cursor:pointer;-webkit-user-select:none;user-select:none;
+}
+.msg.yo .bub{background:var(--G);color:#111;border-bottom-right-radius:4px;font-weight:500;}
+.msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.mHora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
+
+/* ── MENÚ BORRAR ── */
+.mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px;z-index:700;border:1px solid #eee;display:none;}
+.mMenu.on{display:block;}
+.mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
+.mMenu button svg{width:14px;height:14px;stroke:var(--R);fill:none;stroke-width:2.2;}
+.mOv{position:fixed;inset:0;z-index:699;display:none;}
+.mOv.on{display:block;}
+
+/* ── ESPECIALES (negociación, carrito) ── */
+.esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
+.negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;box-shadow:0 2px 10px rgba(168,230,61,.1);}
+.negH{font-size:0.64rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:8px;}
+.negIt{display:flex;justify-content:space-between;font-size:0.75rem;padding:4px 0;border-bottom:1px solid #f5f5f5;}
+.negIt:last-child{border:none;}
+.negTot{display:flex;align-items:center;gap:8px;margin:8px 0;}
+.negOrig{font-size:0.8rem;color:#bbb;text-decoration:line-through;}
+.negNew{font-size:1rem;font-weight:900;color:var(--G2);}
+.negNota{font-size:0.74rem;color:#666;font-style:italic;padding:8px;background:var(--F);border-radius:8px;margin-bottom:10px;line-height:1.4;}
+.negBts{display:flex;gap:6px;}
+.nBt{flex:1;padding:9px 4px;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;}
+.nBt.ok{background:var(--G);color:#111;}
+.nBt.no{background:rgba(255,77,77,.08);color:var(--R);}
+.nBt.cnt{background:var(--F);color:#555;}
+.negSt{text-align:center;font-size:0.72rem;font-weight:700;padding:7px;border-radius:10px;margin-top:4px;}
+.negSt.aceptado{background:rgba(168,230,61,.1);color:var(--G2);}
+.negSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
+.negSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
+.negHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:4px;}
+
+/* ── MODALES ── */
+.modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
+.modOv.on{display:flex;}
+.modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+.modOv.on .modSh{transform:translateY(0);}
+.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
+.modH{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;flex-shrink:0;}
+.modT{font-size:0.95rem;font-weight:800;color:#111;}
+.modX{width:28px;height:28px;background:var(--F);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modX svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
+.modB{overflow-y:auto;padding:16px 16px 40px;flex:1;}
+.fld{margin-bottom:12px;}
+.fld label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px;}
+.fld input,.fld textarea,.fld select{width:100%;padding:11px 13px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;}
+.fld input:focus,.fld textarea:focus{border-color:var(--G);}
+.negMod-intro{font-size:0.8rem;color:#aaa;line-height:1.6;margin-bottom:14px;}
+.negMod-item{background:var(--F);border-radius:14px;padding:12px;margin-bottom:10px;}
+.nmi-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.nmi-img{width:38px;height:38px;border-radius:9px;background:#fff;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.nmi-img img{width:100%;height:100%;object-fit:cover;}
+.nmi-inf{flex:1;}
+.nmi-nom{font-size:0.82rem;font-weight:700;color:#111;}
+.nmi-cant{font-size:0.68rem;color:#aaa;}
+.nmi-row{display:flex;align-items:center;gap:10px;}
+.nmi-orig{font-size:0.76rem;color:#bbb;text-decoration:line-through;white-space:nowrap;}
+.nmi-inp{flex:1;padding:9px 12px;background:#fff;border:2px solid var(--G);border-radius:10px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:800;color:#111;text-align:center;outline:none;}
+.nmi-u{font-size:0.68rem;color:#aaa;white-space:nowrap;}
+.resNeg{background:rgba(168,230,61,.07);border:1px solid rgba(123,194,52,.2);border-radius:14px;padding:14px;margin-bottom:14px;}
+.rRow{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px;}
+.rLbl{color:#aaa;}
+.rVal{font-weight:700;color:#111;}
+.rFin{display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(123,194,52,.2);}
+.rFinL{font-size:0.88rem;font-weight:800;color:#111;}
+.rFinV{font-size:1rem;font-weight:900;color:var(--G2);}
+.btn1{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
+.btn2{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
+
+/* ── TAB BAR ── */
+.tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
+.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tab span{font-size:.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
+.tab.on svg{stroke:var(--G2);}
+.tab.on span{color:var(--G2);}
+.tabRel{position:relative;}
+.tabBadge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* CAT GRID */
+.catGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.catCard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;}
+.catImg{width:100%;height:90px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.catImg img{width:100%;height:100%;object-fit:cover;}
+.catBod{padding:8px;}
+.catNom{font-size:.76rem;font-weight:700;color:#111;margin-bottom:3px;}
+.catPre{font-size:.86rem;font-weight:900;color:var(--O);}
+.catAdd{width:100%;padding:6px;background:#111;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;margin-top:5px;}
+</style>
 </head>
 <body>
 
-    <div class="security-screen" id="welcome">
-        <div class="security-card">
-            <div class="shield-icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#32CD32" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h2 style="margin:0 0 10px">Chat Seguro</h2>
-            <p style="font-size:0.85rem; color:#666">Por seguridad nacional, PROVEED bloquea automáticamente el envío de WhatsApp, Facebook o teléfonos.</p>
-            <button onclick="document.getElementById('welcome').style.display='none'" style="background:var(--verde); color:white; border:none; width:100%; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer">ACEPTAR</button>
-        </div>
+<!-- ═══ VISTA LISTA ═══ -->
+<div id="pLista">
+  <div class="hLista">
+    <div class="hTop">
+      <div class="hLogo">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+          <polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/>
+          <polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="hTit">PRO<b>VEED</b> · Chats</span>
+      </div>
     </div>
-
-    <div class="chat-header">
-        <div class="header-top">
-            <div class="back-arrow" onclick="window.location.href='dashboard_emprendedor.html'">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </div>
-            <strong style="margin-left:15px">Proveedor Textil San Juan</strong>
-        </div>
-        
-        <div class="rating-chip" onclick="showExp()">
-            <span class="stars-row">★★★★★</span>
-            <span>Calificar experiencia</span>
-        </div>
+    <div class="sBus">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" placeholder="Buscar conversación..." oninput="filtrar(this.value)">
     </div>
+  </div>
+  <div class="listaScroll" id="lista">
+    <div class="vacio">Cargando chats...</div>
+  </div>
+  <!-- TAB BAR LISTA -->
+  <nav class="tabBar">
+    <a class="tab" href="dashboard-emp.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+    <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
+    <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
+    <a class="tab tabRel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tabBadge" id="cBadge" style="display:none">0</div></a>
+    <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+  </nav>
+</div>
 
-    <div class="experience-popup" id="expPopup">
-        <p style="margin:0 0 8px; font-size:0.75rem; font-weight:700">¿Cómo fue tu experiencia?</p>
-        <textarea class="experience-input" id="expTxt" rows="2" placeholder="Cuéntanos brevemente..."></textarea>
-        <button onclick="saveExp()" style="background:var(--negro); color:white; border:none; width:100%; padding:8px; border-radius:8px; font-size:0.75rem; font-weight:bold; margin-top:10px;">GUARDAR EXPERIENCIA</button>
+<!-- ═══ VISTA CHAT ═══ -->
+<div id="pChat">
+  <!-- HEADER -->
+  <div class="cHead" id="cHead">
+    <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <div class="cAv" id="cAv">P</div>
+    <div class="cInf"><div class="cNom" id="cNom">—</div><div class="cSub" id="cSub">—</div></div>
+    <div class="cBts">
+      <button class="cBt" onclick="abrirCat()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="cBt" onclick="location.href='dashboard-emp.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
     </div>
+  </div>
 
-    <div class="message-area" id="chat">
-        <div class="bubble received">¡Hola! Tu despacho se realizó con éxito. ¿Recibiste todo bien?</div>
+  <!-- BANNER PRODUCTO -->
+  <div class="banProd" id="banProd" style="display:none">
+    <div class="bpImg" id="bpImg"></div>
+    <div class="bpInf"><div class="bpNom" id="bpNom">—</div><div class="bpPre" id="bpPre">—</div></div>
+    <button class="btnNegB" onclick="abrirNeg()">🤝 Negociar</button>
+  </div>
+
+  <!-- MENSAJES -->
+  <div class="msgsArea" id="msgs"></div>
+
+  <!-- INPUT -->
+  <div class="inputArea" id="inputArea">
+    <div class="extras">
+      <button class="xBtn g" onclick="abrirNeg()">🤝 Negociar</button>
+      <button class="xBtn" onclick="enviarCarrito()">📦 Carrito</button>
+      <button class="xBtn" onclick="abrirCat()">🔍 Catálogo</button>
     </div>
-
-    <div class="alert-toast" id="toast">⚠️ BLOQUEO DE SEGURIDAD</div>
-
-    <div class="footer-input">
-        <input type="text" id="userInput" placeholder="Escribe un mensaje seguro...">
-        <button onclick="send()" style="background:var(--verde); border:none; width:45px; height:45px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
+    <div class="iRow">
+      <div class="iBox">
+        <textarea id="ta" placeholder="Escribe un mensaje..." rows="1"
+          onkeydown="tecla(event)" oninput="crecer(this)"></textarea>
+      </div>
+      <button class="sBtn" onclick="enviar()">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
     </div>
+  </div>
 
-    <script>
-        let fails = 0;
+  <!-- TAB BAR CHAT -->
+  <nav class="tabBar">
+    <a class="tab" href="dashboard-emp.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+    <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
+    <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
+    <a class="tab tabRel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tabBadge" id="cBadge2" style="display:none">0</div></a>
+    <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+  </nav>
+</div>
 
-        function showExp() {
-            const p = document.getElementById('expPopup');
-            p.style.display = (p.style.display === 'block') ? 'none' : 'block';
-        }
+<!-- MENÚ BORRAR -->
+<div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
+<div class="mMenu" id="mMenu">
+  <button onclick="borrar()">
+    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+    Eliminar mensaje
+  </button>
+</div>
 
-        function saveExp() {
-            alert("¡Gracias por tu reseña!");
-            document.getElementById('expPopup').style.display = 'none';
-        }
 
-        function send() {
-            const input = document.getElementById('userInput');
-            const toast = document.getElementById('toast');
-            const val = input.value.toLowerCase();
-            const banned = ['whatsapp', 'telegram', 'facebook', 'numero', 'celular', 'telefono', 'wp', '09'];
-            const isIllegal = banned.some(b => val.includes(b)) || /\d{7,}/.test(val);
+<!-- MODAL NEGOCIAR -->
+<div class="modOv" id="modNeg" onclick="cmod('modNeg',event)">
+  <div class="modSh">
+    <div class="drag"></div>
+    <div class="modH">
+      <span class="modT">🤝 Negociar precio</span>
+      <button class="modX" onclick="Q('modNeg').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modB">
+      <p class="negMod-intro">Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.</p>
+      <div id="negItems"></div>
+      <div class="resNeg">
+        <div class="rRow"><span class="rLbl">Original</span><span class="rVal" id="rOrig">$0.00</span></div>
+        <div class="rRow"><span class="rLbl">Tu oferta</span><span class="rVal" id="rOfer">$0.00</span></div>
+        <div class="rFin"><span class="rFinL">Ahorro</span><span class="rFinV" id="rAho">$0.00</span></div>
+      </div>
+      <div class="fld"><label>Mensaje al proveedor</label><textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="height:60px;"></textarea></div>
+      <button class="btn1" onclick="envNeg()">🚀 Enviar propuesta</button>
+      <button class="btn2" onclick="soloCart()">📦 Enviar carrito sin negociar</button>
+    </div>
+  </div>
+</div>
 
-            if(isIllegal) {
-                fails++;
-                input.value = "";
-                if(fails <= 2) {
-                    toast.style.display = 'block';
-                    setTimeout(() => toast.style.display = 'none', 3000);
-                }
-                return;
-            }
+<!-- MODAL CATÁLOGO -->
+<div class="modOv" id="modCat" onclick="cmod('modCat',event)">
+  <div class="modSh">
+    <div class="drag"></div>
+    <div class="modH">
+      <span class="modT">🔍 Catálogo del proveedor</span>
+      <button class="modX" onclick="Q('modCat').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modB">
+      <div class="sBus" style="margin-bottom:12px;">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="Buscar producto..." oninput="filtCat(this.value)">
+      </div>
+      <div class="catGrid" id="catGrid"></div>
+    </div>
+  </div>
+</div>
 
-            if(input.value.trim() !== "") {
-                const b = document.createElement('div');
-                b.className = 'bubble sent';
-                b.innerText = input.value;
-                document.getElementById('chat').appendChild(b);
-                input.value = "";
-                document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
-                document.getElementById('expPopup').style.display = 'none';
-            }
-        }
-    </script>
+<div class="toast" id="tst"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ── SETUP ── */
+const {createClient} = supabase;
+const db = createClient(
+  'https://hfmsyrmkewscnvwynzfq.supabase.co',
+  'sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v'
+);
+
+const Q = id => document.getElementById(id);
+let uid='', me={}, chatAct=null, todos=[], msgsArr=[], prodAct=null, canal=null;
+let negIt={}, catTodos=[], menuId=null;
+const QS = new URLSearchParams(location.search);
+let carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+
+/* badge carrito */
+function badge(){
+  const n = carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+  ['cBadge','cBadge2'].forEach(id=>{
+    const b=Q(id);
+    if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}
+    else b.style.display='none';
+  });
+}
+badge();
+
+/* ── ARRANCAR ── */
+(async()=>{
+  const {data:{session}} = await db.auth.getSession();
+  if(!session){location.href='login.html';return;}
+  uid = session.user.id;
+  const {data:u} = await db.from('usuarios').select('*').eq('id',uid).single();
+  if(u) me = u;
+  await cargarChats();
+  /* abrir chat desde URL */
+  const pid = QS.get('proveedor_id'), prodId = QS.get('prod_id');
+  if(pid){
+    const ex = todos.find(c=>c.proveedor_id===pid);
+    if(ex) abrirChat(ex,null,false);
+    else crearChat(pid,prodId);
+  }
+})();
+
+/* ── CARGAR CHATS ── */
+async function cargarChats(){
+  const {data} = await db.from('chats').select('*')
+    .eq('emprendedor_id',uid).order('updated_at',{ascending:false});
+  todos = data||[];
+  pintarLista(todos);
+}
+
+function pintarLista(arr){
+  const c = Q('lista');
+  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones aún.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
+  c.innerHTML='';
+  arr.forEach(ch=>{
+    const nom = ch.proveedor_nombre||'Proveedor';
+    const hora = ch.updated_at ? new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}) : '';
+    const d = document.createElement('div');
+    d.className='chatItem'+(ch.no_leido_emp>0?' new':'');
+    d.innerHTML=`
+      <div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
+      <div class="ciInf">
+        <div class="ciNom">${nom}</div>
+        ${ch.producto_nombre?`<div class="ciProd">📦 ${ch.producto_nombre}</div>`:''}
+        <div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div>
+      </div>
+      <div class="ciR">
+        <div class="ciHora">${hora}</div>
+        ${ch.no_leido_emp>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}
+      </div>`;
+    d.onclick=()=>abrirChat(ch,null,false);
+    c.appendChild(d);
+  });
+}
+
+window.filtrar = q=>{
+  const ql=q.toLowerCase();
+  pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));
+};
+
+/* ── CREAR CHAT NUEVO ── */
+async function crearChat(provId,prodId){
+  const {data:prov} = await db.from('usuarios').select('nombre,empresa').eq('id',provId).single();
+  const {data:prod} = prodId ? await db.from('productos').select('*').eq('id',prodId).single() : {data:null};
+  const {data:ch} = await db.from('chats').insert({
+    emprendedor_id:uid, emprendedor_nombre:me.nombre||'Emprendedor',
+    proveedor_id:provId, proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
+    producto_id:prodId||null, producto_nombre:prod?.nombre||null,
+    ultimo_mensaje:'Chat iniciado', no_leido_emp:0, no_leido_prov:0,
+    updated_at:new Date().toISOString()
+  }).select().single();
+  if(ch){ todos.unshift(ch); abrirChat(ch,prod,true); }
+}
+
+/* ── ABRIR CHAT ── */
+async function abrirChat(chat, prodData=null, esNuevo=false){
+  chatAct = chat; msgsArr = [];
+  Q('pLista').style.display = 'none';
+  Q('pChat').style.display  = 'flex';
+  Q('msgs').innerHTML = '<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando mensajes...</div>';
+
+  const nom = chat.proveedor_nombre||'Proveedor';
+  Q('cAv').textContent = nom[0].toUpperCase();
+  Q('cAv').style.background = pal(nom);
+  Q('cNom').textContent = nom;
+  Q('cSub').textContent = chat.producto_nombre||'Conversación general';
+
+  /* producto */
+  if(chat.producto_id){
+    const prod = prodData||(await db.from('productos').select('*').eq('id',chat.producto_id).single()).data;
+    if(prod){
+      prodAct = prod;
+      Q('banProd').style.display='flex';
+      const img = prod.imagenes?.[0]||prod.imagen||'';
+      Q('bpImg').innerHTML = img?`<img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
+      Q('bpNom').textContent = prod.nombre||'Producto';
+      Q('bpPre').textContent = `$${Number(prod.precio||0).toFixed(2)} / ${prod.unidad||'und'}`;
+    }
+  } else { prodAct=null; Q('banProd').style.display='none'; }
+
+  /* marcar leído */
+  await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
+
+  /* cargar mensajes */
+  await cargarMsgs();
+
+  /* mensaje pre-escrito si chat nuevo desde producto */
+  if(esNuevo && prodAct){
+    Q('ta').value = `Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodAct.nombre}"? Me interesa precio, disponibilidad y condiciones de envío.`;
+    crecer(Q('ta'));
+    Q('ta').focus();
+  }
+
+  suscribir();
+}
+
+/* ── CARGAR MENSAJES DESDE SUPABASE ── */
+async function cargarMsgs(){
+  const {data,error} = await db.from('mensajes')
+    .select('*').eq('chat_id',chatAct.id)
+    .order('created_at',{ascending:true});
+  if(error){ console.error('ERR msgs:',error); return; }
+  msgsArr = data||[];
+  pintarMsgs();
+}
+
+function pintarMsgs(){
+  const w = Q('msgs');
+  if(!msgsArr.length){
+    w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">¡Envía el primer mensaje! 👋</div>';
+    return;
+  }
+  w.innerHTML='';
+  msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));
+  setTimeout(()=>w.scrollTop=w.scrollHeight,60);
+}
+
+/* ── CONSTRUIR BURBUJA ── */
+function mkBurbuja(m){
+  const yo  = m.autor_id===uid;
+  const hr  = new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+  if(m.tipo==='negociacion') return mkNegBub(m,yo,hr);
+  if(m.tipo==='carrito')     return mkCartBub(m,yo,hr);
+
+  const d = document.createElement('div');
+  d.className = `msg ${yo?'yo':'el'}`;
+  const b = document.createElement('div');
+  b.className='bub';
+  b.textContent = m.texto||'';
+
+  /* borrar con toque largo / clic derecho (solo mensajes propios) */
+  if(yo){
+    let pt;
+    b.addEventListener('touchstart',e=>{pt=setTimeout(()=>showMenu(m.id,e.touches[0].clientX,e.touches[0].clientY),600);},{passive:true});
+    b.addEventListener('touchend',()=>clearTimeout(pt),{passive:true});
+    b.addEventListener('touchmove',()=>clearTimeout(pt),{passive:true});
+    b.addEventListener('contextmenu',e=>{e.preventDefault();showMenu(m.id,e.clientX,e.clientY);});
+  }
+
+  const h = document.createElement('div');
+  h.className='mHora';
+  h.textContent = hr+(yo?' ✓✓':'');
+  d.appendChild(b); d.appendChild(h);
+  return d;
+}
+
+function mkNegBub(m,yo,hr){
+  const dat=m.data||{}, est=dat.estado||'pendiente';
+  const puedeR = !yo && est==='pendiente';
+  let items='';
+  (dat.items||[]).forEach(it=>{
+    items+=`<div class="negIt">
+      <span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span>
+      <span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span>
+      <span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span>
+    </div>`;
+  });
+  const w=document.createElement('div'); w.className='esp';
+  const c=document.createElement('div'); c.className='negC';
+  c.innerHTML=`
+    <div class="negH">🤝 ${yo?'Propuesta enviada':'Propuesta del proveedor'}</div>
+    ${items?`<div style="margin-bottom:8px;">${items}</div>`:''}
+    <div class="negTot">
+      <span class="negOrig">$${Number(dat.totalOriginal||0).toFixed(2)}</span>
+      <span style="color:#bbb;margin:0 6px;">→</span>
+      <span class="negNew">$${Number(dat.totalOfertado||0).toFixed(2)}</span>
+    </div>
+    ${dat.mensaje?`<div class="negNota">"${esc(dat.mensaje)}"</div>`:''}
+    ${puedeR
+      ? `<div class="negBts">
+           <button class="nBt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button>
+           <button class="nBt cnt" onclick="abrirNeg()">↔ Contraofertar</button>
+           <button class="nBt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button>
+         </div>`
+      : `<div class="negSt ${est}">${est==='aceptado'?'✅ Aceptado':est==='rechazado'?'❌ Rechazada':'⏳ Esperando respuesta...'}</div>`
+    }
+    <div class="negHr">${hr}</div>`;
+  w.appendChild(c); return w;
+}
+
+function mkCartBub(m,yo,hr){
+  const dat=m.data||{}; let rows='';
+  (dat.items||[]).forEach(it=>{
+    rows+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;">
+      <div style="width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}</div>
+      <div style="flex:1;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div>
+      <div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div>
+    </div>`;
+  });
+  const w=document.createElement('div'); w.className='esp';
+  const c=document.createElement('div');
+  c.style.cssText='background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;box-shadow:0 1px 6px rgba(0,0,0,.05);';
+  c.innerHTML=`
+    <div style="font-size:.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 Carrito compartido</div>
+    ${rows}
+    <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;">
+      <span style="font-size:.72rem;color:#aaa;">Total</span>
+      <span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span>
+    </div>
+    ${yo?`<button onclick="pedidoChat(${JSON.stringify(dat).replace(/"/g,'&quot;')})" style="width:100%;margin-top:8px;padding:10px;background:#111;color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;">🛒 Hacer pedido ahora</button>`:''}
+    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
+  w.appendChild(c); return w;
+}
+
+/* ── ENVIAR MENSAJE ── */
+window.enviar = async function(){
+  const ta = Q('ta');
+  const txt = ta.value.trim();
+  if(!txt||!chatAct) return;
+  ta.value=''; crecer(ta); ta.focus();
+
+  const {error} = await db.from('mensajes').insert({
+    chat_id: chatAct.id,
+    autor_id: uid,
+    autor_nombre: me.nombre||'Emprendedor',
+    texto: txt,
+    tipo: 'texto',
+    created_at: new Date().toISOString()
+  });
+  if(error){ console.error(error); toast('Error al enviar'); return; }
+
+  await db.from('chats').update({
+    ultimo_mensaje: txt.slice(0,60),
+    no_leido_prov: (chatAct.no_leido_prov||0)+1,
+    updated_at: new Date().toISOString()
+  }).eq('id',chatAct.id);
+
+  await cargarMsgs();
+};
+
+window.tecla = e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();} };
+window.crecer = el=>{ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; };
+
+/* ── MENÚ BORRAR ── */
+function showMenu(id,x,y){
+  menuId=id;
+  const m=Q('mMenu');
+  m.style.left=Math.min(x,window.innerWidth-170)+'px';
+  m.style.top=Math.min(y,window.innerHeight-80)+'px';
+  m.classList.add('on'); Q('mOv').classList.add('on');
+}
+window.cerrarMenu=()=>{ Q('mMenu').classList.remove('on'); Q('mOv').classList.remove('on'); menuId=null; };
+window.borrar=async()=>{
+  if(!menuId) return; cerrarMenu();
+  await db.from('mensajes').delete().eq('id',menuId);
+  await cargarMsgs(); toast('Mensaje eliminado');
+};
+
+/* ── NEGOCIAR ── */
+window.abrirNeg=function(){
+  const f = carrito.filter(i=>!chatAct?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatAct.proveedor_id);
+  const usar = f.length?f:(prodAct?[{id:prodAct.id,nombre:prodAct.nombre,precio:prodAct.precio,imagen:prodAct.imagenes?.[0]||'',cantidad:1,proveedor_id:chatAct?.proveedor_id}]:[]);
+  if(!usar.length){ toast('Agrega productos al carrito primero'); return; }
+  negIt={};
+  usar.forEach(i=>{negIt[i.id]={nombre:i.nombre,precio:Number(i.precio||0),oferta:Number(i.precio||0),cantidad:i.cantidad||1,imagen:i.imagen||''};});
+  pintarNegItems(); calcRes();
+  Q('negNota').value='';
+  Q('modNeg').classList.add('on');
+};
+
+function pintarNegItems(){
+  const w=Q('negItems'); w.innerHTML='';
+  Object.entries(negIt).forEach(([id,it])=>{
+    const d=document.createElement('div'); d.className='negMod-item';
+    d.innerHTML=`<div class="nmi-top">
+      <div class="nmi-img">${it.imagen?`<img src="${it.imagen}">`:''}</div>
+      <div class="nmi-inf"><div class="nmi-nom">${it.nombre}</div><div class="nmi-cant">Cantidad: ${it.cantidad}</div></div>
+    </div>
+    <div class="nmi-row">
+      <span class="nmi-orig">$${it.precio.toFixed(2)}</span>
+      <input class="nmi-inp" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)">
+      <span class="nmi-u">c/u</span>
+    </div>`;
+    w.appendChild(d);
+  });
+}
+
+window.updNeg=(id,v)=>{ if(negIt[id]) negIt[id].oferta=parseFloat(v)||0; calcRes(); };
+function calcRes(){
+  let o=0,f=0; Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});
+  Q('rOrig').textContent='$'+o.toFixed(2);
+  Q('rOfer').textContent='$'+f.toFixed(2);
+  const a=o-f; Q('rAho').textContent='$'+Math.abs(a).toFixed(2);
+  Q('rAho').style.color=a>0?'#3a7a00':'#aaa';
+}
+
+window.envNeg=async()=>{
+  if(!chatAct) return;
+  const items=Object.entries(negIt).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
+  const tO=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
+  const tN=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
+  const nota=Q('negNota').value.trim();
+  await db.from('mensajes').insert({
+    chat_id:chatAct.id, autor_id:uid, autor_nombre:me.nombre||'Emprendedor',
+    texto:`🤝 Propuesta $${tN.toFixed(2)}`, tipo:'negociacion',
+    data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},
+    created_at:new Date().toISOString()
+  });
+  await db.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,negociacion_activa:true,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+  Q('modNeg').classList.remove('on');
+  await cargarMsgs(); toast('✓ Propuesta enviada');
+};
+
+window.respNeg=async(msgId,estado)=>{
+  const m=msgsArr.find(x=>x.id===msgId); if(!m) return;
+  const dat={...m.data,estado};
+  await db.from('mensajes').update({data:dat}).eq('id',msgId);
+  if(estado==='aceptado'&&m.data?.items){
+    const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+    m.data.items.forEach(it=>{const i=c.findIndex(x=>x.id===it.id);if(i>=0)c[i].precio=it.precioOfertado;else c.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatAct.proveedor_id});});
+    localStorage.setItem('carrito_proveed',JSON.stringify(c)); carrito=c; badge();
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',created_at:new Date().toISOString()});
+    await db.from('chats').update({negociacion_activa:false,ultimo_mensaje:'✅ Precio acordado',updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+    toast('✅ Precio aceptado');
+  } else {
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',created_at:new Date().toISOString()});
+    await db.from('chats').update({negociacion_activa:false,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+    toast('Propuesta rechazada');
+  }
+  await cargarMsgs();
+};
+
+window.enviarCarrito=async()=>{
+  const items=carrito.filter(i=>!chatAct?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatAct.proveedor_id);
+  if(!items.length){ toast('Carrito vacío'); return; }
+  const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',data:{items,total},created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+  await cargarMsgs(); toast('✓ Carrito compartido');
+};
+window.soloCart=()=>{ Q('modNeg').classList.remove('on'); enviarCarrito(); };
+
+window.pedidoChat=async(dat)=>{
+  if(!chatAct||!dat?.items?.length) return;
+  const total=dat.items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
+  await db.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'',proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre||'',items:dat.items,total,estado:'pendiente',origen:'chat',metodo_pago:'a_coordinar'});
+  const rest=carrito.filter(c=>!dat.items.find(i=>i.id===c.id));
+  localStorage.setItem('carrito_proveed',JSON.stringify(rest)); carrito=rest; badge();
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🛒 ¡Pedido realizado! $${total.toFixed(2)}`,tipo:'texto',created_at:new Date().toISOString()});
+  await cargarMsgs(); toast('✅ ¡Pedido realizado!');
+};
+
+/* ── CATÁLOGO ── */
+window.abrirCat=async()=>{
+  if(!chatAct?.proveedor_id){ toast('Abre un chat primero'); return; }
+  Q('modCat').classList.add('on');
+  Q('catGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Cargando...</div>';
+  const {data} = await db.from('productos').select('*').eq('proveedor_id',chatAct.proveedor_id).eq('activo',true).order('created_at',{ascending:false});
+  catTodos=data||[]; pintarCat(catTodos);
+};
+function pintarCat(arr){
+  const w=Q('catGrid');
+  if(!arr.length){w.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Sin productos</div>';return;}
+  w.innerHTML='';
+  arr.forEach(p=>{
+    const img=p.imagenes?.[0]||p.imagen||'';
+    const d=document.createElement('div'); d.className='catCard';
+    d.innerHTML=`<div class="catImg">${img?`<img src="${img}" loading="lazy">`:'<span style="font-size:2rem;">📦</span>'}</div>
+      <div class="catBod">
+        <div class="catNom">${p.nombre||'Producto'}</div>
+        <div class="catPre">$${Number(p.precio||0).toFixed(2)}</div>
+        <button class="catAdd" onclick="addCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatAct?.proveedor_id||''}')">+ Agregar al carrito</button>
+      </div>`;
+    w.appendChild(d);
+  });
+}
+window.filtCat=q=>{ const ql=q.toLowerCase(); pintarCat(catTodos.filter(p=>(p.nombre||'').toLowerCase().includes(ql))); };
+window.addCat=(id,nombre,precio,imagen,provId)=>{
+  const i=carrito.findIndex(c=>c.id===id);
+  if(i>=0) carrito[i].cantidad=(carrito[i].cantidad||1)+1;
+  else carrito.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});
+  localStorage.setItem('carrito_proveed',JSON.stringify(carrito)); badge();
+  toast(`✓ ${nombre.slice(0,20)} agregado`);
+};
+
+/* ── REALTIME — recarga completa en cada evento ── */
+function suscribir(){
+  if(canal) db.removeChannel(canal);
+  canal = db.channel('chat-emp-'+chatAct.id)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},
+      async()=>{ await cargarMsgs(); })
+    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},
+      async()=>{ await cargarMsgs(); })
+    .subscribe(st=>console.log('RT emp:',st));
+}
+
+function volver(){
+  if(canal) db.removeChannel(canal);
+  chatAct=null; prodAct=null; msgsArr=[];
+  Q('pChat').style.display='none';
+  Q('pLista').style.display='flex';
+  cargarChats();
+}
+
+/* ── UTILIDADES ── */
+const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
+window.cmod=(id,e)=>{ if(e.target===Q(id)) Q(id).classList.remove('on'); };
+const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function toast(m){ const t=Q('tst'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2500); }
+</script>
 </body>
 </html>
