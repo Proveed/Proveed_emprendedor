@@ -11,13 +11,11 @@
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Inter',sans-serif;background:var(--F);}
 
-/* ── LISTA ── */
 #pLista{height:100%;display:flex;flex-direction:column;}
 #pChat{height:100%;display:none;flex-direction:column;}
 
 .hLista{background:#fff;padding:48px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
 .hTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.hLogo{display:flex;align-items:center;gap:8px;}
 .hTit{font-size:1rem;font-weight:900;color:#111;}
 .hTit b{color:var(--G2);}
 .sBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:24px;padding:10px 14px;border:1.5px solid #eee;}
@@ -26,7 +24,7 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .sBus input::placeholder{color:#ccc;}
 .listaScroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px;}
 
-.chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f5f5f5;cursor:pointer;-webkit-user-select:none;}
+.chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f5f5f5;cursor:pointer;}
 .chatItem:active{background:var(--F);}
 .chatItem.new{border-left:3px solid var(--G);}
 .ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;}
@@ -40,7 +38,7 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .ciUnread{width:18px;height:18px;background:var(--G2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:800;color:#111;}
 .vacio{text-align:center;padding:60px 20px;color:#bbb;font-size:0.82rem;line-height:1.7;}
 
-/* ── CHAT ── */
+/* CHAT */
 .cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .cBack{width:36px;height:36px;background:rgba(168,230,61,.12);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
@@ -52,54 +50,70 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
 
-.banProd{background:#fff;border-bottom:1px solid #eee;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.bpImg{width:42px;height:42px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
-.bpImg img{width:100%;height:100%;object-fit:cover;}
-.bpInf{flex:1;min-width:0;}
-.bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bpPre{font-size:0.74rem;color:var(--O);font-weight:800;}
-.btnNegB{padding:7px 14px;background:var(--G);color:#111;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+/* BANNER SESIÓN ACTIVA */
+.banSesion{background:white;border-bottom:2px solid var(--G);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.bsImg{width:42px;height:42px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
+.bsImg img{width:100%;height:100%;object-fit:cover;}
+.bsInf{flex:1;min-width:0;}
+.bsNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bsPre{font-size:0.74rem;color:var(--O);font-weight:800;}
+.bsTag{display:inline-flex;align-items:center;gap:4px;background:rgba(168,230,61,0.15);border-radius:20px;padding:2px 8px;font-size:0.6rem;font-weight:700;color:var(--G2);}
+.bsBts{display:flex;gap:6px;flex-shrink:0;}
+.bsBt{padding:6px 10px;border-radius:20px;border:none;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:800;cursor:pointer;white-space:nowrap;}
+.bsBt.neg{background:var(--G);color:#111;}
+.bsBt.cerrar{background:rgba(255,77,77,0.1);color:var(--R);}
 
-/* ── MENSAJES ── */
-.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px;background:var(--F);display:flex;flex-direction:column;gap:6px;}
+.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px;background:var(--F);display:flex;flex-direction:column;gap:4px;}
 
-/* ── INPUT ── */
+/* SEPARADOR DE SESIÓN */
+.sesion-sep{display:flex;align-items:center;gap:8px;padding:8px 0;}
+.sep-line{flex:1;height:1px;background:#e0e0e0;}
+.sep-box{background:white;border:1px solid #eee;border-radius:20px;padding:6px 14px;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.sep-prod{font-size:0.72rem;font-weight:800;color:#111;}
+.sep-fecha{font-size:0.6rem;color:#bbb;}
+.sep-estado{font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:2px;}
+.sep-estado.activa{background:rgba(168,230,61,0.15);color:var(--G2);}
+.sep-estado.cerrada{background:rgba(0,0,0,0.06);color:#888;}
+
+/* RESUMEN SESIÓN CERRADA */
+.sesion-resumen{background:white;border:1.5px solid #eee;border-radius:16px;padding:14px;margin:6px 0;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.sr-head{font-size:0.66rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.sr-head svg{width:13px;height:13px;stroke:#aaa;fill:none;stroke-width:2;}
+.sr-item{display:flex;justify-content:space-between;font-size:0.76rem;padding:5px 0;border-bottom:1px solid #f5f5f5;}
+.sr-item:last-child{border:none;}
+.sr-nom{color:#555;flex:1;}
+.sr-cant{color:#aaa;margin:0 8px;}
+.sr-pre{font-weight:700;color:#111;}
+.sr-total{display:flex;justify-content:space-between;padding-top:8px;border-top:2px solid #eee;margin-top:4px;}
+.sr-total-lbl{font-size:0.82rem;font-weight:800;color:#111;}
+.sr-total-val{font-size:1rem;font-weight:900;color:var(--G2);}
+
 .inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
 .extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
 .extras::-webkit-scrollbar{display:none;}
 .xBtn{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .xBtn.g{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,.06);}
+.xBtn.r{border-color:rgba(255,77,77,0.3);color:var(--R);background:rgba(255,77,77,0.04);}
 .iRow{display:flex;align-items:flex-end;gap:8px;}
 .iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
-/* CRÍTICO: textarea con color:#111 para que el texto sea visible */
-textarea#ta{
-  flex:1;background:transparent;border:none;outline:none;
-  font-family:'Inter',sans-serif;font-size:0.9rem;
-  color:#111 !important;
-  -webkit-text-fill-color:#111 !important;
-  resize:none;line-height:1.4;
-  min-height:22px;max-height:120px;width:100%;display:block;
-  caret-color:#111;
-}
+textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111 !important;-webkit-text-fill-color:#111 !important;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;display:block;caret-color:#111;}
 textarea#ta::placeholder{color:#bbb;}
 .sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
 
-/* ── BURBUJAS ── */
+/* SIN SESIÓN ACTIVA */
+.noSesion{padding:14px;background:rgba(168,230,61,0.06);border-top:1px solid rgba(168,230,61,0.2);text-align:center;flex-shrink:0;}
+.noSesion p{font-size:0.78rem;color:#aaa;margin-bottom:8px;}
+.noSesion small{font-size:0.68rem;color:#bbb;}
+
 .msg{display:flex;flex-direction:column;}
 .msg.yo{align-items:flex-end;}
 .msg.el{align-items:flex-start;}
-.bub{
-  padding:10px 14px;border-radius:18px;
-  font-size:0.88rem;line-height:1.5;
-  max-width:80%;word-break:break-word;
-  cursor:pointer;-webkit-user-select:none;user-select:none;
-}
+.bub{padding:10px 14px;border-radius:18px;font-size:0.88rem;line-height:1.5;max-width:80%;word-break:break-word;cursor:pointer;-webkit-user-select:none;user-select:none;}
 .msg.yo .bub{background:var(--G);color:#111;border-bottom-right-radius:4px;font-weight:500;}
 .msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .mHora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
 
-/* ── MENÚ BORRAR ── */
 .mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px;z-index:700;border:1px solid #eee;display:none;}
 .mMenu.on{display:block;}
 .mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
@@ -107,7 +121,6 @@ textarea#ta::placeholder{color:#bbb;}
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
 
-/* ── ESPECIALES (negociación, carrito) ── */
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
 .negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;box-shadow:0 2px 10px rgba(168,230,61,.1);}
 .negH{font-size:0.64rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:8px;}
@@ -128,7 +141,6 @@ textarea#ta::placeholder{color:#bbb;}
 .negSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
 .negHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:4px;}
 
-/* ── MODALES ── */
 .modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
 .modOv.on{display:flex;}
 .modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -139,10 +151,6 @@ textarea#ta::placeholder{color:#bbb;}
 .modX{width:28px;height:28px;background:var(--F);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .modX svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
 .modB{overflow-y:auto;padding:16px 16px 40px;flex:1;}
-.fld{margin-bottom:12px;}
-.fld label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;letter-spacing:.5px;}
-.fld input,.fld textarea,.fld select{width:100%;padding:11px 13px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;}
-.fld input:focus,.fld textarea:focus{border-color:var(--G);}
 .negMod-intro{font-size:0.8rem;color:#aaa;line-height:1.6;margin-bottom:14px;}
 .negMod-item{background:var(--F);border-radius:14px;padding:12px;margin-bottom:10px;}
 .nmi-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
@@ -165,7 +173,19 @@ textarea#ta::placeholder{color:#bbb;}
 .btn1{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
 .btn2{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
 
-/* ── TAB BAR ── */
+/* CONFIRMACIÓN CERRAR SESIÓN */
+.confirm-box{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:800;padding:20px;}
+.confirm-box.on{display:flex;}
+.confirm-card{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:320px;text-align:center;}
+.confirm-ico{width:56px;height:56px;background:rgba(255,77,77,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.confirm-ico svg{width:24px;height:24px;stroke:var(--R);fill:none;stroke-width:2;}
+.confirm-tit{font-size:1rem;font-weight:800;color:#111;margin-bottom:8px;}
+.confirm-sub{font-size:0.8rem;color:#aaa;line-height:1.6;margin-bottom:20px;}
+.confirm-bts{display:flex;gap:8px;}
+.confirm-bts button{flex:1;padding:12px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
+.confirm-bts .si{background:var(--R);color:#fff;}
+.confirm-bts .no{background:var(--F);color:#555;}
+
 .tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -174,33 +194,18 @@ textarea#ta::placeholder{color:#bbb;}
 .tab.on span{color:var(--G2);}
 .tabRel{position:relative;}
 .tabBadge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
-
-/* ── TOAST ── */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* CAT GRID */
-.catGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-.catCard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;}
-.catImg{width:100%;height:90px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
-.catImg img{width:100%;height:100%;object-fit:cover;}
-.catBod{padding:8px;}
-.catNom{font-size:.76rem;font-weight:700;color:#111;margin-bottom:3px;}
-.catPre{font-size:.86rem;font-weight:900;color:var(--O);}
-.catAdd{width:100%;padding:6px;background:#111;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;margin-top:5px;}
 </style>
 </head>
 <body>
 
-<!-- ═══ VISTA LISTA ═══ -->
+<!-- LISTA -->
 <div id="pLista">
   <div class="hLista">
     <div class="hTop">
-      <div class="hLogo">
-        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-          <polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/>
-          <polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="hTit">PRO<b>VEED</b> · Chats</span>
       </div>
     </div>
@@ -212,45 +217,50 @@ textarea#ta::placeholder{color:#bbb;}
   <div class="listaScroll" id="lista">
     <div class="vacio">Cargando chats...</div>
   </div>
-  <!-- TAB BAR LISTA -->
   <nav class="tabBar">
     <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
     <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
-    <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
+    <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span></a>
     <a class="tab tabRel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tabBadge" id="cBadge" style="display:none">0</div></a>
-    <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+    <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span></a>
   </nav>
 </div>
 
-<!-- ═══ VISTA CHAT ═══ -->
+<!-- CHAT -->
 <div id="pChat">
-  <!-- HEADER -->
-  <div class="cHead" id="cHead">
+  <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="cAv" id="cAv">P</div>
     <div class="cInf"><div class="cNom" id="cNom">—</div><div class="cSub" id="cSub">—</div></div>
     <div class="cBts">
-      <button class="cBt" onclick="abrirCat()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
-      <button class="cBt" onclick="location.href='dashboard-emp.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
+      <button class="cBt" onclick="location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
     </div>
   </div>
 
-  <!-- BANNER PRODUCTO -->
-  <div class="banProd" id="banProd" style="display:none">
-    <div class="bpImg" id="bpImg"></div>
-    <div class="bpInf"><div class="bpNom" id="bpNom">—</div><div class="bpPre" id="bpPre">—</div></div>
-    <button class="btnNegB" onclick="abrirNeg()">🤝 Negociar</button>
+  <!-- BANNER SESIÓN ACTIVA -->
+  <div class="banSesion" id="banSesion" style="display:none;">
+    <div class="bsImg" id="bsImg"></div>
+    <div class="bsInf">
+      <div class="bsNom" id="bsNom">—</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
+        <div class="bsPre" id="bsPre">—</div>
+        <div class="bsTag">● Sesión activa</div>
+      </div>
+    </div>
+    <div class="bsBts">
+      <button class="bsBt neg" onclick="abrirNeg()">🤝 Neg.</button>
+      <button class="bsBt cerrar" onclick="pedirCerrarSesion()">✓ Cerrar</button>
+    </div>
   </div>
 
-  <!-- MENSAJES -->
   <div class="msgsArea" id="msgs"></div>
 
-  <!-- INPUT -->
-  <div class="inputArea" id="inputArea">
+  <!-- INPUT — solo si hay sesión activa -->
+  <div id="inputArea" class="inputArea" style="display:none;">
     <div class="extras">
       <button class="xBtn g" onclick="abrirNeg()">🤝 Negociar</button>
       <button class="xBtn" onclick="enviarCarrito()">📦 Carrito</button>
-      <button class="xBtn" onclick="abrirCat()">🔍 Catálogo</button>
+      <button class="xBtn r" onclick="pedirCerrarSesion()">✓ Cerrar sesión</button>
     </div>
     <div class="iRow">
       <div class="iBox">
@@ -263,25 +273,26 @@ textarea#ta::placeholder{color:#bbb;}
     </div>
   </div>
 
-  <!-- TAB BAR CHAT -->
+ <!-- SIN SESIÓN ACTIVA -->
+  <div id="noSesionArea" class="noSesion" style="display:none;">
+    <p>No hay sesión activa con este proveedor.</p>
+    <small>Entra a un producto y toca "Chat con proveedor" para iniciar una nueva sesión.</small>
+  </div>
+
   <nav class="tabBar">
-    <a class="tab" href="dashboard-emp.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+    <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
     <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
-    <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chats</span></a>
+    <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span></a>
     <a class="tab tabRel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tabBadge" id="cBadge2" style="display:none">0</div></a>
-    <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+    <a class="tab" href="pedidos.html"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><span>Pedidos</span></a>
   </nav>
 </div>
 
 <!-- MENÚ BORRAR -->
 <div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
 <div class="mMenu" id="mMenu">
-  <button onclick="borrar()">
-    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-    Eliminar mensaje
-  </button>
+  <button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button>
 </div>
-
 
 <!-- MODAL NEGOCIAR -->
 <div class="modOv" id="modNeg" onclick="cmod('modNeg',event)">
@@ -299,27 +310,25 @@ textarea#ta::placeholder{color:#bbb;}
         <div class="rRow"><span class="rLbl">Tu oferta</span><span class="rVal" id="rOfer">$0.00</span></div>
         <div class="rFin"><span class="rFinL">Ahorro</span><span class="rFinV" id="rAho">$0.00</span></div>
       </div>
-      <div class="fld"><label>Mensaje al proveedor</label><textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="height:60px;"></textarea></div>
+      <div style="margin-bottom:12px;">
+        <label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje al proveedor</label>
+        <textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="width:100%;padding:11px 13px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea>
+      </div>
       <button class="btn1" onclick="envNeg()">🚀 Enviar propuesta</button>
       <button class="btn2" onclick="soloCart()">📦 Enviar carrito sin negociar</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL CATÁLOGO -->
-<div class="modOv" id="modCat" onclick="cmod('modCat',event)">
-  <div class="modSh">
-    <div class="drag"></div>
-    <div class="modH">
-      <span class="modT">🔍 Catálogo del proveedor</span>
-      <button class="modX" onclick="Q('modCat').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modB">
-      <div class="sBus" style="margin-bottom:12px;">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" placeholder="Buscar producto..." oninput="filtCat(this.value)">
-      </div>
-      <div class="catGrid" id="catGrid"></div>
+<!-- CONFIRMACIÓN CERRAR SESIÓN -->
+<div class="confirm-box" id="confirmCerrar">
+  <div class="confirm-card">
+    <div class="confirm-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="confirm-tit">¿Cerrar sesión?</div>
+    <div class="confirm-sub" id="confirmSub">Se registrará el resumen de esta sesión en el chat. Podrás iniciar una nueva sesión con otro producto cuando quieras.</div>
+    <div class="confirm-bts">
+      <button class="no" onclick="Q('confirmCerrar').classList.remove('on')">Cancelar</button>
+      <button class="si" onclick="cerrarSesion()">✓ Cerrar sesión</button>
     </div>
   </div>
 </div>
@@ -328,176 +337,269 @@ textarea#ta::placeholder{color:#bbb;}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ── SETUP ── */
 const {createClient} = supabase;
-const db = createClient(
-  'https://hfmsyrmkewscnvwynzfq.supabase.co',
-  'sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v'
-);
+const db = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const Q = id=>document.getElementById(id);
 
-const Q = id => document.getElementById(id);
-let uid='', me={}, chatAct=null, todos=[], msgsArr=[], prodAct=null, canal=null;
-let negIt={}, catTodos=[], menuId=null;
+let uid='', me={}, chatAct=null, todos=[], msgsArr=[], sesionActiva=null, canal=null;
+let negIt={}, menuId=null;
 const QS = new URLSearchParams(location.search);
 let carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 
-/* badge carrito */
 function badge(){
-  const n = carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  ['cBadge','cBadge2'].forEach(id=>{
-    const b=Q(id);
-    if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}
-    else b.style.display='none';
-  });
+  const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+  ['cBadge','cBadge2'].forEach(id=>{const b=Q(id);if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';});
 }
 badge();
 
-/* ── ARRANCAR ── */
 (async()=>{
   const {data:{session}} = await db.auth.getSession();
   if(!session){location.href='login.html';return;}
-  uid = session.user.id;
+  uid=session.user.id;
   const {data:u} = await db.from('usuarios').select('*').eq('id',uid).single();
-  if(u) me = u;
+  if(u) me=u;
   await cargarChats();
-  /* abrir chat desde URL */
-  const pid = QS.get('proveedor_id'), prodId = QS.get('prod_id');
-  if(pid){
-    const ex = todos.find(c=>c.proveedor_id===pid);
-    if(ex) abrirChat(ex,null,false);
-    else crearChat(pid,prodId);
+
+  // Abrir chat desde producto
+  const pId=QS.get('proveedor_id'), prodId=QS.get('prod_id'), prodNom=QS.get('prod_nombre'), prodPre=QS.get('prod_precio'), prodImg=QS.get('prod_img');
+  if(pId){
+    // Buscar chat existente con este proveedor
+    let chat = todos.find(c=>c.proveedor_id===pId);
+    if(!chat){
+      // Crear chat nuevo
+      const {data:prov} = await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
+      const {data:ch} = await db.from('chats').insert({
+        emprendedor_id:uid, emprendedor_nombre:me.nombre||'Emprendedor',
+        proveedor_id:pId, proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
+        ultimo_mensaje:'Chat iniciado', no_leido_emp:0, no_leido_prov:0,
+        updated_at:new Date().toISOString()
+      }).select().single();
+      chat=ch;
+      if(chat) todos.unshift(chat);
+    }
+    if(chat){
+      await abrirChat(chat);
+      // Si viene desde producto, crear sesión nueva para ese producto
+      if(prodId){
+        await iniciarSesion(prodId, decodeURIComponent(prodNom||''), prodPre, decodeURIComponent(prodImg||''));
+      }
+    }
   }
 })();
 
-/* ── CARGAR CHATS ── */
 async function cargarChats(){
-  const {data} = await db.from('chats').select('*')
-    .eq('emprendedor_id',uid).order('updated_at',{ascending:false});
-  todos = data||[];
-  pintarLista(todos);
+  const {data} = await db.from('chats').select('*').eq('emprendedor_id',uid).order('updated_at',{ascending:false});
+  todos=data||[]; pintarLista(todos);
 }
 
 function pintarLista(arr){
-  const c = Q('lista');
-  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones aún.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
+  const c=Q('lista');
+  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
   c.innerHTML='';
   arr.forEach(ch=>{
-    const nom = ch.proveedor_nombre||'Proveedor';
-    const hora = ch.updated_at ? new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}) : '';
-    const d = document.createElement('div');
+    const nom=ch.proveedor_nombre||'Proveedor';
+    const hora=ch.updated_at?new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
+    const d=document.createElement('div');
     d.className='chatItem'+(ch.no_leido_emp>0?' new':'');
-    d.innerHTML=`
-      <div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
-      <div class="ciInf">
-        <div class="ciNom">${nom}</div>
-        ${ch.producto_nombre?`<div class="ciProd">📦 ${ch.producto_nombre}</div>`:''}
-        <div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div>
-      </div>
-      <div class="ciR">
-        <div class="ciHora">${hora}</div>
-        ${ch.no_leido_emp>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}
-      </div>`;
-    d.onclick=()=>abrirChat(ch,null,false);
+    d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
+      <div class="ciInf"><div class="ciNom">${nom}</div><div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
+      <div class="ciR"><div class="ciHora">${hora}</div>${ch.no_leido_emp>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
+    d.onclick=()=>abrirChat(ch);
     c.appendChild(d);
   });
 }
 
-window.filtrar = q=>{
-  const ql=q.toLowerCase();
-  pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));
-};
+window.filtrar=q=>{const ql=q.toLowerCase();pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));};
 
-/* ── CREAR CHAT NUEVO ── */
-async function crearChat(provId,prodId){
-  const {data:prov} = await db.from('usuarios').select('nombre,empresa').eq('id',provId).single();
-  const {data:prod} = prodId ? await db.from('productos').select('*').eq('id',prodId).single() : {data:null};
-  const {data:ch} = await db.from('chats').insert({
-    emprendedor_id:uid, emprendedor_nombre:me.nombre||'Emprendedor',
-    proveedor_id:provId, proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
-    producto_id:prodId||null, producto_nombre:prod?.nombre||null,
-    ultimo_mensaje:'Chat iniciado', no_leido_emp:0, no_leido_prov:0,
-    updated_at:new Date().toISOString()
-  }).select().single();
-  if(ch){ todos.unshift(ch); abrirChat(ch,prod,true); }
-}
-
-/* ── ABRIR CHAT ── */
-async function abrirChat(chat, prodData=null, esNuevo=false){
-  chatAct = chat; msgsArr = [];
-  Q('pLista').style.display = 'none';
-  Q('pChat').style.display  = 'flex';
-  Q('msgs').innerHTML = '<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando mensajes...</div>';
-
-  const nom = chat.proveedor_nombre||'Proveedor';
-  Q('cAv').textContent = nom[0].toUpperCase();
-  Q('cAv').style.background = pal(nom);
-  Q('cNom').textContent = nom;
-  Q('cSub').textContent = chat.producto_nombre||'Conversación general';
-
-  /* producto */
-  if(chat.producto_id){
-    const prod = prodData||(await db.from('productos').select('*').eq('id',chat.producto_id).single()).data;
-    if(prod){
-      prodAct = prod;
-      Q('banProd').style.display='flex';
-      const img = prod.imagenes?.[0]||prod.imagen||'';
-      Q('bpImg').innerHTML = img?`<img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
-      Q('bpNom').textContent = prod.nombre||'Producto';
-      Q('bpPre').textContent = `$${Number(prod.precio||0).toFixed(2)} / ${prod.unidad||'und'}`;
-    }
-  } else { prodAct=null; Q('banProd').style.display='none'; }
-
-  /* marcar leído */
+async function abrirChat(chat){
+  chatAct=chat; msgsArr=[];
+  Q('pLista').style.display='none';
+  Q('pChat').style.display='flex';
+  Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando...</div>';
+  const nom=chat.proveedor_nombre||'Proveedor';
+  Q('cAv').textContent=nom[0].toUpperCase(); Q('cAv').style.background=pal(nom);
+  Q('cNom').textContent=nom;
+  Q('cSub').textContent=nom;
   await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
 
-  /* cargar mensajes */
+  // Buscar sesión activa
+  await cargarSesionActiva();
   await cargarMsgs();
-
-  /* mensaje pre-escrito si chat nuevo desde producto */
-  if(esNuevo && prodAct){
-    Q('ta').value = `Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodAct.nombre}"? Me interesa precio, disponibilidad y condiciones de envío.`;
-    crecer(Q('ta'));
-    Q('ta').focus();
-  }
-
   suscribir();
 }
 
-/* ── CARGAR MENSAJES DESDE SUPABASE ── */
+async function cargarSesionActiva(){
+  const {data} = await db.from('chat_sesiones').select('*')
+    .eq('chat_id',chatAct.id).eq('estado','activa')
+    .order('created_at',{ascending:false}).limit(1);
+  sesionActiva = data?.[0]||null;
+  actualizarUI();
+}
+
+function actualizarUI(){
+  if(sesionActiva){
+    // Mostrar banner sesión activa
+    Q('banSesion').style.display='flex';
+    Q('inputArea').style.display='block';
+    Q('noSesionArea').style.display='none';
+    const img=sesionActiva.producto_imagen||'';
+    Q('bsImg').innerHTML=img?`<img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
+    Q('bsNom').textContent=sesionActiva.producto_nombre||'Producto';
+    Q('bsPre').textContent=sesionActiva.producto_precio?`$${Number(sesionActiva.producto_precio).toFixed(2)}`:'';
+    Q('cSub').textContent=`Sesión: ${sesionActiva.producto_nombre||'Producto'}`;
+  } else {
+    Q('banSesion').style.display='none';
+    Q('inputArea').style.display='none';
+    Q('noSesionArea').style.display='block';
+    Q('cSub').textContent=chatAct?.proveedor_nombre||'Proveedor';
+  }
+}
+
+// INICIAR NUEVA SESIÓN
+async function iniciarSesion(prodId, prodNom, prodPre, prodImg){
+  // Verificar si ya hay sesión activa con este mismo producto
+  if(sesionActiva && sesionActiva.producto_id===prodId){
+    toast('Ya tienes una sesión activa con este producto');
+    return;
+  }
+  // Crear nueva sesión
+  const {data:s} = await db.from('chat_sesiones').insert({
+    chat_id:chatAct.id,
+    producto_id:prodId,
+    producto_nombre:prodNom,
+    producto_precio:prodPre,
+    producto_imagen:prodImg,
+    estado:'activa'
+  }).select().single();
+  sesionActiva=s;
+  actualizarUI();
+
+  // Mensaje separador en el chat
+  await db.from('mensajes').insert({
+    chat_id:chatAct.id,
+    autor_id:'sistema',
+    autor_nombre:'sistema',
+    texto:`SESION_INICIO:${prodNom}`,
+    tipo:'sesion_inicio',
+    data:{sesion_id:s.id, producto_id:prodId, producto_nombre:prodNom, producto_precio:prodPre, producto_imagen:prodImg},
+    created_at:new Date().toISOString()
+  });
+
+  // Mensaje pre-escrito
+  Q('ta').value=`Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"? Me interesa precio, disponibilidad y condiciones de envío.`;
+  crecer(Q('ta'));
+
+  await cargarMsgs();
+  toast(`✓ Nueva sesión iniciada: ${prodNom}`);
+}
+
+// PEDIR CERRAR SESIÓN
+window.pedirCerrarSesion=function(){
+  if(!sesionActiva){return;}
+  const items=carrito.filter(i=>i.sesion_id===sesionActiva.id);
+  Q('confirmSub').textContent=items.length>0
+    ? `Tienes ${items.length} producto${items.length>1?'s':''} en el carrito de esta sesión. Se registrará el resumen en el chat.`
+    : 'Se registrará el cierre de esta sesión en el chat.';
+  Q('confirmCerrar').classList.add('on');
+};
+
+// CERRAR SESIÓN
+window.cerrarSesion=async function(){
+  Q('confirmCerrar').classList.remove('on');
+  if(!sesionActiva) return;
+
+  const items=carrito.filter(i=>i.sesion_id===sesionActiva.id);
+  const total=items.reduce((s,i)=>s+(Number(i.precio)||0)*(i.cantidad||1),0);
+
+  // Actualizar sesión a cerrada
+  await db.from('chat_sesiones').update({
+    estado:'cerrada',
+    items_negociados:items,
+    total,
+    cerrada_at:new Date().toISOString()
+  }).eq('id',sesionActiva.id);
+
+  // Mensaje de cierre con resumen
+  await db.from('mensajes').insert({
+    chat_id:chatAct.id,
+    autor_id:'sistema',
+    autor_nombre:'sistema',
+    texto:`SESION_CIERRE`,
+    tipo:'sesion_cierre',
+    data:{
+      sesion_id:sesionActiva.id,
+      producto_nombre:sesionActiva.producto_nombre,
+      items,
+      total
+    },
+    created_at:new Date().toISOString()
+  });
+
+  await db.from('chats').update({
+    ultimo_mensaje:`✓ Sesión cerrada: ${sesionActiva.producto_nombre}`,
+    updated_at:new Date().toISOString()
+  }).eq('id',chatAct.id);
+
+  sesionActiva=null;
+  actualizarUI();
+  await cargarMsgs();
+  toast('✓ Sesión cerrada correctamente');
+};
+
 async function cargarMsgs(){
-  const {data,error} = await db.from('mensajes')
-    .select('*').eq('chat_id',chatAct.id)
-    .order('created_at',{ascending:true});
-  if(error){ console.error('ERR msgs:',error); return; }
-  msgsArr = data||[];
-  pintarMsgs();
+  const {data,error}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
+  if(error){console.error(error);return;}
+  msgsArr=data||[]; pintarMsgs();
 }
 
 function pintarMsgs(){
-  const w = Q('msgs');
-  if(!msgsArr.length){
-    w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">¡Envía el primer mensaje! 👋</div>';
-    return;
-  }
+  const w=Q('msgs');
+  if(!msgsArr.length){w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">¡Envía el primer mensaje! 👋</div>';return;}
   w.innerHTML='';
   msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));
   setTimeout(()=>w.scrollTop=w.scrollHeight,60);
 }
 
-/* ── CONSTRUIR BURBUJA ── */
 function mkBurbuja(m){
-  const yo  = m.autor_id===uid;
-  const hr  = new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+  const yo=m.autor_id===uid;
+  const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+// SEPARADOR INICIO SESIÓN
+  if(m.tipo==='sesion_inicio'){
+    const dat=m.data||{};
+    const d=document.createElement('div');
+    d.className='sesion-sep';
+    d.innerHTML=`<div class="sep-line"></div>
+      <div class="sep-box">
+        <div class="sep-prod">📦 ${dat.producto_nombre||'Producto'}</div>
+        <div class="sep-fecha">${new Date(m.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'})}</div>
+        <div class="sep-estado activa">● Sesión iniciada</div>
+      </div>
+      <div class="sep-line"></div>`;
+    return d;
+  }
+
+  // RESUMEN CIERRE SESIÓN
+  if(m.tipo==='sesion_cierre'){
+    const dat=m.data||{};
+    const d=document.createElement('div');
+    d.className='esp';
+    const items=dat.items||[];
+    let iHtml='';
+    items.forEach(it=>{iHtml+=`<div class="sr-item"><span class="sr-nom">${it.nombre}</span><span class="sr-cant">×${it.cantidad||1}</span><span class="sr-pre">$${Number(it.precio||0).toFixed(2)}</span></div>`;});
+    const c=document.createElement('div');
+    c.className='sesion-resumen';
+    c.innerHTML=`<div class="sr-head"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sesión cerrada · ${dat.producto_nombre||'Producto'}</div>
+      ${items.length?iHtml:'<div style="font-size:0.76rem;color:#bbb;text-align:center;padding:8px;">Sin productos en esta sesión</div>'}
+      ${items.length?`<div class="sr-total"><span class="sr-total-lbl">Total sesión</span><span class="sr-total-val">$${Number(dat.total||0).toFixed(2)}</span></div>`:''}
+      <div style="font-size:0.6rem;color:#bbb;text-align:right;margin-top:6px;">${hr}</div>`;
+    d.appendChild(c);return d;
+  }
+
   if(m.tipo==='negociacion') return mkNegBub(m,yo,hr);
-  if(m.tipo==='carrito')     return mkCartBub(m,yo,hr);
+  if(m.tipo==='carrito') return mkCartBub(m,yo,hr);
 
-  const d = document.createElement('div');
-  d.className = `msg ${yo?'yo':'el'}`;
-  const b = document.createElement('div');
-  b.className='bub';
-  b.textContent = m.texto||'';
-
-  /* borrar con toque largo / clic derecho (solo mensajes propios) */
+  const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
+  const b=document.createElement('div');b.className='bub';b.textContent=m.texto||'';
   if(yo){
     let pt;
     b.addEventListener('touchstart',e=>{pt=setTimeout(()=>showMenu(m.id,e.touches[0].clientX,e.touches[0].clientY),600);},{passive:true});
@@ -505,267 +607,132 @@ function mkBurbuja(m){
     b.addEventListener('touchmove',()=>clearTimeout(pt),{passive:true});
     b.addEventListener('contextmenu',e=>{e.preventDefault();showMenu(m.id,e.clientX,e.clientY);});
   }
-
-  const h = document.createElement('div');
-  h.className='mHora';
-  h.textContent = hr+(yo?' ✓✓':'');
-  d.appendChild(b); d.appendChild(h);
-  return d;
+  const h=document.createElement('div');h.className='mHora';h.textContent=hr+(yo?' ✓✓':'');
+  d.appendChild(b);d.appendChild(h);return d;
 }
 
 function mkNegBub(m,yo,hr){
-  const dat=m.data||{}, est=dat.estado||'pendiente';
-  const puedeR = !yo && est==='pendiente';
+  const dat=m.data||{},est=dat.estado||'pendiente';
+  const puedeR=!yo&&est==='pendiente'&&sesionActiva;
   let items='';
-  (dat.items||[]).forEach(it=>{
-    items+=`<div class="negIt">
-      <span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span>
-      <span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span>
-      <span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span>
-    </div>`;
-  });
-  const w=document.createElement('div'); w.className='esp';
-  const c=document.createElement('div'); c.className='negC';
-  c.innerHTML=`
-    <div class="negH">🤝 ${yo?'Propuesta enviada':'Propuesta del proveedor'}</div>
+  (dat.items||[]).forEach(it=>{items+=`<div class="negIt"><span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span><span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span><span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span></div>`;});
+  const w=document.createElement('div');w.className='esp';
+  const c=document.createElement('div');c.className='negC';
+  c.innerHTML=`<div class="negH">🤝 ${yo?'Propuesta enviada':'Propuesta del proveedor'}</div>
     ${items?`<div style="margin-bottom:8px;">${items}</div>`:''}
-    <div class="negTot">
-      <span class="negOrig">$${Number(dat.totalOriginal||0).toFixed(2)}</span>
-      <span style="color:#bbb;margin:0 6px;">→</span>
-      <span class="negNew">$${Number(dat.totalOfertado||0).toFixed(2)}</span>
-    </div>
+    <div class="negTot"><span class="negOrig">$${Number(dat.totalOriginal||0).toFixed(2)}</span><span style="color:#bbb;margin:0 6px;">→</span><span class="negNew">$${Number(dat.totalOfertado||0).toFixed(2)}</span></div>
     ${dat.mensaje?`<div class="negNota">"${esc(dat.mensaje)}"</div>`:''}
-    ${puedeR
-      ? `<div class="negBts">
-           <button class="nBt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button>
-           <button class="nBt cnt" onclick="abrirNeg()">↔ Contraofertar</button>
-           <button class="nBt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button>
-         </div>`
-      : `<div class="negSt ${est}">${est==='aceptado'?'✅ Aceptado':est==='rechazado'?'❌ Rechazada':'⏳ Esperando respuesta...'}</div>`
-    }
+    ${puedeR?`<div class="negBts"><button class="nBt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button><button class="nBt cnt" onclick="abrirNeg()">↔ Contraofertar</button><button class="nBt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button></div>`:`<div class="negSt ${est}">${est==='aceptado'?'✅ Aceptado':est==='rechazado'?'❌ Rechazada':'⏳ Esperando...'}</div>`}
     <div class="negHr">${hr}</div>`;
-  w.appendChild(c); return w;
+  w.appendChild(c);return w;
 }
 
 function mkCartBub(m,yo,hr){
-  const dat=m.data||{}; let rows='';
-  (dat.items||[]).forEach(it=>{
-    rows+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;">
-      <div style="width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}</div>
-      <div style="flex:1;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div>
-      <div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div>
-    </div>`;
-  });
-  const w=document.createElement('div'); w.className='esp';
-  const c=document.createElement('div');
-  c.style.cssText='background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;box-shadow:0 1px 6px rgba(0,0,0,.05);';
-  c.innerHTML=`
-    <div style="font-size:.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 Carrito compartido</div>
-    ${rows}
-    <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;">
-      <span style="font-size:.72rem;color:#aaa;">Total</span>
-      <span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span>
-    </div>
-    ${yo?`<button onclick="pedidoChat(${JSON.stringify(dat).replace(/"/g,'&quot;')})" style="width:100%;margin-top:8px;padding:10px;background:#111;color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;">🛒 Hacer pedido ahora</button>`:''}
-    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
-  w.appendChild(c); return w;
+  const dat=m.data||{};let rows='';
+  (dat.items||[]).forEach(it=>{rows+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;"><div style="width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}</div><div style="flex:1;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div><div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div></div>`;});
+  const w=document.createElement('div');w.className='esp';
+  const c=document.createElement('div');c.style.cssText='background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;';
+  c.innerHTML=`<div style="font-size:.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 Carrito compartido</div>${rows}<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;"><span style="font-size:.72rem;color:#aaa;">Total</span><span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span></div><div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
+  w.appendChild(c);return w;
 }
 
-/* ── ENVIAR MENSAJE ── */
-window.enviar = async function(){
-  const ta = Q('ta');
-  const txt = ta.value.trim();
-  if(!txt||!chatAct) return;
-  ta.value=''; crecer(ta); ta.focus();
-
-  const {error} = await db.from('mensajes').insert({
-    chat_id: chatAct.id,
-    autor_id: uid,
-    autor_nombre: me.nombre||'Emprendedor',
-    texto: txt,
-    tipo: 'texto',
-    created_at: new Date().toISOString()
+window.enviar=async function(){
+  if(!sesionActiva){toast('No hay sesión activa');return;}
+  const ta=Q('ta');const txt=ta.value.trim();
+  if(!txt||!chatAct)return;ta.value='';crecer(ta);ta.focus();
+  await db.from('mensajes').insert({
+    chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
+    texto:txt,tipo:'texto',sesion_id:sesionActiva.id,
+    created_at:new Date().toISOString()
   });
-  if(error){ console.error(error); toast('Error al enviar'); return; }
-
-  await db.from('chats').update({
-    ultimo_mensaje: txt.slice(0,60),
-    no_leido_prov: (chatAct.no_leido_prov||0)+1,
-    updated_at: new Date().toISOString()
-  }).eq('id',chatAct.id);
-
+  await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatAct.no_leido_prov||0)+1,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
   await cargarMsgs();
 };
+window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
+window.crecer=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';};
 
-window.tecla = e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();} };
-window.crecer = el=>{ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; };
+function showMenu(id,x,y){menuId=id;const m=Q('mMenu');m.style.left=Math.min(x,window.innerWidth-170)+'px';m.style.top=Math.min(y,window.innerHeight-80)+'px';m.classList.add('on');Q('mOv').classList.add('on');}
+window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remove('on');menuId=null;};
+window.borrar=async()=>{if(!menuId)return;cerrarMenu();await db.from('mensajes').delete().eq('id',menuId);await cargarMsgs();toast('Mensaje eliminado');};
 
-/* ── MENÚ BORRAR ── */
-function showMenu(id,x,y){
-  menuId=id;
-  const m=Q('mMenu');
-  m.style.left=Math.min(x,window.innerWidth-170)+'px';
-  m.style.top=Math.min(y,window.innerHeight-80)+'px';
-  m.classList.add('on'); Q('mOv').classList.add('on');
-}
-window.cerrarMenu=()=>{ Q('mMenu').classList.remove('on'); Q('mOv').classList.remove('on'); menuId=null; };
-window.borrar=async()=>{
-  if(!menuId) return; cerrarMenu();
-  await db.from('mensajes').delete().eq('id',menuId);
-  await cargarMsgs(); toast('Mensaje eliminado');
-};
-
-/* ── NEGOCIAR ── */
 window.abrirNeg=function(){
-  const f = carrito.filter(i=>!chatAct?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatAct.proveedor_id);
-  const usar = f.length?f:(prodAct?[{id:prodAct.id,nombre:prodAct.nombre,precio:prodAct.precio,imagen:prodAct.imagenes?.[0]||'',cantidad:1,proveedor_id:chatAct?.proveedor_id}]:[]);
-  if(!usar.length){ toast('Agrega productos al carrito primero'); return; }
+  if(!sesionActiva){toast('No hay sesión activa');return;}
+  const f=carrito.filter(i=>i.sesion_id===sesionActiva.id||i.proveedor_id===chatAct.proveedor_id);
+  if(!f.length){toast('Agrega productos al carrito primero');return;}
   negIt={};
-  usar.forEach(i=>{negIt[i.id]={nombre:i.nombre,precio:Number(i.precio||0),oferta:Number(i.precio||0),cantidad:i.cantidad||1,imagen:i.imagen||''};});
-  pintarNegItems(); calcRes();
-  Q('negNota').value='';
-  Q('modNeg').classList.add('on');
+  f.forEach(i=>{negIt[i.id]={nombre:i.nombre,precio:Number(i.precio||0),oferta:Number(i.precio||0),cantidad:i.cantidad||1,imagen:i.imagen||''};});
+  pintarNegItems();calcRes();Q('negNota').value='';Q('modNeg').classList.add('on');
 };
 
 function pintarNegItems(){
-  const w=Q('negItems'); w.innerHTML='';
+  const w=Q('negItems');w.innerHTML='';
   Object.entries(negIt).forEach(([id,it])=>{
-    const d=document.createElement('div'); d.className='negMod-item';
-    d.innerHTML=`<div class="nmi-top">
-      <div class="nmi-img">${it.imagen?`<img src="${it.imagen}">`:''}</div>
-      <div class="nmi-inf"><div class="nmi-nom">${it.nombre}</div><div class="nmi-cant">Cantidad: ${it.cantidad}</div></div>
-    </div>
-    <div class="nmi-row">
-      <span class="nmi-orig">$${it.precio.toFixed(2)}</span>
-      <input class="nmi-inp" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)">
-      <span class="nmi-u">c/u</span>
-    </div>`;
+    const d=document.createElement('div');d.className='negMod-item';
+    d.innerHTML=`<div class="nmi-top"><div class="nmi-img">${it.imagen?`<img src="${it.imagen}">`:''}</div><div class="nmi-inf"><div class="nmi-nom">${it.nombre}</div><div class="nmi-cant">Cantidad: ${it.cantidad}</div></div></div><div class="nmi-row"><span class="nmi-orig">$${it.precio.toFixed(2)}</span><input class="nmi-inp" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)"><span class="nmi-u">c/u</span></div>`;
     w.appendChild(d);
   });
 }
-
-window.updNeg=(id,v)=>{ if(negIt[id]) negIt[id].oferta=parseFloat(v)||0; calcRes(); };
-function calcRes(){
-  let o=0,f=0; Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});
-  Q('rOrig').textContent='$'+o.toFixed(2);
-  Q('rOfer').textContent='$'+f.toFixed(2);
-  const a=o-f; Q('rAho').textContent='$'+Math.abs(a).toFixed(2);
-  Q('rAho').style.color=a>0?'#3a7a00':'#aaa';
-}
+window.updNeg=(id,v)=>{if(negIt[id])negIt[id].oferta=parseFloat(v)||0;calcRes();};
+function calcRes(){let o=0,f=0;Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});Q('rOrig').textContent='$'+o.toFixed(2);Q('rOfer').textContent='$'+f.toFixed(2);const a=o-f;Q('rAho').textContent='$'+Math.abs(a).toFixed(2);Q('rAho').style.color=a>0?'#3a7a00':'#aaa';}
 
 window.envNeg=async()=>{
-  if(!chatAct) return;
+  if(!chatAct||!sesionActiva)return;
   const items=Object.entries(negIt).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
   const tO=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
   const tN=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
   const nota=Q('negNota').value.trim();
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id, autor_id:uid, autor_nombre:me.nombre||'Emprendedor',
-    texto:`🤝 Propuesta $${tN.toFixed(2)}`, tipo:'negociacion',
-    data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},
-    created_at:new Date().toISOString()
-  });
-  await db.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,negociacion_activa:true,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
-  Q('modNeg').classList.remove('on');
-  await cargarMsgs(); toast('✓ Propuesta enviada');
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🤝 Propuesta $${tN.toFixed(2)}`,tipo:'negociacion',sesion_id:sesionActiva.id,data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+  Q('modNeg').classList.remove('on');await cargarMsgs();toast('✓ Propuesta enviada');
 };
 
 window.respNeg=async(msgId,estado)=>{
-  const m=msgsArr.find(x=>x.id===msgId); if(!m) return;
+  const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
   const dat={...m.data,estado};
   await db.from('mensajes').update({data:dat}).eq('id',msgId);
   if(estado==='aceptado'&&m.data?.items){
-    const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-    m.data.items.forEach(it=>{const i=c.findIndex(x=>x.id===it.id);if(i>=0)c[i].precio=it.precioOfertado;else c.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatAct.proveedor_id});});
-    localStorage.setItem('carrito_proveed',JSON.stringify(c)); carrito=c; badge();
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',created_at:new Date().toISOString()});
-    await db.from('chats').update({negociacion_activa:false,ultimo_mensaje:'✅ Precio acordado',updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0)carrito[i].precio=it.precioOfertado;else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatAct.proveedor_id,sesion_id:sesionActiva?.id});});
+    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',sesion_id:sesionActiva?.id,created_at:new Date().toISOString()});
     toast('✅ Precio aceptado');
-  } else {
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',created_at:new Date().toISOString()});
-    await db.from('chats').update({negociacion_activa:false,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+  }else{
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',sesion_id:sesionActiva?.id,created_at:new Date().toISOString()});
     toast('Propuesta rechazada');
   }
+  await db.from('chats').update({updated_at:new Date().toISOString()}).eq('id',chatAct.id);
   await cargarMsgs();
 };
 
 window.enviarCarrito=async()=>{
-  const items=carrito.filter(i=>!chatAct?.proveedor_id||!i.proveedor_id||i.proveedor_id===chatAct.proveedor_id);
-  if(!items.length){ toast('Carrito vacío'); return; }
+  if(!sesionActiva){toast('No hay sesión activa');return;}
+  const items=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id);
+  if(!items.length){toast('Carrito vacío');return;}
   const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',data:{items,total},created_at:new Date().toISOString()});
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',sesion_id:sesionActiva.id,data:{items,total},created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
-  await cargarMsgs(); toast('✓ Carrito compartido');
+  await cargarMsgs();toast('✓ Carrito compartido');
 };
-window.soloCart=()=>{ Q('modNeg').classList.remove('on'); enviarCarrito(); };
+window.soloCart=()=>{Q('modNeg').classList.remove('on');enviarCarrito();};
 
-window.pedidoChat=async(dat)=>{
-  if(!chatAct||!dat?.items?.length) return;
-  const total=dat.items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await db.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'',proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre||'',items:dat.items,total,estado:'pendiente',origen:'chat',metodo_pago:'a_coordinar'});
-  const rest=carrito.filter(c=>!dat.items.find(i=>i.id===c.id));
-  localStorage.setItem('carrito_proveed',JSON.stringify(rest)); carrito=rest; badge();
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🛒 ¡Pedido realizado! $${total.toFixed(2)}`,tipo:'texto',created_at:new Date().toISOString()});
-  await cargarMsgs(); toast('✅ ¡Pedido realizado!');
-};
-
-/* ── CATÁLOGO ── */
-window.abrirCat=async()=>{
-  if(!chatAct?.proveedor_id){ toast('Abre un chat primero'); return; }
-  Q('modCat').classList.add('on');
-  Q('catGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Cargando...</div>';
-  const {data} = await db.from('productos').select('*').eq('proveedor_id',chatAct.proveedor_id).eq('activo',true).order('created_at',{ascending:false});
-  catTodos=data||[]; pintarCat(catTodos);
-};
-function pintarCat(arr){
-  const w=Q('catGrid');
-  if(!arr.length){w.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Sin productos</div>';return;}
-  w.innerHTML='';
-  arr.forEach(p=>{
-    const img=p.imagenes?.[0]||p.imagen||'';
-    const d=document.createElement('div'); d.className='catCard';
-    d.innerHTML=`<div class="catImg">${img?`<img src="${img}" loading="lazy">`:'<span style="font-size:2rem;">📦</span>'}</div>
-      <div class="catBod">
-        <div class="catNom">${p.nombre||'Producto'}</div>
-        <div class="catPre">$${Number(p.precio||0).toFixed(2)}</div>
-        <button class="catAdd" onclick="addCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatAct?.proveedor_id||''}')">+ Agregar al carrito</button>
-      </div>`;
-    w.appendChild(d);
-  });
-}
-window.filtCat=q=>{ const ql=q.toLowerCase(); pintarCat(catTodos.filter(p=>(p.nombre||'').toLowerCase().includes(ql))); };
-window.addCat=(id,nombre,precio,imagen,provId)=>{
-  const i=carrito.findIndex(c=>c.id===id);
-  if(i>=0) carrito[i].cantidad=(carrito[i].cantidad||1)+1;
-  else carrito.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});
-  localStorage.setItem('carrito_proveed',JSON.stringify(carrito)); badge();
-  toast(`✓ ${nombre.slice(0,20)} agregado`);
-};
-
-/* ── REALTIME — recarga completa en cada evento ── */
 function suscribir(){
   if(canal) db.removeChannel(canal);
-  canal = db.channel('chat-emp-'+chatAct.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},
-      async()=>{ await cargarMsgs(); })
-    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},
-      async()=>{ await cargarMsgs(); })
-    .subscribe(st=>console.log('RT emp:',st));
+  canal=db.channel('chat-'+chatAct.id)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
+    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
+    .subscribe();
 }
 
 function volver(){
   if(canal) db.removeChannel(canal);
-  chatAct=null; prodAct=null; msgsArr=[];
-  Q('pChat').style.display='none';
-  Q('pLista').style.display='flex';
+  chatAct=null;sesionActiva=null;msgsArr=[];
+  Q('pChat').style.display='none';Q('pLista').style.display='flex';
   cargarChats();
 }
 
-/* ── UTILIDADES ── */
 const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
-window.cmod=(id,e)=>{ if(e.target===Q(id)) Q(id).classList.remove('on'); };
+window.cmod=(id,e)=>{if(e.target===Q(id))Q(id).classList.remove('on');};
 const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-function toast(m){ const t=Q('tst'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2500); }
+function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2500);}
 </script>
 </body>
 </html>
