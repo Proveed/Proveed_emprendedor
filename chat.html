@@ -15,23 +15,23 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 #pChat{height:100%;display:none;flex-direction:column;}
 
 .hLista{background:#fff;padding:48px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
-.hTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.hTop{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .hTit{font-size:1rem;font-weight:900;color:#111;}
 .hTit b{color:var(--G2);}
 .sBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:24px;padding:10px 14px;border:1.5px solid #eee;}
 .sBus svg{width:14px;height:14px;stroke:#ccc;fill:none;stroke-width:2.5;flex-shrink:0;}
 .sBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
 .sBus input::placeholder{color:#ccc;}
-.listaScroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px;}
+.listaScroll{flex:1;overflow-y:auto;padding-bottom:80px;}
 
 .chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f5f5f5;cursor:pointer;}
 .chatItem:active{background:var(--F);}
 .chatItem.new{border-left:3px solid var(--G);}
-.ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;}
+.ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;overflow:hidden;}
+.ciAv img{width:100%;height:100%;object-fit:cover;}
 .ciDot{position:absolute;bottom:1px;right:1px;width:9px;height:9px;background:var(--G);border-radius:50%;border:2px solid #fff;}
 .ciInf{flex:1;min-width:0;}
 .ciNom{font-size:0.88rem;font-weight:700;color:#111;margin-bottom:2px;}
-.ciProd{font-size:0.66rem;color:var(--G2);font-weight:600;margin-bottom:2px;}
 .ciMsg{font-size:0.74rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ciR{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
 .ciHora{font-size:0.6rem;color:#bbb;}
@@ -42,7 +42,9 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .cBack{width:36px;height:36px;background:rgba(168,230,61,.12);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
-.cAv{width:38px;height:38px;border-radius:11px;font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* FOTO DEL PROVEEDOR en header */
+.cAv{width:40px;height:40px;border-radius:12px;font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.cAv img{width:100%;height:100%;object-fit:cover;}
 .cInf{flex:1;min-width:0;}
 .cNom{font-size:0.9rem;font-weight:800;color:#111;}
 .cSub{font-size:0.68rem;color:var(--G2);font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -50,50 +52,49 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
 
-/* BANNER SESIÓN ACTIVA */
-.banSesion{background:white;border-bottom:2px solid var(--G);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.bsImg{width:42px;height:42px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
-.bsImg img{width:100%;height:100%;object-fit:cover;}
-.bsInf{flex:1;min-width:0;}
-.bsNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bsPre{font-size:0.74rem;color:var(--O);font-weight:800;}
-.bsTag{display:inline-flex;align-items:center;gap:4px;background:rgba(168,230,61,0.15);border-radius:20px;padding:2px 8px;font-size:0.6rem;font-weight:700;color:var(--G2);}
-.bsBts{display:flex;gap:6px;flex-shrink:0;}
-.bsBt{padding:6px 10px;border-radius:20px;border:none;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:800;cursor:pointer;white-space:nowrap;}
-.bsBt.neg{background:var(--G);color:#111;}
-.bsBt.cerrar{background:rgba(255,77,77,0.1);color:var(--R);}
+/* BANNER PRODUCTO (cuando viene desde producto) */
+.banProd{background:#fff;border-bottom:2px solid rgba(168,230,61,0.3);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.bpImg{width:42px;height:42px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
+.bpImg img{width:100%;height:100%;object-fit:cover;}
+.bpInf{flex:1;min-width:0;}
+.bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bpPre{font-size:0.74rem;color:var(--O);font-weight:800;}
+.bpTag{display:inline-flex;align-items:center;gap:3px;background:rgba(168,230,61,0.15);border-radius:20px;padding:2px 7px;font-size:0.58rem;font-weight:700;color:var(--G2);margin-top:2px;}
+.bpBts{display:flex;gap:6px;flex-shrink:0;}
+.bpBt{padding:6px 10px;border-radius:20px;border:none;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:800;cursor:pointer;white-space:nowrap;}
+.bpBt.neg{background:var(--G);color:#111;}
+.bpBt.cerrar{background:rgba(255,77,77,0.1);color:var(--R);}
 
-.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px;background:var(--F);display:flex;flex-direction:column;gap:4px;}
+/* MENSAJES */
+.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px 8px;background:var(--F);display:flex;flex-direction:column;gap:4px;}
 
 /* SEPARADOR DE SESIÓN */
-.sesion-sep{display:flex;align-items:center;gap:8px;padding:8px 0;}
-.sep-line{flex:1;height:1px;background:#e0e0e0;}
-.sep-box{background:white;border:1px solid #eee;border-radius:20px;padding:6px 14px;display:flex;flex-direction:column;align-items:center;gap:2px;}
-.sep-prod{font-size:0.72rem;font-weight:800;color:#111;}
-.sep-fecha{font-size:0.6rem;color:#bbb;}
-.sep-estado{font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:2px;}
-.sep-estado.activa{background:rgba(168,230,61,0.15);color:var(--G2);}
-.sep-estado.cerrada{background:rgba(0,0,0,0.06);color:#888;}
+.sepSes{display:flex;align-items:center;gap:8px;padding:10px 0;}
+.sepLine{flex:1;height:1px;background:#ddd;}
+.sepBox{background:#fff;border:1px solid #eee;border-radius:20px;padding:6px 14px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+.sepProd{font-size:0.72rem;font-weight:800;color:#111;}
+.sepFecha{font-size:0.6rem;color:#bbb;margin-top:1px;}
+.sepTag{display:inline-block;font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:3px;}
+.sepTag.activa{background:rgba(168,230,61,0.15);color:var(--G2);}
+.sepTag.cerrada{background:#f5f5f5;color:#999;}
 
 /* RESUMEN SESIÓN CERRADA */
-.sesion-resumen{background:white;border:1.5px solid #eee;border-radius:16px;padding:14px;margin:6px 0;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
-.sr-head{font-size:0.66rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.sr-head svg{width:13px;height:13px;stroke:#aaa;fill:none;stroke-width:2;}
-.sr-item{display:flex;justify-content:space-between;font-size:0.76rem;padding:5px 0;border-bottom:1px solid #f5f5f5;}
-.sr-item:last-child{border:none;}
-.sr-nom{color:#555;flex:1;}
-.sr-cant{color:#aaa;margin:0 8px;}
-.sr-pre{font-weight:700;color:#111;}
-.sr-total{display:flex;justify-content:space-between;padding-top:8px;border-top:2px solid #eee;margin-top:4px;}
-.sr-total-lbl{font-size:0.82rem;font-weight:800;color:#111;}
-.sr-total-val{font-size:1rem;font-weight:900;color:var(--G2);}
+.resSes{background:#fff;border:1.5px solid #eee;border-radius:16px;padding:14px;margin:4px 0;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+.resHead{font-size:0.64rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.resHead svg{width:12px;height:12px;stroke:var(--G2);fill:none;stroke-width:2.5;}
+.resItem{display:flex;justify-content:space-between;font-size:0.76rem;padding:5px 0;border-bottom:1px solid #f5f5f5;}
+.resItem:last-child{border:none;}
+.resTot{display:flex;justify-content:space-between;padding-top:8px;border-top:2px solid #eee;margin-top:4px;}
+.resTotL{font-size:0.82rem;font-weight:800;color:#111;}
+.resTotV{font-size:1rem;font-weight:900;color:var(--G2);}
 
+/* INPUT — SIEMPRE VISIBLE */
 .inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
 .extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
 .extras::-webkit-scrollbar{display:none;}
 .xBtn{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .xBtn.g{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,.06);}
-.xBtn.r{border-color:rgba(255,77,77,0.3);color:var(--R);background:rgba(255,77,77,0.04);}
+.xBtn.r{border-color:rgba(255,77,77,0.3);color:var(--R);background:rgba(255,77,77,.04);}
 .iRow{display:flex;align-items:flex-end;gap:8px;}
 .iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
 textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111 !important;-webkit-text-fill-color:#111 !important;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;display:block;caret-color:#111;}
@@ -101,11 +102,7 @@ textarea#ta::placeholder{color:#bbb;}
 .sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
 
-/* SIN SESIÓN ACTIVA */
-.noSesion{padding:14px;background:rgba(168,230,61,0.06);border-top:1px solid rgba(168,230,61,0.2);text-align:center;flex-shrink:0;}
-.noSesion p{font-size:0.78rem;color:#aaa;margin-bottom:8px;}
-.noSesion small{font-size:0.68rem;color:#bbb;}
-
+/* BURBUJAS */
 .msg{display:flex;flex-direction:column;}
 .msg.yo{align-items:flex-end;}
 .msg.el{align-items:flex-start;}
@@ -114,6 +111,7 @@ textarea#ta::placeholder{color:#bbb;}
 .msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .mHora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
 
+/* MENÚ BORRAR */
 .mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px;z-index:700;border:1px solid #eee;display:none;}
 .mMenu.on{display:block;}
 .mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
@@ -121,8 +119,9 @@ textarea#ta::placeholder{color:#bbb;}
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
 
+/* ESPECIALES */
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
-.negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;box-shadow:0 2px 10px rgba(168,230,61,.1);}
+.negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;}
 .negH{font-size:0.64rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:8px;}
 .negIt{display:flex;justify-content:space-between;font-size:0.75rem;padding:4px 0;border-bottom:1px solid #f5f5f5;}
 .negIt:last-child{border:none;}
@@ -141,6 +140,7 @@ textarea#ta::placeholder{color:#bbb;}
 .negSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
 .negHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:4px;}
 
+/* MODALES */
 .modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
 .modOv.on{display:flex;}
 .modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -173,19 +173,7 @@ textarea#ta::placeholder{color:#bbb;}
 .btn1{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
 .btn2{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
 
-/* CONFIRMACIÓN CERRAR SESIÓN */
-.confirm-box{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:800;padding:20px;}
-.confirm-box.on{display:flex;}
-.confirm-card{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:320px;text-align:center;}
-.confirm-ico{width:56px;height:56px;background:rgba(255,77,77,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.confirm-ico svg{width:24px;height:24px;stroke:var(--R);fill:none;stroke-width:2;}
-.confirm-tit{font-size:1rem;font-weight:800;color:#111;margin-bottom:8px;}
-.confirm-sub{font-size:0.8rem;color:#aaa;line-height:1.6;margin-bottom:20px;}
-.confirm-bts{display:flex;gap:8px;}
-.confirm-bts button{flex:1;padding:12px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
-.confirm-bts .si{background:var(--R);color:#fff;}
-.confirm-bts .no{background:var(--F);color:#555;}
-
+/* TAB BAR */
 .tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -204,19 +192,15 @@ textarea#ta::placeholder{color:#bbb;}
 <div id="pLista">
   <div class="hLista">
     <div class="hTop">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span class="hTit">PRO<b>VEED</b> · Chats</span>
-      </div>
+      <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="hTit">PRO<b>VEED</b> · Chats</span>
     </div>
     <div class="sBus">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="text" placeholder="Buscar conversación..." oninput="filtrar(this.value)">
     </div>
   </div>
-  <div class="listaScroll" id="lista">
-    <div class="vacio">Cargando chats...</div>
-  </div>
+  <div class="listaScroll" id="lista"><div class="vacio">Cargando...</div></div>
   <nav class="tabBar">
     <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
     <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
@@ -228,39 +212,42 @@ textarea#ta::placeholder{color:#bbb;}
 
 <!-- CHAT -->
 <div id="pChat">
+  <!-- HEADER CON FOTO DEL PROVEEDOR -->
   <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="cAv" id="cAv">P</div>
-    <div class="cInf"><div class="cNom" id="cNom">—</div><div class="cSub" id="cSub">—</div></div>
+    <div class="cInf">
+      <div class="cNom" id="cNom">—</div>
+      <div class="cSub" id="cSub">—</div>
+    </div>
     <div class="cBts">
       <button class="cBt" onclick="location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
     </div>
   </div>
 
-  <!-- BANNER SESIÓN ACTIVA -->
-  <div class="banSesion" id="banSesion" style="display:none;">
-    <div class="bsImg" id="bsImg"></div>
-    <div class="bsInf">
-      <div class="bsNom" id="bsNom">—</div>
-      <div style="display:flex;align-items:center;gap:6px;margin-top:3px;">
-        <div class="bsPre" id="bsPre">—</div>
-        <div class="bsTag">● Sesión activa</div>
-      </div>
+  <!-- BANNER PRODUCTO ACTIVO (solo si viene desde producto) -->
+  <div class="banProd" id="banProd" style="display:none;">
+    <div class="bpImg" id="bpImg"></div>
+    <div class="bpInf">
+      <div class="bpNom" id="bpNom">—</div>
+      <div class="bpPre" id="bpPre">—</div>
+      <div class="bpTag">● Sesión activa</div>
     </div>
-    <div class="bsBts">
-      <button class="bsBt neg" onclick="abrirNeg()">🤝 Neg.</button>
-      <button class="bsBt cerrar" onclick="pedirCerrarSesion()">✓ Cerrar</button>
+    <div class="bpBts">
+      <button class="bpBt neg" onclick="abrirNeg()">🤝 Neg.</button>
+      <button class="bpBt cerrar" onclick="cerrarSesion()">✓ Listo</button>
     </div>
   </div>
 
+  <!-- MENSAJES -->
   <div class="msgsArea" id="msgs"></div>
 
-  <!-- INPUT — solo si hay sesión activa -->
-  <div id="inputArea" class="inputArea" style="display:none;">
-    <div class="extras">
-      <button class="xBtn g" onclick="abrirNeg()">🤝 Negociar</button>
-      <button class="xBtn" onclick="enviarCarrito()">📦 Carrito</button>
-      <button class="xBtn r" onclick="pedirCerrarSesion()">✓ Cerrar sesión</button>
+  <!-- INPUT — SIEMPRE VISIBLE, sin importar si hay sesión o no -->
+  <div class="inputArea">
+    <div class="extras" id="extrasArea">
+      <button class="xBtn g" id="btnNeg" onclick="abrirNeg()" style="display:none;">🤝 Negociar</button>
+      <button class="xBtn" id="btnCart" onclick="enviarCarrito()" style="display:none;">📦 Carrito</button>
+      <button class="xBtn r" id="btnCerrar" onclick="cerrarSesion()" style="display:none;">✓ Cerrar sesión</button>
     </div>
     <div class="iRow">
       <div class="iBox">
@@ -271,12 +258,6 @@ textarea#ta::placeholder{color:#bbb;}
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
     </div>
-  </div>
-
- <!-- SIN SESIÓN ACTIVA -->
-  <div id="noSesionArea" class="noSesion" style="display:none;">
-    <p>No hay sesión activa con este proveedor.</p>
-    <small>Entra a un producto y toca "Chat con proveedor" para iniciar una nueva sesión.</small>
   </div>
 
   <nav class="tabBar">
@@ -296,12 +277,8 @@ textarea#ta::placeholder{color:#bbb;}
 
 <!-- MODAL NEGOCIAR -->
 <div class="modOv" id="modNeg" onclick="cmod('modNeg',event)">
-  <div class="modSh">
-    <div class="drag"></div>
-    <div class="modH">
-      <span class="modT">🤝 Negociar precio</span>
-      <button class="modX" onclick="Q('modNeg').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH"><span class="modT">🤝 Negociar precio</span><button class="modX" onclick="Q('modNeg').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
       <p class="negMod-intro">Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.</p>
       <div id="negItems"></div>
@@ -310,25 +287,9 @@ textarea#ta::placeholder{color:#bbb;}
         <div class="rRow"><span class="rLbl">Tu oferta</span><span class="rVal" id="rOfer">$0.00</span></div>
         <div class="rFin"><span class="rFinL">Ahorro</span><span class="rFinV" id="rAho">$0.00</span></div>
       </div>
-      <div style="margin-bottom:12px;">
-        <label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje al proveedor</label>
-        <textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="width:100%;padding:11px 13px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea>
-      </div>
+      <div style="margin-bottom:12px;"><label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje</label><textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="width:100%;padding:11px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea></div>
       <button class="btn1" onclick="envNeg()">🚀 Enviar propuesta</button>
       <button class="btn2" onclick="soloCart()">📦 Enviar carrito sin negociar</button>
-    </div>
-  </div>
-</div>
-
-<!-- CONFIRMACIÓN CERRAR SESIÓN -->
-<div class="confirm-box" id="confirmCerrar">
-  <div class="confirm-card">
-    <div class="confirm-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <div class="confirm-tit">¿Cerrar sesión?</div>
-    <div class="confirm-sub" id="confirmSub">Se registrará el resumen de esta sesión en el chat. Podrás iniciar una nueva sesión con otro producto cuando quieras.</div>
-    <div class="confirm-bts">
-      <button class="no" onclick="Q('confirmCerrar').classList.remove('on')">Cancelar</button>
-      <button class="si" onclick="cerrarSesion()">✓ Cerrar sesión</button>
     </div>
   </div>
 </div>
@@ -337,41 +298,51 @@ textarea#ta::placeholder{color:#bbb;}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const {createClient} = supabase;
-const db = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-const Q = id=>document.getElementById(id);
+const {createClient}=supabase;
+const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const Q=id=>document.getElementById(id);
 
-let uid='', me={}, chatAct=null, todos=[], msgsArr=[], sesionActiva=null, canal=null;
-let negIt={}, menuId=null;
-const QS = new URLSearchParams(location.search);
-let carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+let uid='',me={},chatAct=null,todos=[],msgsArr=[],sesionAct=null,canal=null,negIt={},menuId=null;
+const QS=new URLSearchParams(location.search);
+let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 
 function badge(){
   const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  ['cBadge','cBadge2'].forEach(id=>{const b=Q(id);if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';});
+  ['cBadge','cBadge2'].forEach(id=>{const b=Q(id);if(b){if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';}});
 }
 badge();
 
+// Mostrar/ocultar botones extra según si hay sesión
+function actualizarExtras(){
+  const haySesion=!!sesionAct;
+  Q('btnNeg').style.display=haySesion?'block':'none';
+  Q('btnCart').style.display=haySesion?'block':'none';
+  Q('btnCerrar').style.display=haySesion?'block':'none';
+}
+
 (async()=>{
-  const {data:{session}} = await db.auth.getSession();
+  const {data:{session}}=await db.auth.getSession();
   if(!session){location.href='login.html';return;}
   uid=session.user.id;
-  const {data:u} = await db.from('usuarios').select('*').eq('id',uid).single();
+  const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
   if(u) me=u;
   await cargarChats();
 
-  // Abrir chat desde producto
-  const pId=QS.get('proveedor_id'), prodId=QS.get('prod_id'), prodNom=QS.get('prod_nombre'), prodPre=QS.get('prod_precio'), prodImg=QS.get('prod_img');
+  const pId=QS.get('proveedor_id');
+  const prodId=QS.get('prod_id');
+  const prodNom=decodeURIComponent(QS.get('prod_nombre')||'');
+  const prodPre=QS.get('prod_precio')||'';
+  const prodImg=decodeURIComponent(QS.get('prod_img')||'');
+
   if(pId){
-    // Buscar chat existente con este proveedor
-    let chat = todos.find(c=>c.proveedor_id===pId);
+    let chat=todos.find(c=>c.proveedor_id===pId);
     if(!chat){
-      // Crear chat nuevo
-      const {data:prov} = await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
-      const {data:ch} = await db.from('chats').insert({
-        emprendedor_id:uid, emprendedor_nombre:me.nombre||'Emprendedor',
-        proveedor_id:pId, proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
-        ultimo_mensaje:'Chat iniciado', no_leido_emp:0, no_leido_prov:0,
+      const {data:prov}=await db.from('usuarios').select('nombre,empresa,foto').eq('id',pId).single();
+      const {data:ch}=await db.from('chats').insert({
+        emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',
+        proveedor_id:pId,proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
+        proveedor_foto:prov?.foto||'',
+        ultimo_mensaje:'Chat iniciado',no_leido_emp:0,no_leido_prov:0,
         updated_at:new Date().toISOString()
       }).select().single();
       chat=ch;
@@ -379,17 +350,15 @@ badge();
     }
     if(chat){
       await abrirChat(chat);
-      // Si viene desde producto, crear sesión nueva para ese producto
-      if(prodId){
-        await iniciarSesion(prodId, decodeURIComponent(prodNom||''), prodPre, decodeURIComponent(prodImg||''));
-      }
+      // Si viene desde producto, iniciar sesión automáticamente
+      if(prodId) await iniciarSesion(prodId,prodNom,prodPre,prodImg);
     }
   }
 })();
 
 async function cargarChats(){
-  const {data} = await db.from('chats').select('*').eq('emprendedor_id',uid).order('updated_at',{ascending:false});
-  todos=data||[]; pintarLista(todos);
+  const {data}=await db.from('chats').select('*').eq('emprendedor_id',uid).order('updated_at',{ascending:false});
+  todos=data||[];pintarLista(todos);
 }
 
 function pintarLista(arr){
@@ -401,7 +370,11 @@ function pintarLista(arr){
     const hora=ch.updated_at?new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
     const d=document.createElement('div');
     d.className='chatItem'+(ch.no_leido_emp>0?' new':'');
-    d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
+    // Foto del proveedor en la lista
+    const fotoHtml=ch.proveedor_foto
+      ?`<img src="${ch.proveedor_foto}" style="width:100%;height:100%;object-fit:cover;">`
+      :`${nom[0].toUpperCase()}`;
+    d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${fotoHtml}<div class="ciDot"></div></div>
       <div class="ciInf"><div class="ciNom">${nom}</div><div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
       <div class="ciR"><div class="ciHora">${hora}</div>${ch.no_leido_emp>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
     d.onclick=()=>abrirChat(ch);
@@ -412,58 +385,67 @@ function pintarLista(arr){
 window.filtrar=q=>{const ql=q.toLowerCase();pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));};
 
 async function abrirChat(chat){
-  chatAct=chat; msgsArr=[];
+  chatAct=chat;msgsArr=[];sesionAct=null;
   Q('pLista').style.display='none';
   Q('pChat').style.display='flex';
   Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando...</div>';
+  Q('banProd').style.display='none';
+
   const nom=chat.proveedor_nombre||'Proveedor';
-  Q('cAv').textContent=nom[0].toUpperCase(); Q('cAv').style.background=pal(nom);
+
+  // FOTO DEL PROVEEDOR en header
+  const cAv=Q('cAv');
+  if(chat.proveedor_foto){
+    cAv.innerHTML=`<img src="${chat.proveedor_foto}">`;
+    cAv.style.background='transparent';
+  } else {
+    cAv.innerHTML=nom[0].toUpperCase();
+    cAv.style.background=pal(nom);
+  }
+
   Q('cNom').textContent=nom;
   Q('cSub').textContent=nom;
+  actualizarExtras();
+
   await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
 
-  // Buscar sesión activa
-  await cargarSesionActiva();
+  // Buscar sesión activa existente
+  const {data:ses}=await db.from('chat_sesiones').select('*')
+    .eq('chat_id',chat.id).eq('estado','activa')
+    .order('created_at',{ascending:false}).limit(1);
+  if(ses?.[0]){
+    sesionAct=ses[0];
+    mostrarBannerSesion();
+    actualizarExtras();
+  }
+
   await cargarMsgs();
   suscribir();
 }
 
-async function cargarSesionActiva(){
-  const {data} = await db.from('chat_sesiones').select('*')
-    .eq('chat_id',chatAct.id).eq('estado','activa')
-    .order('created_at',{ascending:false}).limit(1);
-  sesionActiva = data?.[0]||null;
-  actualizarUI();
+function mostrarBannerSesion(){
+  if(!sesionAct) return;
+  Q('banProd').style.display='flex';
+  Q('bpImg').innerHTML=sesionAct.producto_imagen
+    ?`<img src="${sesionAct.producto_imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
+  Q('bpNom').textContent=sesionAct.producto_nombre||'Producto';
+  Q('bpPre').textContent=sesionAct.producto_precio?`$${Number(sesionAct.producto_precio).toFixed(2)}`:'';
+  Q('cSub').textContent=`Sesión: ${sesionAct.producto_nombre}`;
 }
 
-function actualizarUI(){
-  if(sesionActiva){
-    // Mostrar banner sesión activa
-    Q('banSesion').style.display='flex';
-    Q('inputArea').style.display='block';
-    Q('noSesionArea').style.display='none';
-    const img=sesionActiva.producto_imagen||'';
-    Q('bsImg').innerHTML=img?`<img src="${img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
-    Q('bsNom').textContent=sesionActiva.producto_nombre||'Producto';
-    Q('bsPre').textContent=sesionActiva.producto_precio?`$${Number(sesionActiva.producto_precio).toFixed(2)}`:'';
-    Q('cSub').textContent=`Sesión: ${sesionActiva.producto_nombre||'Producto'}`;
-  } else {
-    Q('banSesion').style.display='none';
-    Q('inputArea').style.display='none';
-    Q('noSesionArea').style.display='block';
-    Q('cSub').textContent=chatAct?.proveedor_nombre||'Proveedor';
-  }
-}
-
-// INICIAR NUEVA SESIÓN
-async function iniciarSesion(prodId, prodNom, prodPre, prodImg){
-  // Verificar si ya hay sesión activa con este mismo producto
-  if(sesionActiva && sesionActiva.producto_id===prodId){
-    toast('Ya tienes una sesión activa con este producto');
+// INICIAR SESIÓN — se llama automáticamente desde producto
+async function iniciarSesion(prodId,prodNom,prodPre,prodImg){
+  // Si ya hay sesión activa con el MISMO producto, solo mostrar
+  if(sesionAct&&sesionAct.producto_id===prodId){
+    mostrarBannerSesion();
+    actualizarExtras();
+    // Mensaje pre-escrito
+    Q('ta').value=`Hola, tengo una consulta sobre "${prodNom}".`;
+    crecer(Q('ta'));
     return;
   }
   // Crear nueva sesión
-  const {data:s} = await db.from('chat_sesiones').insert({
+  const {data:s}=await db.from('chat_sesiones').insert({
     chat_id:chatAct.id,
     producto_id:prodId,
     producto_nombre:prodNom,
@@ -471,85 +453,61 @@ async function iniciarSesion(prodId, prodNom, prodPre, prodImg){
     producto_imagen:prodImg,
     estado:'activa'
   }).select().single();
-  sesionActiva=s;
-  actualizarUI();
+  sesionAct=s;
+  mostrarBannerSesion();
+  actualizarExtras();
 
-  // Mensaje separador en el chat
+  // Separador visual en el chat
   await db.from('mensajes').insert({
-    chat_id:chatAct.id,
-    autor_id:'sistema',
-    autor_nombre:'sistema',
-    texto:`SESION_INICIO:${prodNom}`,
-    tipo:'sesion_inicio',
-    data:{sesion_id:s.id, producto_id:prodId, producto_nombre:prodNom, producto_precio:prodPre, producto_imagen:prodImg},
+    chat_id:chatAct.id,autor_id:'sistema',autor_nombre:'sistema',
+    texto:`SESION_INICIO:${prodNom}`,tipo:'sesion_inicio',
+    data:{sesion_id:s.id,producto_id:prodId,producto_nombre:prodNom,producto_precio:prodPre,producto_imagen:prodImg},
     created_at:new Date().toISOString()
   });
 
-  // Mensaje pre-escrito
+  // Mensaje pre-escrito automático
   Q('ta').value=`Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"? Me interesa precio, disponibilidad y condiciones de envío.`;
   crecer(Q('ta'));
+  Q('ta').focus();
 
+  await db.from('chats').update({ultimo_mensaje:`Nueva sesión: ${prodNom}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
   await cargarMsgs();
-  toast(`✓ Nueva sesión iniciada: ${prodNom}`);
 }
-
-// PEDIR CERRAR SESIÓN
-window.pedirCerrarSesion=function(){
-  if(!sesionActiva){return;}
-  const items=carrito.filter(i=>i.sesion_id===sesionActiva.id);
-  Q('confirmSub').textContent=items.length>0
-    ? `Tienes ${items.length} producto${items.length>1?'s':''} en el carrito de esta sesión. Se registrará el resumen en el chat.`
-    : 'Se registrará el cierre de esta sesión en el chat.';
-  Q('confirmCerrar').classList.add('on');
-};
-
 // CERRAR SESIÓN
 window.cerrarSesion=async function(){
-  Q('confirmCerrar').classList.remove('on');
-  if(!sesionActiva) return;
-
-  const items=carrito.filter(i=>i.sesion_id===sesionActiva.id);
+  if(!sesionAct)return;
+  const items=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id&&i.sesion_id===sesionAct.id);
   const total=items.reduce((s,i)=>s+(Number(i.precio)||0)*(i.cantidad||1),0);
 
-  // Actualizar sesión a cerrada
   await db.from('chat_sesiones').update({
-    estado:'cerrada',
-    items_negociados:items,
-    total,
+    estado:'cerrada',items_negociados:items,total,
     cerrada_at:new Date().toISOString()
-  }).eq('id',sesionActiva.id);
+  }).eq('id',sesionAct.id);
 
-  // Mensaje de cierre con resumen
   await db.from('mensajes').insert({
-    chat_id:chatAct.id,
-    autor_id:'sistema',
-    autor_nombre:'sistema',
-    texto:`SESION_CIERRE`,
-    tipo:'sesion_cierre',
-    data:{
-      sesion_id:sesionActiva.id,
-      producto_nombre:sesionActiva.producto_nombre,
-      items,
-      total
-    },
+    chat_id:chatAct.id,autor_id:'sistema',autor_nombre:'sistema',
+    texto:'SESION_CIERRE',tipo:'sesion_cierre',
+    data:{sesion_id:sesionAct.id,producto_nombre:sesionAct.producto_nombre,items,total},
     created_at:new Date().toISOString()
   });
 
   await db.from('chats').update({
-    ultimo_mensaje:`✓ Sesión cerrada: ${sesionActiva.producto_nombre}`,
+    ultimo_mensaje:`✓ Sesión cerrada: ${sesionAct.producto_nombre}`,
     updated_at:new Date().toISOString()
   }).eq('id',chatAct.id);
 
-  sesionActiva=null;
-  actualizarUI();
+  sesionAct=null;
+  Q('banProd').style.display='none';
+  Q('cSub').textContent=chatAct.proveedor_nombre||'Proveedor';
+  actualizarExtras();
   await cargarMsgs();
-  toast('✓ Sesión cerrada correctamente');
+  toast('✓ Sesión cerrada');
 };
 
 async function cargarMsgs(){
   const {data,error}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
   if(error){console.error(error);return;}
-  msgsArr=data||[]; pintarMsgs();
+  msgsArr=data||[];pintarMsgs();
 }
 
 function pintarMsgs(){
@@ -563,36 +521,34 @@ function pintarMsgs(){
 function mkBurbuja(m){
   const yo=m.autor_id===uid;
   const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-// SEPARADOR INICIO SESIÓN
+
+  // SEPARADOR INICIO SESIÓN
   if(m.tipo==='sesion_inicio'){
     const dat=m.data||{};
-    const d=document.createElement('div');
-    d.className='sesion-sep';
-    d.innerHTML=`<div class="sep-line"></div>
-      <div class="sep-box">
-        <div class="sep-prod">📦 ${dat.producto_nombre||'Producto'}</div>
-        <div class="sep-fecha">${new Date(m.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'})}</div>
-        <div class="sep-estado activa">● Sesión iniciada</div>
+    const d=document.createElement('div');d.className='sepSes';
+    d.innerHTML=`<div class="sepLine"></div>
+      <div class="sepBox">
+        <div class="sepProd">📦 ${dat.producto_nombre||'Producto'}</div>
+        <div class="sepFecha">${new Date(m.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'})}</div>
+        <div class="sepTag activa">● Sesión iniciada</div>
       </div>
-      <div class="sep-line"></div>`;
+      <div class="sepLine"></div>`;
     return d;
   }
 
   // RESUMEN CIERRE SESIÓN
   if(m.tipo==='sesion_cierre'){
     const dat=m.data||{};
-    const d=document.createElement('div');
-    d.className='esp';
     const items=dat.items||[];
-    let iHtml='';
-    items.forEach(it=>{iHtml+=`<div class="sr-item"><span class="sr-nom">${it.nombre}</span><span class="sr-cant">×${it.cantidad||1}</span><span class="sr-pre">$${Number(it.precio||0).toFixed(2)}</span></div>`;});
-    const c=document.createElement('div');
-    c.className='sesion-resumen';
-    c.innerHTML=`<div class="sr-head"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sesión cerrada · ${dat.producto_nombre||'Producto'}</div>
-      ${items.length?iHtml:'<div style="font-size:0.76rem;color:#bbb;text-align:center;padding:8px;">Sin productos en esta sesión</div>'}
-      ${items.length?`<div class="sr-total"><span class="sr-total-lbl">Total sesión</span><span class="sr-total-val">$${Number(dat.total||0).toFixed(2)}</span></div>`:''}
+    let iH='';
+    items.forEach(it=>{iH+=`<div class="resItem"><span style="flex:1;color:#555;">${it.nombre}</span><span style="color:#aaa;margin:0 6px;">×${it.cantidad||1}</span><span style="font-weight:700;color:#111;">$${Number(it.precio||0).toFixed(2)}</span></div>`;});
+    const w=document.createElement('div');w.className='esp';
+    const c=document.createElement('div');c.className='resSes';
+    c.innerHTML=`<div class="resHead"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sesión cerrada · ${dat.producto_nombre||'Producto'}</div>
+      ${items.length?iH:`<div style="font-size:0.76rem;color:#bbb;text-align:center;padding:6px;">Sin productos en esta sesión</div>`}
+      ${items.length?`<div class="resTot"><span class="resTotL">Total sesión</span><span class="resTotV">$${Number(dat.total||0).toFixed(2)}</span></div>`:''}
       <div style="font-size:0.6rem;color:#bbb;text-align:right;margin-top:6px;">${hr}</div>`;
-    d.appendChild(c);return d;
+    w.appendChild(c);return w;
   }
 
   if(m.tipo==='negociacion') return mkNegBub(m,yo,hr);
@@ -613,7 +569,7 @@ function mkBurbuja(m){
 
 function mkNegBub(m,yo,hr){
   const dat=m.data||{},est=dat.estado||'pendiente';
-  const puedeR=!yo&&est==='pendiente'&&sesionActiva;
+  const puedeR=!yo&&est==='pendiente';
   let items='';
   (dat.items||[]).forEach(it=>{items+=`<div class="negIt"><span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span><span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span><span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span></div>`;});
   const w=document.createElement('div');w.className='esp';
@@ -636,16 +592,21 @@ function mkCartBub(m,yo,hr){
   w.appendChild(c);return w;
 }
 
+// ENVIAR — SIEMPRE funciona, con o sin sesión
 window.enviar=async function(){
-  if(!sesionActiva){toast('No hay sesión activa');return;}
   const ta=Q('ta');const txt=ta.value.trim();
   if(!txt||!chatAct)return;ta.value='';crecer(ta);ta.focus();
   await db.from('mensajes').insert({
     chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
-    texto:txt,tipo:'texto',sesion_id:sesionActiva.id,
+    texto:txt,tipo:'texto',
+    sesion_id:sesionAct?.id||null,
     created_at:new Date().toISOString()
   });
-  await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatAct.no_leido_prov||0)+1,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
+  await db.from('chats').update({
+    ultimo_mensaje:txt.slice(0,60),
+    no_leido_prov:(chatAct.no_leido_prov||0)+1,
+    updated_at:new Date().toISOString()
+  }).eq('id',chatAct.id);
   await cargarMsgs();
 };
 window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
@@ -656,8 +617,8 @@ window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remo
 window.borrar=async()=>{if(!menuId)return;cerrarMenu();await db.from('mensajes').delete().eq('id',menuId);await cargarMsgs();toast('Mensaje eliminado');};
 
 window.abrirNeg=function(){
-  if(!sesionActiva){toast('No hay sesión activa');return;}
-  const f=carrito.filter(i=>i.sesion_id===sesionActiva.id||i.proveedor_id===chatAct.proveedor_id);
+  if(!sesionAct){toast('Inicia una sesión desde un producto para negociar');return;}
+  const f=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id);
   if(!f.length){toast('Agrega productos al carrito primero');return;}
   negIt={};
   f.forEach(i=>{negIt[i.id]={nombre:i.nombre,precio:Number(i.precio||0),oferta:Number(i.precio||0),cantidad:i.cantidad||1,imagen:i.imagen||''};});
@@ -676,12 +637,12 @@ window.updNeg=(id,v)=>{if(negIt[id])negIt[id].oferta=parseFloat(v)||0;calcRes();
 function calcRes(){let o=0,f=0;Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});Q('rOrig').textContent='$'+o.toFixed(2);Q('rOfer').textContent='$'+f.toFixed(2);const a=o-f;Q('rAho').textContent='$'+Math.abs(a).toFixed(2);Q('rAho').style.color=a>0?'#3a7a00':'#aaa';}
 
 window.envNeg=async()=>{
-  if(!chatAct||!sesionActiva)return;
+  if(!chatAct||!sesionAct)return;
   const items=Object.entries(negIt).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
   const tO=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
   const tN=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
   const nota=Q('negNota').value.trim();
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🤝 Propuesta $${tN.toFixed(2)}`,tipo:'negociacion',sesion_id:sesionActiva.id,data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},created_at:new Date().toISOString()});
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🤝 Propuesta $${tN.toFixed(2)}`,tipo:'negociacion',sesion_id:sesionAct.id,data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
   Q('modNeg').classList.remove('on');await cargarMsgs();toast('✓ Propuesta enviada');
 };
@@ -691,12 +652,12 @@ window.respNeg=async(msgId,estado)=>{
   const dat={...m.data,estado};
   await db.from('mensajes').update({data:dat}).eq('id',msgId);
   if(estado==='aceptado'&&m.data?.items){
-    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0)carrito[i].precio=it.precioOfertado;else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatAct.proveedor_id,sesion_id:sesionActiva?.id});});
+    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0)carrito[i].precio=it.precioOfertado;else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatAct.proveedor_id,sesion_id:sesionAct?.id});});
     localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',sesion_id:sesionActiva?.id,created_at:new Date().toISOString()});
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',sesion_id:sesionAct?.id,created_at:new Date().toISOString()});
     toast('✅ Precio aceptado');
   }else{
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',sesion_id:sesionActiva?.id,created_at:new Date().toISOString()});
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',sesion_id:sesionAct?.id,created_at:new Date().toISOString()});
     toast('Propuesta rechazada');
   }
   await db.from('chats').update({updated_at:new Date().toISOString()}).eq('id',chatAct.id);
@@ -704,11 +665,11 @@ window.respNeg=async(msgId,estado)=>{
 };
 
 window.enviarCarrito=async()=>{
-  if(!sesionActiva){toast('No hay sesión activa');return;}
+  if(!sesionAct){toast('Inicia una sesión desde un producto para enviar carrito');return;}
   const items=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id);
   if(!items.length){toast('Carrito vacío');return;}
   const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',sesion_id:sesionActiva.id,data:{items,total},created_at:new Date().toISOString()});
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',sesion_id:sesionAct.id,data:{items,total},created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
   await cargarMsgs();toast('✓ Carrito compartido');
 };
@@ -724,7 +685,7 @@ function suscribir(){
 
 function volver(){
   if(canal) db.removeChannel(canal);
-  chatAct=null;sesionActiva=null;msgsArr=[];
+  chatAct=null;sesionAct=null;msgsArr=[];
   Q('pChat').style.display='none';Q('pLista').style.display='flex';
   cargarChats();
 }
@@ -736,3 +697,4 @@ function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTime
 </script>
 </body>
 </html>
+     
