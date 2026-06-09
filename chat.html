@@ -42,7 +42,6 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .cBack{width:36px;height:36px;background:rgba(168,230,61,.12);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
-/* FOTO DEL PROVEEDOR en header */
 .cAv{width:40px;height:40px;border-radius:12px;font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
 .cAv img{width:100%;height:100%;object-fit:cover;}
 .cInf{flex:1;min-width:0;}
@@ -52,41 +51,16 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
 
-/* BANNER PRODUCTO (cuando viene desde producto) */
+/* BANNER PRODUCTO */
 .banProd{background:#fff;border-bottom:2px solid rgba(168,230,61,0.3);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.bpImg{width:42px;height:42px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
+.bpImg{width:44px;height:44px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
 .bpImg img{width:100%;height:100%;object-fit:cover;}
 .bpInf{flex:1;min-width:0;}
 .bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bpPre{font-size:0.74rem;color:var(--O);font-weight:800;}
-.bpTag{display:inline-flex;align-items:center;gap:3px;background:rgba(168,230,61,0.15);border-radius:20px;padding:2px 7px;font-size:0.58rem;font-weight:700;color:var(--G2);margin-top:2px;}
-.bpBts{display:flex;gap:6px;flex-shrink:0;}
-.bpBt{padding:6px 10px;border-radius:20px;border:none;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:800;cursor:pointer;white-space:nowrap;}
-.bpBt.neg{background:var(--G);color:#111;}
-.bpBt.cerrar{background:rgba(255,77,77,0.1);color:var(--R);}
+.bpPre{font-size:0.74rem;color:var(--O);font-weight:800;margin-top:1px;}
 
 /* MENSAJES */
-.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px 8px;background:var(--F);display:flex;flex-direction:column;gap:4px;}
-
-/* SEPARADOR DE SESIÓN */
-.sepSes{display:flex;align-items:center;gap:8px;padding:10px 0;}
-.sepLine{flex:1;height:1px;background:#ddd;}
-.sepBox{background:#fff;border:1px solid #eee;border-radius:20px;padding:6px 14px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-.sepProd{font-size:0.72rem;font-weight:800;color:#111;}
-.sepFecha{font-size:0.6rem;color:#bbb;margin-top:1px;}
-.sepTag{display:inline-block;font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:3px;}
-.sepTag.activa{background:rgba(168,230,61,0.15);color:var(--G2);}
-.sepTag.cerrada{background:#f5f5f5;color:#999;}
-
-/* RESUMEN SESIÓN CERRADA */
-.resSes{background:#fff;border:1.5px solid #eee;border-radius:16px;padding:14px;margin:4px 0;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-.resHead{font-size:0.64rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.resHead svg{width:12px;height:12px;stroke:var(--G2);fill:none;stroke-width:2.5;}
-.resItem{display:flex;justify-content:space-between;font-size:0.76rem;padding:5px 0;border-bottom:1px solid #f5f5f5;}
-.resItem:last-child{border:none;}
-.resTot{display:flex;justify-content:space-between;padding-top:8px;border-top:2px solid #eee;margin-top:4px;}
-.resTotL{font-size:0.82rem;font-weight:800;color:#111;}
-.resTotV{font-size:1rem;font-weight:900;color:var(--G2);}
+.msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px;background:var(--F);display:flex;flex-direction:column;gap:5px;}
 
 /* INPUT — SIEMPRE VISIBLE */
 .inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
@@ -94,10 +68,15 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .extras::-webkit-scrollbar{display:none;}
 .xBtn{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .xBtn.g{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,.06);}
-.xBtn.r{border-color:rgba(255,77,77,0.3);color:var(--R);background:rgba(255,77,77,.04);}
 .iRow{display:flex;align-items:flex-end;gap:8px;}
 .iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
-textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111 !important;-webkit-text-fill-color:#111 !important;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;display:block;caret-color:#111;}
+textarea#ta{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:'Inter',sans-serif;font-size:0.9rem;
+  color:#111 !important;-webkit-text-fill-color:#111 !important;
+  resize:none;line-height:1.4;min-height:22px;max-height:120px;
+  width:100%;display:block;caret-color:#111;
+}
 textarea#ta::placeholder{color:#bbb;}
 .sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
@@ -121,7 +100,7 @@ textarea#ta::placeholder{color:#bbb;}
 
 /* ESPECIALES */
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
-.negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;}
+.negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;box-shadow:0 2px 10px rgba(168,230,61,.1);}
 .negH{font-size:0.64rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:8px;}
 .negIt{display:flex;justify-content:space-between;font-size:0.75rem;padding:4px 0;border-bottom:1px solid #f5f5f5;}
 .negIt:last-child{border:none;}
@@ -173,6 +152,16 @@ textarea#ta::placeholder{color:#bbb;}
 .btn1{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
 .btn2{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
 
+/* CATÁLOGO */
+.catGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.catCard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;}
+.catImg{width:100%;height:90px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.catImg img{width:100%;height:100%;object-fit:cover;}
+.catBod{padding:8px;}
+.catNom{font-size:.76rem;font-weight:700;color:#111;margin-bottom:3px;}
+.catPre{font-size:.86rem;font-weight:900;color:var(--O);}
+.catAdd{width:100%;padding:6px;background:#111;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;margin-top:5px;}
+
 /* TAB BAR */
 .tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
@@ -212,7 +201,6 @@ textarea#ta::placeholder{color:#bbb;}
 
 <!-- CHAT -->
 <div id="pChat">
-  <!-- HEADER CON FOTO DEL PROVEEDOR -->
   <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="cAv" id="cAv">P</div>
@@ -221,33 +209,28 @@ textarea#ta::placeholder{color:#bbb;}
       <div class="cSub" id="cSub">—</div>
     </div>
     <div class="cBts">
+      <button class="cBt" onclick="abrirCatalogo()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
       <button class="cBt" onclick="location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
     </div>
   </div>
 
-  <!-- BANNER PRODUCTO ACTIVO (solo si viene desde producto) -->
+  <!-- BANNER PRODUCTO — solo cuando viene desde un producto -->
   <div class="banProd" id="banProd" style="display:none;">
     <div class="bpImg" id="bpImg"></div>
     <div class="bpInf">
       <div class="bpNom" id="bpNom">—</div>
       <div class="bpPre" id="bpPre">—</div>
-      <div class="bpTag">● Sesión activa</div>
-    </div>
-    <div class="bpBts">
-      <button class="bpBt neg" onclick="abrirNeg()">🤝 Neg.</button>
-      <button class="bpBt cerrar" onclick="cerrarSesion()">✓ Listo</button>
     </div>
   </div>
 
-  <!-- MENSAJES -->
   <div class="msgsArea" id="msgs"></div>
 
-  <!-- INPUT — SIEMPRE VISIBLE, sin importar si hay sesión o no -->
+  <!-- INPUT SIEMPRE VISIBLE -->
   <div class="inputArea">
-    <div class="extras" id="extrasArea">
-      <button class="xBtn g" id="btnNeg" onclick="abrirNeg()" style="display:none;">🤝 Negociar</button>
-      <button class="xBtn" id="btnCart" onclick="enviarCarrito()" style="display:none;">📦 Carrito</button>
-      <button class="xBtn r" id="btnCerrar" onclick="cerrarSesion()" style="display:none;">✓ Cerrar sesión</button>
+    <div class="extras">
+      <button class="xBtn g" onclick="abrirNeg()">🤝 Negociar</button>
+      <button class="xBtn" onclick="enviarCarrito()">📦 Carrito</button>
+      <button class="xBtn" onclick="abrirCatalogo()">🔍 Catálogo</button>
     </div>
     <div class="iRow">
       <div class="iBox">
@@ -280,422 +263,21 @@ textarea#ta::placeholder{color:#bbb;}
   <div class="modSh"><div class="drag"></div>
     <div class="modH"><span class="modT">🤝 Negociar precio</span><button class="modX" onclick="Q('modNeg').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
-      <p class="negMod-intro">Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.</p>
+      <p class="negMod-intro">Propón un precio para el producto actual. El proveedor puede aceptar, rechazar o contraofertar.</p>
       <div id="negItems"></div>
       <div class="resNeg">
         <div class="rRow"><span class="rLbl">Original</span><span class="rVal" id="rOrig">$0.00</span></div>
         <div class="rRow"><span class="rLbl">Tu oferta</span><span class="rVal" id="rOfer">$0.00</span></div>
         <div class="rFin"><span class="rFinL">Ahorro</span><span class="rFinV" id="rAho">$0.00</span></div>
       </div>
-      <div style="margin-bottom:12px;"><label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje</label><textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="width:100%;padding:11px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea></div>
+      <div style="margin-bottom:12px;">
+        <label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje al proveedor</label>
+        <textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="width:100%;padding:11px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea>
+      </div>
       <button class="btn1" onclick="envNeg()">🚀 Enviar propuesta</button>
       <button class="btn2" onclick="soloCart()">📦 Enviar carrito sin negociar</button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="tst"></div>
-
-<script
-let prodActual = null; src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const {createClient}=supabase;
-const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-const Q=id=>document.getElementById(id);
-
-let uid='',me={},chatAct=null,todos=[],msgsArr=[],sesionAct=null,canal=null,negIt={},menuId=null;
-const QS=new URLSearchParams(location.search);
-let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-
-function badge(){
-  const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  ['cBadge','cBadge2'].forEach(id=>{const b=Q(id);if(b){if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';}});
-}
-badge();
-
-// Mostrar/ocultar botones extra según si hay sesión
-function actualizarExtras(){
-  const haySesion=!!sesionAct;
-  Q('btnNeg').style.display=haySesion?'block':'none';
-  Q('btnCart').style.display=haySesion?'block':'none';
-  Q('btnCerrar').style.display=haySesion?'block':'none';
-}
-
-(async()=>{
-  const {data:{session}}=await db.auth.getSession();
-  if(!session){location.href='login.html';return;}
-  uid=session.user.id;
-  const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
-  if(u) me=u;
-  await cargarChats();
-
-  const pId=QS.get('proveedor_id');
-  const prodId=QS.get('prod_id');
-  const prodNom=decodeURIComponent(QS.get('prod_nombre')||'');
-  const prodPre=QS.get('prod_precio')||'';
-  const prodImg=decodeURIComponent(QS.get('prod_img')||'');
-
-  if(pId){
-    let chat=todos.find(c=>c.proveedor_id===pId);
-    if(!chat){
-      const {data:prov}=await db.from('usuarios').select('nombre,empresa,foto').eq('id',pId).single();
-      const {data:ch}=await db.from('chats').insert({
-        emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',
-        proveedor_id:pId,proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
-        proveedor_foto:prov?.foto||'',
-        ultimo_mensaje:'Chat iniciado',no_leido_emp:0,no_leido_prov:0,
-        updated_at:new Date().toISOString()
-      }).select().single();
-      chat=ch;
-      if(chat) todos.unshift(chat);
-    }
-    if(chat){
-      await abrirChat(chat);
-      // Si viene desde producto, iniciar sesión automáticamente
-      if(prodId) await iniciarSesion(prodId,prodNom,prodPre,prodImg);
-    }
-  }
-})();
-
-async function cargarChats(){
-  const {data}=await db.from('chats').select('*').eq('emprendedor_id',uid).order('updated_at',{ascending:false});
-  todos=data||[];pintarLista(todos);
-}
-
-function pintarLista(arr){
-  const c=Q('lista');
-  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
-  c.innerHTML='';
-  arr.forEach(ch=>{
-    const nom=ch.proveedor_nombre||'Proveedor';
-    const hora=ch.updated_at?new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
-    const d=document.createElement('div');
-    d.className='chatItem'+(ch.no_leido_emp>0?' new':'');
-    // Foto del proveedor en la lista
-    const fotoHtml=ch.proveedor_foto
-      ?`<img src="${ch.proveedor_foto}" style="width:100%;height:100%;object-fit:cover;">`
-      :`${nom[0].toUpperCase()}`;
-    d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${fotoHtml}<div class="ciDot"></div></div>
-      <div class="ciInf"><div class="ciNom">${nom}</div><div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
-      <div class="ciR"><div class="ciHora">${hora}</div>${ch.no_leido_emp>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
-    d.onclick=()=>abrirChat(ch);
-    c.appendChild(d);
-  });
-}
-
-window.filtrar=q=>{const ql=q.toLowerCase();pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));};
-
-async function abrirChat(chat){
-  chatAct=chat;msgsArr=[];sesionAct=null;
-  Q('pLista').style.display='none';
-  Q('pChat').style.display='flex';
-  Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando...</div>';
-  Q('banProd').style.display='none';
-
-  const nom=chat.proveedor_nombre||'Proveedor';
-
-  // FOTO DEL PROVEEDOR en header
-  const cAv=Q('cAv');
-  if(chat.proveedor_foto){
-    cAv.innerHTML=`<img src="${chat.proveedor_foto}">`;
-    cAv.style.background='transparent';
-  } else {
-    cAv.innerHTML=nom[0].toUpperCase();
-    cAv.style.background=pal(nom);
-  }
-
-  Q('cNom').textContent=nom;
-  Q('cSub').textContent=nom;
-  actualizarExtras();
-
-  await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
-
-  // Buscar sesión activa existente
-  const {data:ses}=await db.from('chat_sesiones').select('*')
-    .eq('chat_id',chat.id).eq('estado','activa')
-    .order('created_at',{ascending:false}).limit(1);
-  if(ses?.[0]){
-    sesionAct=ses[0];
-    mostrarBannerSesion();
-    actualizarExtras();
-  }
-
-  await cargarMsgs();
-  suscribir();
-}
-
-function mostrarBannerSesion(){
-  if(!sesionAct) return;
-  Q('banProd').style.display='flex';
-  Q('bpImg').innerHTML=sesionAct.producto_imagen
-    ?`<img src="${sesionAct.producto_imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
-  Q('bpNom').textContent=sesionAct.producto_nombre||'Producto';
-  Q('bpPre').textContent=sesionAct.producto_precio?`$${Number(sesionAct.producto_precio).toFixed(2)}`:'';
-  Q('cSub').textContent=`Sesión: ${sesionAct.producto_nombre}`;
-}
-
-// INICIAR SESIÓN — se llama automáticamente desde producto
-async function iniciarSesion(prodId,prodNom,prodPre,prodImg){
-  // Si ya hay sesión activa con el MISMO producto, solo mostrar
-  if(sesionAct&&sesionAct.producto_id===prodId){
-    mostrarBannerSesion();
-    actualizarExtras();
-    // Mensaje pre-escrito
-    Q('ta').value=`Hola, tengo una consulta sobre "${prodNom}".`;
-    crecer(Q('ta'));
-    return;
-  }
-  // Crear nueva sesión
-  const {data:s}=await db.from('chat_sesiones').insert({
-    chat_id:chatAct.id,
-    producto_id:prodId,
-    producto_nombre:prodNom,
-    producto_precio:prodPre,
-    producto_imagen:prodImg,
-    estado:'activa'
-  }).select().single();
-  sesionAct=s;
-  mostrarBannerSesion();
-  actualizarExtras();
-
-  // Separador visual en el chat
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:'sistema',autor_nombre:'sistema',
-    texto:`SESION_INICIO:${prodNom}`,tipo:'sesion_inicio',
-    data:{sesion_id:s.id,producto_id:prodId,producto_nombre:prodNom,producto_precio:prodPre,producto_imagen:prodImg},
-    created_at:new Date().toISOString()
-  });
-
-  // Mensaje pre-escrito automático
-  Q('ta').value=`Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"? Me interesa precio, disponibilidad y condiciones de envío.`;
-  crecer(Q('ta'));
-  Q('ta').focus();
-
-  await db.from('chats').update({ultimo_mensaje:`Nueva sesión: ${prodNom}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
-  await cargarMsgs();
-}
-// CERRAR SESIÓN
-window.cerrarSesion=async function(){
-  if(!sesionAct)return;
-  const items=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id&&i.sesion_id===sesionAct.id);
-  const total=items.reduce((s,i)=>s+(Number(i.precio)||0)*(i.cantidad||1),0);
-
-  await db.from('chat_sesiones').update({
-    estado:'cerrada',items_negociados:items,total,
-    cerrada_at:new Date().toISOString()
-  }).eq('id',sesionAct.id);
-
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:'sistema',autor_nombre:'sistema',
-    texto:'SESION_CIERRE',tipo:'sesion_cierre',
-    data:{sesion_id:sesionAct.id,producto_nombre:sesionAct.producto_nombre,items,total},
-    created_at:new Date().toISOString()
-  });
-
-  await db.from('chats').update({
-    ultimo_mensaje:`✓ Sesión cerrada: ${sesionAct.producto_nombre}`,
-    updated_at:new Date().toISOString()
-  }).eq('id',chatAct.id);
-
-  sesionAct=null;
-  Q('banProd').style.display='none';
-  Q('cSub').textContent=chatAct.proveedor_nombre||'Proveedor';
-  actualizarExtras();
-  await cargarMsgs();
-  toast('✓ Sesión cerrada');
-};
-
-async function cargarMsgs(){
-  const {data,error}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
-  if(error){console.error(error);return;}
-  msgsArr=data||[];pintarMsgs();
-}
-
-function pintarMsgs(){
-  const w=Q('msgs');
-  if(!msgsArr.length){w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">¡Envía el primer mensaje! 👋</div>';return;}
-  w.innerHTML='';
-  msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));
-  setTimeout(()=>w.scrollTop=w.scrollHeight,60);
-}
-
-function mkBurbuja(m){
-  const yo=m.autor_id===uid;
-  const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-
-  // SEPARADOR INICIO SESIÓN
-  if(m.tipo==='sesion_inicio'){
-    const dat=m.data||{};
-    const d=document.createElement('div');d.className='sepSes';
-    d.innerHTML=`<div class="sepLine"></div>
-      <div class="sepBox">
-        <div class="sepProd">📦 ${dat.producto_nombre||'Producto'}</div>
-        <div class="sepFecha">${new Date(m.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'})}</div>
-        <div class="sepTag activa">● Sesión iniciada</div>
-      </div>
-      <div class="sepLine"></div>`;
-    return d;
-  }
-
-  // RESUMEN CIERRE SESIÓN
-  if(m.tipo==='sesion_cierre'){
-    const dat=m.data||{};
-    const items=dat.items||[];
-    let iH='';
-    items.forEach(it=>{iH+=`<div class="resItem"><span style="flex:1;color:#555;">${it.nombre}</span><span style="color:#aaa;margin:0 6px;">×${it.cantidad||1}</span><span style="font-weight:700;color:#111;">$${Number(it.precio||0).toFixed(2)}</span></div>`;});
-    const w=document.createElement('div');w.className='esp';
-    const c=document.createElement('div');c.className='resSes';
-    c.innerHTML=`<div class="resHead"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Sesión cerrada · ${dat.producto_nombre||'Producto'}</div>
-      ${items.length?iH:`<div style="font-size:0.76rem;color:#bbb;text-align:center;padding:6px;">Sin productos en esta sesión</div>`}
-      ${items.length?`<div class="resTot"><span class="resTotL">Total sesión</span><span class="resTotV">$${Number(dat.total||0).toFixed(2)}</span></div>`:''}
-      <div style="font-size:0.6rem;color:#bbb;text-align:right;margin-top:6px;">${hr}</div>`;
-    w.appendChild(c);return w;
-  }
-
-  if(m.tipo==='negociacion') return mkNegBub(m,yo,hr);
-  if(m.tipo==='carrito') return mkCartBub(m,yo,hr);
-
-  const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
-  const b=document.createElement('div');b.className='bub';b.textContent=m.texto||'';
-  if(yo){
-    let pt;
-    b.addEventListener('touchstart',e=>{pt=setTimeout(()=>showMenu(m.id,e.touches[0].clientX,e.touches[0].clientY),600);},{passive:true});
-    b.addEventListener('touchend',()=>clearTimeout(pt),{passive:true});
-    b.addEventListener('touchmove',()=>clearTimeout(pt),{passive:true});
-    b.addEventListener('contextmenu',e=>{e.preventDefault();showMenu(m.id,e.clientX,e.clientY);});
-  }
-  const h=document.createElement('div');h.className='mHora';h.textContent=hr+(yo?' ✓✓':'');
-  d.appendChild(b);d.appendChild(h);return d;
-}
-
-function mkNegBub(m,yo,hr){
-  const dat=m.data||{},est=dat.estado||'pendiente';
-  const puedeR=!yo&&est==='pendiente';
-  let items='';
-  (dat.items||[]).forEach(it=>{items+=`<div class="negIt"><span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span><span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span><span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span></div>`;});
-  const w=document.createElement('div');w.className='esp';
-  const c=document.createElement('div');c.className='negC';
-  c.innerHTML=`<div class="negH">🤝 ${yo?'Propuesta enviada':'Propuesta del proveedor'}</div>
-    ${items?`<div style="margin-bottom:8px;">${items}</div>`:''}
-    <div class="negTot"><span class="negOrig">$${Number(dat.totalOriginal||0).toFixed(2)}</span><span style="color:#bbb;margin:0 6px;">→</span><span class="negNew">$${Number(dat.totalOfertado||0).toFixed(2)}</span></div>
-    ${dat.mensaje?`<div class="negNota">"${esc(dat.mensaje)}"</div>`:''}
-    ${puedeR?`<div class="negBts"><button class="nBt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button><button class="nBt cnt" onclick="abrirNeg()">↔ Contraofertar</button><button class="nBt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button></div>`:`<div class="negSt ${est}">${est==='aceptado'?'✅ Aceptado':est==='rechazado'?'❌ Rechazada':'⏳ Esperando...'}</div>`}
-    <div class="negHr">${hr}</div>`;
-  w.appendChild(c);return w;
-}
-
-function mkCartBub(m,yo,hr){
-  const dat=m.data||{};let rows='';
-  (dat.items||[]).forEach(it=>{rows+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;"><div style="width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}</div><div style="flex:1;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div><div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div></div>`;});
-  const w=document.createElement('div');w.className='esp';
-  const c=document.createElement('div');c.style.cssText='background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;';
-  c.innerHTML=`<div style="font-size:.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 Carrito compartido</div>${rows}<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;"><span style="font-size:.72rem;color:#aaa;">Total</span><span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span></div><div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
-  w.appendChild(c);return w;
-}
-
-// ENVIAR — SIEMPRE funciona, con o sin sesión
-window.enviar=async function(){
-  const ta=Q('ta');const txt=ta.value.trim();
-  if(!txt||!chatAct)return;ta.value='';crecer(ta);ta.focus();
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
-    texto:txt,tipo:'texto',
-    sesion_id:sesionAct?.id||null,
-    created_at:new Date().toISOString()
-  });
-  await db.from('chats').update({
-    ultimo_mensaje:txt.slice(0,60),
-    no_leido_prov:(chatAct.no_leido_prov||0)+1,
-    updated_at:new Date().toISOString()
-  }).eq('id',chatAct.id);
-  await cargarMsgs();
-};
-window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
-window.crecer=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';};
-
-function showMenu(id,x,y){menuId=id;const m=Q('mMenu');m.style.left=Math.min(x,window.innerWidth-170)+'px';m.style.top=Math.min(y,window.innerHeight-80)+'px';m.classList.add('on');Q('mOv').classList.add('on');}
-window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remove('on');menuId=null;};
-window.borrar=async()=>{if(!menuId)return;cerrarMenu();await db.from('mensajes').delete().eq('id',menuId);await cargarMsgs();toast('Mensaje eliminado');};
-
-window.abrirNeg=function(){
-  if(!sesionAct){toast('Inicia una sesión desde un producto para negociar');return;}
-  const f=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id);
-  if(!f.length){toast('Agrega productos al carrito primero');return;}
-  negIt={};
-  f.forEach(i=>{negIt[i.id]={nombre:i.nombre,precio:Number(i.precio||0),oferta:Number(i.precio||0),cantidad:i.cantidad||1,imagen:i.imagen||''};});
-  pintarNegItems();calcRes();Q('negNota').value='';Q('modNeg').classList.add('on');
-};
-
-function pintarNegItems(){
-  const w=Q('negItems');w.innerHTML='';
-  Object.entries(negIt).forEach(([id,it])=>{
-    const d=document.createElement('div');d.className='negMod-item';
-    d.innerHTML=`<div class="nmi-top"><div class="nmi-img">${it.imagen?`<img src="${it.imagen}">`:''}</div><div class="nmi-inf"><div class="nmi-nom">${it.nombre}</div><div class="nmi-cant">Cantidad: ${it.cantidad}</div></div></div><div class="nmi-row"><span class="nmi-orig">$${it.precio.toFixed(2)}</span><input class="nmi-inp" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)"><span class="nmi-u">c/u</span></div>`;
-    w.appendChild(d);
-  });
-}
-window.updNeg=(id,v)=>{if(negIt[id])negIt[id].oferta=parseFloat(v)||0;calcRes();};
-function calcRes(){let o=0,f=0;Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});Q('rOrig').textContent='$'+o.toFixed(2);Q('rOfer').textContent='$'+f.toFixed(2);const a=o-f;Q('rAho').textContent='$'+Math.abs(a).toFixed(2);Q('rAho').style.color=a>0?'#3a7a00':'#aaa';}
-
-window.envNeg=async()=>{
-  if(!chatAct||!sesionAct)return;
-  const items=Object.entries(negIt).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
-  const tO=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
-  const tN=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
-  const nota=Q('negNota').value.trim();
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🤝 Propuesta $${tN.toFixed(2)}`,tipo:'negociacion',sesion_id:sesionAct.id,data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente'},created_at:new Date().toISOString()});
-  await db.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
-  Q('modNeg').classList.remove('on');await cargarMsgs();toast('✓ Propuesta enviada');
-};
-
-window.respNeg=async(msgId,estado)=>{
-  const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
-  const dat={...m.data,estado};
-  await db.from('mensajes').update({data:dat}).eq('id',msgId);
-  if(estado==='aceptado'&&m.data?.items){
-    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0)carrito[i].precio=it.precioOfertado;else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen,cantidad:it.cantidad,proveedor_id:chatAct.proveedor_id,sesion_id:sesionAct?.id});});
-    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté $${Number(m.data.totalOfertado||0).toFixed(2)}. Carrito actualizado.`,tipo:'texto',sesion_id:sesionAct?.id,created_at:new Date().toISOString()});
-    toast('✅ Precio aceptado');
-  }else{
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la propuesta.',tipo:'texto',sesion_id:sesionAct?.id,created_at:new Date().toISOString()});
-    toast('Propuesta rechazada');
-  }
-  await db.from('chats').update({updated_at:new Date().toISOString()}).eq('id',chatAct.id);
-  await cargarMsgs();
-};
-
-window.enviarCarrito=async()=>{
-  if(!sesionAct){toast('Inicia una sesión desde un producto para enviar carrito');return;}
-  const items=carrito.filter(i=>i.proveedor_id===chatAct.proveedor_id);
-  if(!items.length){toast('Carrito vacío');return;}
-  const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',sesion_id:sesionAct.id,data:{items,total},created_at:new Date().toISOString()});
-  await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,updated_at:new Date().toISOString()}).eq('id',chatAct.id);
-  await cargarMsgs();toast('✓ Carrito compartido');
-};
-window.soloCart=()=>{Q('modNeg').classList.remove('on');enviarCarrito();};
-
-function suscribir(){
-  if(canal) db.removeChannel(canal);
-  canal=db.channel('chat-'+chatAct.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
-    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
-    .subscribe();
-}
-
-function volver(){
-  if(canal) db.removeChannel(canal);
-  chatAct=null;sesionAct=null;msgsArr=[];
-  Q('pChat').style.display='none';Q('pLista').style.display='flex';
-  cargarChats();
-}
-
-const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
-window.cmod=(id,e)=>{if(e.target===Q(id))Q(id).classList.remove('on');};
-const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2500);}
-</script>
-</body>
-</html>
-     
+<!-- p
