@@ -397,23 +397,46 @@ async function cargarMsgs(){
   if(error){console.error(error);return;}
   msgsArr=data||[];
 
-  // Detectar producto activo desde mensajes si no viene desde URL
-  if(!prodActual){
-    for(let i=msgsArr.length-1;i>=0;i--){
-      const m=msgsArr[i];
-      if(m.data?.producto_nombre&&m.data?.producto_precio){
+  // SIEMPRE detectar producto desde mensajes
+  // no importa si viene desde URL o desde la lista
+  for(let i=msgsArr.length-1;i>=0;i--){
+    const m=msgsArr[i];
+    if(m.data?.producto_nombre){
+      prodActual={
+        id:m.data.producto_id||m.data.items?.[0]?.id||'prod',
+        nombre:m.data.producto_nombre,
+        precio:m.data.producto_precio||m.data.items?.[0]?.precio||0,
+        imagen:m.data.producto_imagen||m.data.items?.[0]?.imagen||''
+      };
+      mostrarBannerProd();
+      break;
+    }
+    // También buscar en tipo carrito
+    if(m.tipo==='carrito'&&m.data?.items?.length){
+      const it=m.data.items[0];
+      if(!prodActual){
         prodActual={
-          id:m.data.producto_id,
-          nombre:m.data.producto_nombre,
-          precio:m.data.producto_precio,
-          imagen:m.data.producto_imagen||''
+          id:it.id,nombre:it.nombre,
+          precio:it.precio,imagen:it.imagen||''
         };
         mostrarBannerProd();
-        break;
       }
+      break;
     }
   }
 
+  // Detectar última negociación pendiente del proveedor
+  ultimaNegPendiente=null;
+  for(let i=msgsArr.length-1;i>=0;i--){
+    const m=msgsArr[i];
+    if(m.tipo==='negociacion'&&m.data?.estado==='pendiente'&&m.autor_id!==uid){
+      ultimaNegPendiente=m;
+      break;
+    }
+  }
+
+  pintarMsgs();
+}
   // Detectar última negociación pendiente del proveedor para poder contraofertar
   ultimaNegPendiente=null;
   for(let i=msgsArr.length-1;i>=0;i--){
