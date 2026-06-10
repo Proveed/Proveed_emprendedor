@@ -581,7 +581,18 @@ window.borrar=async()=>{
 
 // NEGOCIAR — emprendedor propone precio
 window.abrirNeg=function(){
-  if(!prodActual){toast('Entra desde un producto para negociar');return;}
+  // Si no hay prodActual buscar en el carrito del proveedor
+  if(!prodActual){
+    const itemsCarrito=carrito.filter(i=>i.proveedor_id===chatAct?.proveedor_id);
+    if(itemsCarrito.length){
+      // Usar el primer producto del carrito
+      const it=itemsCarrito[0];
+      prodActual={id:it.id,nombre:it.nombre,precio:it.precio,imagen:it.imagen||'',proveedor_id:chatAct?.proveedor_id};
+      mostrarBannerProd();
+    } else {
+      toast('Entra desde un producto para negociar');return;
+    }
+  }
   Q('modTit').textContent='🤝 Negociar precio';
   Q('modIntro').textContent='Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.';
   negIt={};
