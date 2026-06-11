@@ -12,9 +12,8 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 
 .topbar{background:#fff;padding:44px 16px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:2.5px solid var(--acc);}
 .tl{display:flex;align-items:center;gap:8px;}
-.tlogo svg{width:26px;height:26px;}
 .tbrand{font-size:0.9rem;font-weight:900;color:#111;}
-.tbrand span{color:var(--acc2);}
+.tbrand b{color:var(--acc2);}
 .tr{display:flex;gap:8px;}
 .tbtn{width:36px;height:36px;border:none;background:rgba(168,230,61,0.1);border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;text-decoration:none;}
 .tbtn svg{width:18px;height:18px;stroke:var(--acc2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -102,13 +101,8 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 
 <div class="topbar">
   <div class="tl">
-    <div class="tlogo">
-      <svg viewBox="0 0 28 28" fill="none">
-        <polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/>
-        <polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <span class="tbrand">PRO<span>VEED</span></span>
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="tbrand">PRO<b>VEED</b></span>
   </div>
   <div class="tr">
     <a class="tbtn" href="chat.html">
@@ -134,15 +128,9 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 </div>
 
 <div class="promo">
-  <div class="promo-item">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    <span class="promo-txt">Envío gratis</span>
-  </div>
+  <div class="promo-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="promo-txt">Envío gratis</span></div>
   <div class="promo-sep">|</div>
-  <div class="promo-item">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    <span class="promo-txt">Devoluciones en 30 días</span>
-  </div>
+  <div class="promo-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="promo-txt">Devoluciones en 30 días</span></div>
 </div>
 
 <div class="kpi-row">
@@ -191,56 +179,49 @@ body{background:var(--gris);font-family:'Inter',sans-serif;-webkit-font-smoothin
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const {createClient} = supabase;
-const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-
-let uid='', me={};
+const {createClient}=supabase;
+const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+let uid='',me={};
 const colorCat=c=>{const m={'Ropa':'#FF8C00','Tecnolog':'#007AFF','Alimento':'#22C55E','Belleza':'#FF69B4','Deporte':'#A855F7','Hogar':'#F59E0B'};for(const k in m){if((c||'').includes(k))return m[k];}return '#888';};
 const emojiCat=c=>{const m={'Ropa':'👗','Tecnolog':'📱','Alimento':'🛒','Belleza':'💄','Deporte':'⚽','Hogar':'🏠','Joya':'💍'};for(const k in m){if((c||'').includes(k))return m[k];}return '📦';};
 
 (async()=>{
-  const {data:{session}} = await sb.auth.getSession();
+  const {data:{session}}=await sb.auth.getSession();
   if(!session){location.href='login.html';return;}
-  uid = session.user.id;
-  const {data:u} = await sb.from('usuarios').select('*').eq('id',uid).single();
-  if(u) me=u;
+  uid=session.user.id;
+  const {data:u}=await sb.from('usuarios').select('*').eq('id',uid).single();
+  if(u)me=u;
 
-  // Nombre
-  document.getElementById('hero-nom').textContent = (me.nombre||me.empresa||'Emprendedor').split(' ')[0];
+  document.getElementById('hero-nom').textContent=(me.nombre||me.empresa||'Emprendedor').split(' ')[0];
 
-  // Carrito badge
-  const carrito = JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-  const cnt = carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  if(cnt>0){
-    const b=document.getElementById('carrito-badge');
-    b.style.display='flex'; b.textContent=cnt>9?'9+':cnt;
-  }
-  document.getElementById('k-carrito').textContent = carrito.length;
+  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const cnt=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+  document.getElementById('k-carrito').textContent=carrito.length;
+  if(cnt>0){const b=document.getElementById('carrito-badge');b.style.display='flex';b.textContent=cnt>9?'9+':cnt;}
 
   // KPI pedidos
-  const {data:peds} = await sb.from('pedidos').select('*').eq('emprendedor_id',uid);
-  const lista = peds||[];
-  document.getElementById('k-pedidos').textContent = lista.length;
-  document.getElementById('k-gastado').textContent = '$'+(lista.reduce((s,p)=>s+(p.total||0),0)).toFixed(0);
-  document.getElementById('k-provs').textContent = new Set(lista.map(p=>p.proveedor_id).filter(Boolean)).size;
+  const {data:peds}=await sb.from('pedidos').select('*').eq('emprendedor_id',uid);
+  const lista=peds||[];
+  document.getElementById('k-pedidos').textContent=lista.length;
+  document.getElementById('k-gastado').textContent='$'+(lista.reduce((s,p)=>s+(p.total||0),0)).toFixed(0);
+  document.getElementById('k-provs').textContent=new Set(lista.map(p=>p.proveedor_id).filter(Boolean)).size;
 
-  // Mensajes no leídos — columna correcta: no_leido_emp
-  const {data:chats} = await sb.from('chats').select('no_leido_emp').eq('emprendedor_id',uid);
+  // Mensajes no leídos — columna correcta no_leido_emp
+  const {data:chats}=await sb.from('chats').select('no_leido_emp').eq('emprendedor_id',uid);
   if((chats||[]).some(c=>(c.no_leido_emp||0)>0)){
     document.getElementById('msg-dot').style.display='block';
   }
 
   // Productos
-  const {data:prods} = await sb.from('productos').select('*').eq('activo',true).order('created_at',{ascending:false}).limit(15);
-  const ps = document.getElementById('prods-scroll');
+  const {data:prods}=await sb.from('productos').select('*').eq('activo',true).order('created_at',{ascending:false}).limit(15);
+  const ps=document.getElementById('prods-scroll');
   if(!prods?.length){ps.innerHTML='<div class="empty">Sin productos aún</div>';}
   else{
     ps.innerHTML='';
     prods.forEach(p=>{
       const img=p.imagenes?.[0]||p.imagen||'';
       const color=colorCat(p.categoria||'');
-      const d=document.createElement('div');
-      d.className='prod-card';
+      const d=document.createElement('div');d.className='prod-card';
       d.onclick=()=>location.href=`producto.html?id=${p.id}`;
       d.innerHTML=`<div class="prod-img" style="background:${color}15;">${img?`<img src="${img}" loading="lazy">`:`<span class="prod-img-ph">${emojiCat(p.categoria||'')}</span>`}<div class="prod-badge" style="background:${color};">${(p.categoria||'General').slice(0,8).toUpperCase()}</div></div><div class="prod-body"><div class="prod-nombre">${p.nombre||'Producto'}</div><div class="prod-prov">${p.nombre_proveedor||'Proveedor'}</div><div class="prod-footer"><div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div><button class="prod-add" onclick="addCart(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0})"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>`;
       ps.appendChild(d);
@@ -248,15 +229,13 @@ const emojiCat=c=>{const m={'Ropa':'👗','Tecnolog':'📱','Alimento':'🛒','B
   }
 
   // Tips
-  const {data:tips} = await sb.from('tips').select('*').order('created_at',{ascending:false}).limit(8);
-  const ts = document.getElementById('tips-scroll');
+  const {data:tips}=await sb.from('tips').select('*').order('created_at',{ascending:false}).limit(8);
+  const ts=document.getElementById('tips-scroll');
   if(!tips?.length){ts.innerHTML='<div class="empty">Sin tips aún</div>';}
   else{
     ts.innerHTML='';
     tips.forEach(t=>{
-      const d=document.createElement('div');
-      d.className='tip-card';
-      d.onclick=()=>location.href='tips.html';
+      const d=document.createElement('div');d.className='tip-card';d.onclick=()=>location.href='tips.html';
       const img=t.imagen||t.thumbnail||'';
       d.innerHTML=`<div class="tip-img">${img?`<img src="${img}">`:'🎬'}</div><div class="tip-body"><div class="tip-nombre">${t.titulo||'Tip de negocio'}</div><div class="tip-prov">${t.proveedor||'PROVEED'}</div></div>`;
       ts.appendChild(d);
@@ -268,14 +247,11 @@ function addCart(e,id,nombre,precio){
   e.stopPropagation();
   const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
   const i=c.findIndex(x=>x.id===id);
-  if(i>=0)c[i].cantidad=(c[i].cantidad||1)+1;
-  else c.push({id,nombre,precio,cantidad:1});
+  if(i>=0)c[i].cantidad=(c[i].cantidad||1)+1;else c.push({id,nombre,precio,cantidad:1});
   localStorage.setItem('carrito_proveed',JSON.stringify(c));
   const cnt=c.reduce((s,i)=>s+(i.cantidad||1),0);
-  const b=document.getElementById('carrito-badge');
-  b.style.display='flex';b.textContent=cnt>9?'9+':cnt;
-  const btn=e.currentTarget;
-  btn.style.background='var(--acc2)';setTimeout(()=>btn.style.background='#111',400);
+  const b=document.getElementById('carrito-badge');b.style.display='flex';b.textContent=cnt>9?'9+':cnt;
+  const btn=e.currentTarget;btn.style.background='var(--acc2)';setTimeout(()=>btn.style.background='#111',400);
 }
 </script>
 </body>
