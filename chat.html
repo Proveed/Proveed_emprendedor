@@ -283,48 +283,62 @@ function badge(){
 badge();
 
 (async()=>{
-  const {data:{session}}=await db.auth.getSession();
-  if(!session){location.href='login.html';return;}
-  uid=session.user.id;
-  const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
-  if(u) me=u;
-  await cargarChats();
-
+  const {data:{session}} = await db.auth.getSession();
+  if(!session){
+    location.href='login.html';
+    return;
+  }
+  uid = session.user.id;
   
-  // Parámetros desde URL cuando viene desde un producto
-  const pId=QS.get('proveedor_id');
-  const prodId=QS.get('prod_id');
-  const prodNom=decodeURIComponent(QS.get('prod_nombre')||'');
-  const prodPre=QS.get('prod_precio')||'';
-  const prodImg=decodeURIComponent(QS.get('prod_img')||'');
+  // DEBUG — ver qué pasa
+  const {data:u} = await db.from('usuarios').select('*').eq('id',uid).single();
+  if(u) me = u;
+
+  // Cargar chats sin ningún order ni filtro complejo
+  const {data:chatsData, error:chatsError} = await db
+    .from('chats')
+    .select('*')
+    .eq('emprendedor_id', uid);
+  
+  if(chatsError){
+    document.getElementById('lista').innerHTML = 
+      '<div class="vacio">Error: ' + chatsError.message + '</div>';
+    return;
+  }
+  
+  todos = chatsData || [];
+  pintarLista(todos);
+
+  // Abrir desde producto si viene con params
+  const pId = QS.get('proveedor_id');
+  const prodId = QS.get('prod_id');
+  const prodNom = decodeURIComponent(QS.get('prod_nombre')||'');
+  const prodPre = QS.get('prod_precio')||'';
+  const prodImg = decodeURIComponent(QS.get('prod_img')||'');
 
   if(pId){
-    let chat=todos.find(c=>c.proveedor_id===pId);
+    let chat = todos.find(c=>c.proveedor_id===pId);
     if(!chat){
-      const {data:prov}=await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
-      const {data:ch}=await db.from('chats').insert({
-        emprendedor_id:uid,
-        emprendedor_nombre:me.nombre||'Emprendedor',
-        proveedor_id:pId,
-        proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
-        ultimo_mensaje:'Chat iniciado',
-        no_leido_emp:0,
-        no_leido_prov:0,
-        updated_at:new Date().toISOString()
+      const {data:prov} = await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
+      const {data:ch} = await db.from('chats').insert({
+        emprendedor_id: uid,
+        emprendedor_nombre: me.nombre||'Emprendedor',
+        proveedor_id: pId,
+        proveedor_nombre: prov?.empresa||prov?.nombre||'Proveedor',
+        ultimo_mensaje: 'Chat iniciado',
+        no_leido_emp: 0,
+        no_leido_prov: 0,
+        created_at: new Date().toISOString()
       }).select().single();
-      chat=ch;
+      chat = ch;
       if(chat) todos.unshift(chat);
     }
     if(chat){
       await abrirChat(chat);
-
-      // SIEMPRE actualizar el producto con el que viene ahora
-      if(prodId&&prodNom){
-        prodActual={id:prodId,nombre:prodNom,precio:prodPre,imagen:prodImg,proveedor_id:pId};
+      if(prodId && prodNom){
+        prodActual = {id:prodId, nombre:prodNom, precio:prodPre, imagen:prodImg, proveedor_id:pId};
         mostrarBannerProd();
-
-        // Mensaje pre-escrito
-        Q('ta').value=`Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"? Me interesa precio, disponibilidad y condiciones de envío.`;
+        Q('ta').value = `Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"?`;
         crecer(Q('ta'));
         Q('ta').focus();
       }
@@ -332,21 +346,17 @@ badge();
   }
 })();
 
-function mostrarBannerProd(){
-  if(!prodActual) return;
-  Q('banProd').style.display='flex';
-  Q('bpImg').innerHTML=prodActual.imagen
-    ?`<img src="${prodActual.imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
-  Q('bpNom').textContent=prodActual.nombre;
-  Q('bpPre').textContent=prodActual.precio?`$${Number(prodActual.precio).toFixed(2)}`:'';
-  Q('cSub').textContent=`Negociando: ${prodActual.nombre}`;
-}
-
 async function cargarChats(){
-  const {data} = await db
+  const {data, error} = await db
     .from('chats')
-    .select('id, emprendedor_id, emprendedor_nombre, proveedor_id, proveedor_nombre, producto_id, producto_nombre, ultimo_mensaje, no_leido_emp, no_leido_prov, negociacion_activa, created_at, updated_at')
+    .select('*')
     .eq('emprendedor_id', uid);
+  
+  if(error){
+    document.getElementById('lista').innerHTML = 
+      '<div class="vacio">Error: ' + error.message + '</div>';
+    return;
+  }
   todos = data || [];
   pintarLista(todos);
 }
