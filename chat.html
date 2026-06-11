@@ -343,24 +343,22 @@ function mostrarBannerProd(){
 }
 
 async function cargarChats(){
-  try{
-    const {data, error} = await db.from('chats')
-      .select('*')
-      .eq('emprendedor_id', uid)
-      .order('updated_at', {ascending: false});
-    
-    if(error) throw error;
-    todos = data || [];
-    pintarLista(todos);
-  } catch(e){
-    console.error('Error chats:', e);
-    // Intentar sin order si falla
-    const {data} = await db.from('chats')
+  const {data, error} = await db.from('chats')
+    .select('*')
+    .eq('emprendedor_id', uid)
+    .order('created_at', {ascending: false});
+  
+  if(error){
+    console.error(error);
+    // Si falla el order, intentar sin él
+    const {data:d2} = await db.from('chats')
       .select('*')
       .eq('emprendedor_id', uid);
+    todos = d2 || [];
+  } else {
     todos = data || [];
-    pintarLista(todos);
   }
+  pintarLista(todos);
 }
 function pintarLista(arr){
   const c=Q('lista');
