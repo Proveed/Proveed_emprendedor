@@ -349,15 +349,19 @@ badge();
 async function cargarChats(){
   const {data, error} = await db
     .from('chats')
-    .select('*')
+    .select('id,emprendedor_id,emprendedor_nombre,proveedor_id,proveedor_nombre,ultimo_mensaje,no_leido_emp,no_leido_prov,created_at,updated_at,negociacion_activa')
     .eq('emprendedor_id', uid);
   
   if(error){
+    console.error('Error cargando chats:', error.message);
     document.getElementById('lista').innerHTML = 
-      '<div class="vacio">Error: ' + error.message + '</div>';
+      `<div class="vacio">Error: ${error.message}</div>`;
     return;
   }
-  todos = data || [];
+  // Ordenar por fecha manualmente
+  todos = (data||[]).sort((a,b)=> 
+    new Date(b.updated_at||b.created_at||0) - new Date(a.updated_at||a.created_at||0)
+  );
   pintarLista(todos);
 }
 function pintarLista(arr){
