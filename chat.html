@@ -10,10 +10,8 @@
 :root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Inter',sans-serif;background:var(--F);}
-
 #pLista{height:100%;display:flex;flex-direction:column;}
 #pChat{height:100%;display:none;flex-direction:column;}
-
 .hLista{background:#fff;padding:48px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
 .hTop{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .hTit{font-size:1rem;font-weight:900;color:#111;}
@@ -23,12 +21,10 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .sBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
 .sBus input::placeholder{color:#ccc;}
 .listaScroll{flex:1;overflow-y:auto;padding-bottom:80px;}
-
 .chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f5f5f5;cursor:pointer;}
 .chatItem:active{background:var(--F);}
 .chatItem.new{border-left:3px solid var(--G);}
 .ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;overflow:hidden;}
-.ciAv img{width:100%;height:100%;object-fit:cover;}
 .ciDot{position:absolute;bottom:1px;right:1px;width:9px;height:9px;background:var(--G);border-radius:50%;border:2px solid #fff;}
 .ciInf{flex:1;min-width:0;}
 .ciNom{font-size:0.88rem;font-weight:700;color:#111;margin-bottom:2px;}
@@ -37,28 +33,23 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .ciHora{font-size:0.6rem;color:#bbb;}
 .ciUnread{width:18px;height:18px;background:var(--G2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:800;color:#111;}
 .vacio{text-align:center;padding:60px 20px;color:#bbb;font-size:0.82rem;line-height:1.7;}
-
 .cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .cBack{width:36px;height:36px;background:rgba(168,230,61,.12);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
 .cAv{width:40px;height:40px;border-radius:12px;font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.cAv img{width:100%;height:100%;object-fit:cover;}
 .cInf{flex:1;min-width:0;}
 .cNom{font-size:0.9rem;font-weight:800;color:#111;}
 .cSub{font-size:0.68rem;color:var(--G2);font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .cBts{display:flex;gap:6px;}
 .cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
-
 .banProd{background:#fff;border-bottom:2px solid rgba(168,230,61,0.3);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .bpImg{width:44px;height:44px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
 .bpImg img{width:100%;height:100%;object-fit:cover;}
 .bpInf{flex:1;min-width:0;}
 .bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .bpPre{font-size:0.74rem;color:var(--O);font-weight:800;margin-top:1px;}
-
 .msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px;background:var(--F);display:flex;flex-direction:column;gap:5px;}
-
 .inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
 .extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
 .extras::-webkit-scrollbar{display:none;}
@@ -71,7 +62,6 @@ textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'
 textarea#ta::placeholder{color:#bbb;}
 .sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
-
 .msg{display:flex;flex-direction:column;}
 .msg.yo{align-items:flex-end;}
 .msg.el{align-items:flex-start;}
@@ -79,14 +69,12 @@ textarea#ta::placeholder{color:#bbb;}
 .msg.yo .bub{background:var(--G);color:#111;border-bottom-right-radius:4px;font-weight:500;}
 .msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .mHora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
-
 .mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px;z-index:700;border:1px solid #eee;display:none;}
 .mMenu.on{display:block;}
 .mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
 .mMenu button svg{width:14px;height:14px;stroke:var(--R);fill:none;stroke-width:2.2;}
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
-
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
 .negC{background:#fff;border:2px solid var(--G);border-radius:18px;padding:14px;width:94%;max-width:340px;box-shadow:0 2px 10px rgba(168,230,61,.1);}
 .negH{font-size:0.64rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:8px;}
@@ -107,7 +95,6 @@ textarea#ta::placeholder{color:#bbb;}
 .negSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
 .negSt.contrarrestada{background:rgba(0,0,0,.04);color:#aaa;}
 .negHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:4px;}
-
 .modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
 .modOv.on{display:flex;}
 .modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -139,7 +126,6 @@ textarea#ta::placeholder{color:#bbb;}
 .rFinV{font-size:1rem;font-weight:900;color:var(--G2);}
 .btn1{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:8px;}
 .btn2{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;}
-
 .tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -154,7 +140,6 @@ textarea#ta::placeholder{color:#bbb;}
 </head>
 <body>
 
-<!-- LISTA -->
 <div id="pLista">
   <div class="hLista">
     <div class="hTop">
@@ -176,32 +161,20 @@ textarea#ta::placeholder{color:#bbb;}
   </nav>
 </div>
 
-<!-- CHAT -->
 <div id="pChat">
   <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="cAv" id="cAv">P</div>
-    <div class="cInf">
-      <div class="cNom" id="cNom">—</div>
-      <div class="cSub" id="cSub">—</div>
-    </div>
+    <div class="cInf"><div class="cNom" id="cNom">—</div><div class="cSub" id="cSub">—</div></div>
     <div class="cBts">
       <button class="cBt" onclick="location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
     </div>
   </div>
-
-  <!-- BANNER PRODUCTO ACTIVO -->
   <div class="banProd" id="banProd" style="display:none;">
     <div class="bpImg" id="bpImg"></div>
-    <div class="bpInf">
-      <div class="bpNom" id="bpNom">—</div>
-      <div class="bpPre" id="bpPre">—</div>
-    </div>
+    <div class="bpInf"><div class="bpNom" id="bpNom">—</div><div class="bpPre" id="bpPre">—</div></div>
   </div>
-
   <div class="msgsArea" id="msgs"></div>
-
-  <!-- INPUT SIEMPRE VISIBLE -->
   <div class="inputArea">
     <div class="extras">
       <button class="xBtn g" onclick="abrirNeg()">🤝 Negociar precio</button>
@@ -209,16 +182,10 @@ textarea#ta::placeholder{color:#bbb;}
       <button class="xBtn" onclick="enviarCarrito()">📦 Carrito</button>
     </div>
     <div class="iRow">
-      <div class="iBox">
-        <textarea id="ta" placeholder="Escribe un mensaje..." rows="1"
-          onkeydown="tecla(event)" oninput="crecer(this)"></textarea>
-      </div>
-      <button class="sBtn" onclick="enviar()">
-        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
+      <div class="iBox"><textarea id="ta" placeholder="Escribe un mensaje..." rows="1" onkeydown="tecla(event)" oninput="crecer(this)"></textarea></div>
+      <button class="sBtn" onclick="enviar()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
     </div>
   </div>
-
   <nav class="tabBar">
     <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
     <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
@@ -228,19 +195,12 @@ textarea#ta::placeholder{color:#bbb;}
   </nav>
 </div>
 
-<!-- MENÚ BORRAR -->
 <div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
-<div class="mMenu" id="mMenu">
-  <button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button>
-</div>
+<div class="mMenu" id="mMenu"><button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button></div>
 
-<!-- MODAL NEGOCIAR / CONTRAOFERTAR -->
 <div class="modOv" id="modNeg" onclick="cmod('modNeg',event)">
   <div class="modSh"><div class="drag"></div>
-    <div class="modH">
-      <span class="modT" id="modTit">🤝 Negociar precio</span>
-      <button class="modX" onclick="Q('modNeg').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
+    <div class="modH"><span class="modT" id="modTit">🤝 Negociar precio</span><button class="modX" onclick="Q('modNeg').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
       <p class="negMod-intro" id="modIntro">Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.</p>
       <div id="negItems"></div>
@@ -249,10 +209,7 @@ textarea#ta::placeholder{color:#bbb;}
         <div class="rRow"><span class="rLbl">Tu oferta</span><span class="rVal" id="rOfer">$0.00</span></div>
         <div class="rFin"><span class="rFinL">Ahorro</span><span class="rFinV" id="rAho">$0.00</span></div>
       </div>
-      <div style="margin-bottom:12px;">
-        <label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje al proveedor</label>
-        <textarea id="negNota" placeholder="Ej: Compraré regularmente, ¿puede mejorar el precio?" style="width:100%;padding:11px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea>
-      </div>
+      <div style="margin-bottom:12px;"><label style="display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;">Mensaje al proveedor</label><textarea id="negNota" placeholder="Ej: Compraré regularmente..." style="width:100%;padding:11px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;outline:none;resize:none;height:60px;"></textarea></div>
       <button class="btn1" onclick="envNeg()">🚀 Enviar propuesta</button>
       <button class="btn2" onclick="Q('modNeg').classList.remove('on')">Cancelar</button>
     </div>
@@ -267,78 +224,65 @@ const {createClient}=supabase;
 const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 const Q=id=>document.getElementById(id);
 
-let uid='', me={}, chatAct=null, todos=[], msgsArr=[], canal=null;
-let negIt={}, menuId=null, ultimaNegPendiente=null;
-let prodActual=null;
+let uid='',me={},chatAct=null,todos=[],msgsArr=[],canal=null;
+let negIt={},menuId=null,ultimaNegPendiente=null,prodActual=null;
 const QS=new URLSearchParams(location.search);
 let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 
 function badge(){
   const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  ['cBadge','cBadge2'].forEach(id=>{
-    const b=Q(id);
-    if(b){if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';}
-  });
+  ['cBadge','cBadge2'].forEach(id=>{const b=Q(id);if(b){if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';}});
 }
 badge();
 
+function mostrarBannerProd(){
+  if(!prodActual)return;
+  Q('banProd').style.display='flex';
+  Q('bpImg').innerHTML=prodActual.imagen?`<img src="${prodActual.imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
+  Q('bpNom').textContent=prodActual.nombre||'Producto';
+  Q('bpPre').textContent=prodActual.precio?`$${Number(prodActual.precio).toFixed(2)}`:'';
+  Q('cSub').textContent=`Negociando: ${prodActual.nombre}`;
+}
+
 (async()=>{
-  const {data:{session}} = await db.auth.getSession();
-  if(!session){
-    location.href='login.html';
-    return;
-  }
-  uid = session.user.id;
-  
-  // DEBUG — ver qué pasa
-  const {data:u} = await db.from('usuarios').select('*').eq('id',uid).single();
-  if(u) me = u;
+  const {data:{session}}=await db.auth.getSession();
+  if(!session){location.href='login.html';return;}
+  uid=session.user.id;
+  const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
+  if(u)me=u;
 
-  // Cargar chats sin ningún order ni filtro complejo
-  const {data:chatsData, error:chatsError} = await db
-    .from('chats')
-    .select('*')
-    .eq('emprendedor_id', uid);
-  
-  if(chatsError){
-    document.getElementById('lista').innerHTML = 
-      '<div class="vacio">Error: ' + chatsError.message + '</div>';
-    return;
-  }
-  
-  todos = chatsData || [];
-  pintarLista(todos);
+   // Cargar chats SIN order para evitar error si updated_at no existe
+  await cargarChats();
 
-  // Abrir desde producto si viene con params
-  const pId = QS.get('proveedor_id');
-  const prodId = QS.get('prod_id');
-  const prodNom = decodeURIComponent(QS.get('prod_nombre')||'');
-  const prodPre = QS.get('prod_precio')||'';
-  const prodImg = decodeURIComponent(QS.get('prod_img')||'');
+  const pId=QS.get('proveedor_id');
+  const prodId=QS.get('prod_id');
+  const prodNom=decodeURIComponent(QS.get('prod_nombre')||'');
+  const prodPre=QS.get('prod_precio')||'';
+  const prodImg=decodeURIComponent(QS.get('prod_img')||'');
 
   if(pId){
-    let chat = todos.find(c=>c.proveedor_id===pId);
+    let chat=todos.find(c=>c.proveedor_id===pId);
     if(!chat){
-      const {data:prov} = await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
-      const {data:ch} = await db.from('chats').insert({
-        emprendedor_id: uid,
-        emprendedor_nombre: me.nombre||'Emprendedor',
-        proveedor_id: pId,
-        proveedor_nombre: prov?.empresa||prov?.nombre||'Proveedor',
-        ultimo_mensaje: 'Chat iniciado',
-        no_leido_emp: 0,
-        no_leido_prov: 0,
-        created_at: new Date().toISOString()
+      const {data:prov}=await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
+      const {data:ch,error:cherr}=await db.from('chats').insert({
+        emprendedor_id:uid,
+        emprendedor_nombre:me.nombre||'Emprendedor',
+        proveedor_id:pId,
+        proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
+        ultimo_mensaje:'Chat iniciado',
+        no_leido_emp:0,
+        no_leido_prov:0
       }).select().single();
-      chat = ch;
-      if(chat) todos.unshift(chat);
+      if(cherr){console.error('Error creando chat:',cherr.message);}
+      chat=ch;
+      if(chat)todos.unshift(chat);
     }
     if(chat){
       await abrirChat(chat);
-      if(prodId && prodNom){
-        prodActual = {id:prodId, nombre:prodNom, precio:prodPre, imagen:prodImg, proveedor_id:pId};
+      if(prodId&&prodNom){
+        prodActual={id:prodId,nombre:prodNom,precio:prodPre,imagen:prodImg,proveedor_id:pId};
         mostrarBannerProd();
-        Q('ta').value = `Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"?`;
+        Q('ta').value=`Hola buenas, soy ${me.nombre||'emprendedor'}. ¿Me podría dar información acerca de "${prodNom}"? Me interesa precio, disponibilidad y condiciones de envío.`;
         crecer(Q('ta'));
         Q('ta').focus();
       }
@@ -347,63 +291,47 @@ badge();
 })();
 
 async function cargarChats(){
-  const {data, error} = await db
-    .from('chats')
-    .select('id,emprendedor_id,emprendedor_nombre,proveedor_id,proveedor_nombre,ultimo_mensaje,no_leido_emp,no_leido_prov,created_at,updated_at,negociacion_activa')
-    .eq('emprendedor_id', uid);
-  
+  const {data,error}=await db.from('chats').select('*').eq('emprendedor_id',uid);
   if(error){
-    console.error('Error cargando chats:', error.message);
-    document.getElementById('lista').innerHTML = 
-      `<div class="vacio">Error: ${error.message}</div>`;
+    Q('lista').innerHTML=`<div class="vacio">Error: ${error.message}</div>`;
     return;
   }
-  // Ordenar por fecha manualmente
-  todos = (data||[]).sort((a,b)=> 
-    new Date(b.updated_at||b.created_at||0) - new Date(a.updated_at||a.created_at||0)
-  );
+  // Ordenar localmente por created_at
+  todos=(data||[]).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
   pintarLista(todos);
 }
+
 function pintarLista(arr){
   const c=Q('lista');
   if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
   c.innerHTML='';
   arr.forEach(ch=>{
     const nom=ch.proveedor_nombre||'Proveedor';
-    const hora=ch.updated_at?new Date(ch.updated_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
+    const hora=ch.created_at?new Date(ch.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
     const d=document.createElement('div');
-    d.className='chatItem'+(ch.no_leido_emp>0?' new':'');
-    d.innerHTML=`
-      <div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
+    d.className='chatItem'+((ch.no_leido_emp||0)>0?' new':'');
+    d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
       <div class="ciInf"><div class="ciNom">${nom}</div><div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
-      <div class="ciR"><div class="ciHora">${hora}</div>${ch.no_leido_emp>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
+      <div class="ciR"><div class="ciHora">${hora}</div>${(ch.no_leido_emp||0)>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
     d.onclick=()=>abrirChat(ch);
     c.appendChild(d);
   });
 }
 
-window.filtrar=q=>{
-  const ql=q.toLowerCase();
-  pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));
-};
+window.filtrar=q=>{const ql=q.toLowerCase();pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));};
 
 async function abrirChat(chat){
-  chatAct=chat; msgsArr=[];
-  // Limpiar producto y negociación anterior
-  prodActual=null;
-  ultimaNegPendiente=null;
+  chatAct=chat;msgsArr=[];
+  prodActual=null;ultimaNegPendiente=null;
   Q('banProd').style.display='none';
-
   Q('pLista').style.display='none';
   Q('pChat').style.display='flex';
   Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando...</div>';
-
   const nom=chat.proveedor_nombre||'Proveedor';
   Q('cAv').textContent=nom[0].toUpperCase();
   Q('cAv').style.background=pal(nom);
   Q('cNom').textContent=nom;
   Q('cSub').textContent=nom;
-
   await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
   await cargarMsgs();
   suscribir();
@@ -414,31 +342,19 @@ async function cargarMsgs(){
   if(error){console.error(error);return;}
   msgsArr=data||[];
 
-  // SIEMPRE detectar producto desde mensajes
-  // no importa si viene desde URL o desde la lista
-  for(let i=msgsArr.length-1;i>=0;i--){
-    const m=msgsArr[i];
-    if(m.data?.producto_nombre){
-      prodActual={
-        id:m.data.producto_id||m.data.items?.[0]?.id||'prod',
-        nombre:m.data.producto_nombre,
-        precio:m.data.producto_precio||m.data.items?.[0]?.precio||0,
-        imagen:m.data.producto_imagen||m.data.items?.[0]?.imagen||''
-      };
-      mostrarBannerProd();
-      break;
-    }
-    // También buscar en tipo carrito
-    if(m.tipo==='carrito'&&m.data?.items?.length){
-      const it=m.data.items[0];
-      if(!prodActual){
-        prodActual={
-          id:it.id,nombre:it.nombre,
-          precio:it.precio,imagen:it.imagen||''
-        };
-        mostrarBannerProd();
+  // Detectar producto desde mensajes si no hay uno activo
+  if(!prodActual){
+    for(let i=msgsArr.length-1;i>=0;i--){
+      const m=msgsArr[i];
+      if(m.data?.producto_nombre){
+        prodActual={id:m.data.producto_id,nombre:m.data.producto_nombre,precio:m.data.producto_precio,imagen:m.data.producto_imagen||''};
+        mostrarBannerProd();break;
       }
-      break;
+      if(m.tipo==='carrito'&&m.data?.items?.length){
+        const it=m.data.items[0];
+        prodActual={id:it.id,nombre:it.nombre,precio:it.precio,imagen:it.imagen||''};
+        mostrarBannerProd();break;
+      }
     }
   }
 
@@ -446,33 +362,14 @@ async function cargarMsgs(){
   ultimaNegPendiente=null;
   for(let i=msgsArr.length-1;i>=0;i--){
     const m=msgsArr[i];
-    if(m.tipo==='negociacion'&&m.data?.estado==='pendiente'&&m.autor_id!==uid){
-      ultimaNegPendiente=m;
-      break;
-    }
+    if(m.tipo==='negociacion'&&m.data?.estado==='pendiente'&&m.autor_id!==uid){ultimaNegPendiente=m;break;}
   }
-
-  pintarMsgs();
-}
-  // Detectar última negociación pendiente del proveedor para poder contraofertar
-  ultimaNegPendiente=null;
-  for(let i=msgsArr.length-1;i>=0;i--){
-    const m=msgsArr[i];
-    if(m.tipo==='negociacion'&&m.data?.estado==='pendiente'&&m.autor_id!==uid){
-      ultimaNegPendiente=m;
-      break;
-    }
-  }
-
   pintarMsgs();
 }
 
 function pintarMsgs(){
   const w=Q('msgs');
-  if(!msgsArr.length){
-    w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">¡Envía el primer mensaje! 👋</div>';
-    return;
-  }
+  if(!msgsArr.length){w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">¡Envía el primer mensaje! 👋</div>';return;}
   w.innerHTML='';
   msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));
   setTimeout(()=>w.scrollTop=w.scrollHeight,60);
@@ -481,9 +378,8 @@ function pintarMsgs(){
 function mkBurbuja(m){
   const yo=m.autor_id===uid;
   const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-  if(m.tipo==='negociacion') return mkNegBub(m,yo,hr);
-  if(m.tipo==='carrito') return mkCartBub(m,yo,hr);
-
+  if(m.tipo==='negociacion')return mkNegBub(m,yo,hr);
+  if(m.tipo==='carrito')return mkCartBub(m,yo,hr);
   const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
   const b=document.createElement('div');b.className='bub';b.textContent=m.texto||'';
   if(yo){
@@ -499,306 +395,118 @@ function mkBurbuja(m){
 
 function mkNegBub(m,yo,hr){
   const dat=m.data||{},est=dat.estado||'pendiente';
-  // Emprendedor responde propuestas del PROVEEDOR (no yo)
   const puedeResp=!yo&&est==='pendiente';
   let items='';
-  (dat.items||[]).forEach(it=>{
-    items+=`<div class="negIt">
-      <span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span>
-      <span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span>
-      <span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span>
-    </div>`;
-  });
+  (dat.items||[]).forEach(it=>{items+=`<div class="negIt"><span style="flex:1;color:#555;">${it.nombre} ×${it.cantidad||1}</span><span style="color:#bbb;text-decoration:line-through;margin-right:6px;">$${Number(it.precioOriginal||0).toFixed(2)}</span><span style="font-weight:800;color:var(--G2);">$${Number(it.precioOfertado||0).toFixed(2)}</span></div>`;});
   const w=document.createElement('div');w.className='esp';
   const c=document.createElement('div');c.className='negC';
-  c.innerHTML=`
-    <div class="negH">${yo?'🤝 Tu propuesta enviada':'💰 Oferta del proveedor'}</div>
+  c.innerHTML=`<div class="negH">${yo?'🤝 Tu propuesta enviada':'💰 Oferta del proveedor'}</div>
     ${items?`<div style="margin-bottom:8px;">${items}</div>`:''}
-    <div class="negTot">
-      <span class="negOrig">$${Number(dat.totalOriginal||0).toFixed(2)}</span>
-      <span style="color:#bbb;margin:0 6px;">→</span>
-      <span class="negNew">$${Number(dat.totalOfertado||0).toFixed(2)}</span>
-    </div>
+    <div class="negTot"><span class="negOrig">$${Number(dat.totalOriginal||0).toFixed(2)}</span><span style="color:#bbb;margin:0 6px;">→</span><span class="negNew">$${Number(dat.totalOfertado||0).toFixed(2)}</span></div>
     ${dat.mensaje?`<div class="negNota">"${esc(dat.mensaje)}"</div>`:''}
-    ${puedeResp
-      ?`<div class="negBts">
-          <button class="nBt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button>
-          <button class="nBt cnt" onclick="prepContra('${m.id}')">🔄 Contraofertar</button>
-          <button class="nBt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button>
-        </div>`
-      :`<div class="negSt ${est}">${
-          est==='aceptado'?'✅ Aceptado — pedido en camino':
-          est==='rechazado'?'❌ Rechazada':
-          est==='contrarrestada'?'🔄 Contrarrestada':
-          '⏳ Esperando respuesta...'
-        }</div>`
-    }
+    ${puedeResp?`<div class="negBts"><button class="nBt ok" onclick="respNeg('${m.id}','aceptado')">✓ Aceptar</button><button class="nBt cnt" onclick="prepContra('${m.id}')">🔄 Contraofertar</button><button class="nBt no" onclick="respNeg('${m.id}','rechazado')">✕ Rechazar</button></div>`:`<div class="negSt ${est}">${est==='aceptado'?'✅ Aceptado — en carrito':est==='rechazado'?'❌ Rechazada':est==='contrarrestada'?'🔄 Contrarrestada':'⏳ Esperando...'}</div>`}
     <div class="negHr">${hr}</div>`;
   w.appendChild(c);return w;
 }
 
 function mkCartBub(m,yo,hr){
   const dat=m.data||{};let rows='';
-  (dat.items||[]).forEach(it=>{
-    rows+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;">
-      <div style="width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;">
-        ${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}
-      </div>
-      <div style="flex:1;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div>
-      <div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div>
-    </div>`;
-  });
+  (dat.items||[]).forEach(it=>{rows+=`<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;"><div style="width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;">${it.imagen?`<img src="${it.imagen}" style="width:100%;height:100%;object-fit:cover;">`:''}}</div><div style="flex:1;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div><div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div></div>`;});
   const w=document.createElement('div');w.className='esp';
-  const c=document.createElement('div');
-  c.style.cssText='background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;box-shadow:0 1px 6px rgba(0,0,0,.05);';
-  c.innerHTML=`
-    <div style="font-size:.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 ${yo?'Tu carrito enviado':'Carrito compartido'}</div>
-    ${rows}
-    <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;">
-      <span style="font-size:.72rem;color:#aaa;">Total</span>
-      <span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span>
-    </div>
-    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
+  const c=document.createElement('div');c.style.cssText='background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;';
+  c.innerHTML=`<div style="font-size:.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;">📦 ${yo?'Tu carrito enviado':'Carrito compartido'}</div>${rows}<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;"><span style="font-size:.72rem;color:#aaa;">Total</span><span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span></div><div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
   w.appendChild(c);return w;
 }
 
-// ENVIAR MENSAJE — siempre funciona
 window.enviar=async function(){
   const ta=Q('ta');const txt=ta.value.trim();
-  if(!txt||!chatAct)return;
-  ta.value='';crecer(ta);ta.focus();
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,
-    autor_nombre:me.nombre||'Emprendedor',
-    texto:txt,tipo:'texto',
-    created_at:new Date().toISOString()
-  });
-  await db.from('chats').update({
-    ultimo_mensaje:txt.slice(0,60),
-    no_leido_prov:(chatAct.no_leido_prov||0)+1,
-    updated_at:new Date().toISOString()
-  }).eq('id',chatAct.id);
+  if(!txt||!chatAct)return;ta.value='';crecer(ta);ta.focus();
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:txt,tipo:'texto',created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
   await cargarMsgs();
 };
 window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
 window.crecer=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';};
 
-function showMenu(id,x,y){
-  menuId=id;const m=Q('mMenu');
-  m.style.left=Math.min(x,window.innerWidth-170)+'px';
-  m.style.top=Math.min(y,window.innerHeight-80)+'px';
-  m.classList.add('on');Q('mOv').classList.add('on');
-}
+function showMenu(id,x,y){menuId=id;const m=Q('mMenu');m.style.left=Math.min(x,window.innerWidth-170)+'px';m.style.top=Math.min(y,window.innerHeight-80)+'px';m.classList.add('on');Q('mOv').classList.add('on');}
 window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remove('on');menuId=null;};
-window.borrar=async()=>{
-  if(!menuId)return;cerrarMenu();
-  await db.from('mensajes').delete().eq('id',menuId);
-  await cargarMsgs();toast('Mensaje eliminado');
-};
+window.borrar=async()=>{if(!menuId)return;cerrarMenu();await db.from('mensajes').delete().eq('id',menuId);await cargarMsgs();toast('Mensaje eliminado');};
 
-// NEGOCIAR — emprendedor propone precio
 window.abrirNeg=function(){
-  // Si no hay prodActual buscar en el carrito del proveedor
   if(!prodActual){
-    const itemsCarrito=carrito.filter(i=>i.proveedor_id===chatAct?.proveedor_id);
-    if(itemsCarrito.length){
-      // Usar el primer producto del carrito
-      const it=itemsCarrito[0];
-      prodActual={id:it.id,nombre:it.nombre,precio:it.precio,imagen:it.imagen||'',proveedor_id:chatAct?.proveedor_id};
-      mostrarBannerProd();
-    } else {
-      toast('Entra desde un producto para negociar');return;
-    }
+    const f=carrito.filter(i=>i.proveedor_id===chatAct?.proveedor_id);
+    if(f.length){const it=f[0];prodActual={id:it.id,nombre:it.nombre,precio:it.precio,imagen:it.imagen||'',proveedor_id:chatAct?.proveedor_id};mostrarBannerProd();}
+    else{toast('Entra desde un producto para negociar');return;}
   }
   Q('modTit').textContent='🤝 Negociar precio';
   Q('modIntro').textContent='Propón un precio. El proveedor puede aceptar, rechazar o contraofertar.';
   negIt={};
-  negIt[prodActual.id]={
-    nombre:prodActual.nombre,
-    precio:Number(prodActual.precio||0),
-    oferta:Number(prodActual.precio||0),
-    cantidad:1,
-    imagen:prodActual.imagen||''
-  };
-  pintarNegItems();calcRes();Q('negNota').value='';
-  Q('modNeg').classList.add('on');
+  negIt[prodActual.id]={nombre:prodActual.nombre,precio:Number(prodActual.precio||0),oferta:Number(prodActual.precio||0),cantidad:1,imagen:prodActual.imagen||''};
+  pintarNegItems();calcRes();Q('negNota').value='';Q('modNeg').classList.add('on');
 };
 
-// CONTRAOFERTAR — sobre oferta del proveedor
 window.abrirNegContra=function(){
-  if(!ultimaNegPendiente){toast('No hay oferta pendiente del proveedor para contraofertar');return;}
+  if(!ultimaNegPendiente){toast('No hay oferta pendiente del proveedor');return;}
   Q('modTit').textContent='🔄 Contraofertar';
   Q('modIntro').textContent='Haz una contraoferta a la propuesta del proveedor.';
   const dat=ultimaNegPendiente.data||{};
   negIt={};
-  (dat.items||[]).forEach(it=>{
-    negIt[it.id]={
-      nombre:it.nombre,
-      precio:it.precioOriginal,
-      oferta:it.precioOfertado,
-      cantidad:it.cantidad||1,
-      imagen:it.imagen||''
-    };
-  });
-  pintarNegItems();calcRes();Q('negNota').value='';
-  Q('modNeg').classList.add('on');
+  (dat.items||[]).forEach(it=>{negIt[it.id]={nombre:it.nombre,precio:it.precioOriginal,oferta:it.precioOfertado,cantidad:it.cantidad||1,imagen:it.imagen||''};});
+  pintarNegItems();calcRes();Q('negNota').value='';Q('modNeg').classList.add('on');
 };
 
-// DESDE BOTÓN EN BURBUJA
-window.prepContra=function(msgId){
-  const m=msgsArr.find(x=>x.id===msgId);
-  if(!m)return;
-  ultimaNegPendiente=m;
-  abrirNegContra();
-};
+window.prepContra=function(msgId){const m=msgsArr.find(x=>x.id===msgId);if(!m)return;ultimaNegPendiente=m;abrirNegContra();};
 
 function pintarNegItems(){
   const w=Q('negItems');w.innerHTML='';
   Object.entries(negIt).forEach(([id,it])=>{
     const d=document.createElement('div');d.className='negMod-item';
-    d.innerHTML=`
-      <div class="nmi-top">
-        <div class="nmi-img">${it.imagen?`<img src="${it.imagen}">`:''}</div>
-        <div class="nmi-inf">
-          <div class="nmi-nom">${it.nombre}</div>
-          <div class="nmi-cant">Precio base: $${Number(it.precio).toFixed(2)}</div>
-        </div>
-      </div>
-      <div class="nmi-row">
-        <span class="nmi-orig">$${Number(it.precio).toFixed(2)}</span>
-        <input class="nmi-inp" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)">
-        <span class="nmi-u">c/u</span>
-      </div>`;
+    d.innerHTML=`<div class="nmi-top"><div class="nmi-img">${it.imagen?`<img src="${it.imagen}">`:''}</div><div class="nmi-inf"><div class="nmi-nom">${it.nombre}</div><div class="nmi-cant">Precio base: $${Number(it.precio).toFixed(2)}</div></div></div><div class="nmi-row"><span class="nmi-orig">$${Number(it.precio).toFixed(2)}</span><input class="nmi-inp" type="number" value="${it.oferta}" min="0" step="0.01" oninput="updNeg('${id}',this.value)"><span class="nmi-u">c/u</span></div>`;
     w.appendChild(d);
   });
 }
 window.updNeg=(id,v)=>{if(negIt[id])negIt[id].oferta=parseFloat(v)||0;calcRes();};
-function calcRes(){
-  let o=0,f=0;Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});
-  Q('rOrig').textContent='$'+o.toFixed(2);
-  Q('rOfer').textContent='$'+f.toFixed(2);
-  const a=o-f;Q('rAho').textContent='$'+Math.abs(a).toFixed(2);
-  Q('rAho').style.color=a>0?'#3a7a00':'#aaa';
-}
+function calcRes(){let o=0,f=0;Object.values(negIt).forEach(p=>{o+=p.precio*p.cantidad;f+=p.oferta*p.cantidad;});Q('rOrig').textContent='$'+o.toFixed(2);Q('rOfer').textContent='$'+f.toFixed(2);const a=o-f;Q('rAho').textContent='$'+Math.abs(a).toFixed(2);Q('rAho').style.color=a>0?'#3a7a00':'#aaa';}
 
-// ENVIAR NEGOCIACIÓN
 window.envNeg=async()=>{
   if(!chatAct||!prodActual)return;
-  const items=Object.entries(negIt).map(([id,p])=>({
-    id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,
-    precioOriginal:p.precio,precioOfertado:p.oferta
-  }));
+  const items=Object.entries(negIt).map(([id,p])=>({id,nombre:p.nombre,cantidad:p.cantidad,imagen:p.imagen,precioOriginal:p.precio,precioOfertado:p.oferta}));
   const tO=items.reduce((s,i)=>s+i.precioOriginal*i.cantidad,0);
   const tN=items.reduce((s,i)=>s+i.precioOfertado*i.cantidad,0);
   const nota=Q('negNota').value.trim();
-
-  // Si es contraoferta marcar la anterior como contrarrestada
-  if(ultimaNegPendiente){
-    await db.from('mensajes').update({
-      data:{...ultimaNegPendiente.data,estado:'contrarrestada'}
-    }).eq('id',ultimaNegPendiente.id);
-    ultimaNegPendiente=null;
-  }
-
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,
-    autor_nombre:me.nombre||'Emprendedor',
-    texto:`🤝 Propuesta $${tN.toFixed(2)}`,
-    tipo:'negociacion',
-    data:{
-      items,totalOriginal:tO,totalOfertado:tN,
-      mensaje:nota,estado:'pendiente',
-      producto_id:prodActual.id,
-      producto_nombre:prodActual.nombre,
-      producto_precio:prodActual.precio,
-      producto_imagen:prodActual.imagen
-    },
-    created_at:new Date().toISOString()
-  });
-  await db.from('chats').update({
-    ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,
-    no_leido_prov:(chatAct.no_leido_prov||0)+1,
-    updated_at:new Date().toISOString()
-  }).eq('id',chatAct.id);
-  Q('modNeg').classList.remove('on');
-  await cargarMsgs();toast('✓ Propuesta enviada');
+  if(ultimaNegPendiente){await db.from('mensajes').update({data:{...ultimaNegPendiente.data,estado:'contrarrestada'}}).eq('id',ultimaNegPendiente.id);ultimaNegPendiente=null;}
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`🤝 Propuesta $${tN.toFixed(2)}`,tipo:'negociacion',data:{items,totalOriginal:tO,totalOfertado:tN,mensaje:nota,estado:'pendiente',producto_id:prodActual.id,producto_nombre:prodActual.nombre,producto_precio:prodActual.precio,producto_imagen:prodActual.imagen},created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:`🤝 Propuesta $${tN.toFixed(2)}`,no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
+  Q('modNeg').classList.remove('on');await cargarMsgs();toast('✓ Propuesta enviada');
 };
 
-// RESPONDER PROPUESTA DEL PROVEEDOR
 window.respNeg=async(msgId,estado)=>{
   const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
-  const dat={...m.data,estado};
-  await db.from('mensajes').update({data:dat}).eq('id',msgId);
-
+  await db.from('mensajes').update({data:{...m.data,estado}}).eq('id',msgId);
   if(estado==='aceptado'&&m.data?.items){
-    // Agregar al carrito con precio acordado
-    m.data.items.forEach(it=>{
-      const idx=carrito.findIndex(x=>x.id===it.id);
-      if(idx>=0){
-        carrito[idx].precio=it.precioOfertado;
-        carrito[idx].cantidad=it.cantidad;
-      } else {
-        carrito.push({
-          id:it.id,nombre:it.nombre,
-          precio:it.precioOfertado,
-          imagen:it.imagen||'',
-          cantidad:it.cantidad||1,
-          proveedor_id:chatAct.proveedor_id
-        });
-      }
-    });
-    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
-    badge();
-
-    await db.from('mensajes').insert({
-      chat_id:chatAct.id,autor_id:uid,
-      autor_nombre:me.nombre||'Emprendedor',
-      texto:`✅ ¡Acepté la oferta! Precio: $${Number(m.data.totalOfertado||0).toFixed(2)}. Producto agregado al carrito.`,
-      tipo:'texto',created_at:new Date().toISOString()
-    });
-    toast('✅ Oferta aceptada — producto en tu carrito');
-  } else {
-    await db.from('mensajes').insert({
-      chat_id:chatAct.id,autor_id:uid,
-      autor_nombre:me.nombre||'Emprendedor',
-      texto:'❌ Rechacé la oferta. Podemos seguir negociando.',
-      tipo:'texto',created_at:new Date().toISOString()
-    });
+    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0)carrito[i].precio=it.precioOfertado;else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen||'',cantidad:it.cantidad||1,proveedor_id:chatAct.proveedor_id});});
+    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ Acepté la oferta de $${Number(m.data.totalOfertado||0).toFixed(2)}. Producto en carrito.`,tipo:'texto',created_at:new Date().toISOString()});
+    toast('✅ Oferta aceptada — producto en carrito');
+  }else{
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la oferta. Podemos seguir negociando.',tipo:'texto',created_at:new Date().toISOString()});
     toast('Oferta rechazada');
   }
-
-  await db.from('chats').update({
-    ultimo_mensaje:estado==='aceptado'?'✅ Precio acordado':'❌ Oferta rechazada',
-    no_leido_prov:(chatAct.no_leido_prov||0)+1,
-    updated_at:new Date().toISOString()
-  }).eq('id',chatAct.id);
+  await db.from('chats').update({no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
   await cargarMsgs();
 };
 
-// ENVIAR CARRITO
 window.enviarCarrito=async()=>{
   const items=carrito.filter(i=>i.proveedor_id===chatAct?.proveedor_id);
   if(!items.length){toast('Carrito vacío para este proveedor');return;}
   const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,
-    autor_nombre:me.nombre||'Emprendedor',
-    texto:`📦 Carrito $${total.toFixed(2)}`,
-    tipo:'carrito',
-    data:{items,total},
-    created_at:new Date().toISOString()
-  });
-  await db.from('chats').update({
-    ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,
-    no_leido_prov:(chatAct.no_leido_prov||0)+1,
-    updated_at:new Date().toISOString()
-  }).eq('id',chatAct.id);
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',data:{items,total},created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
   await cargarMsgs();toast('✓ Carrito compartido');
 };
 
-// REALTIME
 function suscribir(){
-  if(canal) db.removeChannel(canal);
+  if(canal)db.removeChannel(canal);
   canal=db.channel('chat-emp-'+chatAct.id)
     .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
     .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
@@ -806,10 +514,9 @@ function suscribir(){
 }
 
 function volver(){
-  if(canal) db.removeChannel(canal);
+  if(canal)db.removeChannel(canal);
   chatAct=null;prodActual=null;msgsArr=[];ultimaNegPendiente=null;
-  Q('pChat').style.display='none';
-  Q('pLista').style.display='flex';
+  Q('pChat').style.display='none';Q('pLista').style.display='flex';
   cargarChats();
 }
 
