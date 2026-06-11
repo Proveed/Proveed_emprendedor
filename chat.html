@@ -343,21 +343,11 @@ function mostrarBannerProd(){
 }
 
 async function cargarChats(){
-  const {data, error} = await db.from('chats')
-    .select('*')
-    .eq('emprendedor_id', uid)
-    .order('created_at', {ascending: false});
-  
-  if(error){
-    console.error(error);
-    // Si falla el order, intentar sin él
-    const {data:d2} = await db.from('chats')
-      .select('*')
-      .eq('emprendedor_id', uid);
-    todos = d2 || [];
-  } else {
-    todos = data || [];
-  }
+  const {data} = await db
+    .from('chats')
+    .select('id, emprendedor_id, emprendedor_nombre, proveedor_id, proveedor_nombre, producto_id, producto_nombre, ultimo_mensaje, no_leido_emp, no_leido_prov, negociacion_activa, created_at, updated_at')
+    .eq('emprendedor_id', uid);
+  todos = data || [];
   pintarLista(todos);
 }
 function pintarLista(arr){
