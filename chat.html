@@ -343,10 +343,25 @@ function mostrarBannerProd(){
 }
 
 async function cargarChats(){
-  const {data}=await db.from('chats').select('*').eq('emprendedor_id',uid).order('updated_at',{ascending:false});
-  todos=data||[];pintarLista(todos);
+  try{
+    const {data, error} = await db.from('chats')
+      .select('*')
+      .eq('emprendedor_id', uid)
+      .order('updated_at', {ascending: false});
+    
+    if(error) throw error;
+    todos = data || [];
+    pintarLista(todos);
+  } catch(e){
+    console.error('Error chats:', e);
+    // Intentar sin order si falla
+    const {data} = await db.from('chats')
+      .select('*')
+      .eq('emprendedor_id', uid);
+    todos = data || [];
+    pintarLista(todos);
+  }
 }
-
 function pintarLista(arr){
   const c=Q('lista');
   if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
