@@ -43,15 +43,21 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cBts{display:flex;gap:6px;}
 .cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
+/* BANNER PRODUCTO */
 .banProd{background:#fff;border-bottom:2px solid rgba(168,230,61,0.3);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .bpImg{width:44px;height:44px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
 .bpImg img{width:100%;height:100%;object-fit:cover;}
 .bpInf{flex:1;min-width:0;}
 .bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .bpPre{font-size:0.74rem;color:var(--O);font-weight:800;margin-top:1px;}
+.bpTag{font-size:0.6rem;color:var(--G2);font-weight:700;margin-top:2px;}
+.bpBtn{padding:6px 12px;background:rgba(168,230,61,0.1);border:1.5px solid var(--G);border-radius:20px;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:var(--G2);cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px;background:var(--F);display:flex;flex-direction:column;gap:5px;}
 .inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
-/* Sin botones de negociación para el emprendedor — solo escribe */
+.extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
+.extras::-webkit-scrollbar{display:none;}
+.xBtn{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.xBtn.g{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,.06);}
 .iRow{display:flex;align-items:flex-end;gap:8px;}
 .iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
 textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111 !important;-webkit-text-fill-color:#111 !important;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;display:block;caret-color:#111;}
@@ -61,7 +67,7 @@ textarea#ta::placeholder{color:#bbb;}
 .msg{display:flex;flex-direction:column;}
 .msg.yo{align-items:flex-end;}
 .msg.el{align-items:flex-start;}
-.bub{padding:10px 14px;border-radius:18px;font-size:0.88rem;line-height:1.5;max-width:80%;word-break:break-word;-webkit-user-select:none;user-select:none;}
+.bub{padding:10px 14px;border-radius:18px;font-size:0.88rem;line-height:1.5;max-width:80%;word-break:break-word;-webkit-user-select:none;user-select:none;cursor:pointer;}
 .msg.yo .bub{background:var(--G);color:#111;border-bottom-right-radius:4px;font-weight:500;}
 .msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .mHora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
@@ -72,18 +78,15 @@ textarea#ta::placeholder{color:#bbb;}
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
-
-/* CARD DE OFERTA DEL PROVEEDOR */
+/* OFERTA DEL PROVEEDOR */
 .ofertaC{background:#fff;border:2px solid var(--G);border-radius:20px;padding:16px;width:94%;max-width:340px;box-shadow:0 4px 16px rgba(168,230,61,.12);}
-.ofertaH{font-size:0.62rem;font-weight:800;color:var(--G2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
-.ofertaH svg{width:14px;height:14px;stroke:var(--G2);fill:none;stroke-width:2.5;}
+.ofertaH{font-size:0.62rem;font-weight:800;color:var(--G2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
 .ofertaItem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5;}
 .ofertaItem:last-of-type{border:none;}
-.ofertaImg{width:36px;height:36px;border-radius:9px;background:var(--F);overflow:hidden;flex-shrink:0;}
+.ofertaImg{width:38px;height:38px;border-radius:9px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
 .ofertaImg img{width:100%;height:100%;object-fit:cover;}
-.ofertaNom{flex:1;font-size:0.78rem;font-weight:600;color:#111;}
+.ofertaNom{font-size:0.78rem;font-weight:600;color:#111;}
 .ofertaCant{font-size:0.64rem;color:#aaa;}
-.ofertaPrecios{text-align:right;}
 .ofertaOrig{font-size:0.68rem;color:#bbb;text-decoration:line-through;}
 .ofertaNuevo{font-size:0.92rem;font-weight:900;color:var(--G2);}
 .ofertaTot{display:flex;justify-content:space-between;align-items:center;margin:10px 0;padding:10px;background:rgba(168,230,61,.07);border-radius:12px;}
@@ -91,7 +94,6 @@ textarea#ta::placeholder{color:#bbb;}
 .ofertaTotV{font-size:1.1rem;font-weight:900;color:var(--G2);}
 .ofertaAhorro{font-size:0.68rem;color:var(--G2);font-weight:600;margin-bottom:10px;text-align:center;}
 .ofertaNota{font-size:0.76rem;color:#666;font-style:italic;padding:8px 10px;background:var(--F);border-radius:10px;margin-bottom:12px;line-height:1.5;}
-/* BOTONES ACEPTAR / RECHAZAR — grandes y claros */
 .ofertaBts{display:flex;gap:8px;}
 .ofBt{flex:1;padding:12px 8px;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
 .ofBt svg{width:15px;height:15px;fill:none;stroke-width:2.5;}
@@ -102,21 +104,36 @@ textarea#ta::placeholder{color:#bbb;}
 .ofertaSt{text-align:center;font-size:0.74rem;font-weight:700;padding:8px;border-radius:12px;margin-top:4px;}
 .ofertaSt.aceptado{background:rgba(168,230,61,.12);color:var(--G2);}
 .ofertaSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
-.ofertaSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
 .ofertaHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:8px;}
-
-/* CARD CARRITO COMPARTIDO */
-.cartC{background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+/* CARRITO */
+.cartC{background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;}
 .cartH{font-size:0.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;}
 .cartRow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;}
 .cartRow:last-of-type{border:none;}
-.cartImg{width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;}
+.cartImg{width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;}
 .cartImg img{width:100%;height:100%;object-fit:cover;}
-.cartNom{flex:1;font-size:.76rem;font-weight:600;color:#111;}
-.cartCant{font-size:.62rem;color:#aaa;}
-.cartPre{font-size:.78rem;font-weight:800;color:var(--O);}
-.cartTot{display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;}
-
+/* MODAL CATÁLOGO */
+.modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
+.modOv.on{display:flex;}
+.modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+.modOv.on .modSh{transform:translateY(0);}
+.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
+.modH{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;flex-shrink:0;}
+.modT{font-size:0.95rem;font-weight:800;color:#111;}
+.modX{width:28px;height:28px;background:var(--F);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modX svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
+.modB{overflow-y:auto;padding:14px;flex:1;}
+.catBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:20px;padding:10px 14px;border:1.5px solid #eee;margin-bottom:12px;}
+.catBus svg{width:14px;height:14px;stroke:#ccc;fill:none;stroke-width:2.5;flex-shrink:0;}
+.catBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
+.catGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.catCard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;}
+.catCardImg{width:100%;height:90px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:2rem;}
+.catCardImg img{width:100%;height:100%;object-fit:cover;}
+.catCardBod{padding:8px;}
+.catCardNom{font-size:.76rem;font-weight:700;color:#111;margin-bottom:3px;}
+.catCardPre{font-size:.86rem;font-weight:900;color:var(--O);}
+.catCardBtn{width:100%;padding:6px;background:#111;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;margin-top:5px;}
 .tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -131,7 +148,6 @@ textarea#ta::placeholder{color:#bbb;}
 </head>
 <body>
 
-<!-- LISTA -->
 <div id="pLista">
   <div class="hLista">
     <div class="hTop">
@@ -153,27 +169,37 @@ textarea#ta::placeholder{color:#bbb;}
   </nav>
 </div>
 
-<!-- CHAT -->
 <div id="pChat">
   <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="cAv" id="cAv">P</div>
     <div class="cInf"><div class="cNom" id="cNom">—</div><div class="cSub" id="cSub">—</div></div>
     <div class="cBts">
+      <button class="cBt" title="Ver catálogo del proveedor" onclick="abrirCatalogo()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
       <button class="cBt" onclick="location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
     </div>
   </div>
 
-  <!-- BANNER PRODUCTO -->
+  <!-- BANNER PRODUCTO — muestra el producto desde donde entró -->
   <div class="banProd" id="banProd" style="display:none;">
     <div class="bpImg" id="bpImg"></div>
-    <div class="bpInf"><div class="bpNom" id="bpNom">—</div><div class="bpPre" id="bpPre">—</div></div>
+    <div class="bpInf">
+      <div class="bpNom" id="bpNom">—</div>
+      <div class="bpPre" id="bpPre">—</div>
+      <div class="bpTag">📦 Producto de interés</div>
+    </div>
+    <button class="bpBtn" onclick="abrirCatalogo()">+ Ver más</button>
   </div>
 
   <div class="msgsArea" id="msgs"></div>
 
-  <!-- INPUT — solo escribir, sin botones de negociación -->
   <div class="inputArea">
+    <div class="extras">
+      <button class="xBtn g" onclick="abrirCatalogo()">🔍 Ver catálogo</button>
+      <button class="xBtn" onclick="enviarCarrito()">📦 Enviar carrito</button>
+    </div>
     <div class="iRow">
       <div class="iBox">
         <textarea id="ta" placeholder="Escribe un mensaje al proveedor..." rows="1"
@@ -197,6 +223,23 @@ textarea#ta::placeholder{color:#bbb;}
 <div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
 <div class="mMenu" id="mMenu"><button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button></div>
 
+<!-- MODAL CATÁLOGO DEL PROVEEDOR -->
+<div class="modOv" id="modCat" onclick="cmod('modCat',event)">
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH">
+      <span class="modT">🔍 Catálogo del proveedor</span>
+      <button class="modX" onclick="Q('modCat').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modB">
+      <div class="catBus">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="Buscar producto..." oninput="filtCat(this.value)">
+      </div>
+      <div class="catGrid" id="catGrid"><div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Cargando...</div></div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="tst"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -204,8 +247,7 @@ textarea#ta::placeholder{color:#bbb;}
 const {createClient}=supabase;
 const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 const Q=id=>document.getElementById(id);
-
-let uid='',me={},chatAct=null,todos=[],msgsArr=[],canal=null,menuId=null,prodActual=null;
+let uid='',me={},chatAct=null,todos=[],msgsArr=[],canal=null,menuId=null,prodActual=null,catAll=[];
 const QS=new URLSearchParams(location.search);
 let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 
@@ -218,10 +260,10 @@ badge();
 function mostrarBannerProd(){
   if(!prodActual)return;
   Q('banProd').style.display='flex';
-  Q('bpImg').innerHTML=prodActual.imagen?`<img src="${prodActual.imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'';
+  Q('bpImg').innerHTML=prodActual.imagen?`<img src="${prodActual.imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'📦';
   Q('bpNom').textContent=prodActual.nombre||'Producto';
-  Q('bpPre').textContent=prodActual.precio?`$${Number(prodActual.precio).toFixed(2)}`:'';
-  Q('cSub').textContent=prodActual.nombre||'—';
+  Q('bpPre').textContent=prodActual.precio?`$${Number(prodActual.precio).toFixed(2)} — interesado en este producto`:'';
+  Q('cSub').textContent=`Interés: ${prodActual.nombre}`;
 }
 
 (async()=>{
@@ -245,6 +287,7 @@ function mostrarBannerProd(){
       const {data:ch}=await db.from('chats').insert({
         emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',
         proveedor_id:pId,proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
+        producto_id:prodId||null,producto_nombre:prodNom||null,
         ultimo_mensaje:'Chat iniciado',no_leido_emp:0,no_leido_prov:0
       }).select().single();
       chat=ch;if(chat)todos.unshift(chat);
@@ -254,9 +297,24 @@ function mostrarBannerProd(){
       if(prodId&&prodNom){
         prodActual={id:prodId,nombre:prodNom,precio:prodPre,imagen:prodImg,proveedor_id:pId};
         mostrarBannerProd();
-        // Mensaje inicial automático
-        Q('ta').value=`Hola, me interesa el producto "${prodNom}" — precio $${Number(prodPre||0).toFixed(2)}. ¿Podría hacerme una oferta?`;
-        crecer(Q('ta'));Q('ta').focus();
+        // Enviar mensaje automático con info del producto para que el proveedor lo vea
+        const yaEnviado=msgsArr.some(m=>m.tipo==='producto_interes'&&m.data?.producto_id===prodId);
+        if(!yaEnviado){
+          await db.from('mensajes').insert({
+            chat_id:chat.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
+            texto:`Hola, me interesa el producto "${prodNom}" (precio actual: $${Number(prodPre||0).toFixed(2)}). ¿Podría hacerme una oferta?`,
+            tipo:'producto_interes',
+            data:{producto_id:prodId,producto_nombre:prodNom,producto_precio:prodPre,producto_imagen:prodImg},
+            created_at:new Date().toISOString()
+          });
+          await db.from('chats').update({
+            ultimo_mensaje:`Interés en: ${prodNom}`,
+            producto_id:prodId,producto_nombre:prodNom,
+            no_leido_prov:(chat.no_leido_prov||0)+1
+          }).eq('id',chat.id);
+          await cargarMsgs();
+        }
+        Q('ta').focus();
       }
     }
   }
@@ -279,10 +337,9 @@ function pintarLista(arr){
     const d=document.createElement('div');
     d.className='chatItem'+((ch.no_leido_emp||0)>0?' new':'');
     d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
-      <div class="ciInf"><div class="ciNom">${nom}</div><div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
+      <div class="ciInf"><div class="ciNom">${nom}</div>${ch.producto_nombre?`<div style="font-size:.64rem;color:var(--G2);font-weight:600;margin-bottom:2px;">📦 ${ch.producto_nombre}</div>`:''}<div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
       <div class="ciR"><div class="ciHora">${hora}</div>${(ch.no_leido_emp||0)>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
-    d.onclick=()=>abrirChat(ch);
-    c.appendChild(d);
+    d.onclick=()=>abrirChat(ch);c.appendChild(d);
   });
 }
 
@@ -305,12 +362,11 @@ async function cargarMsgs(){
   const {data,error}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
   if(error){console.error(error);return;}
   msgsArr=data||[];
-
-  // Detectar producto desde mensajes
+  // Detectar producto desde mensajes si no hay uno activo
   if(!prodActual){
     for(let i=msgsArr.length-1;i>=0;i--){
       const m=msgsArr[i];
-      if(m.data?.producto_nombre){
+      if(m.data?.producto_id&&m.data?.producto_nombre){
         prodActual={id:m.data.producto_id,nombre:m.data.producto_nombre,precio:m.data.producto_precio,imagen:m.data.producto_imagen||''};
         mostrarBannerProd();break;
       }
@@ -332,7 +388,7 @@ function mkBurbuja(m){
   const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
   if(m.tipo==='negociacion')return mkOferta(m,yo,hr);
   if(m.tipo==='carrito')return mkCarrito(m,yo,hr);
-
+  if(m.tipo==='producto_interes')return mkProdInteres(m,yo,hr);
   const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
   const b=document.createElement('div');b.className='bub';b.textContent=m.texto||'';
   if(yo){
@@ -346,56 +402,51 @@ function mkBurbuja(m){
   d.appendChild(b);d.appendChild(h);return d;
 }
 
+function mkProdInteres(m,yo,hr){
+  const dat=m.data||{};
+  const w=document.createElement('div');w.className='esp';
+  const c=document.createElement('div');
+  c.style.cssText='background:#fff;border:2px solid rgba(168,230,61,0.4);border-radius:18px;padding:14px;width:92%;max-width:340px;';
+  c.innerHTML=`<div style="font-size:.62rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:10px;">📦 Producto de interés</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:52px;height:52px;border-radius:12px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
+        ${dat.producto_imagen?`<img src="${dat.producto_imagen}" style="width:100%;height:100%;object-fit:cover;">`:'📦'}
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:.86rem;font-weight:700;color:#111;">${dat.producto_nombre||'Producto'}</div>
+        <div style="font-size:.76rem;color:var(--O);font-weight:800;margin-top:2px;">$${Number(dat.producto_precio||0).toFixed(2)}</div>
+        <div style="font-size:.64rem;color:#aaa;margin-top:2px;">El emprendedor está interesado en este producto</div>
+      </div>
+    </div>
+    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:8px;">${hr}</div>`;
+  w.appendChild(c);return w;
+}
+
 function mkOferta(m,yo,hr){
   const dat=m.data||{},est=dat.estado||'pendiente';
-  // Emprendedor SOLO puede aceptar o rechazar — solo si es oferta del proveedor (no yo)
   const puedeResp=!yo&&est==='pendiente';
   let items='';
   (dat.items||[]).forEach(it=>{
     items+=`<div class="ofertaItem">
       <div class="ofertaImg">${it.imagen?`<img src="${it.imagen}">`:'📦'}</div>
-      <div style="flex:1;min-width:0;">
-        <div class="ofertaNom">${it.nombre}</div>
-        <div class="ofertaCant">Cantidad: ${it.cantidad||1}</div>
-      </div>
-      <div class="ofertaPrecios">
-        <div class="ofertaOrig">$${Number(it.precioOriginal||0).toFixed(2)}</div>
-        <div class="ofertaNuevo">$${Number(it.precioOfertado||0).toFixed(2)}</div>
-      </div>
+      <div style="flex:1;min-width:0;"><div class="ofertaNom">${it.nombre}</div><div class="ofertaCant">×${it.cantidad||1}</div></div>
+      <div style="text-align:right;"><div class="ofertaOrig">$${Number(it.precioOriginal||0).toFixed(2)}</div><div class="ofertaNuevo">$${Number(it.precioOfertado||0).toFixed(2)}</div></div>
     </div>`;
   });
   const tO=Number(dat.totalOriginal||0),tN=Number(dat.totalOfertado||0),ahorro=tO-tN;
-
   const w=document.createElement('div');w.className='esp';
   const c=document.createElement('div');c.className='ofertaC';
-  c.innerHTML=`
-    <div class="ofertaH">
-      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      ${yo?'Oferta enviada por ti':'💰 Oferta del proveedor'}
-    </div>
+  c.innerHTML=`<div class="ofertaH">💰 ${yo?'Tu respuesta enviada':'Oferta del proveedor'}</div>
     ${items?`<div style="margin-bottom:4px;">${items}</div>`:''}
-    <div class="ofertaTot">
-      <span class="ofertaTotL">Total oferta</span>
-      <span class="ofertaTotV">$${tN.toFixed(2)}</span>
-    </div>
-    ${ahorro>0?`<div class="ofertaAhorro">🎉 Ahorras $${ahorro.toFixed(2)} vs precio original</div>`:''}
+    <div class="ofertaTot"><span class="ofertaTotL">Total oferta</span><span class="ofertaTotV">$${tN.toFixed(2)}</span></div>
+    ${ahorro>0?`<div class="ofertaAhorro">🎉 Ahorras $${ahorro.toFixed(2)}</div>`:''}
     ${dat.mensaje?`<div class="ofertaNota">"${esc(dat.mensaje)}"</div>`:''}
     ${puedeResp
       ?`<div class="ofertaBts">
-          <button class="ofBt aceptar" onclick="aceptarOferta('${m.id}')">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            Aceptar oferta
-          </button>
-          <button class="ofBt rechazar" onclick="rechazarOferta('${m.id}')">
-            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Rechazar
-          </button>
+          <button class="ofBt aceptar" onclick="aceptarOferta('${m.id}')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Aceptar</button>
+          <button class="ofBt rechazar" onclick="rechazarOferta('${m.id}')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Rechazar</button>
         </div>`
-      :`<div class="ofertaSt ${est}">${
-          est==='aceptado'?'✅ Aceptaste esta oferta — carrito actualizado':
-          est==='rechazado'?'❌ Rechazaste esta oferta':
-          yo?'⏳ Esperando respuesta del emprendedor...':'⏳ Esperando tu respuesta...'
-        }</div>`
+      :`<div class="ofertaSt ${est}">${est==='aceptado'?'✅ Aceptaste — carrito y pedido actualizados':est==='rechazado'?'❌ Rechazaste esta oferta':'⏳ Esperando tu respuesta...'}</div>`
     }
     <div class="ofertaHr">${hr}</div>`;
   w.appendChild(c);return w;
@@ -403,84 +454,83 @@ function mkOferta(m,yo,hr){
 
 function mkCarrito(m,yo,hr){
   const dat=m.data||{};let rows='';
-  (dat.items||[]).forEach(it=>{
-    rows+=`<div class="cartRow">
-      <div class="cartImg">${it.imagen?`<img src="${it.imagen}">`:'📦'}</div>
-      <div style="flex:1;min-width:0;"><div class="cartNom">${it.nombre}</div><div class="cartCant">×${it.cantidad||1}</div></div>
-      <div class="cartPre">$${Number(it.precio||0).toFixed(2)}</div>
-    </div>`;
-  });
+  (dat.items||[]).forEach(it=>{rows+=`<div class="cartRow"><div class="cartImg">${it.imagen?`<img src="${it.imagen}">`:'📦'}</div><div style="flex:1;min-width:0;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div><div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div></div>`;});
   const w=document.createElement('div');w.className='esp';
   const c=document.createElement('div');c.className='cartC';
-  c.innerHTML=`<div class="cartH">📦 ${yo?'Carrito enviado al proveedor':'Carrito del emprendedor'}</div>
-    ${rows}
-    <div class="cartTot"><span style="font-size:.72rem;color:#aaa;">Total</span><span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span></div>
-    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
+  c.innerHTML=`<div class="cartH">📦 ${yo?'Tu carrito enviado':'Carrito del proveedor'}</div>${rows}<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;"><span style="font-size:.72rem;color:#aaa;">Total</span><span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span></div><div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
   w.appendChild(c);return w;
 }
 
-// ACEPTAR OFERTA — actualiza carrito y genera pedido
 window.aceptarOferta=async function(msgId){
   const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
   await db.from('mensajes').update({data:{...m.data,estado:'aceptado'}}).eq('id',msgId);
-
-  // Agregar al carrito con precio acordado
   if(m.data?.items){
-    m.data.items.forEach(it=>{
-      const i=carrito.findIndex(x=>x.id===it.id);
-      if(i>=0){carrito[i].precio=it.precioOfertado;carrito[i].cantidad=it.cantidad||1;}
-      else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen||'',cantidad:it.cantidad||1,proveedor_id:chatAct.proveedor_id});
-    });
+    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0){carrito[i].precio=it.precioOfertado;carrito[i].cantidad=it.cantidad||1;}else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen||'',cantidad:it.cantidad||1,proveedor_id:chatAct.proveedor_id});});
     localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
   }
-
-  // Crear pedido automáticamente
   const items=(m.data?.items||[]).map(it=>({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen||'',cantidad:it.cantidad||1}));
   const total=items.reduce((s,i)=>s+i.precio*i.cantidad,0);
-  await db.from('pedidos').insert({
-    emprendedor_id:uid,emprendedor_nombre:me.nombre||'',
-    proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre||'',
-    items,total,estado:'confirmado',origen:'chat_oferta',metodo_pago:'a_coordinar'
-  });
-
-  // Mensaje confirmación
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
-    texto:`✅ ¡Acepté la oferta! Precio total: $${total.toFixed(2)}. Pedido generado — coordinaremos el pago.`,
-    tipo:'texto',created_at:new Date().toISOString()
-  });
+  await db.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'',proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre||'',items,total,estado:'confirmado',origen:'chat_oferta',metodo_pago:'a_coordinar'});
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ ¡Acepté la oferta! Total: $${total.toFixed(2)}. Pedido generado.`,tipo:'texto',created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:'✅ Oferta aceptada — pedido generado',no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
-  await cargarMsgs();
-  toast('✅ Oferta aceptada — pedido creado. Ve a tu carrito para pagar.');
+  await cargarMsgs();toast('✅ Oferta aceptada — pedido creado. Ve al carrito para pagar.');
 };
 
-// RECHAZAR OFERTA
 window.rechazarOferta=async function(msgId){
   const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
   await db.from('mensajes').update({data:{...m.data,estado:'rechazado'}}).eq('id',msgId);
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
-    texto:'❌ Rechacé la oferta. Podemos seguir conversando para llegar a un acuerdo.',
-    tipo:'texto',created_at:new Date().toISOString()
-  });
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la oferta. Podemos seguir conversando.',tipo:'texto',created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:'❌ Oferta rechazada',no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
-  await cargarMsgs();
-  toast('Oferta rechazada');
+  await cargarMsgs();toast('Oferta rechazada');
 };
 
-// ENVIAR MENSAJE — solo texto, sin negociación
 window.enviar=async function(){
   const ta=Q('ta');const txt=ta.value.trim();
   if(!txt||!chatAct)return;ta.value='';crecer(ta);ta.focus();
-  await db.from('mensajes').insert({
-    chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
-    texto:txt,tipo:'texto',created_at:new Date().toISOString()
-  });
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:txt,tipo:'texto',created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
   await cargarMsgs();
 };
 window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
 window.crecer=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';};
+
+window.enviarCarrito=async()=>{
+  const items=carrito.filter(i=>i.proveedor_id===chatAct?.proveedor_id);
+  if(!items.length){toast('Carrito vacío para este proveedor');return;}
+  const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
+  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',data:{items,total},created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
+  await cargarMsgs();toast('✓ Carrito compartido');
+};
+
+window.abrirCatalogo=async()=>{
+  if(!chatAct?.proveedor_id){toast('Abre un chat primero');return;}
+  Q('modCat').classList.add('on');
+  Q('catGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Cargando...</div>';
+  const {data}=await db.from('productos').select('*').eq('proveedor_id',chatAct.proveedor_id).eq('activo',true).order('created_at',{ascending:false});
+  catAll=data||[];pintarCat(catAll);
+};
+function pintarCat(arr){
+  const w=Q('catGrid');
+  if(!arr.length){w.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Sin productos</div>';return;}
+  w.innerHTML='';
+  arr.forEach(p=>{
+    const img=p.imagenes?.[0]||p.imagen||'';
+    const d=document.createElement('div');d.className='catCard';
+    d.innerHTML=`<div class="catCardImg">${img?`<img src="${img}" loading="lazy">`:'📦'}</div>
+      <div class="catCardBod"><div class="catCardNom">${p.nombre||'Producto'}</div><div class="catCardPre">$${Number(p.precio||0).toFixed(2)}</div>
+      <button class="catCardBtn" onclick="addCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatAct?.proveedor_id||''}')">+ Agregar al carrito</button></div>`;
+    w.appendChild(d);
+  });
+}
+window.filtCat=q=>{const ql=q.toLowerCase();pintarCat(catAll.filter(p=>(p.nombre||'').toLowerCase().includes(ql)));};
+window.addCat=(id,nombre,precio,imagen,provId)=>{
+  const i=carrito.findIndex(c=>c.id===id);
+  if(i>=0)carrito[i].cantidad=(carrito[i].cantidad||1)+1;
+  else carrito.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});
+  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
+  toast(`✓ ${nombre.slice(0,20)} agregado al carrito`);
+};
 
 function showMenu(id,x,y){menuId=id;const m=Q('mMenu');m.style.left=Math.min(x,window.innerWidth-170)+'px';m.style.top=Math.min(y,window.innerHeight-80)+'px';m.classList.add('on');Q('mOv').classList.add('on');}
 window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remove('on');menuId=null;};
@@ -502,6 +552,7 @@ function volver(){
 }
 
 const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
+window.cmod=(id,e)=>{if(e.target===Q(id))Q(id).classList.remove('on');};
 const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
 </script>
