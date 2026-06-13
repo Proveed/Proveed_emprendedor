@@ -5,710 +5,700 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Mi Perfil</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#A8E63D">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="PROVEED">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--acc:#A8E63D;--acc2:#8BC A34;--negro:#111;--gris:#F5F6F2;--rojo:#FF4D4D;--azul:#007AFF;--naranja:#FF8C00;}
-body{background:var(--gris);font-family:'Inter',sans-serif;padding-bottom:90px;-webkit-font-smoothing:antialiased;}
+:root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;--B:#007AFF;}
+body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 
-/* HEADER — blanco limpio sin negro */
-.header{
-  background:white;
-  padding:48px 16px 20px;
-  border-bottom:1px solid #eee;
-}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-.back-btn{width:36px;height:36px;background:var(--gris);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
-.back-btn svg{width:18px;height:18px;stroke:#333;fill:none;stroke-width:2.5;}
-.hdr-title{font-size:1rem;font-weight:800;color:#111;}
-.btn-edit{background:var(--acc);color:#111;border:none;padding:7px 16px;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:700;cursor:pointer;}
+.topbar{background:#fff;padding:44px 16px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.topbar-tit{font-size:1rem;font-weight:900;color:#111;}
+.topbar-tit b{color:var(--G2);}
+.logout-btn{padding:6px 14px;background:rgba(255,77,77,0.08);border:1.5px solid rgba(255,77,77,0.2);border-radius:20px;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;color:var(--R);cursor:pointer;}
 
-/* HERO PERFIL */
-.perfil-hero{display:flex;align-items:center;gap:14px;}
-.avatar-wrap{position:relative;flex-shrink:0;}
-.avatar{
-  width:68px;height:68px;border-radius:20px;
-  background:var(--acc);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.6rem;font-weight:900;color:#111;
-  overflow:hidden;
-}
+/* HERO */
+.hero{background:#fff;padding:20px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;border-bottom:1px solid #eee;margin-bottom:14px;}
+.avatar-wrap{position:relative;margin-bottom:12px;}
+.avatar{width:80px;height:80px;border-radius:22px;background:var(--G);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#111;overflow:hidden;border:3px solid rgba(168,230,61,.3);}
 .avatar img{width:100%;height:100%;object-fit:cover;}
-.cam-btn{
-  position:absolute;bottom:-4px;right:-4px;
-  width:24px;height:24px;
-  background:white;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;border:1.5px solid #eee;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-.cam-btn svg{width:11px;height:11px;stroke:#333;fill:none;stroke-width:2;}
-.perfil-info{flex:1;}
-.perfil-nombre{font-size:1.15rem;font-weight:800;color:#111;letter-spacing:-0.3px;}
-.perfil-email{font-size:0.72rem;color:#aaa;margin-top:2px;}
-.perfil-ciudad{font-size:0.7rem;color:#aaa;margin-top:2px;}
-.perfil-verif{
-  font-size:0.64rem;color:#3a7a00;font-weight:700;
-  margin-top:5px;
-  display:inline-flex;align-items:center;gap:4px;
-  background:rgba(168,230,61,0.15);
-  padding:2px 8px;border-radius:20px;
-}
+.avatar-edit{position:absolute;bottom:-4px;right:-4px;width:26px;height:26px;background:var(--G);border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;cursor:pointer;}
+.avatar-edit svg{width:12px;height:12px;stroke:#111;fill:none;stroke-width:2.5;}
+.hero-nom{font-size:1.1rem;font-weight:900;color:#111;margin-bottom:3px;}
+.hero-email{font-size:0.74rem;color:#aaa;margin-bottom:6px;}
+.hero-tel{font-size:0.74rem;color:#888;margin-bottom:10px;}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(168,230,61,.15);border-radius:20px;padding:4px 12px;font-size:0.68rem;font-weight:700;color:var(--G2);}
 
-/* STATS */
-.stats-row{display:flex;gap:10px;padding:14px 16px;overflow-x:auto;scrollbar-width:none;}
-.stats-row::-webkit-scrollbar{display:none;}
-.stat{
-  background:white;border-radius:16px;padding:14px;
-  min-width:100px;flex-shrink:0;
-  border:1px solid #eee;
-  box-shadow:0 1px 6px rgba(0,0,0,0.04);
-}
-.stat-val{font-size:1.35rem;font-weight:900;color:#111;}
-.stat-val.acc{color:#3a7a00;}
-.stat-val.azul{color:var(--azul);}
-.stat-val.naranja{color:var(--naranja);}
-.stat-lbl{font-size:0.58rem;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:0.5px;margin-top:5px;}
+/* ACCESOS RÁPIDOS */
+.accesos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 16px;margin-bottom:14px;}
+.acc{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;text-decoration:none;}
+.acc-ico{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;}
+.acc-ico:active{transform:scale(0.93);}
+.acc-badge{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;background:var(--R);color:#fff;font-size:0.5rem;font-weight:800;border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;padding:0 3px;}
+.acc-lbl{font-size:0.58rem;font-weight:700;color:#555;text-align:center;}
 
 /* SECCIONES */
-.sec{background:white;border-radius:18px;margin:0 16px 12px;border:1px solid #eee;box-shadow:0 1px 6px rgba(0,0,0,0.04);overflow:hidden;}
-.sec-lbl{font-size:0.62rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:14px 16px 6px;}
-.menu-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:0.15s;}
-.menu-item:last-child{border-bottom:none;}
-.menu-item:active{background:#fafafa;}
-.menu-ico{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.menu-ico svg{width:17px;height:17px;fill:none;stroke-width:2;}
-.menu-txt{flex:1;}
-.menu-lbl{font-size:0.88rem;font-weight:600;color:#111;}
-.menu-sub{font-size:0.7rem;color:#bbb;margin-top:1px;}
-.menu-arrow{width:15px;height:15px;stroke:#ddd;fill:none;stroke-width:2.5;}
-.badge-pill{font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:20px;}
-.badge-on{background:rgba(168,230,61,0.15);color:#3a7a00;}
-.badge-off{background:#f0f0f0;color:#bbb;}
-.menu-item.danger .menu-lbl{color:var(--rojo);}
-.menu-item.danger .menu-ico{background:rgba(255,77,77,0.07);}
-.menu-item.danger .menu-ico svg{stroke:var(--rojo);}
+.sec{padding:0 16px;margin-bottom:6px;}
+.sec-tit{font-size:0.65rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 
-/* PEDIDOS */
-.ped-header-row{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:10px;}
-.ped-section-lbl{font-size:0.62rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;}
-.ped-filtro{font-size:0.72rem;font-weight:700;color:var(--naranja);cursor:pointer;padding:4px 10px;border-radius:20px;background:rgba(255,140,0,0.08);}
-.pedidos-lista{padding:0 16px 4px;}
-.pedido-card{background:white;border-radius:16px;margin-bottom:10px;border:1px solid #eee;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
-.ped-head{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #f5f5f5;}
-.ped-emoji{font-size:1.2rem;flex-shrink:0;}
-.ped-info-col{flex:1;}
-.ped-num{font-size:0.82rem;font-weight:800;color:#111;}
-.ped-fecha{font-size:0.64rem;color:#bbb;margin-top:1px;}
-.ped-badge{font-size:0.56rem;font-weight:800;padding:3px 8px;border-radius:20px;flex-shrink:0;text-transform:uppercase;}
-.b-pendiente{background:rgba(255,140,0,0.1);color:var(--naranja);}
-.b-proceso{background:rgba(0,122,255,0.1);color:var(--azul);}
-.b-enviado{background:rgba(175,82,222,0.1);color:#AF52DE;}
-.b-entregado{background:rgba(168,230,61,0.15);color:#3a7a00;}
-.b-cancelado{background:rgba(255,77,77,0.08);color:var(--rojo);}
-.ped-body{padding:12px 14px;}
-.ped-prov{font-size:0.74rem;color:#aaa;margin-bottom:5px;}
-.ped-items{font-size:0.78rem;color:#555;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.ped-footer{display:flex;align-items:center;justify-content:space-between;}
-.ped-total{font-size:1rem;font-weight:900;color:var(--naranja);}
-.ped-track{display:flex;gap:3px;align-items:center;}
-.t-dot{width:8px;height:8px;border-radius:50%;background:#eee;}
-.t-dot.done{background:var(--acc);}
-.t-dot.active{background:var(--naranja);}
-.t-line{width:16px;height:2px;background:#eee;}
-.t-line.done{background:var(--acc);}
-.empty-ped{text-align:center;padding:40px 20px;color:#bbb;background:white;border-radius:16px;border:1px solid #eee;}
-.empty-ped div{font-size:2.5rem;margin-bottom:10px;}
-.empty-ped p{font-size:0.82rem;font-weight:600;}
+/* CARDS */
+.info-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;margin-bottom:14px;}
+.field-row{padding:12px 16px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:12px;}
+.field-row:last-child{border:none;}
+.field-ico{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.field-ico svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
+.field-body{flex:1;min-width:0;}
+.field-label{font-size:0.6rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:3px;}
+.field-val{font-size:0.88rem;color:#111;font-weight:500;}
+.field-input{width:100%;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;font-weight:500;}
+.field-input::placeholder{color:#ccc;}
+.field-input:focus{color:var(--G2);}
+.field-edit{padding:5px 10px;background:rgba(168,230,61,.1);border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.64rem;font-weight:700;color:var(--G2);cursor:pointer;flex-shrink:0;}
 
-/* MODALES */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:flex-end;z-index:500;}
-.modal-overlay.show{display:flex;}
-.modal-sheet{background:white;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:0.4s cubic-bezier(0.16,1,0.3,1);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
-.modal-overlay.show .modal-sheet{transform:translateY(0);}
-.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
-.modal-hdr{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f5f5f5;flex-shrink:0;}
-.modal-title{font-size:0.95rem;font-weight:700;color:#111;}
-.close-btn{width:28px;height:28px;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;}
-.close-btn svg{width:13px;height:13px;stroke:#666;fill:none;stroke-width:2.5;}
-.modal-body{overflow-y:auto;padding:16px 16px 32px;flex:1;}
-.field{margin-bottom:12px;}
-.field label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:5px;}
-.field input,.field select,.field textarea{width:100%;padding:12px 14px;background:var(--gris);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;-webkit-appearance:none;transition:0.2s;}
-.field input:focus,.field select:focus{border-color:var(--acc);}
-.field input::placeholder,.field textarea::placeholder{color:#ccc;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.btn-save{width:100%;padding:14px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;margin-top:4px;}
-.msg-ok{display:none;background:rgba(168,230,61,0.1);border:1px solid rgba(168,230,61,0.25);border-radius:12px;padding:10px 14px;font-size:0.8rem;color:#3a7a00;margin-bottom:12px;}
-.msg-ok.show{display:block;}
-.msg-err{display:none;background:rgba(255,77,77,0.07);border:1px solid rgba(255,77,77,0.2);border-radius:12px;padding:10px 14px;font-size:0.8rem;color:var(--rojo);margin-bottom:12px;}
-.msg-err.show{display:block;}
+/* FACTURACIÓN */
+.fac-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;margin-bottom:14px;}
+.fac-row{padding:12px 16px;border-bottom:1px solid #f5f5f5;}
+.fac-row:last-child{border:none;}
+.fac-label{font-size:0.6rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:4px;}
+.fac-input{width:100%;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;font-weight:500;}
+.fac-input::placeholder{color:#ccc;}
+.fac-nota{padding:10px 16px;background:rgba(168,230,61,.06);border-top:1px solid rgba(168,230,61,.15);font-size:0.68rem;color:var(--G2);font-weight:600;}
 
 /* HUELLA */
-.huella-wrap{text-align:center;padding:20px 0;}
-.h-ico{width:76px;height:76px;background:var(--gris);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.h-ico svg{width:34px;height:34px;stroke:#aaa;fill:none;stroke-width:1.5;}
-.h-ico.on{background:rgba(168,230,61,0.12);}
-.h-ico.on svg{stroke:#3a7a00;}
-.h-title{font-size:0.98rem;font-weight:700;color:#111;margin-bottom:6px;}
-.h-sub{font-size:0.8rem;color:#aaa;line-height:1.5;margin-bottom:18px;}
-.btn-h{width:100%;padding:13px;background:#111;color:white;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;margin-bottom:8px;}
-.btn-h-off{width:100%;padding:12px;background:rgba(255,77,77,0.07);color:var(--rojo);border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:700;cursor:pointer;}
+.huella-card{background:#fff;border-radius:16px;border:1px solid #eee;margin-bottom:14px;padding:16px;}
+.huella-row{display:flex;align-items:center;gap:14px;}
+.huella-ico{width:52px;height:52px;border-radius:16px;background:rgba(168,230,61,.1);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+.huella-info{flex:1;}
+.huella-tit{font-size:0.88rem;font-weight:700;color:#111;}
+.huella-sub{font-size:0.7rem;color:#aaa;margin-top:2px;}
+.huella-btn{padding:8px 16px;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:800;cursor:pointer;}
+.huella-btn.reg{background:var(--G);color:#111;}
+.huella-btn.del{background:rgba(255,77,77,.08);color:var(--R);}
 
-/* FOTO */
-.foto-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.foto-opt{background:var(--gris);border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:0.15s;}
-.foto-opt:active{transform:scale(0.96);}
-.foto-opt svg{width:26px;height:26px;stroke:#333;fill:none;stroke-width:1.5;display:block;margin:0 auto 7px;}
-.foto-opt span{font-size:0.76rem;font-weight:600;color:#333;}
-.foto-hidden{display:none;}
-.foto-prev-wrap{text-align:center;margin-bottom:12px;}
-.foto-prev-wrap img{width:90px;height:90px;border-radius:18px;object-fit:cover;border:2px solid var(--acc);}
+/* FAVORITOS */
+.favs-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px;}
+.favs-scroll::-webkit-scrollbar{display:none;}
+.fav-card{flex-shrink:0;width:100px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #eee;cursor:pointer;position:relative;}
+.fav-card:active{transform:scale(0.96);}
+.fav-img{width:100%;height:80px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:1.5rem;}
+.fav-img img{width:100%;height:100%;object-fit:cover;}
+.fav-body{padding:6px;}
+.fav-nom{font-size:0.64rem;font-weight:700;color:#111;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.2;}
+.fav-pre{font-size:0.7rem;font-weight:900;color:var(--O);}
+.fav-del{position:absolute;top:4px;right:4px;width:18px;height:18px;background:rgba(255,77,77,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.fav-del svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:3;}
 
-/* UPLOAD */
-.upload-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:1000;}
-.upload-overlay.show{display:flex;}
-.upload-box{background:white;border-radius:18px;padding:24px;width:80%;max-width:270px;text-align:center;}
-.spinner{width:34px;height:34px;border:3px solid #eee;border-top-color:var(--acc);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 10px;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.upload-box p{font-size:0.82rem;color:#666;}
+/* PEDIDOS */
+.pedido-card{background:#fff;border-radius:14px;padding:12px 14px;border:1px solid #eee;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.ped-ico{width:38px;height:38px;border-radius:11px;background:rgba(168,230,61,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.ped-info{flex:1;min-width:0;}
+.ped-nom{font-size:0.78rem;font-weight:700;color:#111;}
+.ped-sub{font-size:0.64rem;color:#aaa;margin-top:2px;}
+.ped-precio{font-size:0.88rem;font-weight:900;color:var(--O);}
+.ped-est{font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:4px;display:inline-block;}
+.ped-est.confirmado{background:rgba(168,230,61,.15);color:var(--G2);}
+.ped-est.pendiente{background:rgba(255,140,0,.1);color:var(--O);}
+.ped-est.cancelado{background:rgba(255,77,77,.08);color:var(--R);}
+.ped-del{width:28px;height:28px;background:rgba(255,77,77,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
+.ped-del svg{width:13px;height:13px;stroke:var(--R);fill:none;stroke-width:2.5;}
 
-/* TAB BAR */
-.tab-bar{position:fixed;bottom:0;width:100%;background:white;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,0.05);}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
-.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:0.2s;}
-.tab span{font-size:0.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
-.tab.active svg{stroke:var(--acc);}
-.tab.active span{color:#3a7a00;}
+/* MÉTODOS PAGO */
+.pago-card{background:#fff;border-radius:14px;border:1px solid #eee;margin-bottom:8px;overflow:hidden;}
+.pago-head{padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.pago-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:rgba(168,230,61,.1);}
+.pago-info{flex:1;min-width:0;}
+.pago-nom{font-size:0.82rem;font-weight:700;color:#111;}
+.pago-sub{font-size:0.64rem;color:#aaa;margin-top:1px;}
+.pago-del{width:26px;height:26px;background:rgba(255,77,77,.06);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.pago-del svg{width:12px;height:12px;stroke:var(--R);fill:none;stroke-width:2.5;}
+
+.btn-add{width:100%;padding:11px;background:rgba(168,230,61,.08);border:2px dashed rgba(168,230,61,.4);border-radius:12px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:700;color:var(--G2);cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.btn-add svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2.5;}
+.btn-save{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:14px;}
+
+/* MODALES */
+.modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
+.modOv.on{display:flex;}
+.modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
+.modOv.on .modSh{transform:translateY(0);}
+.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
+.modH{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;flex-shrink:0;}
+.modT{font-size:0.95rem;font-weight:800;color:#111;}
+.modX{width:28px;height:28px;background:var(--F);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modX svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
+.modB{overflow-y:auto;padding:16px;flex:1;}
+.inp-wrap{margin-bottom:12px;}
+.inp-wrap label{display:block;font-size:0.62rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:5px;}
+.inp-wrap input,.inp-wrap select{width:100%;padding:12px 14px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;appearance:none;}
+.inp-wrap input:focus,.inp-wrap select:focus{border-color:var(--G);}
+.inp-row{display:flex;gap:10px;}
+.inp-row .inp-wrap{flex:1;}
+.btn-mod{width:100%;padding:13px;background:var(--G);color:#111;border:none;border-radius:13px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;margin-top:6px;}
+.btn-mod.rojo{background:rgba(255,77,77,.1);color:var(--R);}
+.card-preview{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px;padding:18px;margin-bottom:16px;}
+.card-tipo{font-size:0.68rem;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:18px;}
+.card-num{font-size:0.96rem;font-weight:700;color:#fff;letter-spacing:3px;margin-bottom:14px;font-family:monospace;}
+.card-bottom{display:flex;justify-content:space-between;}
+.card-bot-lbl{font-size:0.52rem;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:2px;}
+.card-bot-val{font-size:0.78rem;font-weight:600;color:#fff;font-family:monospace;}
+.tipo-btns{display:flex;gap:8px;margin-bottom:14px;}
+.tipo-btn{flex:1;padding:9px;border:2px solid #eee;border-radius:11px;background:#fff;font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:700;color:#aaa;cursor:pointer;text-align:center;}
+.tipo-btn.active{border-color:var(--G);background:rgba(168,230,61,.08);color:var(--G2);}
+
+/* NOTA DIRECCIÓN TEMPORAL */
+.dir-nota{background:rgba(0,122,255,.06);border:1px solid rgba(0,122,255,.15);border-radius:12px;padding:10px 14px;font-size:0.72rem;color:var(--B);font-weight:600;margin-bottom:12px;line-height:1.5;}
+
+.tab-bar{position:fixed;bottom:0;width:100%;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
+.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tab span{font-size:.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
+.tab.active svg{stroke:var(--G2);}
+.tab.active span{color:var(--G2);}
 .tab-rel{position:relative;}
-.tab-badge{position:absolute;top:-2px;right:6px;background:var(--rojo);color:white;font-size:0.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
+.tab-badge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+.empty{text-align:center;padding:20px;color:#bbb;font-size:0.78rem;}
 </style>
 </head>
 <body>
 
-<!-- HEADER BLANCO -->
-<div class="header">
-  <div class="header-top">
-    <button class="back-btn" onclick="window.location.href='index.html'">
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    </button>
-    <div class="hdr-title">Mi Perfil</div>
-    <button class="btn-edit" onclick="abrirEditar()">Editar</button>
+<div class="topbar">
+  <span class="topbar-tit">PRO<b>VEED</b> · Perfil</span>
+  <button class="logout-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar-wrap">
+    <div class="avatar" id="avatar">E</div>
+    <div class="avatar-edit" onclick="document.getElementById('foto-inp').click()">
+      <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    </div>
   </div>
-  <div class="perfil-hero">
-    <div class="avatar-wrap">
-      <div class="avatar" id="p-avatar">
-        <!-- LOGO PROVEED EMPRENDEDOR — hexágono verde lima -->
-        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" id="avatar-logo">
-          <polygon points="19,2 34,10.5 34,27.5 19,36 4,27.5 4,10.5" fill="#A8E63D"/>
-          <polyline points="10,19 16,25 28,13" stroke="#111" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="cam-btn" onclick="abrirFotoModal()">
-        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      </div>
-    </div>
-    <div class="perfil-info">
-      <div class="perfil-nombre" id="p-nombre">Cargando...</div>
-      <div class="perfil-email" id="p-email">—</div>
-      <div class="perfil-ciudad" id="p-ciudad"></div>
-      <div class="perfil-verif" id="p-verif" style="display:none;">✓ Cuenta verificada</div>
-    </div>
+  <div class="hero-nom" id="hero-nom">—</div>
+  <div class="hero-email" id="hero-email"></div>
+  <div class="hero-tel" id="hero-tel"></div>
+  <div class="hero-badge">✓ Emprendedor verificado</div>
+</div>
+<input type="file" id="foto-inp" accept="image/*" style="display:none;" onchange="subirFoto(this)">
+
+<!-- ACCESOS RÁPIDOS -->
+<div class="accesos">
+  <div class="acc" onclick="scrollTo('#sec-pedidos')">
+    <div class="acc-ico" style="background:#FFF3E0;">📦<div class="acc-badge" id="badge-ped">0</div></div>
+    <span class="acc-lbl">Pedidos</span>
+  </div>
+  <div class="acc" onclick="scrollTo('#sec-favs')">
+    <div class="acc-ico" style="background:#FCE4EC;">❤️<div class="acc-badge" id="badge-favs">0</div></div>
+    <span class="acc-lbl">Favoritos</span>
+  </div>
+  <div class="acc" onclick="scrollTo('#sec-huella')">
+    <div class="acc-ico" style="background:#E8F5E9;">👆</div>
+    <span class="acc-lbl">Huella</span>
+  </div>
+  <div class="acc" onclick="scrollTo('#sec-pagos')">
+    <div class="acc-ico" style="background:#E3F2FD;">💳</div>
+    <span class="acc-lbl">Pagos</span>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-row">
-  <div class="stat"><div class="stat-val naranja" id="st-pedidos">—</div><div class="stat-lbl">Pedidos</div></div>
-  <div class="stat"><div class="stat-val acc" id="st-gastado">—</div><div class="stat-lbl">Comprado</div></div>
-  <div class="stat"><div class="stat-val azul" id="st-chats">—</div><div class="stat-lbl">Chats</div></div>
-  <div class="stat"><div class="stat-val" id="st-provs">—</div><div class="stat-lbl">Proveedores</div></div>
+<!-- FAVORITOS -->
+<div class="sec" id="sec-favs">
+  <div class="sec-tit">❤️ Favoritos</div>
+  <div class="favs-scroll" id="favs-wrap"></div>
 </div>
 
-<!-- MI CUENTA -->
+<!-- PEDIDOS -->
+<div class="sec" id="sec-pedidos">
+  <div class="sec-tit">📦 Mis pedidos</div>
+  <div id="pedidos-wrap"></div>
+</div>
+
+<!-- DATOS PERSONALES -->
 <div class="sec">
-  <div class="sec-lbl">Mi cuenta</div>
-  <div class="menu-item" onclick="abrirFacturacion()">
-    <div class="menu-ico" style="background:rgba(168,230,61,0.1)"><svg style="stroke:#3a7a00" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-    <div class="menu-txt"><div class="menu-lbl">Datos de facturación</div><div class="menu-sub" id="fact-sub">Agregar para facturas automáticas</div></div>
-    <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  <div class="sec-tit">Datos personales</div>
+  <div class="info-card">
+    <div class="field-row">
+      <div class="field-ico"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="field-body"><div class="field-label">Nombre completo</div><input class="field-input" id="f-nombre" type="text" placeholder="Tu nombre"></div>
+    </div>
+    <div class="field-row">
+      <div class="field-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.15h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l.91-1.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div class="field-body"><div class="field-label">Teléfono</div><input class="field-input" id="f-telefono" type="tel" placeholder="0987654321"></div>
+    </div>
+    <div class="field-row">
+      <div class="field-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="field-body"><div class="field-label">Ciudad</div><input class="field-input" id="f-ciudad" type="text" placeholder="Quito, Ecuador"></div>
+    </div>
+    <div class="field-row">
+      <div class="field-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="field-body"><div class="field-label">Dirección principal</div><input class="field-input" id="f-direccion" type="text" placeholder="Calle, número, sector"></div>
+      <button class="field-edit" onclick="abrirDirTemporal()">Cambiar</button>
+    </div>
   </div>
-  <div class="menu-item" onclick="window.location.href='chat.html'">
-    <div class="menu-ico" style="background:rgba(0,122,255,0.07)"><svg style="stroke:var(--azul)" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-    <div class="menu-txt"><div class="menu-lbl">Mis chats</div></div>
-    <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+</div>
+
+<!-- HUELLA DIGITAL -->
+<div class="sec" id="sec-huella">
+  <div class="sec-tit">👆 Huella digital</div>
+  <div class="huella-card">
+    <div class="huella-row">
+      <div class="huella-ico">👆</div>
+      <div class="huella-info">
+        <div class="huella-tit" id="huella-tit">Registrar huella</div>
+        <div class="huella-sub" id="huella-sub">Usa tu huella para pagar más rápido y confirmar pedidos</div>
+      </div>
+      <button class="huella-btn reg" id="huella-btn" onclick="registrarHuella()">Registrar</button>
+    </div>
   </div>
-  <div class="menu-item" onclick="window.location.href='favoritos.html'">
-    <div class="menu-ico" style="background:rgba(255,77,77,0.07)"><svg style="stroke:var(--rojo)" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-    <div class="menu-txt"><div class="menu-lbl">Favoritos</div></div>
-    <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+</div>
+
+<!-- DATOS FACTURACIÓN -->
+<div class="sec">
+  <div class="sec-tit">Datos de facturación</div>
+  <div class="fac-card">
+    <div class="fac-row"><div class="fac-label">Razón social / Nombre</div><input class="fac-input" id="fac-razon" type="text" placeholder="Nombre o empresa"></div>
+    <div class="fac-row"><div class="fac-label">RUC / Cédula</div><input class="fac-input" id="fac-ruc" type="tel" placeholder="1234567890001" maxlength="13"></div>
+    <div class="fac-row"><div class="fac-label">Dirección fiscal</div><input class="fac-input" id="fac-dir" type="text" placeholder="Dirección para factura"></div>
+    <div class="fac-row"><div class="fac-label">Correo para facturas</div><input class="fac-input" id="fac-email" type="email" placeholder="facturas@ejemplo.com"></div>
+    <div class="fac-row"><div class="fac-label">Teléfono fiscal</div><input class="fac-input" id="fac-tel" type="tel" placeholder="02 234 5678"></div>
+    <div class="fac-nota">💡 Estos datos se usan automáticamente al pagar y nunca se borran.</div>
   </div>
 </div>
 
 <!-- SEGURIDAD -->
 <div class="sec">
-  <div class="sec-lbl">Seguridad</div>
-  <div class="menu-item" onclick="abrirCambioPass()">
-    <div class="menu-ico" style="background:rgba(0,122,255,0.07)"><svg style="stroke:var(--azul)" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-    <div class="menu-txt"><div class="menu-lbl">Cambiar contraseña</div></div>
-    <svg class="menu-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-  </div>
-  <div class="menu-item" onclick="abrirHuella()">
-    <div class="menu-ico" style="background:rgba(168,230,61,0.1)"><svg style="stroke:#3a7a00" viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><circle cx="12" cy="12" r="3"/></svg></div>
-    <div class="menu-txt"><div class="menu-lbl">Acceso con huella</div><div class="menu-sub">Touch ID / Face ID</div></div>
-    <span class="badge-pill" id="huella-badge">Desactivado</span>
-  </div>
-</div>
-
-<!-- PEDIDOS -->
-<div class="ped-header-row">
-  <div class="ped-section-lbl">Mis pedidos</div>
-  <div class="ped-filtro" id="ped-filtro-btn" onclick="toggleFiltro()">Todos</div>
-</div>
-<div class="pedidos-lista" id="pedidos-lista">
-  <div class="empty-ped"><div>📦</div><p>Cargando pedidos...</p></div>
-</div>
-
-<!-- CERRAR SESIÓN -->
-<div class="sec" style="margin-top:4px;margin-bottom:20px;">
-  <div class="menu-item danger" onclick="cerrarSesion()">
-    <div class="menu-ico"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
-    <div class="menu-lbl">Cerrar sesión</div>
-  </div>
-</div>
-
-<!-- MODAL EDITAR -->
-<div class="modal-overlay" id="modal-editar" onclick="cerrarModal('modal-editar',event)">
-  <div class="modal-sheet">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-title">Editar perfil</span>
-      <button class="close-btn" onclick="document.getElementById('modal-editar').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="sec-tit">Seguridad</div>
+  <div class="info-card">
+    <div class="field-row" onclick="abrirCambioEmail()" style="cursor:pointer;">
+      <div class="field-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div class="field-body"><div class="field-label">Correo electrónico</div><div class="field-val" id="seg-email">—</div></div>
+      <button class="field-edit">Cambiar</button>
     </div>
-    <div class="modal-body">
-      <div class="msg-ok" id="edit-ok">✓ Perfil actualizado</div>
-      <div class="field"><label>Nombre completo</label><input type="text" id="e-nombre" placeholder="Tu nombre"></div>
-      <div class="field-row">
-        <div class="field"><label>Ciudad</label><input type="text" id="e-ciudad" placeholder="Ciudad"></div>
-        <div class="field"><label>Teléfono</label><input type="tel" id="e-tel" placeholder="0991234567"></div>
+    <div class="field-row" onclick="abrirCambioPass()" style="cursor:pointer;">
+      <div class="field-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div class="field-body"><div class="field-label">Contraseña</div><div class="field-val">••••••••</div></div>
+      <button class="field-edit">Cambiar</button>
+    </div>
+  </div>
+</div>
+<!-- MÉTODOS DE PAGO -->
+<div class="sec" id="sec-pagos">
+  <div class="sec-tit">💳 Métodos de pago</div>
+  <div id="pagos-wrap"></div>
+  <button class="btn-add" onclick="abrirModalTarjeta()">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Agregar tarjeta o cuenta bancaria
+  </button>
+</div>
+
+<div style="padding:0 16px;">
+  <button class="btn-save" onclick="guardarTodo()">💾 Guardar cambios</button>
+</div>
+
+<!-- MODAL DIRECCIÓN TEMPORAL -->
+<div class="modOv" id="modDir" onclick="cmod('modDir',event)">
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH"><span class="modT">📍 Dirección de entrega</span><button class="modX" onclick="cerrarMod('modDir')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modB">
+      <div class="dir-nota">ℹ️ Si cambias la dirección para este pedido, tu dirección principal <strong>no se modifica</strong>. Solo aplica para la entrega actual.</div>
+      <div class="inp-wrap"><label>Dirección principal guardada</label><input type="text" id="dir-principal-show" readonly style="color:#aaa;background:#f9f9f9;"></div>
+      <div class="inp-wrap"><label>Dirección para esta entrega</label><input type="text" id="dir-temporal" placeholder="Calle, número, sector, referencias..."></div>
+      <div class="inp-wrap"><label>Nombre del destinatario (si es otra persona)</label><input type="text" id="dir-destinatario" placeholder="Nombre completo"></div>
+      <div class="inp-wrap"><label>Teléfono de contacto</label><input type="tel" id="dir-telefono-temp" placeholder="0987654321"></div>
+      <button class="btn-mod" onclick="guardarDirTemporal()">✓ Usar esta dirección</button>
+      <button class="btn-mod rojo" onclick="usarDirPrincipal()" style="margin-top:8px;">↩ Volver a mi dirección principal</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CAMBIAR EMAIL -->
+<div class="modOv" id="modEmail" onclick="cmod('modEmail',event)">
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH"><span class="modT">✉️ Cambiar correo</span><button class="modX" onclick="cerrarMod('modEmail')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modB">
+      <div class="inp-wrap"><label>Contraseña actual (para confirmar)</label><input type="password" id="email-pass" placeholder="Tu contraseña actual"></div>
+      <div class="inp-wrap"><label>Nuevo correo electrónico</label><input type="email" id="email-nuevo" placeholder="nuevo@correo.com"></div>
+      <div class="inp-wrap"><label>Confirmar nuevo correo</label><input type="email" id="email-nuevo2" placeholder="nuevo@correo.com"></div>
+      <button class="btn-mod" onclick="cambiarEmail()">✓ Cambiar correo</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CAMBIAR CONTRASEÑA -->
+<div class="modOv" id="modPass" onclick="cmod('modPass',event)">
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH"><span class="modT">🔒 Cambiar contraseña</span><button class="modX" onclick="cerrarMod('modPass')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modB">
+      <div class="inp-wrap"><label>Correo de la cuenta</label><input type="email" id="pass-email" placeholder="tu@correo.com"></div>
+      <div class="inp-wrap"><label>Contraseña actual</label><input type="password" id="pass-actual" placeholder="••••••••"></div>
+      <div class="inp-wrap"><label>Nueva contraseña</label><input type="password" id="pass-nueva" placeholder="Mínimo 8 caracteres"></div>
+      <div class="inp-wrap"><label>Confirmar nueva contraseña</label><input type="password" id="pass-nueva2" placeholder="Repite la nueva contraseña"></div>
+      <button class="btn-mod" onclick="cambiarPassword()">✓ Cambiar contraseña</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AGREGAR TARJETA -->
+<div class="modOv" id="modTarjeta" onclick="cmod('modTarjeta',event)">
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH"><span class="modT">💳 Agregar método de pago</span><button class="modX" onclick="cerrarMod('modTarjeta')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modB">
+      <div class="tipo-btns">
+        <button class="tipo-btn active" id="tipo-credito" onclick="selTipo('credito')">💳 Crédito</button>
+        <button class="tipo-btn" id="tipo-debito" onclick="selTipo('debito')">💳 Débito</button>
+        <button class="tipo-btn" id="tipo-cuenta" onclick="selTipo('cuenta')">🏦 Cuenta</button>
       </div>
-      <div class="field"><label>Empresa / Negocio</label><input type="text" id="e-empresa" placeholder="Nombre de tu negocio (opcional)"></div>
-      <div class="field"><label>Cédula</label><input type="text" id="e-cedula" placeholder="1712345678" maxlength="10"></div>
-      <button class="btn-save" onclick="guardarPerfil()">Guardar cambios</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL CONTRASEÑA -->
-<div class="modal-overlay" id="modal-pass" onclick="cerrarModal('modal-pass',event)">
-  <div class="modal-sheet">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-title">Cambiar contraseña</span>
-      <button class="close-btn" onclick="document.getElementById('modal-pass').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="msg-ok" id="pass-ok">✓ Contraseña actualizada</div>
-      <div class="msg-err" id="pass-err">Error al cambiar contraseña</div>
-      <div class="field"><label>Nueva contraseña *</label><input type="password" id="p-nueva" placeholder="Mínimo 6 caracteres"></div>
-      <div class="field"><label>Confirmar contraseña *</label><input type="password" id="p-conf" placeholder="Repite la contraseña"></div>
-      <button class="btn-save" onclick="cambiarPassword()">Actualizar contraseña</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL HUELLA -->
-<div class="modal-overlay" id="modal-huella" onclick="cerrarModal('modal-huella',event)">
-  <div class="modal-sheet">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-title">Acceso biométrico</span>
-      <button class="close-btn" onclick="document.getElementById('modal-huella').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="huella-wrap">
-        <div class="h-ico" id="h-ico"><svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <div class="h-title" id="h-title">Activar acceso biométrico</div>
-        <div class="h-sub" id="h-sub">Usa tu huella dactilar o Face ID para entrar sin contraseña.</div>
-        <button class="btn-h" id="h-btn" onclick="toggleHuella()">🔒 Activar huella / Face ID</button>
-        <div id="h-off-wrap"></div>
+      <div class="card-preview" id="card-preview">
+        <div class="card-tipo" id="cp-tipo">Crédito</div>
+        <div class="card-num" id="cp-num">•••• •••• •••• ••••</div>
+        <div class="card-bottom">
+          <div><div class="card-bot-lbl">Titular</div><div class="card-bot-val" id="cp-titular">NOMBRE</div></div>
+          <div><div class="card-bot-lbl">Vence</div><div class="card-bot-val" id="cp-vence">MM/AA</div></div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL FACTURACIÓN -->
-<div class="modal-overlay" id="modal-factura" onclick="cerrarModal('modal-factura',event)">
-  <div class="modal-sheet">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-title">Datos de facturación</span>
-      <button class="close-btn" onclick="document.getElementById('modal-factura').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="msg-ok" id="fact-ok">✓ Datos guardados</div>
-      <p style="font-size:0.78rem;color:#aaa;margin-bottom:14px;">Se usan automáticamente al generar pedidos y facturas.</p>
-      <div class="field"><label>Nombre / Razón social *</label><input type="text" id="f-nombre" placeholder="Juan Torres o Mi Empresa S.A."></div>
-      <div class="field"><label>Cédula / RUC *</label><input type="text" id="f-ruc" placeholder="1712345678" maxlength="13"></div>
-      <div class="field"><label>Correo para facturas *</label><input type="email" id="f-email" placeholder="facturas@ejemplo.com"></div>
-      <div class="field"><label>Teléfono</label><input type="tel" id="f-tel" placeholder="0991234567"></div>
-      <div class="field"><label>Dirección completa *</label><input type="text" id="f-dir" placeholder="Av. Principal y Calle 5"></div>
-      <div class="field-row">
-        <div class="field"><label>Ciudad *</label><input type="text" id="f-ciudad" placeholder="Quito"></div>
-        <div class="field"><label>Provincia</label><input type="text" id="f-prov" placeholder="Pichincha"></div>
+      <div id="campos-tarjeta">
+        <div class="inp-wrap"><label>Número de tarjeta</label><input type="tel" id="tc-numero" maxlength="19" placeholder="1234 5678 9012 3456" oninput="fmtCard(this)" onchange="updPreview()"></div>
+        <div class="inp-wrap"><label>Nombre del titular</label><input type="text" id="tc-titular" placeholder="JUAN PEREZ" style="text-transform:uppercase;" oninput="updPreview()"></div>
+        <div class="inp-row">
+          <div class="inp-wrap"><label>Vencimiento</label><input type="tel" id="tc-vence" maxlength="5" placeholder="MM/AA" oninput="fmtVence(this)" onchange="updPreview()"></div>
+          <div class="inp-wrap"><label>CVV</label><input type="tel" id="tc-cvv" maxlength="4" placeholder="•••"></div>
+        </div>
+        <div class="inp-wrap"><label>Banco emisor</label><input type="text" id="tc-banco" placeholder="Pichincha, Guayaquil..."></div>
       </div>
-      <button class="btn-save" onclick="guardarFacturacion()">Guardar datos</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL FOTO -->
-<div class="modal-overlay" id="modal-foto" onclick="cerrarModal('modal-foto',event)">
-  <div class="modal-sheet">
-    <div class="drag"></div>
-    <div class="modal-hdr">
-      <span class="modal-title">Foto de perfil</span>
-      <button class="close-btn" onclick="document.getElementById('modal-foto').classList.remove('show')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modal-body">
-      <div class="foto-prev-wrap" id="foto-prev-wrap" style="display:none;"><img id="foto-prev-img" src="" alt=""></div>
-      <div class="foto-opts">
-        <button class="foto-opt" onclick="document.getElementById('foto-cam').click()">
-          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          <span>Tomar foto</span>
-        </button>
-        <button class="foto-opt" onclick="document.getElementById('foto-gal').click()">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Galería</span>
-        </button>
+      <div id="campos-cuenta" style="display:none;">
+        <div class="inp-wrap"><label>Banco</label><input type="text" id="cc-banco" placeholder="Banco Pichincha"></div>
+        <div class="inp-wrap"><label>Tipo de cuenta</label>
+          <select id="cc-tipo"><option value="ahorros">Cuenta de ahorros</option><option value="corriente">Cuenta corriente</option></select>
+        </div>
+        <div class="inp-wrap"><label>Número de cuenta</label><input type="tel" id="cc-numero" placeholder="1234567890"></div>
+        <div class="inp-wrap"><label>Titular</label><input type="text" id="cc-titular" placeholder="Nombre completo"></div>
+        <div class="inp-wrap"><label>Cédula / RUC</label><input type="tel" id="cc-cedula" maxlength="13" placeholder="1234567890"></div>
+        <div class="inp-wrap"><label>Correo</label><input type="email" id="cc-email" placeholder="correo@banco.com"></div>
       </div>
-      <input type="file" id="foto-cam" accept="image/*" capture="user" class="foto-hidden" onchange="prevFoto(this)">
-      <input type="file" id="foto-gal" accept="image/*" class="foto-hidden" onchange="prevFoto(this)">
-      <button class="btn-save" id="btn-subir" onclick="subirFoto()" style="display:none;margin-top:12px;">Guardar foto</button>
+      <button class="btn-mod" onclick="guardarMetodoPago()">✓ Guardar método de pago</button>
     </div>
   </div>
 </div>
 
-<div class="upload-overlay" id="upload-overlay">
-  <div class="upload-box"><div class="spinner"></div><p id="upload-txt">Guardando...</p></div>
-</div>
-
-<!-- TAB BAR -->
 <nav class="tab-bar">
-  <a class="tab" href="index.html">
-    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    <span>Inicio</span>
-  </a>
-  <a class="tab" href="explorar.html">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <span>Explorar</span>
-  </a>
-  <a class="tab" href="tips.html">
-    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-    <span>Tips</span>
-  </a>
-  <a class="tab tab-rel" href="carrito.html">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-    <span>Carrito</span>
-    <div class="tab-badge" id="carrito-badge" style="display:none;">0</div>
-  </a>
-  <a class="tab active" href="perfil-emprendedor.html">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    <span>Perfil</span>
-  </a>
+  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+  <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
+  <a class="tab" href="chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span></a>
+  <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-badge" id="carrito-badge" style="display:none;">0</div></a>
+  <a class="tab active"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
 </nav>
+
+<div class="toast" id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const { createClient } = supabase;
-const sb = createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const {createClient}=supabase;
+const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const Q=id=>document.getElementById(id);
+let uid='',me={},tipoMetodo='credito',metodosPago=[],pedidos=[],favoritos=[],huellaRegistrada=false;
+let dirTemporal=null;
 
-let userId='', userData={}, fotoFile=null;
-let pedidos=[], filtroPed='todos';
-const HUELLA_KEY='proveed_bio_emp';
-const FILTROS=['todos','pendiente','proceso','enviado','entregado'];
-const FILTRO_LABELS={todos:'Todos',pendiente:'Pendientes',proceso:'En proceso',enviado:'Enviados',entregado:'Entregados'};
+// Badge carrito
+const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+const cntC=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+if(cntC>0){const b=Q('carrito-badge');b.style.display='flex';b.textContent=cntC>9?'9+':cntC;}
+
+// Scroll a sección
+window.scrollTo=function(id){document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'});};
 
 (async()=>{
-  const { data:{session} } = await sb.auth.getSession();
-  if(!session){ window.location.href='login.html'; return; }
-  userId=session.user.id;
+  const {data:{session}}=await db.auth.getSession();
+  if(!session){location.href='login.html';return;}
+  uid=session.user.id;
 
-  const cached=localStorage.getItem('proveed_perfil_emp');
-  if(cached){ aplicarPerfil(JSON.parse(cached),session.user.email); }
-
-  const [{ data:u },{ data:peds },{ data:chats }] = await Promise.all([
-    sb.from('usuarios').select('*').eq('id',userId).single(),
-    sb.from('pedidos').select('*').eq('emprendedor_id',userId).order('created_at',{ascending:false}),
-    sb.from('chats').select('id').eq('emprendedor_id',userId)
-  ]);
-
+  const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
   if(u){
-    userData=u;
-    localStorage.setItem('proveed_perfil_emp',JSON.stringify(u));
-    aplicarPerfil(u,session.user.email);
-    precargarForms(u);
+    me=u;
+    // HERO
+    Q('hero-nom').textContent=u.nombre||'Emprendedor';
+    Q('hero-email').textContent=u.email||session.user.email||'';
+    Q('hero-tel').textContent=u.telefono||'';
+    Q('seg-email').textContent=u.email||session.user.email||'';
+    if(u.foto){Q('avatar').innerHTML=`<img src="${u.foto}">`;}
+    else{Q('avatar').textContent=(u.nombre||'E')[0].toUpperCase();}
+
+    // Datos personales
+    Q('f-nombre').value=u.nombre||'';
+    Q('f-telefono').value=u.telefono||'';
+    Q('f-ciudad').value=u.ciudad||'';
+    Q('f-direccion').value=u.direccion||'';
+
+    // Facturación
+    const fac=u.facturacion||{};
+    Q('fac-razon').value=fac.razon||u.nombre||'';
+    Q('fac-ruc').value=fac.ruc||u.cedula||'';
+    Q('fac-dir').value=fac.direccion||u.direccion||'';
+    Q('fac-email').value=fac.email||u.email||session.user.email||'';
+    Q('fac-tel').value=fac.telefono||u.telefono||'';
+
+    // Métodos pago
+    metodosPago=u.metodos_pago||[];
+    renderPagos();
+
+    // Huella
+    huellaRegistrada=!!(u.huella_registrada);
+    actualizarHuella();
+
+    // Dir temporal guardada
+    dirTemporal=JSON.parse(localStorage.getItem('dir_temporal_proveed')||'null');
   }
 
+  // Favoritos desde localStorage
+  favoritos=JSON.parse(localStorage.getItem('favoritos_proveed')||'[]');
+  renderFavs();
+
+  // Pedidos desde Supabase
+  const {data:peds}=await db.from('pedidos').select('*').eq('emprendedor_id',uid).order('created_at',{ascending:false});
   pedidos=peds||[];
-  const gastado=pedidos.reduce((s,p)=>s+(p.total||0),0);
-  const provs=new Set(pedidos.map(p=>p.proveedor_id).filter(Boolean)).size;
-
-  document.getElementById('st-pedidos').textContent=pedidos.length;
-  document.getElementById('st-gastado').textContent='$'+gastado.toFixed(0);
-  document.getElementById('st-chats').textContent=(chats||[]).length;
-  document.getElementById('st-provs').textContent=provs;
-
   renderPedidos();
-  verificarHuella();
 
-  const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-  const cnt=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  if(cnt>0){ const b=document.getElementById('carrito-badge'); b.style.display='flex'; b.textContent=cnt>9?'9+':cnt; }
+  // Email en seguridad
+  Q('pass-email').value=session.user.email||'';
+  Q('email-nuevo').placeholder=session.user.email||'nuevo@correo.com';
 })();
 
-function aplicarPerfil(u,email){
-  const nombre=u.nombre||'Emprendedor';
-  const av=document.getElementById('p-avatar');
-  if(u.foto_perfil){
-    av.innerHTML=`<img src="${u.foto_perfil}" alt="">`;
-  } else {
-    // Logo hexágono verde lima con inicial
-    av.innerHTML=`
-      <svg width="68" height="68" viewBox="0 0 68 68" fill="none">
-        <polygon points="34,4 60,18 60,50 34,64 8,50 8,18" fill="#A8E63D"/>
-        <text x="34" y="44" text-anchor="middle" font-family="Inter,sans-serif" font-size="26" font-weight="900" fill="#111">${nombre[0].toUpperCase()}</text>
-      </svg>`;
-  }
-  document.getElementById('p-nombre').textContent=nombre;
-  document.getElementById('p-email').textContent=email||'—';
-  document.getElementById('p-ciudad').textContent=u.ciudad?`📍 ${u.ciudad}`:'';
-  const verif=document.getElementById('p-verif');
-  verif.style.display=u.verificado?'inline-flex':'none';
-  if(u.facturacion?.nombre){
-    document.getElementById('fact-sub').textContent=u.facturacion.nombre+' · '+(u.facturacion.ruc||'');
-  }
-}
-
-function precargarForms(u){
-  document.getElementById('e-nombre').value=u.nombre||'';
-  document.getElementById('e-ciudad').value=u.ciudad||'';
-  document.getElementById('e-tel').value=u.telefono||'';
-  document.getElementById('e-empresa').value=u.empresa||'';
-  document.getElementById('e-cedula').value=u.cedula||'';
-  const f=u.facturacion||{};
-  document.getElementById('f-nombre').value=f.nombre||u.nombre||'';
-  document.getElementById('f-ruc').value=f.ruc||u.cedula||'';
-  document.getElementById('f-email').value=f.email||'';
-  document.getElementById('f-tel').value=f.telefono||u.telefono||'';
-  document.getElementById('f-dir').value=f.direccion||'';
-  document.getElementById('f-ciudad').value=f.ciudad||u.ciudad||'';
-  document.getElementById('f-prov').value=f.provincia||'';
-}
-
-// PEDIDOS
-const ESTADOS=['pendiente','proceso','enviado','entregado'];
-const E_LABELS={pendiente:'Pendiente',proceso:'En proceso',enviado:'Enviado',entregado:'Entregado',cancelado:'Cancelado'};
-const E_EMOJIS={pendiente:'📦',proceso:'⚙️',enviado:'🚚',entregado:'✅',cancelado:'❌'};
-const E_CLASS={pendiente:'b-pendiente',proceso:'b-proceso',enviado:'b-enviado',entregado:'b-entregado',cancelado:'b-cancelado'};
-
-function renderPedidos(){
-  const cont=document.getElementById('pedidos-lista');
-  let lista=filtroPed==='todos'?pedidos:pedidos.filter(p=>p.estado===filtroPed);
-  if(!lista.length){
-    cont.innerHTML=`<div class="empty-ped"><div>📦</div><p>${filtroPed==='todos'?'Aún no tienes pedidos':'Sin pedidos con este estado'}</p></div>`;
-    return;
-  }
-  cont.innerHTML='';
-  lista.forEach(p=>{
-    const card=document.createElement('div');
-    card.className='pedido-card';
-    const items=(p.items||[]).map(i=>`${i.nombre||'Producto'} x${i.cantidad||1}`).join(', ')||'Sin detalle';
-    const fecha=new Date(p.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'});
-    const num=p.id.slice(-8).toUpperCase();
-    const estado=p.estado||'pendiente';
-    const estadoIdx=ESTADOS.indexOf(estado);
-
-    let dots='';
-    ESTADOS.forEach((e,i)=>{
-      if(i>0) dots+=`<div class="t-line${i<=estadoIdx?' done':''}"></div>`;
-      dots+=`<div class="t-dot${i<estadoIdx?' done':i===estadoIdx?' active':''}"></div>`;
-    });
-
-    card.innerHTML=`
-      <div class="ped-head">
-        <div class="ped-emoji">${E_EMOJIS[estado]||'📦'}</div>
-        <div class="ped-info-col">
-          <div class="ped-num">#${num}</div>
-          <div class="ped-fecha">${fecha}</div>
-        </div>
-        <span class="ped-badge ${E_CLASS[estado]||'b-pendiente'}">${E_LABELS[estado]||estado}</span>
-      </div>
-      <div class="ped-body">
-        <div class="ped-prov">${p.nombre_proveedor||p.proveedor||'Proveedor'}</div>
-        <div class="ped-items">${items}</div>
-        <div class="ped-footer">
-          <div class="ped-total">$${Number(p.total||0).toFixed(2)}</div>
-          ${estado!=='cancelado'?`<div class="ped-track">${dots}</div>`:''}
-        </div>
-      </div>`;
-    cont.appendChild(card);
+// FAVORITOS
+function renderFavs(){
+  const w=Q('favs-wrap');
+  Q('badge-favs').textContent=favoritos.length;
+  if(!favoritos.length){w.innerHTML='<div class="empty">Sin favoritos aún.<br>Toca el ❤️ en un producto para guardar.</div>';return;}
+  w.innerHTML='';
+  favoritos.forEach((f,i)=>{
+    const d=document.createElement('div');d.className='fav-card';
+    d.onclick=()=>location.href=`producto.html?id=${f.id}`;
+    d.innerHTML=`<div class="fav-img">${f.imagen?`<img src="${f.imagen}">`:'📦'}</div>
+      <div class="fav-body"><div class="fav-nom">${f.nombre}</div><div class="fav-pre">$${Number(f.precio||0).toFixed(2)}</div></div>
+      <button class="fav-del" onclick="quitarFav(event,${i})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+    w.appendChild(d);
   });
 }
 
-window.toggleFiltro=function(){
-  const idx=(FILTROS.indexOf(filtroPed)+1)%FILTROS.length;
-  filtroPed=FILTROS[idx];
-  document.getElementById('ped-filtro-btn').textContent=FILTRO_LABELS[filtroPed];
-  renderPedidos();
+window.quitarFav=function(e,i){
+  e.stopPropagation();
+  favoritos.splice(i,1);
+  localStorage.setItem('favoritos_proveed',JSON.stringify(favoritos));
+  renderFavs();toast('Eliminado de favoritos');
 };
 
-// EDITAR PERFIL
-window.abrirEditar=()=>{ document.getElementById('edit-ok').classList.remove('show'); document.getElementById('modal-editar').classList.add('show'); };
-
-window.guardarPerfil=async function(){
-  const nombre=document.getElementById('e-nombre').value.trim();
-  const ciudad=document.getElementById('e-ciudad').value.trim();
-  const telefono=document.getElementById('e-tel').value.trim();
-  const empresa=document.getElementById('e-empresa').value.trim();
-  const cedula=document.getElementById('e-cedula').value.trim();
-  await sb.from('usuarios').update({nombre,ciudad,telefono,empresa,cedula}).eq('id',userId);
-  const u={...userData,nombre,ciudad,telefono,empresa,cedula};
-  userData=u;
-  localStorage.setItem('proveed_perfil_emp',JSON.stringify(u));
-  const { data:{session} }=await sb.auth.getSession();
-  aplicarPerfil(u,session.user.email);
-  document.getElementById('edit-ok').classList.add('show');
-  setTimeout(()=>{ document.getElementById('edit-ok').classList.remove('show'); document.getElementById('modal-editar').classList.remove('show'); },1500);
-};
-
-// CONTRASEÑA
-window.abrirCambioPass=()=>{ ['pass-ok','pass-err'].forEach(id=>document.getElementById(id).classList.remove('show')); document.getElementById('p-nueva').value=''; document.getElementById('p-conf').value=''; document.getElementById('modal-pass').classList.add('show'); };
-
-window.cambiarPassword=async function(){
-  const nueva=document.getElementById('p-nueva').value;
-  const conf=document.getElementById('p-conf').value;
-  ['pass-ok','pass-err'].forEach(id=>document.getElementById(id).classList.remove('show'));
-  if(nueva.length<6){ document.getElementById('pass-err').textContent='Mínimo 6 caracteres'; document.getElementById('pass-err').classList.add('show'); return; }
-  if(nueva!==conf){ document.getElementById('pass-err').textContent='Las contraseñas no coinciden'; document.getElementById('pass-err').classList.add('show'); return; }
-  const { error }=await sb.auth.updateUser({password:nueva});
-  if(error){ document.getElementById('pass-err').textContent='Error: '+error.message; document.getElementById('pass-err').classList.add('show'); return; }
-  document.getElementById('pass-ok').classList.add('show');
-  document.getElementById('p-nueva').value=''; document.getElementById('p-conf').value='';
-  setTimeout(()=>document.getElementById('modal-pass').classList.remove('show'),2000);
-};
-
-// HUELLA
-function verificarHuella(){
-  const on=localStorage.getItem(HUELLA_KEY)==='true';
-  const b=document.getElementById('huella-badge');
-  b.textContent=on?'Activado':'Desactivado';
-  b.className='badge-pill '+(on?'badge-on':'badge-off');
+// PEDIDOS
+function renderPedidos(){
+  const w=Q('pedidos-wrap');
+  Q('badge-ped').textContent=pedidos.length;
+  if(!pedidos.length){w.innerHTML='<div class="empty">Sin pedidos aún</div>';return;}
+  w.innerHTML='';
+  pedidos.forEach((p,i)=>{
+    const d=document.createElement('div');d.className='pedido-card';
+    const items=p.items||[];
+    const nom=items.length?items.map(i=>i.nombre).join(', ').slice(0,40):'Pedido';
+    const fecha=p.created_at?new Date(p.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'}):'';
+    const est=p.estado||'pendiente';
+    d.innerHTML=`<div class="ped-ico">📦</div>
+      <div class="ped-info">
+        <div class="ped-nom">${nom}</div>
+        <div class="ped-sub">${fecha} · ${p.nombre_proveedor||'Proveedor'}</div>
+        <span class="ped-est ${est}">${est==='confirmado'?'✓ Confirmado':est==='cancelado'?'✕ Cancelado':'⏳ Pendiente'}</span>
+        <div class="ped-precio">$${Number(p.total||0).toFixed(2)}</div>
+      </div>
+      <button class="ped-del" onclick="eliminarPedido('${p.id}',${i})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>`;
+    w.appendChild(d);
+  });
 }
 
-window.abrirHuella=function(){
-  const on=localStorage.getItem(HUELLA_KEY)==='true';
-  document.getElementById('h-ico').className='h-ico'+(on?' on':'');
-  document.getElementById('h-title').textContent=on?'Huella activa':'Activar acceso biométrico';
-  document.getElementById('h-sub').textContent=on?'El acceso biométrico está activado.':'Usa tu huella dactilar o Face ID para entrar más rápido.';
-  const btn=document.getElementById('h-btn');
-  if(on){ btn.textContent='🔓 Probar huella ahora'; btn.onclick=probarHuella; document.getElementById('h-off-wrap').innerHTML=`<button class="btn-h-off" onclick="desactivarHuella()">Desactivar acceso biométrico</button>`; }
-  else { btn.textContent='🔒 Activar huella / Face ID'; btn.onclick=toggleHuella; document.getElementById('h-off-wrap').innerHTML=''; }
-  document.getElementById('modal-huella').classList.add('show');
+window.eliminarPedido=async function(id,i){
+  await db.from('pedidos').delete().eq('id',id);
+  pedidos.splice(i,1);
+  renderPedidos();toast('Registro de pedido eliminado');
 };
 
-window.toggleHuella=async function(){
-  if(!window.PublicKeyCredential){ alert('Tu dispositivo no soporta autenticación biométrica'); return; }
+// HUELLA DIGITAL
+function actualizarHuella(){
+  if(huellaRegistrada){
+    Q('huella-tit').textContent='Huella registrada ✓';
+    Q('huella-sub').textContent='Tu huella está activa para pagos y confirmaciones';
+    Q('huella-btn').textContent='Eliminar';
+    Q('huella-btn').className='huella-btn del';
+    Q('huella-btn').onclick=eliminarHuella;
+  } else {
+    Q('huella-tit').textContent='Registrar huella digital';
+    Q('huella-sub').textContent='Usa tu huella para pagar más rápido y confirmar pedidos';
+    Q('huella-btn').textContent='Registrar';
+    Q('huella-btn').className='huella-btn reg';
+    Q('huella-btn').onclick=registrarHuella;
+  }
+}
+
+window.registrarHuella=async function(){
+  if(!window.PublicKeyCredential){toast('Tu dispositivo no soporta huella digital');return;}
   try{
-    const ok=await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-    if(!ok){ alert('No se detectó huella dactilar o Face ID'); return; }
-    const c=await navigator.credentials.create({publicKey:{
-      challenge:new Uint8Array(32),
-      rp:{name:'PROVEED',id:window.location.hostname},
-      user:{id:new TextEncoder().encode(userId),name:userData.email||userId,displayName:userData.nombre||'Usuario'},
-      pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],
+    const challenge=new Uint8Array(32);crypto.getRandomValues(challenge);
+    const cred=await navigator.credentials.create({publicKey:{
+      challenge,rp:{name:'PROVEED',id:location.hostname},
+      user:{id:new TextEncoder().encode(uid),name:me.email||uid,displayName:me.nombre||'Emprendedor'},
+      pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],
       authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},
       timeout:60000
     }});
-    if(c){ localStorage.setItem(HUELLA_KEY,'true'); verificarHuella(); abrirHuella(); }
-  } catch(e){ if(e.name!=='NotAllowedError') alert('Error: '+e.message); }
+    if(cred){
+      await db.from('usuarios').update({huella_registrada:true,huella_id:btoa(String.fromCharCode(...new Uint8Array(cred.rawId)))}).eq('id',uid);
+      huellaRegistrada=true;actualizarHuella();toast('✅ Huella registrada correctamente');
+    }
+  }catch(e){
+    if(e.name==='NotAllowedError')toast('Registro cancelado');
+    else toast('Error al registrar huella: '+e.message);
+  }
 };
 
-window.probarHuella=async function(){
-  try{ await navigator.credentials.get({publicKey:{challenge:new Uint8Array(32),timeout:60000,userVerification:'required'}}); alert('✓ Huella verificada'); } catch(e){ alert('Error: '+e.message); }
+window.eliminarHuella=async function(){
+  await db.from('usuarios').update({huella_registrada:false,huella_id:null}).eq('id',uid);
+  huellaRegistrada=false;actualizarHuella();toast('Huella eliminada');
 };
 
-window.desactivarHuella=function(){
-  if(!confirm('¿Desactivar acceso biométrico?')) return;
-  localStorage.removeItem(HUELLA_KEY); verificarHuella();
-  document.getElementById('modal-huella').classList.remove('show');
+// DIRECCIÓN TEMPORAL
+window.abrirDirTemporal=function(){
+  Q('dir-principal-show').value=me.direccion||'Sin dirección principal guardada';
+  Q('dir-temporal').value=dirTemporal?.direccion||'';
+  Q('dir-destinatario').value=dirTemporal?.destinatario||'';
+  Q('dir-telefono-temp').value=dirTemporal?.telefono||'';
+  Q('modDir').classList.add('on');
 };
 
-// FACTURACIÓN
-window.abrirFacturacion=()=>{ document.getElementById('fact-ok').classList.remove('show'); document.getElementById('modal-factura').classList.add('show'); };
-
-window.guardarFacturacion=async function(){
-  const facturacion={
-    nombre:document.getElementById('f-nombre').value.trim(),
-    ruc:document.getElementById('f-ruc').value.trim(),
-    email:document.getElementById('f-email').value.trim(),
-    telefono:document.getElementById('f-tel').value.trim(),
-    direccion:document.getElementById('f-dir').value.trim(),
-    ciudad:document.getElementById('f-ciudad').value.trim(),
-    provincia:document.getElementById('f-prov').value.trim(),
-    pais:'Ecuador'
-  };
-  if(!facturacion.nombre||!facturacion.ruc||!facturacion.direccion){ alert('Completa nombre, RUC y dirección'); return; }
-  await sb.from('usuarios').update({facturacion}).eq('id',userId);
-  userData={...userData,facturacion};
-  localStorage.setItem('proveed_perfil_emp',JSON.stringify(userData));
-  document.getElementById('fact-sub').textContent=facturacion.nombre+' · '+facturacion.ruc;
-  document.getElementById('fact-ok').classList.add('show');
-  setTimeout(()=>{ document.getElementById('fact-ok').classList.remove('show'); document.getElementById('modal-factura').classList.remove('show'); },1800);
+window.guardarDirTemporal=function(){
+  const d={direccion:Q('dir-temporal').value.trim(),destinatario:Q('dir-destinatario').value.trim(),telefono:Q('dir-telefono-temp').value.trim()};
+  dirTemporal=d;
+  localStorage.setItem('dir_temporal_proveed',JSON.stringify(d));
+  Q('modDir').classList.remove('on');
+  toast('✓ Dirección de entrega actualizada para este pedido');
 };
 
-// FOTO
-window.abrirFotoModal=()=>{ fotoFile=null; document.getElementById('foto-prev-wrap').style.display='none'; document.getElementById('btn-subir').style.display='none'; document.getElementById('modal-foto').classList.add('show'); };
-
-window.prevFoto=function(input){
-  const f=input.files[0]; if(!f) return;
-  fotoFile=f;
-  const r=new FileReader();
-  r.onload=e=>{ document.getElementById('foto-prev-img').src=e.target.result; document.getElementById('foto-prev-wrap').style.display='block'; document.getElementById('btn-subir').style.display='block'; };
-  r.readAsDataURL(f);
+window.usarDirPrincipal=function(){
+  dirTemporal=null;
+  localStorage.removeItem('dir_temporal_proveed');
+  Q('modDir').classList.remove('on');
+  toast('Usando tu dirección principal');
 };
 
-window.subirFoto=async function(){
-  if(!fotoFile) return;
-  document.getElementById('modal-foto').classList.remove('show');
-  document.getElementById('upload-txt').textContent='Subiendo foto...';
-  document.getElementById('upload-overlay').classList.add('show');
-  try{
-    const ext=fotoFile.name.split('.').pop();
-    const path=`perfiles/${userId}/foto.${ext}`;
-    const { error }=await sb.storage.from('proveed-media').upload(path,fotoFile,{upsert:true});
-    if(error) throw error;
-    const { data }=sb.storage.from('proveed-media').getPublicUrl(path);
-    const url=data.publicUrl+'?t='+Date.now();
-    await sb.from('usuarios').update({foto_perfil:data.publicUrl}).eq('id',userId);
-    userData={...userData,foto_perfil:data.publicUrl};
-    localStorage.setItem('proveed_perfil_emp',JSON.stringify(userData));
-    document.getElementById('p-avatar').innerHTML=`<img src="${url}" alt="">`;
-  } catch(e){ alert('Error: '+e.message); }
-  document.getElementById('upload-overlay').classList.remove('show');
+// CAMBIAR EMAIL
+window.abrirCambioEmail=()=>Q('modEmail').classList.add('on');
+window.cambiarEmail=async function(){
+  const pass=Q('email-pass').value;
+  const nuevo=Q('email-nuevo').value.trim();
+  const nuevo2=Q('email-nuevo2').value.trim();
+  if(!pass||!nuevo){toast('Completa todos los campos');return;}
+  if(nuevo!==nuevo2){toast('Los correos no coinciden');return;}
+  // Reautenticar
+  const {error:signErr}=await db.auth.signInWithPassword({email:me.email,password:pass});
+  if(signErr){toast('Contraseña incorrecta');return;}
+  const {error}=await db.auth.updateUser({email:nuevo});
+  if(error){toast('Error: '+error.message);return;}
+  await db.from('usuarios').update({email:nuevo}).eq('id',uid);
+  Q('hero-email').textContent=nuevo;Q('seg-email').textContent=nuevo;
+  Q('modEmail').classList.remove('on');toast('✅ Correo actualizado. Revisa tu bandeja para confirmar.');
 };
 
-window.cerrarSesion=async function(){
-  localStorage.removeItem('proveed_perfil_emp');
-  await sb.auth.signOut();
-  window.location.href='login.html';
+// CAMBIAR CONTRASEÑA
+window.abrirCambioPass=()=>Q('modPass').classList.add('on');
+window.cambiarPassword=async function(){
+  const email=Q('pass-email').value.trim();
+  const actual=Q('pass-actual').value;
+  const nueva=Q('pass-nueva').value;
+  const nueva2=Q('pass-nueva2').value;
+  if(!email||!actual||!nueva){toast('Completa todos los campos');return;}
+  if(nueva!==nueva2){toast('Las contraseñas no coinciden');return;}
+  if(nueva.length<8){toast('La contraseña debe tener al menos 8 caracteres');return;}
+  const {error:signErr}=await db.auth.signInWithPassword({email,password:actual});
+  if(signErr){toast('Correo o contraseña actual incorrectos');return;}
+  const {error}=await db.auth.updateUser({password:nueva});
+  if(error){toast('Error: '+error.message);return;}
+  Q('modPass').classList.remove('on');toast('✅ Contraseña cambiada correctamente');
 };
 
-window.cerrarModal=(id,e)=>{ if(e.target===document.getElementById(id)) document.getElementById(id).classList.remove('show'); };
+// MÉTODOS PAGO
+function renderPagos(){
+  const w=Q('pagos-wrap');
+  if(!metodosPago.length){w.innerHTML='<div class="empty">Sin métodos de pago guardados</div>';return;}
+  w.innerHTML='';
+  metodosPago.forEach((m,i)=>{
+    const d=document.createElement('div');d.className='pago-card';
+    let ico='💳',nom='',sub='';
+    if(m.tipo==='cuenta'){ico='🏦';nom=`${m.banco||'Banco'} — ${m.tipo_cuenta==='corriente'?'Corriente':'Ahorros'}`;sub=`****${(m.numero||'').slice(-4)} · ${m.titular||''}`;}
+    else{ico='💳';nom=`${m.banco||'Tarjeta'} ${m.subtipo==='debito'?'Débito':'Crédito'}`;sub=`**** **** **** ${(m.numero||'').replace(/\s/g,'').slice(-4)} · Vence ${m.vence||''}`;}
+    d.innerHTML=`<div class="pago-head"><div class="pago-ico">${ico}</div><div class="pago-info"><div class="pago-nom">${nom}</div><div class="pago-sub">${sub}</div></div><button class="pago-del" onclick="eliminarPago(${i})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>`;
+    w.appendChild(d);
+  });
+}
+
+window.eliminarPago=function(i){metodosPago.splice(i,1);renderPagos();toast('Método eliminado');};
+
+window.abrirModalTarjeta=function(){
+  selTipo('credito');
+  ['tc-numero','tc-titular','tc-vence','tc-cvv','tc-banco','cc-banco','cc-numero','cc-titular','cc-cedula','cc-email'].forEach(id=>{if(Q(id))Q(id).value='';});
+  updPreview();Q('modTarjeta').classList.add('on');
+};
+
+window.selTipo=function(t){
+  tipoMetodo=t;
+  ['credito','debito','cuenta'].forEach(x=>Q(`tipo-${x}`).classList.toggle('active',x===t));
+  Q('campos-tarjeta').style.display=t==='cuenta'?'none':'block';
+  Q('campos-cuenta').style.display=t==='cuenta'?'block':'none';
+  Q('card-preview').style.display=t==='cuenta'?'none':'block';
+  updPreview();
+};
+
+window.fmtCard=function(inp){let v=inp.value.replace(/\D/g,'').slice(0,16);inp.value=v.replace(/(.{4})/g,'$1 ').trim();updPreview();};
+window.fmtVence=function(inp){let v=inp.value.replace(/\D/g,'').slice(0,4);if(v.length>=2)v=v.slice(0,2)+'/'+v.slice(2);inp.value=v;updPreview();};
+function updPreview(){Q('cp-num').textContent=Q('tc-numero').value||'•••• •••• •••• ••••';Q('cp-titular').textContent=(Q('tc-titular').value||'NOMBRE').toUpperCase();Q('cp-vence').textContent=Q('tc-vence').value||'MM/AA';Q('cp-tipo').textContent=`${Q('tc-banco')?.value?Q('tc-banco').value+' · ':''}${tipoMetodo==='debito'?'Débito':'Crédito'}`;}
+
+window.guardarMetodoPago=function(){
+  let m={};
+  if(tipoMetodo==='cuenta'){
+    if(!Q('cc-banco').value||!Q('cc-numero').value||!Q('cc-titular').value){toast('Completa banco, número y titular');return;}
+    m={tipo:'cuenta',banco:Q('cc-banco').value,tipo_cuenta:Q('cc-tipo').value,numero:Q('cc-numero').value,titular:Q('cc-titular').value,cedula:Q('cc-cedula').value,email:Q('cc-email').value};
+  }else{
+    const num=Q('tc-numero').value.replace(/\s/g,'');
+    if(num.length<15||!Q('tc-titular').value||Q('tc-vence').value.length<5){toast('Completa todos los datos de la tarjeta');return;}
+    m={tipo:'tarjeta',subtipo:tipoMetodo,numero:Q('tc-numero').value,titular:Q('tc-titular').value.toUpperCase(),vence:Q('tc-vence').value,cvv:Q('tc-cvv').value,banco:Q('tc-banco').value};
+  }
+  metodosPago.push(m);renderPagos();
+  Q('modTarjeta').classList.remove('on');toast('✓ Método de pago agregado');
+};
+
+// GUARDAR TODO
+window.guardarTodo=async function(){
+  const facturacion={razon:Q('fac-razon').value.trim(),ruc:Q('fac-ruc').value.trim(),direccion:Q('fac-dir').value.trim(),email:Q('fac-email').value.trim(),telefono:Q('fac-tel').value.trim()};
+  const {error}=await db.from('usuarios').update({
+    nombre:Q('f-nombre').value.trim(),
+    telefono:Q('f-telefono').value.trim(),
+    ciudad:Q('f-ciudad').value.trim(),
+    direccion:Q('f-direccion').value.trim(),
+    facturacion,metodos_pago:metodosPago
+  }).eq('id',uid);
+  if(error){toast('Error: '+error.message);return;}
+  localStorage.setItem('facturacion_proveed',JSON.stringify(facturacion));
+  localStorage.setItem('metodos_pago_proveed',JSON.stringify(metodosPago));
+  Q('hero-nom').textContent=Q('f-nombre').value.trim()||'Emprendedor';
+  Q('hero-tel').textContent=Q('f-telefono').value.trim();
+  toast('✅ Perfil guardado correctamente');
+};
+
+window.subirFoto=async function(input){
+  const file=input.files[0];if(!file)return;
+  const ext=file.name.split('.').pop();const path=`avatars/${uid}.${ext}`;
+  const {error:upErr}=await db.storage.from('avatares').upload(path,file,{upsert:true});
+  if(upErr){toast('Error al subir foto');return;}
+  const {data:{publicUrl}}=db.storage.from('avatares').getPublicUrl(path);
+  await db.from('usuarios').update({foto:publicUrl}).eq('id',uid);
+  Q('avatar').innerHTML=`<img src="${publicUrl}">`;toast('✓ Foto actualizada');
+};
+
+window.cerrarSesion=async()=>{await db.auth.signOut();location.href='login.html';};
+window.cmod=(id,e)=>{if(e.target===Q(id))Q(id).classList.remove('on');};
+window.cerrarMod=id=>Q(id).classList.remove('on');
+function toast(m){const t=Q('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2800);}
 </script>
 </body>
 </html>
