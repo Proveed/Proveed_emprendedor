@@ -488,7 +488,20 @@ function verificarFav(){
 }
 
 window.toggleFav = async function(){
-  const btn = document.getElementById('btn-fav');
+  const btn = 
+function toggleFavorito(prod) {
+  let favs = JSON.parse(localStorage.getItem('favoritos_proveed') || '[]');
+  const idx = favs.findIndex(f => f.id === prod.id);
+  if (idx >= 0) {
+    favs.splice(idx, 1);
+    showToast('Eliminado de favoritos');
+  } else {
+    favs.push({ id: prod.id, nombre: prod.nombre, precio: prod.precio, imagen: prod.imagenes?.[0] || prod.imagen || '' });
+    showToast('❤️ Guardado en favoritos');
+  }
+  localStorage.setItem('favoritos_proveed', JSON.stringify(favs));
+}
+document.getElementById('btn-fav');
   const favs = JSON.parse(localStorage.getItem('proveed_favs')||'[]');
   const idx = favs.indexOf(prodId);
   const liked = idx === -1;
