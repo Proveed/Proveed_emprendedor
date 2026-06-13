@@ -685,14 +685,18 @@ window.guardarTodo=async function(){
   toast('✅ Perfil guardado correctamente');
 };
 
-window.subirFoto=async function(input){
-  const file=input.files[0];if(!file)return;
-  const ext=file.name.split('.').pop();const path=`avatars/${uid}.${ext}`;
-  const {error:upErr}=await db.storage.from('avatares').upload(path,file,{upsert:true});
-  if(upErr){toast('Error al subir foto');return;}
-  const {data:{publicUrl}}=db.storage.from('avatares').getPublicUrl(path);
-  await db.from('usuarios').update({foto:publicUrl}).eq('id',uid);
-  Q('avatar').innerHTML=`<img src="${publicUrl}">`;toast('✓ Foto actualizada');
+window.subirFoto = async function(input) {
+  const file = input.files[0]; if (!file) return;
+  // Convertir a base64 y guardar como URL en la BD directamente
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    const base64 = e.target.result;
+    const { error } = await db.from('usuarios').update({ foto: base64 }).eq('id', uid);
+    if (error) { toast('Error al guardar foto: ' + error.message); return; }
+    Q('avatar').innerHTML = `<img src="${base64}">`;
+    toast('✓ Foto actualizada');
+  };
+  reader.readAsDataURL(file);
 };
 
 window.cerrarSesion=async()=>{await db.auth.signOut();location.href='login.html';};
