@@ -326,6 +326,19 @@ async function cargarChats(){
   todos=(data||[]).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
   pintarLista(todos);
 }
+// Verificar si hay ticket de soporte activo
+const {data:tkt} = await db.from('soporte_tickets')
+  .select('*').eq('emprendedor_id', uid)
+  .neq('estado','cerrado').order('created_at',{ascending:false}).limit(1);
+if(tkt?.[0]){
+  const g={rojo:'🔴 Urgente',naranja:'🟠 Moderado',amarillo:'🟡 Leve'};
+  // Crear banner emergente sobre la lista
+  const ban=document.createElement('div');
+  ban.style.cssText='background:#111;border-bottom:2px solid #FF4D4D;padding:10px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;';
+  ban.innerHTML=`<span style="font-size:1.2rem;">🎧</span><div style="flex:1;"><div style="font-size:.78rem;font-weight:700;color:#fff;">Tienes un reporte de soporte activo</div><div style="font-size:.62rem;color:#FF4D4D;">${g[tkt[0].gravedad]||'Pendiente'} · ${tkt[0].ticket_id||''}</div></div><div style="font-size:.68rem;color:#A8E63D;font-weight:700;">Ver →</div>`;
+  ban.onclick=()=>location.href='servicio-cliente.html';
+  document.getElementById('lista').prepend(ban);
+}
 
 function pintarLista(arr){
   const c=Q('lista');
@@ -557,4 +570,4 @@ const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&g
 function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
 </script>
 </body>
-</html>
+</html> 
