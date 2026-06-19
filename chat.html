@@ -12,6 +12,16 @@ html,body{height:100%;overflow:hidden;}
 body{font-family:'Inter',sans-serif;background:var(--F);}
 #pLista{height:100%;display:flex;flex-direction:column;}
 #pChat{height:100%;display:none;flex-direction:column;}
+
+/* BANNER SOPORTE EMERGENTE */
+.banSoporte{background:#111;border-bottom:2px solid var(--R);padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0;}
+.banSoporte:active{background:#1a1a1a;}
+.banSopIco{font-size:1.3rem;flex-shrink:0;}
+.banSopInfo{flex:1;min-width:0;}
+.banSopTit{font-size:0.8rem;font-weight:700;color:#fff;}
+.banSopSub{font-size:0.64rem;color:var(--R);font-weight:600;margin-top:2px;}
+.banSopArr{font-size:0.74rem;color:var(--G);font-weight:700;flex-shrink:0;}
+
 .hLista{background:#fff;padding:48px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
 .hTop{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .hTit{font-size:1rem;font-weight:900;color:#111;}
@@ -43,7 +53,6 @@ body{font-family:'Inter',sans-serif;background:var(--F);}
 .cBts{display:flex;gap:6px;}
 .cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
-/* BANNER PRODUCTO */
 .banProd{background:#fff;border-bottom:2px solid rgba(168,230,61,0.3);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .bpImg{width:44px;height:44px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
 .bpImg img{width:100%;height:100%;object-fit:cover;}
@@ -78,7 +87,6 @@ textarea#ta::placeholder{color:#bbb;}
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
-/* OFERTA DEL PROVEEDOR */
 .ofertaC{background:#fff;border:2px solid var(--G);border-radius:20px;padding:16px;width:94%;max-width:340px;box-shadow:0 4px 16px rgba(168,230,61,.12);}
 .ofertaH{font-size:0.62rem;font-weight:800;color:var(--G2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
 .ofertaItem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5;}
@@ -105,14 +113,12 @@ textarea#ta::placeholder{color:#bbb;}
 .ofertaSt.aceptado{background:rgba(168,230,61,.12);color:var(--G2);}
 .ofertaSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
 .ofertaHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:8px;}
-/* CARRITO */
 .cartC{background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;}
 .cartH{font-size:0.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;}
 .cartRow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;}
 .cartRow:last-of-type{border:none;}
 .cartImg{width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;}
 .cartImg img{width:100%;height:100%;object-fit:cover;}
-/* MODAL CATÁLOGO */
 .modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
 .modOv.on{display:flex;}
 .modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -126,6 +132,7 @@ textarea#ta::placeholder{color:#bbb;}
 .catBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:20px;padding:10px 14px;border:1.5px solid #eee;margin-bottom:12px;}
 .catBus svg{width:14px;height:14px;stroke:#ccc;fill:none;stroke-width:2.5;flex-shrink:0;}
 .catBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
+.catBus input::placeholder{color:#ccc;}
 .catGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
 .catCard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;}
 .catCardImg{width:100%;height:90px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:2rem;}
@@ -149,6 +156,16 @@ textarea#ta::placeholder{color:#bbb;}
 <body>
 
 <div id="pLista">
+  <!-- BANNER SOPORTE — solo aparece si hay ticket activo -->
+  <div class="banSoporte" id="banSoporte" style="display:none;" onclick="irSoporte()">
+    <span class="banSopIco">🎧</span>
+    <div class="banSopInfo">
+      <div class="banSopTit">Tienes un reporte de soporte activo</div>
+      <div class="banSopSub" id="banSopSub">—</div>
+    </div>
+    <span class="banSopArr">Ver →</span>
+  </div>
+
   <div class="hLista">
     <div class="hTop">
       <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -182,7 +199,6 @@ textarea#ta::placeholder{color:#bbb;}
     </div>
   </div>
 
-  <!-- BANNER PRODUCTO — muestra el producto desde donde entró -->
   <div class="banProd" id="banProd" style="display:none;">
     <div class="bpImg" id="bpImg"></div>
     <div class="bpInf">
@@ -223,7 +239,6 @@ textarea#ta::placeholder{color:#bbb;}
 <div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
 <div class="mMenu" id="mMenu"><button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button></div>
 
-<!-- MODAL CATÁLOGO DEL PROVEEDOR -->
 <div class="modOv" id="modCat" onclick="cmod('modCat',event)">
   <div class="modSh"><div class="drag"></div>
     <div class="modH">
@@ -273,6 +288,7 @@ function mostrarBannerProd(){
   const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
   if(u)me=u;
   await cargarChats();
+  await verificarSoporte();
 
   const pId=QS.get('proveedor_id');
   const prodId=QS.get('prod_id');
@@ -297,7 +313,6 @@ function mostrarBannerProd(){
       if(prodId&&prodNom){
         prodActual={id:prodId,nombre:prodNom,precio:prodPre,imagen:prodImg,proveedor_id:pId};
         mostrarBannerProd();
-        // Enviar mensaje automático con info del producto para que el proveedor lo vea
         const yaEnviado=msgsArr.some(m=>m.tipo==='producto_interes'&&m.data?.producto_id===prodId);
         if(!yaEnviado){
           await db.from('mensajes').insert({
@@ -319,6 +334,23 @@ function mostrarBannerProd(){
     }
   }
 })();
+
+// VERIFICAR TICKET DE SOPORTE ACTIVO — banner emergente
+async function verificarSoporte(){
+  const {data:tkts}=await db.from('soporte_tickets')
+    .select('*').eq('emprendedor_id',uid)
+    .neq('estado','cerrado')
+    .order('created_at',{ascending:false}).limit(1);
+  if(tkts?.[0]){
+    const t=tkts[0];
+    const grav={rojo:'🔴 Urgente',naranja:'🟠 Moderado',amarillo:'🟡 Leve'};
+    Q('banSoporte').style.display='flex';
+    Q('banSopSub').textContent=`${grav[t.gravedad]||'Pendiente'} · ${t.ticket_id||''} · vs ${t.proveedor_nombre||''}`;
+  } else {
+    Q('banSoporte').style.display='none';
+  }
+}
+window.irSoporte=()=>location.href='https://servicio-al-cliente-proveed.vercel.app';
 
 async function cargarChats(){
   const {data,error}=await db.from('chats').select('*').eq('emprendedor_id',uid);
@@ -362,7 +394,6 @@ async function cargarMsgs(){
   const {data,error}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
   if(error){console.error(error);return;}
   msgsArr=data||[];
-  // Detectar producto desde mensajes si no hay uno activo
   if(!prodActual){
     for(let i=msgsArr.length-1;i>=0;i--){
       const m=msgsArr[i];
@@ -442,10 +473,7 @@ function mkOferta(m,yo,hr){
     ${ahorro>0?`<div class="ofertaAhorro">🎉 Ahorras $${ahorro.toFixed(2)}</div>`:''}
     ${dat.mensaje?`<div class="ofertaNota">"${esc(dat.mensaje)}"</div>`:''}
     ${puedeResp
-      ?`<div class="ofertaBts">
-          <button class="ofBt aceptar" onclick="aceptarOferta('${m.id}')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Aceptar</button>
-          <button class="ofBt rechazar" onclick="rechazarOferta('${m.id}')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Rechazar</button>
-        </div>`
+      ?`<div class="ofertaBts"><button class="ofBt aceptar" onclick="aceptarOferta('${m.id}')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Aceptar</button><button class="ofBt rechazar" onclick="rechazarOferta('${m.id}')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Rechazar</button></div>`
       :`<div class="ofertaSt ${est}">${est==='aceptado'?'✅ Aceptaste — carrito y pedido actualizados':est==='rechazado'?'❌ Rechazaste esta oferta':'⏳ Esperando tu respuesta...'}</div>`
     }
     <div class="ofertaHr">${hr}</div>`;
@@ -549,6 +577,7 @@ function volver(){
   chatAct=null;prodActual=null;msgsArr=[];
   Q('pChat').style.display='none';Q('pLista').style.display='flex';
   cargarChats();
+  verificarSoporte();
 }
 
 const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
@@ -557,4 +586,4 @@ const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&g
 function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
 </script>
 </body>
-</html> 
+</html>
