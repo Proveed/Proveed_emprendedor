@@ -483,24 +483,27 @@ window.irAlChat = function(){
 
 // FAVORITO + estadísticas proveedor
 function verificarFav(){
-  const favs = JSON.parse(localStorage.getItem('proveed_favs')||'[]');
-  if(favs.includes(prodId)) document.getElementById('btn-fav').classList.add('liked');
+  const favs = JSON.parse(localStorage.getItem('favoritos_proveed')||'[]');
+  if(favs.some(f=>f.id===prodId)) document.getElementById('btn-fav').classList.add('liked');
 }
 
-window.toggleFav = async function toggleFavorito(prod) {
+window.toggleFav = async function(){
+  const btn = document.getElementById('btn-fav');
   let favs = JSON.parse(localStorage.getItem('favoritos_proveed') || '[]');
-  const idx = favs.findIndex(f => f.id === prod.id);
+  const idx = favs.findIndex(f => f.id === prodId);
+  let liked = false;
   if (idx >= 0) {
     favs.splice(idx, 1);
+    btn.classList.remove('liked');
     showToast('Eliminado de favoritos');
   } else {
-    favs.push({ id: prod.id, nombre: prod.nombre, precio: prod.precio, imagen: prod.imagenes?.[0] || prod.imagen || '' });
+    favs.push({ id: prodId, nombre: prod.nombre, precio: prod.precio, imagen: todasImgs[0] || '' });
+    btn.classList.add('liked');
     showToast('❤️ Guardado en favoritos');
+    liked = true;
   }
   localStorage.setItem('favoritos_proveed', JSON.stringify(favs));
-}
 
-  // Enviar a estadísticas del proveedor
   if(liked && userId){
     try{
       await sb.from('estadisticas_proveedores').upsert({
