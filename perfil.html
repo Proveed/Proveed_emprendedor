@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Mi Perfil</title>
+<meta name="theme-color" content="#ffffff">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;--B:#007AFF;}
 body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
-
 .topbar{background:#fff;padding:44px 16px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .topbar-tit{font-size:1rem;font-weight:900;color:#111;}
 .topbar-tit b{color:var(--G2);}
+.topbar-btns{display:flex;gap:8px;align-items:center;}
+.top-ico{width:34px;height:34px;background:rgba(168,230,61,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;border:none;cursor:pointer;}
+.top-ico svg{width:17px;height:17px;stroke:var(--G2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .logout-btn{padding:6px 14px;background:rgba(255,77,77,0.08);border:1.5px solid rgba(255,77,77,0.2);border-radius:20px;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;color:var(--R);cursor:pointer;}
-
-/* HERO */
 .hero{background:#fff;padding:20px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;border-bottom:1px solid #eee;margin-bottom:14px;}
 .avatar-wrap{position:relative;margin-bottom:12px;}
 .avatar{width:80px;height:80px;border-radius:22px;background:var(--G);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#111;overflow:hidden;border:3px solid rgba(168,230,61,.3);}
@@ -23,23 +24,17 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .avatar-edit{position:absolute;bottom:-4px;right:-4px;width:26px;height:26px;background:var(--G);border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;cursor:pointer;}
 .avatar-edit svg{width:12px;height:12px;stroke:#111;fill:none;stroke-width:2.5;}
 .hero-nom{font-size:1.1rem;font-weight:900;color:#111;margin-bottom:3px;}
-.hero-email{font-size:0.74rem;color:#aaa;margin-bottom:6px;}
+.hero-email{font-size:0.74rem;color:#aaa;margin-bottom:4px;}
 .hero-tel{font-size:0.74rem;color:#888;margin-bottom:10px;}
 .hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(168,230,61,.15);border-radius:20px;padding:4px 12px;font-size:0.68rem;font-weight:700;color:var(--G2);}
-
-/* ACCESOS RÁPIDOS */
-.accesos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 16px;margin-bottom:14px;}
+.accesos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px;margin-bottom:14px;}
 .acc{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;text-decoration:none;}
-.acc-ico{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;}
+.acc-ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;}
 .acc-ico:active{transform:scale(0.93);}
 .acc-badge{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;background:var(--R);color:#fff;font-size:0.5rem;font-weight:800;border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;padding:0 3px;}
-.acc-lbl{font-size:0.58rem;font-weight:700;color:#555;text-align:center;}
-
-/* SECCIONES */
+.acc-lbl{font-size:0.62rem;font-weight:700;color:#555;text-align:center;}
 .sec{padding:0 16px;margin-bottom:6px;}
 .sec-tit{font-size:0.65rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-
-/* CARDS */
 .info-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;margin-bottom:14px;}
 .field-row{padding:12px 16px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:12px;}
 .field-row:last-child{border:none;}
@@ -50,10 +45,7 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .field-val{font-size:0.88rem;color:#111;font-weight:500;}
 .field-input{width:100%;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;font-weight:500;}
 .field-input::placeholder{color:#ccc;}
-.field-input:focus{color:var(--G2);}
 .field-edit{padding:5px 10px;background:rgba(168,230,61,.1);border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.64rem;font-weight:700;color:var(--G2);cursor:pointer;flex-shrink:0;}
-
-/* FACTURACIÓN */
 .fac-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;margin-bottom:14px;}
 .fac-row{padding:12px 16px;border-bottom:1px solid #f5f5f5;}
 .fac-row:last-child{border:none;}
@@ -61,8 +53,6 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .fac-input{width:100%;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.88rem;color:#111;font-weight:500;}
 .fac-input::placeholder{color:#ccc;}
 .fac-nota{padding:10px 16px;background:rgba(168,230,61,.06);border-top:1px solid rgba(168,230,61,.15);font-size:0.68rem;color:var(--G2);font-weight:600;}
-
-/* HUELLA */
 .huella-card{background:#fff;border-radius:16px;border:1px solid #eee;margin-bottom:14px;padding:16px;}
 .huella-row{display:flex;align-items:center;gap:14px;}
 .huella-ico{width:52px;height:52px;border-radius:16px;background:rgba(168,230,61,.1);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
@@ -72,12 +62,9 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .huella-btn{padding:8px 16px;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:800;cursor:pointer;}
 .huella-btn.reg{background:var(--G);color:#111;}
 .huella-btn.del{background:rgba(255,77,77,.08);color:var(--R);}
-
-/* FAVORITOS */
 .favs-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:14px;}
 .favs-scroll::-webkit-scrollbar{display:none;}
 .fav-card{flex-shrink:0;width:100px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #eee;cursor:pointer;position:relative;}
-.fav-card:active{transform:scale(0.96);}
 .fav-img{width:100%;height:80px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:1.5rem;}
 .fav-img img{width:100%;height:100%;object-fit:cover;}
 .fav-body{padding:6px;}
@@ -85,36 +72,19 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .fav-pre{font-size:0.7rem;font-weight:900;color:var(--O);}
 .fav-del{position:absolute;top:4px;right:4px;width:18px;height:18px;background:rgba(255,77,77,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
 .fav-del svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:3;}
-
-/* PEDIDOS */
 .pedido-card{background:#fff;border-radius:14px;padding:12px 14px;border:1px solid #eee;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
 .ped-ico{width:38px;height:38px;border-radius:11px;background:rgba(168,230,61,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
 .ped-info{flex:1;min-width:0;}
 .ped-nom{font-size:0.78rem;font-weight:700;color:#111;}
 .ped-sub{font-size:0.64rem;color:#aaa;margin-top:2px;}
-.ped-precio{font-size:0.88rem;font-weight:900;color:var(--O);}
-.ped-est{font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:4px;display:inline-block;}
+.ped-precio{font-size:0.88rem;font-weight:900;color:var(--O);margin-top:4px;}
+.ped-est{font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:20px;display:inline-block;margin-top:4px;}
 .ped-est.confirmado{background:rgba(168,230,61,.15);color:var(--G2);}
 .ped-est.pendiente{background:rgba(255,140,0,.1);color:var(--O);}
 .ped-est.cancelado{background:rgba(255,77,77,.08);color:var(--R);}
 .ped-del{width:28px;height:28px;background:rgba(255,77,77,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
 .ped-del svg{width:13px;height:13px;stroke:var(--R);fill:none;stroke-width:2.5;}
-
-/* MÉTODOS PAGO */
-.pago-card{background:#fff;border-radius:14px;border:1px solid #eee;margin-bottom:8px;overflow:hidden;}
-.pago-head{padding:12px 14px;display:flex;align-items:center;gap:10px;}
-.pago-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:rgba(168,230,61,.1);}
-.pago-info{flex:1;min-width:0;}
-.pago-nom{font-size:0.82rem;font-weight:700;color:#111;}
-.pago-sub{font-size:0.64rem;color:#aaa;margin-top:1px;}
-.pago-del{width:26px;height:26px;background:rgba(255,77,77,.06);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.pago-del svg{width:12px;height:12px;stroke:var(--R);fill:none;stroke-width:2.5;}
-
-.btn-add{width:100%;padding:11px;background:rgba(168,230,61,.08);border:2px dashed rgba(168,230,61,.4);border-radius:12px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:700;color:var(--G2);cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px;}
-.btn-add svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2.5;}
 .btn-save{width:100%;padding:14px;background:var(--G);color:#111;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:800;cursor:pointer;margin-bottom:14px;}
-
-/* MODALES */
 .modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
 .modOv.on{display:flex;}
 .modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -127,25 +97,12 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .modB{overflow-y:auto;padding:16px;flex:1;}
 .inp-wrap{margin-bottom:12px;}
 .inp-wrap label{display:block;font-size:0.62rem;font-weight:700;color:#aaa;text-transform:uppercase;margin-bottom:5px;}
-.inp-wrap input,.inp-wrap select{width:100%;padding:12px 14px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;appearance:none;}
-.inp-wrap input:focus,.inp-wrap select:focus{border-color:var(--G);}
-.inp-row{display:flex;gap:10px;}
-.inp-row .inp-wrap{flex:1;}
+.inp-wrap input{width:100%;padding:12px 14px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;}
+.inp-wrap input:focus{border-color:var(--G);}
 .btn-mod{width:100%;padding:13px;background:var(--G);color:#111;border:none;border-radius:13px;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:800;cursor:pointer;margin-top:6px;}
-.btn-mod.rojo{background:rgba(255,77,77,.1);color:var(--R);}
-.card-preview{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px;padding:18px;margin-bottom:16px;}
-.card-tipo{font-size:0.68rem;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:18px;}
-.card-num{font-size:0.96rem;font-weight:700;color:#fff;letter-spacing:3px;margin-bottom:14px;font-family:monospace;}
-.card-bottom{display:flex;justify-content:space-between;}
-.card-bot-lbl{font-size:0.52rem;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:2px;}
-.card-bot-val{font-size:0.78rem;font-weight:600;color:#fff;font-family:monospace;}
-.tipo-btns{display:flex;gap:8px;margin-bottom:14px;}
-.tipo-btn{flex:1;padding:9px;border:2px solid #eee;border-radius:11px;background:#fff;font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:700;color:#aaa;cursor:pointer;text-align:center;}
-.tipo-btn.active{border-color:var(--G);background:rgba(168,230,61,.08);color:var(--G2);}
-
-/* NOTA DIRECCIÓN TEMPORAL */
+.btn-mod.rojo{background:rgba(255,77,77,.1);color:var(--R);margin-top:8px;}
 .dir-nota{background:rgba(0,122,255,.06);border:1px solid rgba(0,122,255,.15);border-radius:12px;padding:10px 14px;font-size:0.72rem;color:var(--B);font-weight:600;margin-bottom:12px;line-height:1.5;}
-
+.empty{text-align:center;padding:20px;color:#bbb;font-size:0.78rem;}
 .tab-bar{position:fixed;bottom:0;width:100%;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -156,22 +113,19 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .tab-badge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
-.empty{text-align:center;padding:20px;color:#bbb;font-size:0.78rem;}
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <span class="topbar-tit">PRO<b>VEED</b> · Perfil</span>
-  <div style="display:flex;gap:8px;align-items:center;">
-    <a href="servicio-cliente.html" style="width:34px;height:34px;background:rgba(168,230,61,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;" title="Servicio al cliente">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7BC234" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="12" cy="10" r="1"/><circle cx="8" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg>
-    </a>
+  <div class="topbar-btns">
+    <a href="explorar.html" class="top-ico" title="Tienda"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+    <a href="servicio-cliente.html" class="top-ico" title="Soporte"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="12" cy="10" r="1"/><circle cx="8" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg></a>
     <button class="logout-btn" onclick="cerrarSesion()">Cerrar sesión</button>
   </div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="avatar-wrap">
     <div class="avatar" id="avatar">E</div>
@@ -186,23 +140,18 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 </div>
 <input type="file" id="foto-inp" accept="image/*" style="display:none;" onchange="subirFoto(this)">
 
-<!-- ACCESOS RÁPIDOS -->
 <div class="accesos">
-  <div class="acc" onclick="scrollTo('#sec-pedidos')">
+  <div class="acc" onclick="document.getElementById('sec-pedidos').scrollIntoView({behavior:'smooth'})">
     <div class="acc-ico" style="background:#FFF3E0;">📦<div class="acc-badge" id="badge-ped">0</div></div>
     <span class="acc-lbl">Pedidos</span>
   </div>
-  <div class="acc" onclick="scrollTo('#sec-favs')">
+  <div class="acc" onclick="document.getElementById('sec-favs').scrollIntoView({behavior:'smooth'})">
     <div class="acc-ico" style="background:#FCE4EC;">❤️<div class="acc-badge" id="badge-favs">0</div></div>
     <span class="acc-lbl">Favoritos</span>
   </div>
-  <div class="acc" onclick="scrollTo('#sec-huella')">
+  <div class="acc" onclick="document.getElementById('sec-huella').scrollIntoView({behavior:'smooth'})">
     <div class="acc-ico" style="background:#E8F5E9;">👆</div>
     <span class="acc-lbl">Huella</span>
-  </div>
-  <div class="acc" onclick="scrollTo('#sec-pagos')">
-    <div class="acc-ico" style="background:#E3F2FD;">💳</div>
-    <span class="acc-lbl">Pagos</span>
   </div>
 </div>
 
@@ -242,22 +191,22 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
   </div>
 </div>
 
-<!-- HUELLA DIGITAL -->
+<!-- HUELLA -->
 <div class="sec" id="sec-huella">
   <div class="sec-tit">👆 Huella digital</div>
   <div class="huella-card">
     <div class="huella-row">
       <div class="huella-ico">👆</div>
       <div class="huella-info">
-        <div class="huella-tit" id="huella-tit">Registrar huella</div>
-        <div class="huella-sub" id="huella-sub">Usa tu huella para pagar más rápido y confirmar pedidos</div>
+        <div class="huella-tit" id="huella-tit">Registrar huella digital</div>
+        <div class="huella-sub" id="huella-sub">Confirma pedidos con tu huella</div>
       </div>
       <button class="huella-btn reg" id="huella-btn" onclick="registrarHuella()">Registrar</button>
     </div>
   </div>
 </div>
 
-<!-- DATOS FACTURACIÓN -->
+<!-- FACTURACIÓN -->
 <div class="sec">
   <div class="sec-tit">Datos de facturación</div>
   <div class="fac-card">
@@ -274,26 +223,17 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 <div class="sec">
   <div class="sec-tit">Seguridad</div>
   <div class="info-card">
-    <div class="field-row" onclick="abrirCambioEmail()" style="cursor:pointer;">
+    <div class="field-row" onclick="abrirCambioEmail()">
       <div class="field-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
       <div class="field-body"><div class="field-label">Correo electrónico</div><div class="field-val" id="seg-email">—</div></div>
       <button class="field-edit">Cambiar</button>
     </div>
-    <div class="field-row" onclick="abrirCambioPass()" style="cursor:pointer;">
+    <div class="field-row" onclick="abrirCambioPass()">
       <div class="field-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
       <div class="field-body"><div class="field-label">Contraseña</div><div class="field-val">••••••••</div></div>
       <button class="field-edit">Cambiar</button>
     </div>
   </div>
-</div>
-<!-- MÉTODOS DE PAGO -->
-<div class="sec" id="sec-pagos">
-  <div class="sec-tit">💳 Métodos de pago</div>
-  <div id="pagos-wrap"></div>
-  <button class="btn-add" onclick="abrirModalTarjeta()">
-    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    Agregar tarjeta o cuenta bancaria
-  </button>
 </div>
 
 <div style="padding:0 16px;">
@@ -305,23 +245,22 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
   <div class="modSh"><div class="drag"></div>
     <div class="modH"><span class="modT">📍 Dirección de entrega</span><button class="modX" onclick="cerrarMod('modDir')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
-      <div class="dir-nota">ℹ️ Si cambias la dirección para este pedido, tu dirección principal <strong>no se modifica</strong>. Solo aplica para la entrega actual.</div>
+      <div class="dir-nota">ℹ️ Al cambiar la dirección aquí, tu dirección principal NO se modifica. Solo aplica para la entrega actual.</div>
       <div class="inp-wrap"><label>Dirección principal guardada</label><input type="text" id="dir-principal-show" readonly style="color:#aaa;background:#f9f9f9;"></div>
-      <div class="inp-wrap"><label>Dirección para esta entrega</label><input type="text" id="dir-temporal" placeholder="Calle, número, sector, referencias..."></div>
-      <div class="inp-wrap"><label>Nombre del destinatario (si es otra persona)</label><input type="text" id="dir-destinatario" placeholder="Nombre completo"></div>
+      <div class="inp-wrap"><label>Dirección para esta entrega</label><input type="text" id="dir-temporal-inp" placeholder="Calle, número, sector, referencias..."></div>
+      <div class="inp-wrap"><label>Nombre del destinatario</label><input type="text" id="dir-destinatario" placeholder="Nombre completo (si es otra persona)"></div>
       <div class="inp-wrap"><label>Teléfono de contacto</label><input type="tel" id="dir-telefono-temp" placeholder="0987654321"></div>
       <button class="btn-mod" onclick="guardarDirTemporal()">✓ Usar esta dirección</button>
-      <button class="btn-mod rojo" onclick="usarDirPrincipal()" style="margin-top:8px;">↩ Volver a mi dirección principal</button>
+      <button class="btn-mod rojo" onclick="usarDirPrincipal()">↩ Volver a mi dirección principal</button>
     </div>
   </div>
 </div>
-
 <!-- MODAL CAMBIAR EMAIL -->
 <div class="modOv" id="modEmail" onclick="cmod('modEmail',event)">
   <div class="modSh"><div class="drag"></div>
     <div class="modH"><span class="modT">✉️ Cambiar correo</span><button class="modX" onclick="cerrarMod('modEmail')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
-      <div class="inp-wrap"><label>Contraseña actual (para confirmar)</label><input type="password" id="email-pass" placeholder="Tu contraseña actual"></div>
+      <div class="inp-wrap"><label>Contraseña actual</label><input type="password" id="email-pass" placeholder="Tu contraseña actual"></div>
       <div class="inp-wrap"><label>Nuevo correo electrónico</label><input type="email" id="email-nuevo" placeholder="nuevo@correo.com"></div>
       <div class="inp-wrap"><label>Confirmar nuevo correo</label><input type="email" id="email-nuevo2" placeholder="nuevo@correo.com"></div>
       <button class="btn-mod" onclick="cambiarEmail()">✓ Cambiar correo</button>
@@ -343,48 +282,6 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
   </div>
 </div>
 
-<!-- MODAL AGREGAR TARJETA -->
-<div class="modOv" id="modTarjeta" onclick="cmod('modTarjeta',event)">
-  <div class="modSh"><div class="drag"></div>
-    <div class="modH"><span class="modT">💳 Agregar método de pago</span><button class="modX" onclick="cerrarMod('modTarjeta')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
-    <div class="modB">
-      <div class="tipo-btns">
-        <button class="tipo-btn active" id="tipo-credito" onclick="selTipo('credito')">💳 Crédito</button>
-        <button class="tipo-btn" id="tipo-debito" onclick="selTipo('debito')">💳 Débito</button>
-        <button class="tipo-btn" id="tipo-cuenta" onclick="selTipo('cuenta')">🏦 Cuenta</button>
-      </div>
-      <div class="card-preview" id="card-preview">
-        <div class="card-tipo" id="cp-tipo">Crédito</div>
-        <div class="card-num" id="cp-num">•••• •••• •••• ••••</div>
-        <div class="card-bottom">
-          <div><div class="card-bot-lbl">Titular</div><div class="card-bot-val" id="cp-titular">NOMBRE</div></div>
-          <div><div class="card-bot-lbl">Vence</div><div class="card-bot-val" id="cp-vence">MM/AA</div></div>
-        </div>
-      </div>
-      <div id="campos-tarjeta">
-        <div class="inp-wrap"><label>Número de tarjeta</label><input type="tel" id="tc-numero" maxlength="19" placeholder="1234 5678 9012 3456" oninput="fmtCard(this)" onchange="updPreview()"></div>
-        <div class="inp-wrap"><label>Nombre del titular</label><input type="text" id="tc-titular" placeholder="JUAN PEREZ" style="text-transform:uppercase;" oninput="updPreview()"></div>
-        <div class="inp-row">
-          <div class="inp-wrap"><label>Vencimiento</label><input type="tel" id="tc-vence" maxlength="5" placeholder="MM/AA" oninput="fmtVence(this)" onchange="updPreview()"></div>
-          <div class="inp-wrap"><label>CVV</label><input type="tel" id="tc-cvv" maxlength="4" placeholder="•••"></div>
-        </div>
-        <div class="inp-wrap"><label>Banco emisor</label><input type="text" id="tc-banco" placeholder="Pichincha, Guayaquil..."></div>
-      </div>
-      <div id="campos-cuenta" style="display:none;">
-        <div class="inp-wrap"><label>Banco</label><input type="text" id="cc-banco" placeholder="Banco Pichincha"></div>
-        <div class="inp-wrap"><label>Tipo de cuenta</label>
-          <select id="cc-tipo"><option value="ahorros">Cuenta de ahorros</option><option value="corriente">Cuenta corriente</option></select>
-        </div>
-        <div class="inp-wrap"><label>Número de cuenta</label><input type="tel" id="cc-numero" placeholder="1234567890"></div>
-        <div class="inp-wrap"><label>Titular</label><input type="text" id="cc-titular" placeholder="Nombre completo"></div>
-        <div class="inp-wrap"><label>Cédula / RUC</label><input type="tel" id="cc-cedula" maxlength="13" placeholder="1234567890"></div>
-        <div class="inp-wrap"><label>Correo</label><input type="email" id="cc-email" placeholder="correo@banco.com"></div>
-      </div>
-      <button class="btn-mod" onclick="guardarMetodoPago()">✓ Guardar método de pago</button>
-    </div>
-  </div>
-</div>
-
 <nav class="tab-bar">
   <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
   <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
@@ -400,304 +297,157 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 const {createClient}=supabase;
 const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 const Q=id=>document.getElementById(id);
-let uid='',me={},tipoMetodo='credito',metodosPago=[],pedidos=[],favoritos=[],huellaRegistrada=false;
-let dirTemporal=null;
+let uid='',me={},pedidos=[],favoritos=[],huellaRegistrada=false,dirTemporal=null;
 
-// Badge carrito
 const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 const cntC=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
 if(cntC>0){const b=Q('carrito-badge');b.style.display='flex';b.textContent=cntC>9?'9+':cntC;}
-
-// Scroll a sección
-window.scrollTo=function(id){document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'});};
 
 (async()=>{
   const {data:{session}}=await db.auth.getSession();
   if(!session){location.href='login.html';return;}
   uid=session.user.id;
-
   const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
   if(u){
     me=u;
-    // HERO
     Q('hero-nom').textContent=u.nombre||'Emprendedor';
     Q('hero-email').textContent=u.email||session.user.email||'';
     Q('hero-tel').textContent=u.telefono||'';
     Q('seg-email').textContent=u.email||session.user.email||'';
+    Q('pass-email').value=u.email||session.user.email||'';
     if(u.foto){Q('avatar').innerHTML=`<img src="${u.foto}">`;}
     else{Q('avatar').textContent=(u.nombre||'E')[0].toUpperCase();}
-
-    // Datos personales
     Q('f-nombre').value=u.nombre||'';
     Q('f-telefono').value=u.telefono||'';
     Q('f-ciudad').value=u.ciudad||'';
     Q('f-direccion').value=u.direccion||'';
-
-    // Facturación
     const fac=u.facturacion||{};
     Q('fac-razon').value=fac.razon||u.nombre||'';
     Q('fac-ruc').value=fac.ruc||u.cedula||'';
     Q('fac-dir').value=fac.direccion||u.direccion||'';
     Q('fac-email').value=fac.email||u.email||session.user.email||'';
     Q('fac-tel').value=fac.telefono||u.telefono||'';
-
-    // Métodos pago
-    metodosPago=u.metodos_pago||[];
-    renderPagos();
-
-    // Huella
     huellaRegistrada=!!(u.huella_registrada);
     actualizarHuella();
-
-    // Dir temporal guardada
-    dirTemporal=JSON.parse(localStorage.getItem('dir_temporal_proveed')||'null');
   }
-
-  // Favoritos desde localStorage
   favoritos=JSON.parse(localStorage.getItem('favoritos_proveed')||'[]');
   renderFavs();
-
-  // Pedidos desde Supabase
   const {data:peds}=await db.from('pedidos').select('*').eq('emprendedor_id',uid).order('created_at',{ascending:false});
-  pedidos=peds||[];
-  renderPedidos();
-
-  // Email en seguridad
-  Q('pass-email').value=session.user.email||'';
-  Q('email-nuevo').placeholder=session.user.email||'nuevo@correo.com';
+  pedidos=peds||[];renderPedidos();
+  dirTemporal=JSON.parse(localStorage.getItem('dir_temporal_proveed')||'null');
 })();
 
-// FAVORITOS
 function renderFavs(){
   const w=Q('favs-wrap');
+  favoritos=JSON.parse(localStorage.getItem('favoritos_proveed')||'[]');
   Q('badge-favs').textContent=favoritos.length;
-  if(!favoritos.length){w.innerHTML='<div class="empty">Sin favoritos aún.<br>Toca el ❤️ en un producto para guardar.</div>';return;}
+  if(!favoritos.length){w.innerHTML='<div class="empty">Sin favoritos aún.<br>Toca ❤️ en un producto para guardarlo aquí.</div>';return;}
   w.innerHTML='';
   favoritos.forEach((f,i)=>{
     const d=document.createElement('div');d.className='fav-card';
     d.onclick=()=>location.href=`producto.html?id=${f.id}`;
-    d.innerHTML=`<div class="fav-img">${f.imagen?`<img src="${f.imagen}">`:'📦'}</div>
-      <div class="fav-body"><div class="fav-nom">${f.nombre}</div><div class="fav-pre">$${Number(f.precio||0).toFixed(2)}</div></div>
-      <button class="fav-del" onclick="quitarFav(event,${i})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+    d.innerHTML=`<div class="fav-img">${f.imagen?`<img src="${f.imagen}">`:'📦'}</div><div class="fav-body"><div class="fav-nom">${f.nombre||'Producto'}</div><div class="fav-pre">$${Number(f.precio||0).toFixed(2)}</div></div><button class="fav-del" onclick="quitarFav(event,${i})"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
     w.appendChild(d);
   });
 }
+window.quitarFav=function(e,i){e.stopPropagation();favoritos.splice(i,1);localStorage.setItem('favoritos_proveed',JSON.stringify(favoritos));renderFavs();toast('Eliminado de favoritos');};
 
-window.quitarFav=function(e,i){
-  e.stopPropagation();
-  favoritos.splice(i,1);
-  localStorage.setItem('favoritos_proveed',JSON.stringify(favoritos));
-  renderFavs();toast('Eliminado de favoritos');
-};
-
-// PEDIDOS
 function renderPedidos(){
   const w=Q('pedidos-wrap');
   Q('badge-ped').textContent=pedidos.length;
   if(!pedidos.length){w.innerHTML='<div class="empty">Sin pedidos aún</div>';return;}
   w.innerHTML='';
   pedidos.forEach((p,i)=>{
-    const d=document.createElement('div');d.className='pedido-card';
     const items=p.items||[];
-    const nom=items.length?items.map(i=>i.nombre).join(', ').slice(0,40):'Pedido';
+    const nom=items.length?items.map(x=>x.nombre).join(', ').slice(0,40):'Pedido';
     const fecha=p.created_at?new Date(p.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'}):'';
     const est=p.estado||'pendiente';
-    d.innerHTML=`<div class="ped-ico">📦</div>
-      <div class="ped-info">
-        <div class="ped-nom">${nom}</div>
-        <div class="ped-sub">${fecha} · ${p.nombre_proveedor||'Proveedor'}</div>
-        <span class="ped-est ${est}">${est==='confirmado'?'✓ Confirmado':est==='cancelado'?'✕ Cancelado':'⏳ Pendiente'}</span>
-        <div class="ped-precio">$${Number(p.total||0).toFixed(2)}</div>
-      </div>
-      <button class="ped-del" onclick="eliminarPedido('${p.id}',${i})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>`;
+    const d=document.createElement('div');d.className='pedido-card';
+    d.innerHTML=`<div class="ped-ico">📦</div><div class="ped-info"><div class="ped-nom">${nom}</div><div class="ped-sub">${fecha} · ${p.nombre_proveedor||'Proveedor'}</div><span class="ped-est ${est}">${est==='confirmado'?'✓ Confirmado':est==='cancelado'?'✕ Cancelado':'⏳ Pendiente'}</span><div class="ped-precio">$${Number(p.total||0).toFixed(2)}</div></div><button class="ped-del" onclick="eliminarPedido('${p.id}',${i})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>`;
     w.appendChild(d);
   });
 }
+window.eliminarPedido=async function(id,i){await db.from('pedidos').delete().eq('id',id);pedidos.splice(i,1);renderPedidos();toast('Registro eliminado');};
 
-window.eliminarPedido=async function(id,i){
-  await db.from('pedidos').delete().eq('id',id);
-  pedidos.splice(i,1);
-  renderPedidos();toast('Registro de pedido eliminado');
-};
-
-// HUELLA DIGITAL
 function actualizarHuella(){
-  if(huellaRegistrada){
-    Q('huella-tit').textContent='Huella registrada ✓';
-    Q('huella-sub').textContent='Tu huella está activa para pagos y confirmaciones';
-    Q('huella-btn').textContent='Eliminar';
-    Q('huella-btn').className='huella-btn del';
-    Q('huella-btn').onclick=eliminarHuella;
-  } else {
-    Q('huella-tit').textContent='Registrar huella digital';
-    Q('huella-sub').textContent='Usa tu huella para pagar más rápido y confirmar pedidos';
-    Q('huella-btn').textContent='Registrar';
-    Q('huella-btn').className='huella-btn reg';
-    Q('huella-btn').onclick=registrarHuella;
-  }
+  if(huellaRegistrada){Q('huella-tit').textContent='Huella registrada ✓';Q('huella-sub').textContent='Tu huella está activa para confirmar pedidos';Q('huella-btn').textContent='Eliminar';Q('huella-btn').className='huella-btn del';Q('huella-btn').onclick=eliminarHuella;}
+  else{Q('huella-tit').textContent='Registrar huella digital';Q('huella-sub').textContent='Confirma pedidos con tu huella';Q('huella-btn').textContent='Registrar';Q('huella-btn').className='huella-btn reg';Q('huella-btn').onclick=registrarHuella;}
 }
-
 window.registrarHuella=async function(){
   if(!window.PublicKeyCredential){toast('Tu dispositivo no soporta huella digital');return;}
   try{
     const challenge=new Uint8Array(32);crypto.getRandomValues(challenge);
-    const cred=await navigator.credentials.create({publicKey:{
-      challenge,rp:{name:'PROVEED',id:location.hostname},
-      user:{id:new TextEncoder().encode(uid),name:me.email||uid,displayName:me.nombre||'Emprendedor'},
-      pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],
-      authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},
-      timeout:60000
-    }});
-    if(cred){
-      await db.from('usuarios').update({huella_registrada:true,huella_id:btoa(String.fromCharCode(...new Uint8Array(cred.rawId)))}).eq('id',uid);
-      huellaRegistrada=true;actualizarHuella();toast('✅ Huella registrada correctamente');
-    }
-  }catch(e){
-    if(e.name==='NotAllowedError')toast('Registro cancelado');
-    else toast('Error al registrar huella: '+e.message);
-  }
+    const cred=await navigator.credentials.create({publicKey:{challenge,rp:{name:'PROVEED',id:location.hostname},user:{id:new TextEncoder().encode(uid),name:me.email||uid,displayName:me.nombre||'Emprendedor'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});
+    if(cred){await db.from('usuarios').update({huella_registrada:true}).eq('id',uid);huellaRegistrada=true;actualizarHuella();toast('✅ Huella registrada correctamente');}
+  }catch(e){if(e.name==='NotAllowedError')toast('Registro cancelado');else toast('Error: '+e.message);}
 };
+window.eliminarHuella=async function(){await db.from('usuarios').update({huella_registrada:false}).eq('id',uid);huellaRegistrada=false;actualizarHuella();toast('Huella eliminada');};
 
-window.eliminarHuella=async function(){
-  await db.from('usuarios').update({huella_registrada:false,huella_id:null}).eq('id',uid);
-  huellaRegistrada=false;actualizarHuella();toast('Huella eliminada');
-};
-
-// DIRECCIÓN TEMPORAL
 window.abrirDirTemporal=function(){
-  Q('dir-principal-show').value=me.direccion||'Sin dirección principal guardada';
-  Q('dir-temporal').value=dirTemporal?.direccion||'';
+  Q('dir-principal-show').value=me.direccion||Q('f-direccion').value||'Sin dirección principal guardada';
+  Q('dir-temporal-inp').value=dirTemporal?.direccion||'';
   Q('dir-destinatario').value=dirTemporal?.destinatario||'';
   Q('dir-telefono-temp').value=dirTemporal?.telefono||'';
   Q('modDir').classList.add('on');
 };
-
 window.guardarDirTemporal=function(){
-  const d={direccion:Q('dir-temporal').value.trim(),destinatario:Q('dir-destinatario').value.trim(),telefono:Q('dir-telefono-temp').value.trim()};
-  dirTemporal=d;
-  localStorage.setItem('dir_temporal_proveed',JSON.stringify(d));
-  Q('modDir').classList.remove('on');
-  toast('✓ Dirección de entrega actualizada para este pedido');
+  const d={direccion:Q('dir-temporal-inp').value.trim(),destinatario:Q('dir-destinatario').value.trim(),telefono:Q('dir-telefono-temp').value.trim()};
+  dirTemporal=d;localStorage.setItem('dir_temporal_proveed',JSON.stringify(d));
+  cerrarMod('modDir');toast('✓ Dirección de entrega actualizada para este pedido');
 };
+window.usarDirPrincipal=function(){dirTemporal=null;localStorage.removeItem('dir_temporal_proveed');cerrarMod('modDir');toast('Usando tu dirección principal');};
 
-window.usarDirPrincipal=function(){
-  dirTemporal=null;
-  localStorage.removeItem('dir_temporal_proveed');
-  Q('modDir').classList.remove('on');
-  toast('Usando tu dirección principal');
-};
-
-// CAMBIAR EMAIL
 window.abrirCambioEmail=()=>Q('modEmail').classList.add('on');
 window.cambiarEmail=async function(){
-  const pass=Q('email-pass').value;
-  const nuevo=Q('email-nuevo').value.trim();
-  const nuevo2=Q('email-nuevo2').value.trim();
+  const pass=Q('email-pass').value;const nuevo=Q('email-nuevo').value.trim();const nuevo2=Q('email-nuevo2').value.trim();
   if(!pass||!nuevo){toast('Completa todos los campos');return;}
   if(nuevo!==nuevo2){toast('Los correos no coinciden');return;}
-  // Reautenticar
-  const {error:signErr}=await db.auth.signInWithPassword({email:me.email,password:pass});
+  const {error:signErr}=await db.auth.signInWithPassword({email:me.email||Q('seg-email').textContent,password:pass});
   if(signErr){toast('Contraseña incorrecta');return;}
   const {error}=await db.auth.updateUser({email:nuevo});
   if(error){toast('Error: '+error.message);return;}
   await db.from('usuarios').update({email:nuevo}).eq('id',uid);
   Q('hero-email').textContent=nuevo;Q('seg-email').textContent=nuevo;
-  Q('modEmail').classList.remove('on');toast('✅ Correo actualizado. Revisa tu bandeja para confirmar.');
+  cerrarMod('modEmail');toast('✅ Correo actualizado');
 };
 
-// CAMBIAR CONTRASEÑA
 window.abrirCambioPass=()=>Q('modPass').classList.add('on');
 window.cambiarPassword=async function(){
-  const email=Q('pass-email').value.trim();
-  const actual=Q('pass-actual').value;
-  const nueva=Q('pass-nueva').value;
-  const nueva2=Q('pass-nueva2').value;
+  const email=Q('pass-email').value.trim();const actual=Q('pass-actual').value;const nueva=Q('pass-nueva').value;const nueva2=Q('pass-nueva2').value;
   if(!email||!actual||!nueva){toast('Completa todos los campos');return;}
   if(nueva!==nueva2){toast('Las contraseñas no coinciden');return;}
-  if(nueva.length<8){toast('La contraseña debe tener al menos 8 caracteres');return;}
+  if(nueva.length<8){toast('Mínimo 8 caracteres');return;}
   const {error:signErr}=await db.auth.signInWithPassword({email,password:actual});
-  if(signErr){toast('Correo o contraseña actual incorrectos');return;}
+  if(signErr){toast('Correo o contraseña incorrectos');return;}
   const {error}=await db.auth.updateUser({password:nueva});
   if(error){toast('Error: '+error.message);return;}
-  Q('modPass').classList.remove('on');toast('✅ Contraseña cambiada correctamente');
+  cerrarMod('modPass');toast('✅ Contraseña cambiada');
 };
 
-// MÉTODOS PAGO
-function renderPagos(){
-  const w=Q('pagos-wrap');
-  if(!metodosPago.length){w.innerHTML='<div class="empty">Sin métodos de pago guardados</div>';return;}
-  w.innerHTML='';
-  metodosPago.forEach((m,i)=>{
-    const d=document.createElement('div');d.className='pago-card';
-    let ico='💳',nom='',sub='';
-    if(m.tipo==='cuenta'){ico='🏦';nom=`${m.banco||'Banco'} — ${m.tipo_cuenta==='corriente'?'Corriente':'Ahorros'}`;sub=`****${(m.numero||'').slice(-4)} · ${m.titular||''}`;}
-    else{ico='💳';nom=`${m.banco||'Tarjeta'} ${m.subtipo==='debito'?'Débito':'Crédito'}`;sub=`**** **** **** ${(m.numero||'').replace(/\s/g,'').slice(-4)} · Vence ${m.vence||''}`;}
-    d.innerHTML=`<div class="pago-head"><div class="pago-ico">${ico}</div><div class="pago-info"><div class="pago-nom">${nom}</div><div class="pago-sub">${sub}</div></div><button class="pago-del" onclick="eliminarPago(${i})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>`;
-    w.appendChild(d);
-  });
-}
-
-window.eliminarPago=function(i){metodosPago.splice(i,1);renderPagos();toast('Método eliminado');};
-
-window.abrirModalTarjeta=function(){
-  selTipo('credito');
-  ['tc-numero','tc-titular','tc-vence','tc-cvv','tc-banco','cc-banco','cc-numero','cc-titular','cc-cedula','cc-email'].forEach(id=>{if(Q(id))Q(id).value='';});
-  updPreview();Q('modTarjeta').classList.add('on');
-};
-
-window.selTipo=function(t){
-  tipoMetodo=t;
-  ['credito','debito','cuenta'].forEach(x=>Q(`tipo-${x}`).classList.toggle('active',x===t));
-  Q('campos-tarjeta').style.display=t==='cuenta'?'none':'block';
-  Q('campos-cuenta').style.display=t==='cuenta'?'block':'none';
-  Q('card-preview').style.display=t==='cuenta'?'none':'block';
-  updPreview();
-};
-
-window.fmtCard=function(inp){let v=inp.value.replace(/\D/g,'').slice(0,16);inp.value=v.replace(/(.{4})/g,'$1 ').trim();updPreview();};
-window.fmtVence=function(inp){let v=inp.value.replace(/\D/g,'').slice(0,4);if(v.length>=2)v=v.slice(0,2)+'/'+v.slice(2);inp.value=v;updPreview();};
-function updPreview(){Q('cp-num').textContent=Q('tc-numero').value||'•••• •••• •••• ••••';Q('cp-titular').textContent=(Q('tc-titular').value||'NOMBRE').toUpperCase();Q('cp-vence').textContent=Q('tc-vence').value||'MM/AA';Q('cp-tipo').textContent=`${Q('tc-banco')?.value?Q('tc-banco').value+' · ':''}${tipoMetodo==='debito'?'Débito':'Crédito'}`;}
-
-window.guardarMetodoPago=function(){
-  let m={};
-  if(tipoMetodo==='cuenta'){
-    if(!Q('cc-banco').value||!Q('cc-numero').value||!Q('cc-titular').value){toast('Completa banco, número y titular');return;}
-    m={tipo:'cuenta',banco:Q('cc-banco').value,tipo_cuenta:Q('cc-tipo').value,numero:Q('cc-numero').value,titular:Q('cc-titular').value,cedula:Q('cc-cedula').value,email:Q('cc-email').value};
-  }else{
-    const num=Q('tc-numero').value.replace(/\s/g,'');
-    if(num.length<15||!Q('tc-titular').value||Q('tc-vence').value.length<5){toast('Completa todos los datos de la tarjeta');return;}
-    m={tipo:'tarjeta',subtipo:tipoMetodo,numero:Q('tc-numero').value,titular:Q('tc-titular').value.toUpperCase(),vence:Q('tc-vence').value,cvv:Q('tc-cvv').value,banco:Q('tc-banco').value};
-  }
-  metodosPago.push(m);renderPagos();
-  Q('modTarjeta').classList.remove('on');toast('✓ Método de pago agregado');
-};
-
-// GUARDAR TODO
 window.guardarTodo=async function(){
+  const nombre=Q('f-nombre').value.trim();
+  const telefono=Q('f-telefono').value.trim();
+  const ciudad=Q('f-ciudad').value.trim();
+  const direccion=Q('f-direccion').value.trim();
   const facturacion={razon:Q('fac-razon').value.trim(),ruc:Q('fac-ruc').value.trim(),direccion:Q('fac-dir').value.trim(),email:Q('fac-email').value.trim(),telefono:Q('fac-tel').value.trim()};
-  const {error}=await db.from('usuarios').update({
-    nombre:Q('f-nombre').value.trim(),
-    telefono:Q('f-telefono').value.trim(),
-    ciudad:Q('f-ciudad').value.trim(),
-    direccion:Q('f-direccion').value.trim(),
-    facturacion,metodos_pago:metodosPago
-  }).eq('id',uid);
-  if(error){toast('Error: '+error.message);return;}
+  const {error}=await db.from('usuarios').update({nombre,telefono,ciudad,direccion,facturacion}).eq('id',uid);
+  if(error){toast('Error al guardar: '+error.message);return;}
   localStorage.setItem('facturacion_proveed',JSON.stringify(facturacion));
-  localStorage.setItem('metodos_pago_proveed',JSON.stringify(metodosPago));
-  Q('hero-nom').textContent=Q('f-nombre').value.trim()||'Emprendedor';
-  Q('hero-tel').textContent=Q('f-telefono').value.trim();
+  me.nombre=nombre;me.telefono=telefono;me.ciudad=ciudad;me.direccion=direccion;
+  Q('hero-nom').textContent=nombre||'Emprendedor';
+  Q('hero-tel').textContent=telefono;
   toast('✅ Perfil guardado correctamente');
 };
 
 window.subirFoto=async function(input){
   const file=input.files[0];if(!file)return;
-  const ext=file.name.split('.').pop();const path=`avatars/${uid}.${ext}`;
-  const {error:upErr}=await db.storage.from('avatares').upload(path,file,{upsert:true});
-  if(upErr){toast('Error al subir foto');return;}
-  const {data:{publicUrl}}=db.storage.from('avatares').getPublicUrl(path);
-  await db.from('usuarios').update({foto:publicUrl}).eq('id',uid);
-  Q('avatar').innerHTML=`<img src="${publicUrl}">`;toast('✓ Foto actualizada');
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const {error}=await db.from('usuarios').update({foto:e.target.result}).eq('id',uid);
+    if(error){toast('Error al guardar foto');return;}
+    Q('avatar').innerHTML=`<img src="${e.target.result}">`;toast('✓ Foto actualizada');
+  };
+  reader.readAsDataURL(file);
 };
 
 window.cerrarSesion=async()=>{await db.auth.signOut();location.href='login.html';};
