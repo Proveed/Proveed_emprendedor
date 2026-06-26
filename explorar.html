@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PROVEED — Explorar</title>
+<meta name="theme-color" content="#ffffff">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
@@ -54,6 +55,8 @@ html,body{height:100%;overflow:hidden;}
 .search-results{display:none;flex:1;overflow-y:auto;padding:10px 8px;padding-bottom:80px;}
 .search-results.show{display:block;}
 .search-hdr{font-size:0.72rem;font-weight:700;color:#aaa;margin-bottom:10px;}
+
+/* CÁMARA */
 .modal-cam{position:fixed;inset:0;background:#000;z-index:2000;display:none;flex-direction:column;}
 .modal-cam.show{display:flex;}
 .cam-header{padding:44px 16px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
@@ -68,12 +71,19 @@ html,body{height:100%;overflow:hidden;}
 .cam-capture svg{width:28px;height:28px;stroke:#111;fill:none;stroke-width:2;}
 .cam-flip,.cam-gal-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
 .cam-flip svg,.cam-gal-btn svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;}
+
+/* LOADING */
 .loading-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:3000;}
 .loading-ov.show{display:flex;}
-.loading-box{background:#fff;border-radius:20px;padding:28px 32px;text-align:center;}
+.loading-box{background:#fff;border-radius:20px;padding:28px 32px;text-align:center;max-width:280px;width:90%;}
 .spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:var(--G);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-box p{font-size:0.82rem;color:#555;font-weight:600;}
+.loading-error{display:none;margin-top:10px;}
+.loading-error.show{display:block;}
+.loading-error p{font-size:0.76rem;color:var(--R);font-weight:600;}
+.loading-error button{margin-top:8px;padding:8px 16px;background:var(--G);color:#111;border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:700;cursor:pointer;}
+
 .tab-bar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -95,16 +105,17 @@ html,body{height:100%;overflow:hidden;}
       <input type="text" id="search-input" placeholder="Buscar productos, proveedores..." oninput="buscarTexto(this.value)">
     </div>
     <div class="cam-btns">
-      <button class="cam-btn gal" onclick="document.getElementById('foto-galeria').click()">
+      <button class="cam-btn gal" onclick="document.getElementById('foto-galeria').click()" title="Buscar por imagen desde galería">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       </button>
-      <button class="cam-btn cam" onclick="abrirCamara()">
+      <button class="cam-btn cam" onclick="abrirCamara()" title="Buscar con cámara">
         <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
       </button>
     </div>
   </div>
 </div>
-<input type="file" id="foto-galeria" accept="image/*" style="display:none;" onchange="buscarPorImagen(this)">
+
+<input type="file" id="foto-galeria" accept="image/*" capture="environment" style="display:none;" onchange="buscarPorImagen(this)">
 <input type="file" id="foto-galeria-cam" accept="image/*" style="display:none;" onchange="buscarPorImagen(this)">
 
 <div class="search-results" id="search-results">
@@ -124,7 +135,7 @@ html,body{height:100%;overflow:hidden;}
   </div>
   <div class="cam-preview"><video id="cam-video" autoplay muted playsinline></video><div class="cam-frame"></div></div>
   <div class="cam-footer">
-    <button class="cam-gal-btn" onclick="document.getElementById('foto-galeria-cam').click()">
+    <button class="cam-gal-btn" onclick="document.getElementById('foto-galeria-cam').click()" title="Desde galería">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
     </button>
     <button class="cam-capture" onclick="capturarFoto()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></button>
@@ -132,7 +143,16 @@ html,body{height:100%;overflow:hidden;}
   </div>
 </div>
 
-<div class="loading-ov" id="loading-ov"><div class="loading-box"><div class="spinner"></div><p id="loading-txt">Analizando imagen...</p></div></div>
+<div class="loading-ov" id="loading-ov">
+  <div class="loading-box">
+    <div class="spinner" id="spinner"></div>
+    <p id="loading-txt">Analizando imagen...</p>
+    <div class="loading-error" id="loading-error">
+      <p id="error-txt">Error al analizar la imagen</p>
+      <button onclick="cerrarLoading()">Cerrar</button>
+    </div>
+  </div>
+</div>
 
 <nav class="tab-bar">
   <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
@@ -155,8 +175,8 @@ let todosProductos=[],todasCats=[],catActiva='Todos',streamCam=null,camaraFronta
 const coloresCat={'ropa':'#FF8C00','mujer':'#FF69B4','hombre':'#2196F3','calzado':'#9C27B0','belleza':'#F06292','hogar':'#26A69A','tecnolog':'#3F51B5','aliment':'#8BC34A','deport':'#4CAF50','juguet':'#FF9800','mascot':'#795548','bolsa':'#8D6E63','joyer':'#FFC107','mueble':'#6D4C41','electrod':'#FF5722','oficin':'#009688','auto':'#616161','herram':'#F44336','infant':'#FF9800','otro':'#888'};
 const emojisCat={'ropa':'👕','mujer':'👗','hombre':'👔','calzado':'👟','belleza':'💄','hogar':'🏠','tecnolog':'📱','aliment':'🍎','deport':'⚽','juguet':'🧸','mascot':'🐾','bolsa':'👜','joyer':'💍','mueble':'🛋️','electrod':'📺','oficin':'📋','auto':'🚗','herram':'🔧','infant':'👶','otro':'📦'};
 
-function getColor(cat){const cl=cat.toLowerCase();for(const k in coloresCat){if(cl.includes(k))return coloresCat[k];}return '#'+Math.floor(Math.random()*0xAAAAAA+0x555555).toString(16);}
-function getEmoji(cat){const cl=cat.toLowerCase();for(const k in emojisCat){if(cl.includes(k))return emojisCat[k];}return '📦';}
+function getColor(cat){const cl=(cat||'').toLowerCase();for(const k in coloresCat){if(cl.includes(k))return coloresCat[k];}return '#888';}
+function getEmoji(cat){const cl=(cat||'').toLowerCase();for(const k in emojisCat){if(cl.includes(k))return emojisCat[k];}return '📦';}
 
 const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 const cnt=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
@@ -201,7 +221,6 @@ function seleccionarCat(cat){
 function renderContent(){
   const cont=document.getElementById('content');
   const prods=catActiva==='Todos'?todosProductos:todosProductos.filter(p=>(p.categoria||'').trim()===catActiva);
-  const color=catActiva==='Todos'?'#FF8C00':getColor(catActiva);
   let html=`<div class="cat-titulo">${catActiva}</div>`;
   if(!prods.length){html+=`<div class="empty-cat">Sin productos en esta categoría</div>`;}
   else{
@@ -209,7 +228,7 @@ function renderContent(){
     prods.forEach(p=>{
       const img=p.imagenes?.[0]||p.imagen||'';
       const pc=getColor(p.categoria||'');
-      html+=`<div class="prod-card" onclick="irCategoria('${(p.categoria||'').replace(/'/g,"\\'")}','${(p.subcategoria||'').replace(/'/g,"\\'")}')">
+      html+=`<div class="prod-card" onclick="irCategoria('${encodeURIComponent(p.categoria||'')}','${encodeURIComponent(p.subcategoria||'')}')">
         <div class="prod-img" style="background:${pc}12;">
           ${img?`<img src="${img}" loading="lazy">`:`<div class="prod-img-ico">${getEmoji(p.categoria||'')}</div>`}
           <div class="prod-badge" style="background:${pc};">${(p.categoria||'General').slice(0,6).toUpperCase()}</div>
@@ -231,10 +250,9 @@ function renderContent(){
   cont.innerHTML=html;
 }
 
-// CLAVE — ahora va al catálogo extenso de la categoría, no directo al producto
 function irCategoria(cat,subcat){
-  let url=`categoria.html?cat=${encodeURIComponent(cat)}`;
-  if(subcat)url+=`&subcat=${encodeURIComponent(subcat)}`;
+  let url=`categoria.html?cat=${cat}`;
+  if(subcat)url+=`&subcat=${subcat}`;
   location.href=url;
 }
 
@@ -266,7 +284,6 @@ window.buscarTexto=function(q){
     res.forEach(p=>{
       const img=p.imagenes?.[0]||p.imagen||'';
       const card=document.createElement('div');card.className='prod-card';
-      // En búsqueda directa SÍ va al producto, porque ya es un resultado específico
       card.onclick=()=>location.href=`producto.html?id=${p.id}`;
       card.innerHTML=`<div class="prod-img" style="background:#f5f5f5;">${img?`<img src="${img}" loading="lazy">`:'<div class="prod-img-ico">📦</div>'}<div class="prod-badge" style="background:#888;">${(p.categoria||'General').slice(0,6).toUpperCase()}</div></div><div class="prod-body"><div class="prod-nombre">${p.nombre||'Producto'}</div><div class="prod-prov">${p.nombre_proveedor||''}</div><div class="prod-footer"><div class="prod-precio">$${Number(p.precio||0).toFixed(2)}</div><button class="prod-add" onclick="addCarrito(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div></div>`;
       grid.appendChild(card);
@@ -274,37 +291,147 @@ window.buscarTexto=function(q){
   },300);
 };
 
+// BUSCAR POR IMAGEN — corregido con manejo de errores detallado
 window.buscarPorImagen=async function(input){
-  const file=input.files[0];if(!file)return;input.value='';cerrarCamara();await procesarImagen(file);
+  const file=input.files[0];
+  if(!file)return;
+  input.value='';
+  cerrarCamara();
+  await procesarImagen(file);
 };
 
 async function procesarImagen(file){
+  // Mostrar loading
+  document.getElementById('spinner').style.display='block';
+  document.getElementById('loading-txt').textContent='Analizando imagen con IA...';
+  document.getElementById('loading-error').classList.remove('show');
   document.getElementById('loading-ov').classList.add('show');
+
   try{
-    const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=()=>rej();r.readAsDataURL(file);});
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:file.type||'image/jpeg',data:b64}},{type:'text',text:'¿Qué producto es este? Responde solo en JSON: {"nombre":"...","categoria":"...","tags":["...","..."]}'}]}]})});
-    const data=await resp.json();
-    const txt=data.content?.[0]?.text||'{}';
-    const info=JSON.parse(txt.replace(/```json|```/g,'').trim());
-    const termino=[info.nombre,info.categoria,...(info.tags||[])].filter(Boolean).join(' ');
+    // Convertir imagen a base64
+    const b64=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=e=>{
+        const result=e.target.result;
+        // Extraer solo el base64 sin el prefijo data:image/...;base64,
+        const base64=result.split(',')[1];
+        if(!base64){reject(new Error('No se pudo leer la imagen'));}
+        else{resolve({base64,mediaType:file.type||'image/jpeg'});}
+      };
+      reader.onerror=()=>reject(new Error('Error al leer el archivo'));
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('loading-txt').textContent='Identificando producto...';
+
+    // Llamar a la API de Claude
+    const response=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-opus-4-5',
+        max_tokens:300,
+        messages:[{
+          role:'user',
+          content:[
+            {type:'image',source:{type:'base64',media_type:b64.mediaType,data:b64.base64}},
+            {type:'text',text:'¿Qué producto es este? Responde SOLO en JSON sin markdown: {"nombre":"nombre del producto","categoria":"categoria general","tags":["tag1","tag2"]}'}
+          ]
+        }]
+      })
+    });
+
+    if(!response.ok){
+      const errData=await response.json().catch(()=>({}));
+      throw new Error(errData.error?.message||`Error de API: ${response.status}`);
+    }
+
+    const data=await response.json();
+    const textContent=data.content?.find(c=>c.type==='text')?.text||'';
+
+    if(!textContent){throw new Error('La IA no devolvió respuesta');}
+
+    // Limpiar y parsear JSON
+    let info={};
+    try{
+      const cleaned=textContent.replace(/```json|```/g,'').trim();
+      info=JSON.parse(cleaned);
+    }catch{
+      // Si no es JSON válido, usar el texto como búsqueda
+      info={nombre:textContent.slice(0,50),categoria:'',tags:[]};
+    }
+
+    const termino=[info.nombre,info.categoria,...(info.tags||[])].filter(Boolean).join(' ').trim();
+    if(!termino){throw new Error('No se pudo identificar el producto en la imagen');}
+
+    document.getElementById('loading-ov').classList.remove('show');
     document.getElementById('search-input').value=termino;
     window.buscarTexto(termino);
-    showToast('🔍 Búsqueda completada');
-  }catch(e){showToast('Error al analizar la imagen');}
-  document.getElementById('loading-ov').classList.remove('show');
+    showToast('🔍 Búsqueda por imagen completada');
+
+  }catch(err){
+    console.error('Error búsqueda por imagen:',err);
+    document.getElementById('spinner').style.display='none';
+    document.getElementById('loading-txt').textContent='';
+    document.getElementById('error-txt').textContent=err.message||'Error al analizar la imagen. Intenta de nuevo.';
+    document.getElementById('loading-error').classList.add('show');
+  }
 }
 
+window.cerrarLoading=function(){
+  document.getElementById('loading-ov').classList.remove('show');
+};
+
+// CÁMARA
 window.abrirCamara=async function(){
+  try{
+    const constraints={video:{facingMode:camaraFrontal?'user':'environment',width:{ideal:1280},height:{ideal:720}}};
+    streamCam=await navigator.mediaDevices.getUserMedia(constraints);
+    document.getElementById('cam-video').srcObject=streamCam;
+    document.getElementById('modal-cam').classList.add('show');
+  }catch(e){
+    if(e.name==='NotAllowedError'){showToast('Permiso de cámara denegado');}
+    else if(e.name==='NotFoundError'){showToast('No se encontró cámara en este dispositivo');}
+    else{showToast('Cámara no disponible — abriendo galería');document.getElementById('foto-galeria').click();}
+  }
+};
+
+window.cerrarCamara=function(){
+  if(streamCam){streamCam.getTracks().forEach(t=>t.stop());streamCam=null;}
+  document.getElementById('modal-cam').classList.remove('show');
+};
+
+window.flipCamara=async function(){
+  camaraFrontal=!camaraFrontal;
+  if(streamCam)streamCam.getTracks().forEach(t=>t.stop());
   try{
     streamCam=await navigator.mediaDevices.getUserMedia({video:{facingMode:camaraFrontal?'user':'environment'}});
     document.getElementById('cam-video').srcObject=streamCam;
-    document.getElementById('modal-cam').classList.add('show');
-  }catch(e){showToast('Cámara no disponible — abriendo galería');document.getElementById('foto-galeria').click();}
+  }catch(e){showToast('Error al cambiar cámara');}
 };
-window.cerrarCamara=function(){if(streamCam){streamCam.getTracks().forEach(t=>t.stop());streamCam=null;}document.getElementById('modal-cam').classList.remove('show');};
-window.flipCamara=async function(){camaraFrontal=!camaraFrontal;if(streamCam)streamCam.getTracks().forEach(t=>t.stop());try{streamCam=await navigator.mediaDevices.getUserMedia({video:{facingMode:camaraFrontal?'user':'environment'}});document.getElementById('cam-video').srcObject=streamCam;}catch(e){showToast('Error al cambiar cámara');}};
-window.capturarFoto=function(){const v=document.getElementById('cam-video');const c=document.getElementById('cam-canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);c.toBlob(async b=>{cerrarCamara();if(b)await procesarImagen(new File([b],'foto.jpg',{type:'image/jpeg'}));},'image/jpeg',0.85);};
+
+window.capturarFoto=function(){
+  const video=document.getElementById('cam-video');
+  const canvas=document.getElementById('cam-canvas');
+  if(!video.videoWidth||!video.videoHeight){showToast('Espera a que la cámara esté lista');return;}
+  canvas.width=video.videoWidth;
+  canvas.height=video.videoHeight;
+  canvas.getContext('2d').drawImage(video,0,0);
+  canvas.toBlob(async blob=>{
+    cerrarCamara();
+    if(blob){
+      const file=new File([blob],'captura.jpg',{type:'image/jpeg'});
+      await procesarImagen(file);
+    }
+  },'image/jpeg',0.85);
+};
+
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2500);}
 </script>
 </body>
 </html>
+    
