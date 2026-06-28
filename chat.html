@@ -267,11 +267,20 @@ function textoProhibido(txt){return PROHIBIDO.some(r=>r.test(txt));}
 })();
 
 async function cargarChats(){
-  const {data}=await db.from('chats').select('*').eq('emprendedor_id',uid);
-  todos=(data||[]).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+  const {data, error} = await db.from('chats')
+    .select('*')
+    .or(`emprendedor_id.eq.${uid},proveedor_id.eq.${uid}`)
+    .order('created_at', {ascending: false});
+
+  if(error){
+    console.error('Error cargando chats:', error);
+    Q('lista').innerHTML = '<div class="vacio">Error al cargar. Recarga la página.</div>';
+    return;
+  }
+
+  todos = data || [];
   pintarLista(todos);
 }
-
 function pintarLista(arr){
   const c=Q('lista');
   if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones aún.<br>Entra a un producto y toca "Chatear".</div>';return;}
