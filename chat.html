@@ -3,169 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED Chat</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<title>PROVEED — Chat</title>
+<meta name="theme-color" content="#ffffff">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;}
+:root{--G:#A8E63D;--G2:#7BC234;--O:#FF8C00;--R:#FF4D4D;--F:#F5F6F2;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:'Inter',sans-serif;background:var(--F);}
+body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
+
 #pLista{height:100%;display:flex;flex-direction:column;}
 #pChat{height:100%;display:none;flex-direction:column;}
 
-/* BANNER SOPORTE EMERGENTE */
-.banSoporte{background:#111;border-bottom:2px solid var(--R);padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0;}
-.banSoporte:active{background:#1a1a1a;}
-.banSopIco{font-size:1.3rem;flex-shrink:0;}
-.banSopInfo{flex:1;min-width:0;}
-.banSopTit{font-size:0.8rem;font-weight:700;color:#fff;}
-.banSopSub{font-size:0.64rem;color:var(--R);font-weight:600;margin-top:2px;}
-.banSopArr{font-size:0.74rem;color:var(--G);font-weight:700;flex-shrink:0;}
-
-.hLista{background:#fff;padding:48px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
+/* HEADER LISTA */
+.hLista{background:#fff;padding:44px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
 .hTop{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .hTit{font-size:1rem;font-weight:900;color:#111;}
 .hTit b{color:var(--G2);}
 .sBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:24px;padding:10px 14px;border:1.5px solid #eee;}
-.sBus svg{width:14px;height:14px;stroke:#ccc;fill:none;stroke-width:2.5;flex-shrink:0;}
-.sBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
+.sBus svg{width:14px;height:14px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
+.sBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:.86rem;color:#111;}
 .sBus input::placeholder{color:#ccc;}
+
+/* LISTA */
 .listaScroll{flex:1;overflow-y:auto;padding-bottom:80px;}
-.chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f5f5f5;cursor:pointer;}
+.chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f0f0f0;cursor:pointer;}
 .chatItem:active{background:var(--F);}
 .chatItem.new{border-left:3px solid var(--G);}
-.ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;overflow:hidden;}
+.ciAv{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;flex-shrink:0;position:relative;}
 .ciDot{position:absolute;bottom:1px;right:1px;width:9px;height:9px;background:var(--G);border-radius:50%;border:2px solid #fff;}
 .ciInf{flex:1;min-width:0;}
-.ciNom{font-size:0.88rem;font-weight:700;color:#111;margin-bottom:2px;}
-.ciMsg{font-size:0.74rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ciNom{font-size:.88rem;font-weight:700;color:#111;margin-bottom:2px;}
+.ciMsg{font-size:.74rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ciR{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
-.ciHora{font-size:0.6rem;color:#bbb;}
-.ciUnread{width:18px;height:18px;background:var(--G2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:800;color:#111;}
-.vacio{text-align:center;padding:60px 20px;color:#bbb;font-size:0.82rem;line-height:1.7;}
+.ciHora{font-size:.6rem;color:#ccc;}
+.ciUnread{width:18px;height:18px;background:var(--G);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;color:#111;}
+.vacio{text-align:center;padding:60px 20px;color:#bbb;font-size:.82rem;line-height:1.7;}
+
+/* CHAT HEADER */
 .cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.cBack{width:36px;height:36px;background:rgba(168,230,61,.12);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cBack{width:36px;height:36px;background:rgba(168,230,61,.1);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
-.cAv{width:40px;height:40px;border-radius:12px;font-size:0.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+.cAv{width:40px;height:40px;border-radius:12px;font-size:.9rem;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cInf{flex:1;min-width:0;}
-.cNom{font-size:0.9rem;font-weight:800;color:#111;}
-.cSub{font-size:0.68rem;color:var(--G2);font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.cBts{display:flex;gap:6px;}
-.cBt{width:32px;height:32px;border-radius:10px;background:rgba(168,230,61,.12);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.cBt svg{width:15px;height:15px;stroke:var(--G2);fill:none;stroke-width:2;}
-.banProd{background:#fff;border-bottom:2px solid rgba(168,230,61,0.3);padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.bpImg{width:44px;height:44px;border-radius:10px;background:var(--F);flex-shrink:0;overflow:hidden;}
-.bpImg img{width:100%;height:100%;object-fit:cover;}
-.bpInf{flex:1;min-width:0;}
-.bpNom{font-size:0.82rem;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bpPre{font-size:0.74rem;color:var(--O);font-weight:800;margin-top:1px;}
-.bpTag{font-size:0.6rem;color:var(--G2);font-weight:700;margin-top:2px;}
-.bpBtn{padding:6px 12px;background:rgba(168,230,61,0.1);border:1.5px solid var(--G);border-radius:20px;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:var(--G2);cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.cNom{font-size:.9rem;font-weight:800;color:#111;}
+.cSub{font-size:.68rem;color:var(--O);font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* REGLAMENTO */
+.reglamento-card{margin:10px 14px;border-radius:16px;padding:14px;background:#fff8f0;border:1.5px solid rgba(255,140,0,.3);flex-shrink:0;}
+.reg-tit{font-size:.78rem;font-weight:800;color:#111;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.reg-sub{font-size:.68rem;color:#888;line-height:1.6;margin-bottom:10px;}
+.reg-item{font-size:.68rem;color:#666;display:flex;align-items:flex-start;gap:6px;margin-bottom:4px;}
+.reg-item span{color:var(--R);font-weight:800;flex-shrink:0;}
+.reg-btn{width:100%;padding:9px;background:var(--G);color:#111;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:800;cursor:pointer;margin-top:8px;}
+
+/* MSGS */
 .msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px;background:var(--F);display:flex;flex-direction:column;gap:5px;}
-.inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
-.extras{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none;}
-.extras::-webkit-scrollbar{display:none;}
-.xBtn{padding:6px 12px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.xBtn.g{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,.06);}
-.iRow{display:flex;align-items:flex-end;gap:8px;}
-.iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
-textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111 !important;-webkit-text-fill-color:#111 !important;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;display:block;caret-color:#111;}
-textarea#ta::placeholder{color:#bbb;}
-.sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
 .msg{display:flex;flex-direction:column;}
 .msg.yo{align-items:flex-end;}
 .msg.el{align-items:flex-start;}
-.bub{padding:10px 14px;border-radius:18px;font-size:0.88rem;line-height:1.5;max-width:80%;word-break:break-word;-webkit-user-select:none;user-select:none;cursor:pointer;}
-.msg.yo .bub{background:var(--G);color:#111;border-bottom-right-radius:4px;font-weight:500;}
+.bub{padding:10px 14px;border-radius:18px;font-size:.88rem;line-height:1.5;max-width:80%;word-break:break-word;cursor:pointer;}
+.msg.yo .bub{background:var(--G);color:#111;border-bottom-right-radius:4px;font-weight:600;}
 .msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
-.mHora{font-size:0.6rem;color:#bbb;margin-top:3px;padding:0 4px;}
-.mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:4px;z-index:700;border:1px solid #eee;display:none;}
-.mMenu.on{display:block;}
-.mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
-.mMenu button svg{width:14px;height:14px;stroke:var(--R);fill:none;stroke-width:2.2;}
+.mHora{font-size:.58rem;color:#bbb;margin-top:3px;padding:0 4px;}
+.mAutor{font-size:.6rem;color:#aaa;margin-bottom:2px;padding:0 4px;}
+
+/* IMAGEN EN CHAT */
+.msg-img-wrap{max-width:220px;border-radius:14px;overflow:hidden;cursor:pointer;position:relative;}
+.msg-img-wrap img{width:100%;display:block;border-radius:14px;}
+.msg-img-del{position:absolute;top:6px;right:6px;width:24px;height:24px;background:rgba(255,77,77,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.msg-img-del svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.5;}
+
+/* OFERTA */
+.esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
+.ofertaC{background:#fff;border:2px solid var(--G);border-radius:20px;padding:16px;width:94%;max-width:340px;box-shadow:0 4px 16px rgba(168,230,61,.08);}
+.ofertaH{font-size:.62rem;font-weight:800;color:var(--G);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
+.ofertaItem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee;}
+.ofertaItem:last-of-type{border:none;}
+.ofertaImg{width:38px;height:38px;border-radius:9px;background:#f5f5f5;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.ofertaImg img{width:100%;height:100%;object-fit:cover;}
+.ofertaNom{font-size:.78rem;font-weight:600;color:#111;}
+.ofertaCant{font-size:.64rem;color:#aaa;}
+.ofertaOrig{font-size:.68rem;color:#bbb;text-decoration:line-through;}
+.ofertaNuevo{font-size:.92rem;font-weight:900;color:var(--G);}
+.ofertaTot{display:flex;justify-content:space-between;align-items:center;margin:10px 0;padding:10px;background:rgba(168,230,61,.06);border-radius:12px;}
+.ofertaTotL{font-size:.8rem;font-weight:700;color:#111;}
+.ofertaTotV{font-size:1.1rem;font-weight:900;color:var(--G);}
+.ofertaNota{font-size:.76rem;color:#888;font-style:italic;padding:8px 10px;background:#f5f5f5;border-radius:10px;margin-bottom:12px;line-height:1.5;}
+.ofertaSt{text-align:center;font-size:.74rem;font-weight:700;padding:8px;border-radius:12px;margin-top:4px;}
+.ofertaSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
+.ofertaBtns{display:flex;gap:8px;margin-top:10px;}
+.ofertaBtns button{flex:1;padding:10px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;}
+.btn-aceptar{background:var(--G);color:#111;}
+.btn-rechazar{background:rgba(255,77,77,.1);color:var(--R);}
+.ofertaSt.aceptado{background:rgba(168,230,61,.1);color:var(--G2);}
+.ofertaSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
+.ofertaHr{font-size:.58rem;color:#bbb;text-align:right;margin-top:8px;}
+
+/* PROD INTERES */
+.prodIntC{background:#fff;border:2px solid rgba(255,140,0,.3);border-radius:18px;padding:14px;width:92%;max-width:340px;}
+
+/* INPUT */
+.inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
+.iRow{display:flex;align-items:flex-end;gap:8px;}
+.img-btn{width:36px;height:36px;background:var(--F);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.img-btn svg{width:18px;height:18px;stroke:#999;fill:none;stroke-width:2;}
+.iBox{flex:1;background:var(--F);border-radius:22px;padding:10px 14px;border:1.5px solid #eee;display:flex;align-items:flex-end;}
+textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:.9rem;color:#111!important;-webkit-text-fill-color:#111!important;resize:none;line-height:1.4;min-height:22px;max-height:120px;width:100%;caret-color:var(--G);}
+textarea#ta::placeholder{color:#ccc;}
+.sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
+
+/* MENU BORRAR */
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
-.esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
-.ofertaC{background:#fff;border:2px solid var(--G);border-radius:20px;padding:16px;width:94%;max-width:340px;box-shadow:0 4px 16px rgba(168,230,61,.12);}
-.ofertaH{font-size:0.62rem;font-weight:800;color:var(--G2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
-.ofertaItem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f5f5f5;}
-.ofertaItem:last-of-type{border:none;}
-.ofertaImg{width:38px;height:38px;border-radius:9px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
-.ofertaImg img{width:100%;height:100%;object-fit:cover;}
-.ofertaNom{font-size:0.78rem;font-weight:600;color:#111;}
-.ofertaCant{font-size:0.64rem;color:#aaa;}
-.ofertaOrig{font-size:0.68rem;color:#bbb;text-decoration:line-through;}
-.ofertaNuevo{font-size:0.92rem;font-weight:900;color:var(--G2);}
-.ofertaTot{display:flex;justify-content:space-between;align-items:center;margin:10px 0;padding:10px;background:rgba(168,230,61,.07);border-radius:12px;}
-.ofertaTotL{font-size:0.8rem;font-weight:700;color:#111;}
-.ofertaTotV{font-size:1.1rem;font-weight:900;color:var(--G2);}
-.ofertaAhorro{font-size:0.68rem;color:var(--G2);font-weight:600;margin-bottom:10px;text-align:center;}
-.ofertaNota{font-size:0.76rem;color:#666;font-style:italic;padding:8px 10px;background:var(--F);border-radius:10px;margin-bottom:12px;line-height:1.5;}
-.ofertaBts{display:flex;gap:8px;}
-.ofBt{flex:1;padding:12px 8px;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
-.ofBt svg{width:15px;height:15px;fill:none;stroke-width:2.5;}
-.ofBt.aceptar{background:var(--G);color:#111;}
-.ofBt.aceptar svg{stroke:#111;}
-.ofBt.rechazar{background:rgba(255,77,77,.08);color:var(--R);}
-.ofBt.rechazar svg{stroke:var(--R);}
-.ofertaSt{text-align:center;font-size:0.74rem;font-weight:700;padding:8px;border-radius:12px;margin-top:4px;}
-.ofertaSt.aceptado{background:rgba(168,230,61,.12);color:var(--G2);}
-.ofertaSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
-.ofertaHr{font-size:0.58rem;color:#bbb;text-align:right;margin-top:8px;}
-.cartC{background:#fff;border:1.5px solid #eee;border-radius:18px;padding:12px 14px;width:92%;max-width:340px;}
-.cartH{font-size:0.63rem;font-weight:800;color:#aaa;text-transform:uppercase;margin-bottom:8px;}
-.cartRow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f5f5f5;}
-.cartRow:last-of-type{border:none;}
-.cartImg{width:28px;height:28px;border-radius:7px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;}
-.cartImg img{width:100%;height:100%;object-fit:cover;}
-.modOv{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:500;}
-.modOv.on{display:flex;}
-.modSh{background:#fff;width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);max-height:92vh;display:flex;flex-direction:column;overflow:hidden;}
-.modOv.on .modSh{transform:translateY(0);}
-.drag{width:36px;height:4px;background:#e0e0e0;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
-.modH{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;flex-shrink:0;}
-.modT{font-size:0.95rem;font-weight:800;color:#111;}
-.modX{width:28px;height:28px;background:var(--F);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.modX svg{width:13px;height:13px;stroke:#555;fill:none;stroke-width:2.5;}
-.modB{overflow-y:auto;padding:14px;flex:1;}
-.catBus{display:flex;align-items:center;gap:8px;background:var(--F);border-radius:20px;padding:10px 14px;border:1.5px solid #eee;margin-bottom:12px;}
-.catBus svg{width:14px;height:14px;stroke:#ccc;fill:none;stroke-width:2.5;flex-shrink:0;}
-.catBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
-.catBus input::placeholder{color:#ccc;}
-.catGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-.catCard{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;cursor:pointer;}
-.catCardImg{width:100%;height:90px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:2rem;}
-.catCardImg img{width:100%;height:100%;object-fit:cover;}
-.catCardBod{padding:8px;}
-.catCardNom{font-size:.76rem;font-weight:700;color:#111;margin-bottom:3px;}
-.catCardPre{font-size:.86rem;font-weight:900;color:var(--O);}
-.catCardBtn{width:100%;padding:6px;background:#111;color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;margin-top:5px;}
-.tabBar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
+.mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.15);padding:4px;z-index:700;border:1px solid #eee;display:none;}
+.mMenu.on{display:block;}
+.mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
+.mMenu button svg{width:14px;height:14px;stroke:var(--R);fill:none;stroke-width:2.2;}
+
+.tab-bar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .tab span{font-size:.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
 .tab.on svg{stroke:var(--G2);}
 .tab.on span{color:var(--G2);}
-.tabRel{position:relative;}
-.tabBadge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
+.tab-rel{position:relative;}
+.tab-badge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
+
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:1000;display:none;align-items:center;justify-content:center;}
+.lightbox.on{display:flex;}
+.lightbox img{max-width:100vw;max-height:85vh;object-fit:contain;}
+.lb-close{position:absolute;top:44px;right:16px;width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
+.lb-close svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2.5;}
 </style>
 </head>
 <body>
 
+<!-- LISTA -->
 <div id="pLista">
-  <!-- BANNER SOPORTE — solo aparece si hay ticket activo -->
-  <div class="banSoporte" id="banSoporte" style="display:none;" onclick="irSoporte()">
-    <span class="banSopIco">🎧</span>
-    <div class="banSopInfo">
-      <div class="banSopTit">Tienes un reporte de soporte activo</div>
-      <div class="banSopSub" id="banSopSub">—</div>
-    </div>
-    <span class="banSopArr">Ver →</span>
-  </div>
-
   <div class="hLista">
     <div class="hTop">
       <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/><polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -177,61 +156,41 @@ textarea#ta::placeholder{color:#bbb;}
     </div>
   </div>
   <div class="listaScroll" id="lista"><div class="vacio">Cargando...</div></div>
-  <nav class="tabBar">
+  <nav class="tab-bar">
     <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
     <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
     <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span></a>
-    <a class="tab tabRel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tabBadge" id="cBadge" style="display:none">0</div></a>
+    <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-badge" id="carrito-badge" style="display:none;"></div></a>
     <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
   </nav>
 </div>
 
+<!-- CHAT -->
 <div id="pChat">
   <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
     <div class="cAv" id="cAv">P</div>
     <div class="cInf"><div class="cNom" id="cNom">—</div><div class="cSub" id="cSub">—</div></div>
-    <div class="cBts">
-      <button class="cBt" title="Ver catálogo del proveedor" onclick="abrirCatalogo()">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      </button>
-      <button class="cBt" onclick="location.href='dashboard.html'"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></button>
-    </div>
   </div>
-
-  <div class="banProd" id="banProd" style="display:none;">
-    <div class="bpImg" id="bpImg"></div>
-    <div class="bpInf">
-      <div class="bpNom" id="bpNom">—</div>
-      <div class="bpPre" id="bpPre">—</div>
-      <div class="bpTag">📦 Producto de interés</div>
-    </div>
-    <button class="bpBtn" onclick="abrirCatalogo()">+ Ver más</button>
-  </div>
-
   <div class="msgsArea" id="msgs"></div>
-
   <div class="inputArea">
-    <div class="extras">
-      <button class="xBtn g" onclick="abrirCatalogo()">🔍 Ver catálogo</button>
-      <button class="xBtn" onclick="enviarCarrito()">📦 Enviar carrito</button>
-    </div>
     <div class="iRow">
+      <button class="img-btn" onclick="Q('inp-img-emp').click()" title="Enviar imagen">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </button>
       <div class="iBox">
-        <textarea id="ta" placeholder="Escribe un mensaje al proveedor..." rows="1"
-          onkeydown="tecla(event)" oninput="crecer(this)"></textarea>
+        <textarea id="ta" placeholder="Escribe un mensaje..." rows="1" onkeydown="tecla(event)" oninput="crecer(this)"></textarea>
       </div>
       <button class="sBtn" onclick="enviar()">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
     </div>
   </div>
-
-  <nav class="tabBar">
+  <nav class="tab-bar">
     <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
     <a class="tab" href="explorar.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
     <a class="tab on"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span></a>
-    <a class="tab tabRel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tabBadge" id="cBadge2" style="display:none">0</div></a>
+    <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-badge" id="carrito-badge2" style="display:none;"></div></a>
     <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
   </nav>
 </div>
@@ -239,22 +198,12 @@ textarea#ta::placeholder{color:#bbb;}
 <div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
 <div class="mMenu" id="mMenu"><button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button></div>
 
-<div class="modOv" id="modCat" onclick="cmod('modCat',event)">
-  <div class="modSh"><div class="drag"></div>
-    <div class="modH">
-      <span class="modT">🔍 Catálogo del proveedor</span>
-      <button class="modX" onclick="Q('modCat').classList.remove('on')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div class="modB">
-      <div class="catBus">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" placeholder="Buscar producto..." oninput="filtCat(this.value)">
-      </div>
-      <div class="catGrid" id="catGrid"><div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Cargando...</div></div>
-    </div>
-  </div>
+<div class="lightbox" id="lightbox" onclick="cerrarLightbox()">
+  <button class="lb-close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <img id="lb-img" src="" alt="">
 </div>
 
+<input type="file" id="inp-img-emp" accept="image/*" style="display:none;" onchange="enviarImagen(this)">
 <div class="toast" id="tst"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -262,24 +211,26 @@ textarea#ta::placeholder{color:#bbb;}
 const {createClient}=supabase;
 const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 const Q=id=>document.getElementById(id);
-let uid='',me={},chatAct=null,todos=[],msgsArr=[],canal=null,menuId=null,prodActual=null,catAll=[];
+let uid='',me={},chatAct=null,todos=[],msgsArr=[],canal=null,menuId=null;
 const QS=new URLSearchParams(location.search);
-let carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+const REGLAMENTO_KEY='proveed_reglamento_emp_visto';
 
-function badge(){
-  const n=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
-  ['cBadge','cBadge2'].forEach(id=>{const b=Q(id);if(b){if(n>0){b.style.display='flex';b.textContent=n>9?'9+':n;}else b.style.display='none';}});
-}
-badge();
+// Badge carrito
+const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+const cntC=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+if(cntC>0){['carrito-badge','carrito-badge2'].forEach(id=>{const b=Q(id);if(b){b.style.display='flex';b.textContent=cntC>9?'9+':cntC;}});}
 
-function mostrarBannerProd(){
-  if(!prodActual)return;
-  Q('banProd').style.display='flex';
-  Q('bpImg').innerHTML=prodActual.imagen?`<img src="${prodActual.imagen}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`:'📦';
-  Q('bpNom').textContent=prodActual.nombre||'Producto';
-  Q('bpPre').textContent=prodActual.precio?`$${Number(prodActual.precio).toFixed(2)} — interesado en este producto`:'';
-  Q('cSub').textContent=`Interés: ${prodActual.nombre}`;
-}
+// PATRONES PROHIBIDOS
+const PROHIBIDO=[
+  /\b\d{7,}\b/g,
+  /https?:\/\/[^\s]+/gi,
+  /wa\.me|whatsapp/gi,
+  /instagram\.com|instagram/gi,
+  /facebook\.com|facebook|fb\.com/gi,
+  /t\.me|telegram/gi,
+  /paypal|payphone|transfer|transferencia/gi,
+];
+function textoProhibido(txt){return PROHIBIDO.some(r=>r.test(txt));}
 
 (async()=>{
   const {data:{session}}=await db.auth.getSession();
@@ -288,80 +239,42 @@ function mostrarBannerProd(){
   const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
   if(u)me=u;
   await cargarChats();
-  await verificarSoporte();
-
-  const pId=QS.get('proveedor_id');
+  const provId=QS.get('proveedor_id');
   const prodId=QS.get('prod_id');
-  const prodNom=decodeURIComponent(QS.get('prod_nombre')||'');
-  const prodPre=QS.get('prod_precio')||'';
-  const prodImg=decodeURIComponent(QS.get('prod_img')||'');
-
-  if(pId){
-    let chat=todos.find(c=>c.proveedor_id===pId);
+  const prodNom=QS.get('prod_nombre');
+  const prodPre=QS.get('prod_precio');
+  const prodImg=QS.get('prod_img');
+  if(provId){
+    let chat=todos.find(c=>c.proveedor_id===provId);
     if(!chat){
-      const {data:prov}=await db.from('usuarios').select('nombre,empresa').eq('id',pId).single();
-      const {data:ch}=await db.from('chats').insert({
-        emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',
-        proveedor_id:pId,proveedor_nombre:prov?.empresa||prov?.nombre||'Proveedor',
-        producto_id:prodId||null,producto_nombre:prodNom||null,
-        ultimo_mensaje:'Chat iniciado',no_leido_emp:0,no_leido_prov:0
-      }).select().single();
-      chat=ch;if(chat)todos.unshift(chat);
+      const {data:prov}=await db.from('usuarios').select('nombre,empresa').eq('id',provId).single();
+      const nomProv=prov?.empresa||prov?.nombre||'Proveedor';
+      const {data:nuevo}=await db.from('chats').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',proveedor_id:provId,proveedor_nombre:nomProv,producto_id:prodId||null,producto_nombre:prodNom?decodeURIComponent(prodNom):null,ultimo_mensaje:'Nueva conversación',created_at:new Date().toISOString()}).select().single();
+      if(nuevo)chat=nuevo;
     }
     if(chat){
       await abrirChat(chat);
       if(prodId&&prodNom){
-        prodActual={id:prodId,nombre:prodNom,precio:prodPre,imagen:prodImg,proveedor_id:pId};
-        mostrarBannerProd();
         const yaEnviado=msgsArr.some(m=>m.tipo==='producto_interes'&&m.data?.producto_id===prodId);
         if(!yaEnviado){
-          await db.from('mensajes').insert({
-            chat_id:chat.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',
-            texto:`Hola, me interesa el producto "${prodNom}" (precio actual: $${Number(prodPre||0).toFixed(2)}). ¿Podría hacerme una oferta?`,
-            tipo:'producto_interes',
-            data:{producto_id:prodId,producto_nombre:prodNom,producto_precio:prodPre,producto_imagen:prodImg},
-            created_at:new Date().toISOString()
-          });
-          await db.from('chats').update({
-            ultimo_mensaje:`Interés en: ${prodNom}`,
-            producto_id:prodId,producto_nombre:prodNom,
-            no_leido_prov:(chat.no_leido_prov||0)+1
-          }).eq('id',chat.id);
+          await db.from('mensajes').insert({chat_id:chat.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`Hola, me interesa el producto "${decodeURIComponent(prodNom)}"`,tipo:'producto_interes',data:{producto_id:prodId,producto_nombre:decodeURIComponent(prodNom),producto_precio:parseFloat(prodPre||0),producto_imagen:prodImg?decodeURIComponent(prodImg):''},created_at:new Date().toISOString()});
+          await db.from('chats').update({ultimo_mensaje:`Interés: ${decodeURIComponent(prodNom)}`,no_leido_prov:(chat.no_leido_prov||0)+1}).eq('id',chat.id);
           await cargarMsgs();
         }
-        Q('ta').focus();
       }
     }
   }
 })();
 
-// VERIFICAR TICKET DE SOPORTE ACTIVO — banner emergente
-async function verificarSoporte(){
-  const {data:tkts}=await db.from('soporte_tickets')
-    .select('*').eq('emprendedor_id',uid)
-    .neq('estado','cerrado')
-    .order('created_at',{ascending:false}).limit(1);
-  if(tkts?.[0]){
-    const t=tkts[0];
-    const grav={rojo:'🔴 Urgente',naranja:'🟠 Moderado',amarillo:'🟡 Leve'};
-    Q('banSoporte').style.display='flex';
-    Q('banSopSub').textContent=`${grav[t.gravedad]||'Pendiente'} · ${t.ticket_id||''} · vs ${t.proveedor_nombre||''}`;
-  } else {
-    Q('banSoporte').style.display='none';
-  }
-}
-window.irSoporte=()=>location.href='https://servicio-al-cliente-proveed.vercel.app';
-
 async function cargarChats(){
-  const {data,error}=await db.from('chats').select('*').eq('emprendedor_id',uid);
-  if(error){Q('lista').innerHTML=`<div class="vacio">Error: ${error.message}</div>`;return;}
+  const {data}=await db.from('chats').select('*').eq('emprendedor_id',uid);
   todos=(data||[]).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
   pintarLista(todos);
 }
 
 function pintarLista(arr){
   const c=Q('lista');
-  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones.<br>Entra a un producto y toca "Chat con proveedor".</div>';return;}
+  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones aún.<br>Entra a un producto y toca "Chatear".</div>';return;}
   c.innerHTML='';
   arr.forEach(ch=>{
     const nom=ch.proveedor_nombre||'Proveedor';
@@ -369,7 +282,7 @@ function pintarLista(arr){
     const d=document.createElement('div');
     d.className='chatItem'+((ch.no_leido_emp||0)>0?' new':'');
     d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
-      <div class="ciInf"><div class="ciNom">${nom}</div>${ch.producto_nombre?`<div style="font-size:.64rem;color:var(--G2);font-weight:600;margin-bottom:2px;">📦 ${ch.producto_nombre}</div>`:''}<div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
+      <div class="ciInf"><div class="ciNom">${nom}</div>${ch.producto_nombre?`<div style="font-size:.64rem;color:var(--O);font-weight:600;margin-bottom:2px;">📦 ${ch.producto_nombre}</div>`:''}<div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
       <div class="ciR"><div class="ciHora">${hora}</div>${(ch.no_leido_emp||0)>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
     d.onclick=()=>abrirChat(ch);c.appendChild(d);
   });
@@ -378,49 +291,66 @@ function pintarLista(arr){
 window.filtrar=q=>{const ql=q.toLowerCase();pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));};
 
 async function abrirChat(chat){
-  chatAct=chat;msgsArr=[];prodActual=null;
-  Q('banProd').style.display='none';
+  chatAct=chat;msgsArr=[];
   Q('pLista').style.display='none';Q('pChat').style.display='flex';
   Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando...</div>';
   const nom=chat.proveedor_nombre||'Proveedor';
   Q('cAv').textContent=nom[0].toUpperCase();Q('cAv').style.background=pal(nom);
-  Q('cNom').textContent=nom;Q('cSub').textContent=nom;
+  Q('cNom').textContent=nom;
+  Q('cSub').textContent=chat.producto_nombre?`📦 ${chat.producto_nombre}`:nom;
   await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
   await cargarMsgs();
+  mostrarReglamentoSiPrimera();
   suscribir();
 }
 
+function mostrarReglamentoSiPrimera(){
+  if(localStorage.getItem(REGLAMENTO_KEY))return;
+  const card=document.createElement('div');
+  card.className='reglamento-card';card.id='reg-card';
+  card.innerHTML=`
+    <div class="reg-tit">🔒 Política de seguridad PROVEED</div>
+    <div class="reg-sub">Por la seguridad de todos los usuarios y para prevenir extorsiones, fraudes y pérdidas comerciales, en PROVEED está prohibido compartir:</div>
+    <div class="reg-item"><span>✕</span>Números de teléfono o celular</div>
+    <div class="reg-item"><span>✕</span>Links de WhatsApp, Instagram o Facebook</div>
+    <div class="reg-item"><span>✕</span>Links de pago externos (PayPal, Payphone, etc.)</div>
+    <div class="reg-item"><span>✕</span>Cualquier enlace que saque la negociación fuera de PROVEED</div>
+    <div class="reg-sub" style="margin-top:8px;">Los mensajes con esta información serán bloqueados automáticamente.</div>
+    <button class="reg-btn" onclick="cerrarReglamento()">✓ Entendido, continuar</button>`;
+  Q('msgs').prepend(card);
+}
+window.cerrarReglamento=function(){localStorage.setItem(REGLAMENTO_KEY,'1');const c=Q('reg-card');if(c)c.remove();};
+
 async function cargarMsgs(){
-  const {data,error}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
-  if(error){console.error(error);return;}
-  msgsArr=data||[];
-  if(!prodActual){
-    for(let i=msgsArr.length-1;i>=0;i--){
-      const m=msgsArr[i];
-      if(m.data?.producto_id&&m.data?.producto_nombre){
-        prodActual={id:m.data.producto_id,nombre:m.data.producto_nombre,precio:m.data.producto_precio,imagen:m.data.producto_imagen||''};
-        mostrarBannerProd();break;
-      }
-    }
-  }
-  pintarMsgs();
+  const {data}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
+  msgsArr=data||[];pintarMsgs();
 }
 
 function pintarMsgs(){
   const w=Q('msgs');
-  if(!msgsArr.length){w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">Escríbele al proveedor para comenzar 💬</div>';return;}
   w.innerHTML='';
-  msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));
+  if(!msgsArr.length){w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">Inicia la conversación 💬</div>';}
+  else{msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));}
   setTimeout(()=>w.scrollTop=w.scrollHeight,60);
 }
 
 function mkBurbuja(m){
   const yo=m.autor_id===uid;
   const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-  if(m.tipo==='negociacion')return mkOferta(m,yo,hr);
-  if(m.tipo==='carrito')return mkCarrito(m,yo,hr);
-  if(m.tipo==='producto_interes')return mkProdInteres(m,yo,hr);
+  if(m.tipo==='negociacion')return mkOfertaBub(m,yo,hr);
+  if(m.tipo==='producto_interes')return mkProdInteresBub(m,yo,hr);
+
+  if(m.tipo==='imagen'){
+    const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
+    const wrap=document.createElement('div');wrap.className='msg-img-wrap';
+    wrap.innerHTML=`<img src="${m.url||''}" loading="lazy" onclick="verImg('${m.url||''}')">`;
+    if(yo){const btn=document.createElement('button');btn.className='msg-img-del';btn.innerHTML=`<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;btn.onclick=()=>borrarMsgId(m.id);wrap.appendChild(btn);}
+    const h=document.createElement('div');h.className='mHora';h.textContent=hr+(yo?' ✓✓':'');
+    d.appendChild(wrap);d.appendChild(h);return d;
+  }
+
   const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
+  if(!yo)d.innerHTML=`<div class="mAutor">${m.autor_nombre||'Proveedor'}</div>`;
   const b=document.createElement('div');b.className='bub';b.textContent=m.texto||'';
   if(yo){
     let pt;
@@ -433,88 +363,72 @@ function mkBurbuja(m){
   d.appendChild(b);d.appendChild(h);return d;
 }
 
-function mkProdInteres(m,yo,hr){
+function mkProdInteresBub(m,yo,hr){
   const dat=m.data||{};
   const w=document.createElement('div');w.className='esp';
-  const c=document.createElement('div');
-  c.style.cssText='background:#fff;border:2px solid rgba(168,230,61,0.4);border-radius:18px;padding:14px;width:92%;max-width:340px;';
-  c.innerHTML=`<div style="font-size:.62rem;font-weight:800;color:var(--G2);text-transform:uppercase;margin-bottom:10px;">📦 Producto de interés</div>
+  const c=document.createElement('div');c.className='prodIntC';
+  c.innerHTML=`<div style="font-size:.62rem;font-weight:800;color:var(--O);text-transform:uppercase;margin-bottom:8px;">📌 Producto de interés</div>
     <div style="display:flex;align-items:center;gap:10px;">
-      <div style="width:52px;height:52px;border-radius:12px;background:var(--F);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
-        ${dat.producto_imagen?`<img src="${dat.producto_imagen}" style="width:100%;height:100%;object-fit:cover;">`:'📦'}
-      </div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:.86rem;font-weight:700;color:#111;">${dat.producto_nombre||'Producto'}</div>
-        <div style="font-size:.76rem;color:var(--O);font-weight:800;margin-top:2px;">$${Number(dat.producto_precio||0).toFixed(2)}</div>
-        <div style="font-size:.64rem;color:#aaa;margin-top:2px;">El emprendedor está interesado en este producto</div>
-      </div>
+      <div style="width:44px;height:44px;border-radius:10px;background:#f5f5f5;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">${dat.producto_imagen?`<img src="${dat.producto_imagen}" style="width:100%;height:100%;object-fit:cover;">`:'📦'}</div>
+      <div><div style="font-size:.84rem;font-weight:700;color:#111;">${dat.producto_nombre||'Producto'}</div><div style="font-size:.74rem;color:var(--O);font-weight:800;">$${Number(dat.producto_precio||0).toFixed(2)}</div></div>
     </div>
-    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:8px;">${hr}</div>`;
+    <div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:6px;">${hr}</div>`;
   w.appendChild(c);return w;
 }
 
-function mkOferta(m,yo,hr){
+function mkOfertaBub(m,yo,hr){
   const dat=m.data||{},est=dat.estado||'pendiente';
-  const puedeResp=!yo&&est==='pendiente';
   let items='';
   (dat.items||[]).forEach(it=>{
-    items+=`<div class="ofertaItem">
-      <div class="ofertaImg">${it.imagen?`<img src="${it.imagen}">`:'📦'}</div>
-      <div style="flex:1;min-width:0;"><div class="ofertaNom">${it.nombre}</div><div class="ofertaCant">×${it.cantidad||1}</div></div>
-      <div style="text-align:right;"><div class="ofertaOrig">$${Number(it.precioOriginal||0).toFixed(2)}</div><div class="ofertaNuevo">$${Number(it.precioOfertado||0).toFixed(2)}</div></div>
-    </div>`;
+    items+=`<div class="ofertaItem"><div class="ofertaImg">${it.imagen?`<img src="${it.imagen}">`:'📦'}</div><div style="flex:1;min-width:0;"><div class="ofertaNom">${it.nombre}</div><div class="ofertaCant">×${it.cantidad||1}</div></div><div style="text-align:right;"><div class="ofertaOrig">$${Number(it.precioOriginal||0).toFixed(2)}</div><div class="ofertaNuevo">$${Number(it.precioOfertado||0).toFixed(2)}</div></div></div>`;
   });
-  const tO=Number(dat.totalOriginal||0),tN=Number(dat.totalOfertado||0),ahorro=tO-tN;
+  const tN=Number(dat.totalOfertado||0);
   const w=document.createElement('div');w.className='esp';
   const c=document.createElement('div');c.className='ofertaC';
-  c.innerHTML=`<div class="ofertaH">💰 ${yo?'Tu respuesta enviada':'Oferta del proveedor'}</div>
+  let btns='';
+  if(est==='pendiente'&&!yo){
+    btns=`<div class="ofertaBtns"><button class="btn-aceptar" onclick="responderOferta('${m.id}','aceptado',${JSON.stringify(dat).replace(/'/g,'\\'')})">✅ Aceptar</button><button class="btn-rechazar" onclick="responderOferta('${m.id}','rechazado',null)">❌ Rechazar</button></div>`;
+  }
+  c.innerHTML=`<div class="ofertaH">💰 ${yo?'Oferta recibida del proveedor':'Tu respuesta a la oferta'}</div>
     ${items?`<div style="margin-bottom:4px;">${items}</div>`:''}
     <div class="ofertaTot"><span class="ofertaTotL">Total oferta</span><span class="ofertaTotV">$${tN.toFixed(2)}</span></div>
-    ${ahorro>0?`<div class="ofertaAhorro">🎉 Ahorras $${ahorro.toFixed(2)}</div>`:''}
-    ${dat.mensaje?`<div class="ofertaNota">"${esc(dat.mensaje)}"</div>`:''}
-    ${puedeResp
-      ?`<div class="ofertaBts"><button class="ofBt aceptar" onclick="aceptarOferta('${m.id}')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Aceptar</button><button class="ofBt rechazar" onclick="rechazarOferta('${m.id}')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Rechazar</button></div>`
-      :`<div class="ofertaSt ${est}">${est==='aceptado'?'✅ Aceptaste — carrito y pedido actualizados':est==='rechazado'?'❌ Rechazaste esta oferta':'⏳ Esperando tu respuesta...'}</div>`
-    }
+    ${dat.mensaje?`<div class="ofertaNota">"${dat.mensaje}"</div>`:''}
+    ${est==='pendiente'&&!yo?btns:`<div class="ofertaSt ${est}">${est==='aceptado'?'✅ Aceptaste esta oferta':est==='rechazado'?'❌ Rechazaste esta oferta':'⏳ Esperando tu respuesta...'}</div>`}
     <div class="ofertaHr">${hr}</div>`;
   w.appendChild(c);return w;
 }
 
-function mkCarrito(m,yo,hr){
-  const dat=m.data||{};let rows='';
-  (dat.items||[]).forEach(it=>{rows+=`<div class="cartRow"><div class="cartImg">${it.imagen?`<img src="${it.imagen}">`:'📦'}</div><div style="flex:1;min-width:0;"><div style="font-size:.76rem;font-weight:600;color:#111;">${it.nombre}</div><div style="font-size:.62rem;color:#aaa;">×${it.cantidad||1}</div></div><div style="font-size:.78rem;font-weight:800;color:var(--O);">$${Number(it.precio||0).toFixed(2)}</div></div>`;});
-  const w=document.createElement('div');w.className='esp';
-  const c=document.createElement('div');c.className='cartC';
-  c.innerHTML=`<div class="cartH">📦 ${yo?'Tu carrito enviado':'Carrito del proveedor'}</div>${rows}<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid #eee;"><span style="font-size:.72rem;color:#aaa;">Total</span><span style="font-size:.9rem;font-weight:900;color:var(--G2);">$${Number(dat.total||0).toFixed(2)}</span></div><div style="font-size:.58rem;color:#bbb;text-align:right;margin-top:4px;">${hr}</div>`;
-  w.appendChild(c);return w;
-}
-
-window.aceptarOferta=async function(msgId){
-  const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
-  await db.from('mensajes').update({data:{...m.data,estado:'aceptado'}}).eq('id',msgId);
-  if(m.data?.items){
-    m.data.items.forEach(it=>{const i=carrito.findIndex(x=>x.id===it.id);if(i>=0){carrito[i].precio=it.precioOfertado;carrito[i].cantidad=it.cantidad||1;}else carrito.push({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen||'',cantidad:it.cantidad||1,proveedor_id:chatAct.proveedor_id});});
-    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
-  }
-  const items=(m.data?.items||[]).map(it=>({id:it.id,nombre:it.nombre,precio:it.precioOfertado,imagen:it.imagen||'',cantidad:it.cantidad||1}));
-  const total=items.reduce((s,i)=>s+i.precio*i.cantidad,0);
-  await db.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'',proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre||'',items,total,estado:'confirmado',origen:'chat_oferta',metodo_pago:'a_coordinar'});
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`✅ ¡Acepté la oferta! Total: $${total.toFixed(2)}. Pedido generado.`,tipo:'texto',created_at:new Date().toISOString()});
-  await db.from('chats').update({ultimo_mensaje:'✅ Oferta aceptada — pedido generado',no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
-  await cargarMsgs();toast('✅ Oferta aceptada — pedido creado. Ve al carrito para pagar.');
+window.responderOferta=async function(msgId,resp,dat){
+  await db.from('mensajes').update({data:{...(dat||{}),estado:resp}}).eq('id',msgId);
+  if(resp==='aceptado'&&dat){
+    const items=(dat.items||[]).map(i=>({id:i.id,nombre:i.nombre,precio:i.precioOfertado,imagen:i.imagen,cantidad:i.cantidad,proveedor_id:chatAct.proveedor_id}));
+    const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+    items.forEach(it=>{const idx=carrito.findIndex(c=>c.id===it.id);if(idx>=0)carrito[idx]=it;else carrito.push(it);});
+    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
+    await db.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre,items,total:dat.totalOfertado,estado:'confirmado',origen:'negociacion',created_at:new Date().toISOString()});
+    toast('✅ Oferta aceptada — pedido generado');
+  } else {toast('Oferta rechazada');}
+  await cargarMsgs();
 };
 
-window.rechazarOferta=async function(msgId){
-  const m=msgsArr.find(x=>x.id===msgId);if(!m)return;
-  await db.from('mensajes').update({data:{...m.data,estado:'rechazado'}}).eq('id',msgId);
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'❌ Rechacé la oferta. Podemos seguir conversando.',tipo:'texto',created_at:new Date().toISOString()});
-  await db.from('chats').update({ultimo_mensaje:'❌ Oferta rechazada',no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
-  await cargarMsgs();toast('Oferta rechazada');
+window.enviarImagen=async function(input){
+  const file=input.files[0];if(!file)return;input.value='';toast('Subiendo imagen...');
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'',tipo:'imagen',url:e.target.result,created_at:new Date().toISOString()});
+    await db.from('chats').update({ultimo_mensaje:'📷 Imagen',no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
+    await cargarMsgs();toast('✓ Imagen enviada');
+  };
+  reader.readAsDataURL(file);
 };
+
+window.verImg=url=>{Q('lb-img').src=url;Q('lightbox').classList.add('on');};
+window.cerrarLightbox=()=>Q('lightbox').classList.remove('on');
 
 window.enviar=async function(){
-  const ta=Q('ta');const txt=ta.value.trim();
-  if(!txt||!chatAct)return;ta.value='';crecer(ta);ta.focus();
+  const ta=Q('ta');const txt=ta.value.trim();if(!txt||!chatAct)return;
+  if(textoProhibido(txt)){toast('🚫 Mensaje bloqueado: no se permite compartir datos de contacto, links o pagos externos');return;}
+  ta.value='';crecer(ta);ta.focus();
   await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:txt,tipo:'texto',created_at:new Date().toISOString()});
   await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
   await cargarMsgs();
@@ -522,66 +436,35 @@ window.enviar=async function(){
 window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
 window.crecer=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';};
 
-window.enviarCarrito=async()=>{
-  const items=carrito.filter(i=>i.proveedor_id===chatAct?.proveedor_id);
-  if(!items.length){toast('Carrito vacío para este proveedor');return;}
-  const total=items.reduce((s,i)=>s+(i.precio||0)*(i.cantidad||1),0);
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`📦 Carrito $${total.toFixed(2)}`,tipo:'carrito',data:{items,total},created_at:new Date().toISOString()});
-  await db.from('chats').update({ultimo_mensaje:`📦 Carrito $${total.toFixed(2)}`,no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
-  await cargarMsgs();toast('✓ Carrito compartido');
-};
-
-window.abrirCatalogo=async()=>{
-  if(!chatAct?.proveedor_id){toast('Abre un chat primero');return;}
-  Q('modCat').classList.add('on');
-  Q('catGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Cargando...</div>';
-  const {data}=await db.from('productos').select('*').eq('proveedor_id',chatAct.proveedor_id).eq('activo',true).order('created_at',{ascending:false});
-  catAll=data||[];pintarCat(catAll);
-};
-function pintarCat(arr){
-  const w=Q('catGrid');
-  if(!arr.length){w.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:20px;color:#bbb;font-size:.8rem;">Sin productos</div>';return;}
-  w.innerHTML='';
-  arr.forEach(p=>{
-    const img=p.imagenes?.[0]||p.imagen||'';
-    const d=document.createElement('div');d.className='catCard';
-    d.innerHTML=`<div class="catCardImg">${img?`<img src="${img}" loading="lazy">`:'📦'}</div>
-      <div class="catCardBod"><div class="catCardNom">${p.nombre||'Producto'}</div><div class="catCardPre">$${Number(p.precio||0).toFixed(2)}</div>
-      <button class="catCardBtn" onclick="addCat('${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${chatAct?.proveedor_id||''}')">+ Agregar al carrito</button></div>`;
-    w.appendChild(d);
-  });
+function showMenu(id,x,y){
+  const m=msgsArr.find(m=>m.id===id);
+  if(m?.tipo==='negociacion'){toast('Las negociaciones no se pueden eliminar');return;}
+  menuId=id;const mn=Q('mMenu');mn.style.left=Math.min(x,window.innerWidth-170)+'px';mn.style.top=Math.min(y,window.innerHeight-80)+'px';mn.classList.add('on');Q('mOv').classList.add('on');
 }
-window.filtCat=q=>{const ql=q.toLowerCase();pintarCat(catAll.filter(p=>(p.nombre||'').toLowerCase().includes(ql)));};
-window.addCat=(id,nombre,precio,imagen,provId)=>{
-  const i=carrito.findIndex(c=>c.id===id);
-  if(i>=0)carrito[i].cantidad=(carrito[i].cantidad||1)+1;
-  else carrito.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});
-  localStorage.setItem('carrito_proveed',JSON.stringify(carrito));badge();
-  toast(`✓ ${nombre.slice(0,20)} agregado al carrito`);
-};
-
-function showMenu(id,x,y){menuId=id;const m=Q('mMenu');m.style.left=Math.min(x,window.innerWidth-170)+'px';m.style.top=Math.min(y,window.innerHeight-80)+'px';m.classList.add('on');Q('mOv').classList.add('on');}
 window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remove('on');menuId=null;};
-window.borrar=async()=>{if(!menuId)return;cerrarMenu();await db.from('mensajes').delete().eq('id',menuId);await cargarMsgs();toast('Mensaje eliminado');};
+window.borrar=async()=>{if(!menuId)return;cerrarMenu();await borrarMsgId(menuId);};
+async function borrarMsgId(id){
+  const m=msgsArr.find(m=>m.id===id);
+  if(m?.tipo==='negociacion'){toast('Las negociaciones no se pueden eliminar');return;}
+  await db.from('mensajes').delete().eq('id',id);await cargarMsgs();toast('Mensaje eliminado');
+}
 
 function suscribir(){
   if(canal)db.removeChannel(canal);
   canal=db.channel('chat-emp-'+chatAct.id)
     .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
     .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
+    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
     .subscribe();
 }
 
 function volver(){
-  if(canal)db.removeChannel(canal);
-  chatAct=null;prodActual=null;msgsArr=[];
+  if(canal)db.removeChannel(canal);chatAct=null;msgsArr=[];
   Q('pChat').style.display='none';Q('pLista').style.display='flex';
   cargarChats();
-  verificarSoporte();
 }
 
 const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
-window.cmod=(id,e)=>{if(e.target===Q(id))Q(id).classList.remove('on');};
 const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
 </script>
