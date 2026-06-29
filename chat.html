@@ -11,11 +11,8 @@
 :root{--G:#A8E63D;--G2:#7BC234;--O:#FF8C00;--R:#FF4D4D;--F:#F5F6F2;}
 html,body{height:100%;overflow:hidden;}
 body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
-
 #pLista{height:100%;display:flex;flex-direction:column;}
 #pChat{height:100%;display:none;flex-direction:column;}
-
-/* HEADER LISTA */
 .hLista{background:#fff;padding:44px 16px 12px;border-bottom:2.5px solid var(--G);flex-shrink:0;}
 .hTop{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .hTit{font-size:1rem;font-weight:900;color:#111;}
@@ -24,8 +21,6 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
 .sBus svg{width:14px;height:14px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
 .sBus input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:.86rem;color:#111;}
 .sBus input::placeholder{color:#ccc;}
-
-/* LISTA */
 .listaScroll{flex:1;overflow-y:auto;padding-bottom:80px;}
 .chatItem{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1px solid #f0f0f0;cursor:pointer;}
 .chatItem:active{background:var(--F);}
@@ -39,8 +34,6 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
 .ciHora{font-size:.6rem;color:#ccc;}
 .ciUnread{width:18px;height:18px;background:var(--G);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;color:#111;}
 .vacio{text-align:center;padding:60px 20px;color:#bbb;font-size:.82rem;line-height:1.7;}
-
-/* CHAT HEADER */
 .cHead{background:#fff;padding:44px 12px 12px;border-bottom:2.5px solid var(--G);display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .cBack{width:36px;height:36px;background:rgba(168,230,61,.1);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cBack svg{width:18px;height:18px;stroke:var(--G2);fill:none;stroke-width:2.5;}
@@ -48,16 +41,12 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
 .cInf{flex:1;min-width:0;}
 .cNom{font-size:.9rem;font-weight:800;color:#111;}
 .cSub{font-size:.68rem;color:var(--O);font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-/* REGLAMENTO */
-.reglamento-card{margin:10px 14px;border-radius:16px;padding:14px;background:#fff8f0;border:1.5px solid rgba(255,140,0,.3);flex-shrink:0;}
-.reg-tit{font-size:.78rem;font-weight:800;color:#111;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
-.reg-sub{font-size:.68rem;color:#888;line-height:1.6;margin-bottom:10px;}
+.reglamento-card{margin:10px 14px;border-radius:16px;padding:14px;background:#fff8f0;border:1.5px solid rgba(255,140,0,.3);}
+.reg-tit{font-size:.78rem;font-weight:800;color:#111;margin-bottom:6px;}
+.reg-sub{font-size:.68rem;color:#888;line-height:1.6;margin-bottom:8px;}
 .reg-item{font-size:.68rem;color:#666;display:flex;align-items:flex-start;gap:6px;margin-bottom:4px;}
 .reg-item span{color:var(--R);font-weight:800;flex-shrink:0;}
 .reg-btn{width:100%;padding:9px;background:var(--G);color:#111;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:800;cursor:pointer;margin-top:8px;}
-
-/* MSGS */
 .msgsArea{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px;background:var(--F);display:flex;flex-direction:column;gap:5px;}
 .msg{display:flex;flex-direction:column;}
 .msg.yo{align-items:flex-end;}
@@ -67,14 +56,10 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
 .msg.el .bub{background:#fff;color:#111;border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .mHora{font-size:.58rem;color:#bbb;margin-top:3px;padding:0 4px;}
 .mAutor{font-size:.6rem;color:#aaa;margin-bottom:2px;padding:0 4px;}
-
-/* IMAGEN EN CHAT */
 .msg-img-wrap{max-width:220px;border-radius:14px;overflow:hidden;cursor:pointer;position:relative;}
 .msg-img-wrap img{width:100%;display:block;border-radius:14px;}
 .msg-img-del{position:absolute;top:6px;right:6px;width:24px;height:24px;background:rgba(255,77,77,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
 .msg-img-del svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.5;}
-
-/* OFERTA */
 .esp{display:flex;justify-content:center;width:100%;padding:4px 0;}
 .ofertaC{background:#fff;border:2px solid var(--G);border-radius:20px;padding:16px;width:94%;max-width:340px;box-shadow:0 4px 16px rgba(168,230,61,.08);}
 .ofertaH{font-size:.62rem;font-weight:800;color:var(--G);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
@@ -91,19 +76,14 @@ body{font-family:'Inter',sans-serif;background:#fff;color:#111;}
 .ofertaTotV{font-size:1.1rem;font-weight:900;color:var(--G);}
 .ofertaNota{font-size:.76rem;color:#888;font-style:italic;padding:8px 10px;background:#f5f5f5;border-radius:10px;margin-bottom:12px;line-height:1.5;}
 .ofertaSt{text-align:center;font-size:.74rem;font-weight:700;padding:8px;border-radius:12px;margin-top:4px;}
-.ofertaSt.pendiente{background:rgba(255,140,0,.08);color:var(--O);}
+.ofertaSt.aceptado{background:rgba(168,230,61,.1);color:var(--G2);}
+.ofertaSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
 .ofertaBtns{display:flex;gap:8px;margin-top:10px;}
 .ofertaBtns button{flex:1;padding:10px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;}
 .btn-aceptar{background:var(--G);color:#111;}
 .btn-rechazar{background:rgba(255,77,77,.1);color:var(--R);}
-.ofertaSt.aceptado{background:rgba(168,230,61,.1);color:var(--G2);}
-.ofertaSt.rechazado{background:rgba(255,77,77,.06);color:var(--R);}
 .ofertaHr{font-size:.58rem;color:#bbb;text-align:right;margin-top:8px;}
-
-/* PROD INTERES */
 .prodIntC{background:#fff;border:2px solid rgba(255,140,0,.3);border-radius:18px;padding:14px;width:92%;max-width:340px;}
-
-/* INPUT */
 .inputArea{background:#fff;border-top:1px solid #eee;padding:8px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));flex-shrink:0;}
 .iRow{display:flex;align-items:flex-end;gap:8px;}
 .img-btn{width:36px;height:36px;background:var(--F);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -113,15 +93,12 @@ textarea#ta{flex:1;background:transparent;border:none;outline:none;font-family:'
 textarea#ta::placeholder{color:#ccc;}
 .sBtn{width:42px;height:42px;background:var(--G);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sBtn svg{width:17px;height:17px;stroke:#111;fill:none;stroke-width:2.5;}
-
-/* MENU BORRAR */
 .mOv{position:fixed;inset:0;z-index:699;display:none;}
 .mOv.on{display:block;}
 .mMenu{position:fixed;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.15);padding:4px;z-index:700;border:1px solid #eee;display:none;}
 .mMenu.on{display:block;}
 .mMenu button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 16px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:600;color:var(--R);cursor:pointer;border-radius:8px;white-space:nowrap;}
 .mMenu button svg{width:14px;height:14px;stroke:var(--R);fill:none;stroke-width:2.2;}
-
 .tab-bar{background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));flex-shrink:0;}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
 .tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
@@ -130,10 +107,8 @@ textarea#ta::placeholder{color:#ccc;}
 .tab.on span{color:var(--G2);}
 .tab-rel{position:relative;}
 .tab-badge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
-
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
-
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:1000;display:none;align-items:center;justify-content:center;}
 .lightbox.on{display:flex;}
 .lightbox img{max-width:100vw;max-height:85vh;object-fit:contain;}
@@ -143,7 +118,6 @@ textarea#ta::placeholder{color:#ccc;}
 </head>
 <body>
 
-<!-- LISTA -->
 <div id="pLista">
   <div class="hLista">
     <div class="hTop">
@@ -165,7 +139,6 @@ textarea#ta::placeholder{color:#ccc;}
   </nav>
 </div>
 
-<!-- CHAT -->
 <div id="pChat">
   <div class="cHead">
     <button class="cBack" onclick="volver()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
@@ -175,15 +148,11 @@ textarea#ta::placeholder{color:#ccc;}
   <div class="msgsArea" id="msgs"></div>
   <div class="inputArea">
     <div class="iRow">
-      <button class="img-btn" onclick="Q('inp-img-emp').click()" title="Enviar imagen">
+      <button class="img-btn" onclick="document.getElementById('inp-img-emp').click()" title="Enviar imagen">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       </button>
-      <div class="iBox">
-        <textarea id="ta" placeholder="Escribe un mensaje..." rows="1" onkeydown="tecla(event)" oninput="crecer(this)"></textarea>
-      </div>
-      <button class="sBtn" onclick="enviar()">
-        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
+      <div class="iBox"><textarea id="ta" placeholder="Escribe un mensaje..." rows="1" onkeydown="tecla(event)" oninput="crecer(this)"></textarea></div>
+      <button class="sBtn" onclick="enviar()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
     </div>
   </div>
   <nav class="tab-bar">
@@ -197,12 +166,7 @@ textarea#ta::placeholder{color:#ccc;}
 
 <div class="mOv" id="mOv" onclick="cerrarMenu()"></div>
 <div class="mMenu" id="mMenu"><button onclick="borrar()"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>Eliminar mensaje</button></div>
-
-<div class="lightbox" id="lightbox" onclick="cerrarLightbox()">
-  <button class="lb-close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  <img id="lb-img" src="" alt="">
-</div>
-
+<div class="lightbox" id="lightbox" onclick="cerrarLightbox()"><button class="lb-close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><img id="lb-img" src="" alt=""></div>
 <input type="file" id="inp-img-emp" accept="image/*" style="display:none;" onchange="enviarImagen(this)">
 <div class="toast" id="tst"></div>
 
@@ -211,103 +175,153 @@ textarea#ta::placeholder{color:#ccc;}
 const {createClient}=supabase;
 const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 const Q=id=>document.getElementById(id);
-let uid='',me={},chatAct=null,todos=[],msgsArr=[],canal=null,menuId=null;
+
+let uid='',me={},todos=[],msgsArr=[],canal=null,menuId=null;
+let chatActId=''; // ID separado — nunca undefined
+let chatActObj=null; // objeto completo del chat
+
 const QS=new URLSearchParams(location.search);
 const REGLAMENTO_KEY='proveed_reglamento_emp_visto';
+
+const PROHIBIDO=[/\b\d{7,}\b/g,/https?:\/\/[^\s]+/gi,/wa\.me|whatsapp/gi,/instagram\.com|instagram/gi,/facebook\.com|facebook|fb\.com/gi,/t\.me|telegram/gi,/paypal|payphone|transferencia/gi];
+const textoProhibido=txt=>PROHIBIDO.some(r=>{r.lastIndex=0;return r.test(txt);});
 
 // Badge carrito
 const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 const cntC=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
 if(cntC>0){['carrito-badge','carrito-badge2'].forEach(id=>{const b=Q(id);if(b){b.style.display='flex';b.textContent=cntC>9?'9+':cntC;}});}
 
-// PATRONES PROHIBIDOS
-const PROHIBIDO=[
-  /\b\d{7,}\b/g,
-  /https?:\/\/[^\s]+/gi,
-  /wa\.me|whatsapp/gi,
-  /instagram\.com|instagram/gi,
-  /facebook\.com|facebook|fb\.com/gi,
-  /t\.me|telegram/gi,
-  /paypal|payphone|transfer|transferencia/gi,
-];
-function textoProhibido(txt){return PROHIBIDO.some(r=>r.test(txt));}
-
 (async()=>{
-  const {data:{session}}=await db.auth.getSession();
-  if(!session){location.href='login.html';return;}
+  const {data:{session},error:sErr}=await db.auth.getSession();
+  if(sErr||!session){location.href='login.html';return;}
   uid=session.user.id;
-  const {data:u}=await db.from('usuarios').select('*').eq('id',uid).single();
+
+  const {data:u,error:uErr}=await db.from('usuarios').select('*').eq('id',uid).single();
   if(u)me=u;
+
   await cargarChats();
+
+  // Si viene con parámetros desde producto.html
   const provId=QS.get('proveedor_id');
   const prodId=QS.get('prod_id');
-  const prodNom=QS.get('prod_nombre');
-  const prodPre=QS.get('prod_precio');
-  const prodImg=QS.get('prod_img');
+  const prodNom=QS.get('prod_nombre')?decodeURIComponent(QS.get('prod_nombre')):'';
+  const prodPre=parseFloat(QS.get('prod_precio')||'0');
+  const prodImg=QS.get('prod_img')?decodeURIComponent(QS.get('prod_img')):'';
+
   if(provId){
-    let chat=todos.find(c=>c.proveedor_id===provId);
+    let chat=todos.find(c=>c.proveedor_id===provId&&(!prodId||c.producto_id===prodId));
     if(!chat){
+      // Buscar datos del proveedor
       const {data:prov}=await db.from('usuarios').select('nombre,empresa').eq('id',provId).single();
       const nomProv=prov?.empresa||prov?.nombre||'Proveedor';
-      const {data:nuevo}=await db.from('chats').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',proveedor_id:provId,proveedor_nombre:nomProv,producto_id:prodId||null,producto_nombre:prodNom?decodeURIComponent(prodNom):null,ultimo_mensaje:'Nueva conversación',created_at:new Date().toISOString()}).select().single();
-      if(nuevo)chat=nuevo;
+      // Crear chat nuevo
+      const {data:nuevo,error:chatErr}=await db.from('chats').insert({
+        emprendedor_id:uid,
+        emprendedor_nombre:me.nombre||'Emprendedor',
+        proveedor_id:provId,
+        proveedor_nombre:nomProv,
+        producto_id:prodId||null,
+        producto_nombre:prodNom||null,
+        ultimo_mensaje:'Nueva conversación',
+        no_leido_emp:0,
+        no_leido_prov:0,
+        created_at:new Date().toISOString(),
+        updated_at:new Date().toISOString()
+      }).select().single();
+      if(chatErr){toast('Error al crear chat: '+chatErr.message);return;}
+      chat=nuevo;
+      todos=[chat,...todos];
+      pintarLista(todos);
     }
-    if(chat){
-      await abrirChat(chat);
-      if(prodId&&prodNom){
-        const yaEnviado=msgsArr.some(m=>m.tipo==='producto_interes'&&m.data?.producto_id===prodId);
-        if(!yaEnviado){
-          await db.from('mensajes').insert({chat_id:chat.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:`Hola, me interesa el producto "${decodeURIComponent(prodNom)}"`,tipo:'producto_interes',data:{producto_id:prodId,producto_nombre:decodeURIComponent(prodNom),producto_precio:parseFloat(prodPre||0),producto_imagen:prodImg?decodeURIComponent(prodImg):''},created_at:new Date().toISOString()});
-          await db.from('chats').update({ultimo_mensaje:`Interés: ${decodeURIComponent(prodNom)}`,no_leido_prov:(chat.no_leido_prov||0)+1}).eq('id',chat.id);
-          await cargarMsgs();
-        }
+    await abrirChat(chat);
+    // Enviar mensaje de interés en producto si no se ha enviado
+    if(prodId&&prodNom){
+      const yaEnviado=msgsArr.some(m=>m.tipo==='producto_interes'&&m.data?.producto_id===prodId);
+      if(!yaEnviado){
+        await db.from('mensajes').insert({
+          chat_id:chatActId,
+          autor_id:uid,
+          autor_nombre:me.nombre||'Emprendedor',
+          texto:`Hola, me interesa el producto "${prodNom}"`,
+          tipo:'producto_interes',
+          data:{producto_id:prodId,producto_nombre:prodNom,producto_precio:prodPre,producto_imagen:prodImg},
+          leido:false,
+          created_at:new Date().toISOString()
+        });
+        await db.from('chats').update({
+          ultimo_mensaje:`Interés: ${prodNom}`,
+          no_leido_prov:(chatActObj?.no_leido_prov||0)+1,
+          updated_at:new Date().toISOString()
+        }).eq('id',chatActId);
+        await cargarMsgs();
       }
     }
   }
 })();
 
 async function cargarChats(){
-  const {data, error} = await db.from('chats')
+  const {data,error}=await db.from('chats')
     .select('*')
-    .or(`emprendedor_id.eq.${uid},proveedor_id.eq.${uid}`)
-    .order('created_at', {ascending: false});
-
+    .eq('emprendedor_id',uid)
+    .order('updated_at',{ascending:false});
   if(error){
-    console.error('Error cargando chats:', error);
-    Q('lista').innerHTML = '<div class="vacio">Error al cargar. Recarga la página.</div>';
+    Q('lista').innerHTML=`<div class="vacio">Error al cargar chats: ${error.message}</div>`;
     return;
   }
-
-  todos = data || [];
+  todos=data||[];
   pintarLista(todos);
 }
+
 function pintarLista(arr){
   const c=Q('lista');
-  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones aún.<br>Entra a un producto y toca "Chatear".</div>';return;}
+  if(!arr.length){c.innerHTML='<div class="vacio">Sin conversaciones aún.<br>Entra a un producto y toca "Chat".</div>';return;}
   c.innerHTML='';
   arr.forEach(ch=>{
     const nom=ch.proveedor_nombre||'Proveedor';
-    const hora=ch.created_at?new Date(ch.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
+    const hora=ch.updated_at||ch.created_at;
+    const horaStr=hora?new Date(hora).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}):'';
+    const unread=ch.no_leido_emp||0;
     const d=document.createElement('div');
-    d.className='chatItem'+((ch.no_leido_emp||0)>0?' new':'');
-    d.innerHTML=`<div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
-      <div class="ciInf"><div class="ciNom">${nom}</div>${ch.producto_nombre?`<div style="font-size:.64rem;color:var(--O);font-weight:600;margin-bottom:2px;">📦 ${ch.producto_nombre}</div>`:''}<div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div></div>
-      <div class="ciR"><div class="ciHora">${hora}</div>${(ch.no_leido_emp||0)>0?`<div class="ciUnread">${ch.no_leido_emp}</div>`:''}</div>`;
-    d.onclick=()=>abrirChat(ch);c.appendChild(d);
+    d.className='chatItem'+(unread>0?' new':'');
+    d.innerHTML=`
+      <div class="ciAv" style="background:${pal(nom)};">${nom[0].toUpperCase()}<div class="ciDot"></div></div>
+      <div class="ciInf">
+        <div class="ciNom">${nom}</div>
+        ${ch.producto_nombre?`<div style="font-size:.64rem;color:var(--O);font-weight:600;margin-bottom:2px;">📦 ${ch.producto_nombre}</div>`:''}
+        <div class="ciMsg">${ch.ultimo_mensaje||'Nueva conversación'}</div>
+      </div>
+      <div class="ciR">
+        <div class="ciHora">${horaStr}</div>
+        ${unread>0?`<div class="ciUnread">${unread}</div>`:''}
+      </div>`;
+    d.onclick=()=>abrirChat(ch);
+    c.appendChild(d);
   });
 }
 
-window.filtrar=q=>{const ql=q.toLowerCase();pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));};
+window.filtrar=q=>{
+  const ql=q.toLowerCase();
+  pintarLista(todos.filter(c=>(c.proveedor_nombre||'').toLowerCase().includes(ql)||(c.ultimo_mensaje||'').toLowerCase().includes(ql)));
+};
 
 async function abrirChat(chat){
-  chatAct=chat;msgsArr=[];
-  Q('pLista').style.display='none';Q('pChat').style.display='flex';
-  Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando...</div>';
+  chatActObj=chat;
+  chatActId=chat.id; // guardar ID en variable separada
+  msgsArr=[];
+
+  Q('pLista').style.display='none';
+  Q('pChat').style.display='flex';
+  Q('msgs').innerHTML='<div style="text-align:center;padding:40px;color:#bbb;font-size:.82rem;">Cargando mensajes...</div>';
+
   const nom=chat.proveedor_nombre||'Proveedor';
-  Q('cAv').textContent=nom[0].toUpperCase();Q('cAv').style.background=pal(nom);
+  Q('cAv').textContent=nom[0].toUpperCase();
+  Q('cAv').style.background=pal(nom);
   Q('cNom').textContent=nom;
   Q('cSub').textContent=chat.producto_nombre?`📦 ${chat.producto_nombre}`:nom;
-  await db.from('chats').update({no_leido_emp:0}).eq('id',chat.id);
+
+  // Marcar como leído
+  await db.from('chats').update({no_leido_emp:0}).eq('id',chatActId);
+
   await cargarMsgs();
   mostrarReglamentoSiPrimera();
   suscribir();
@@ -319,7 +333,7 @@ function mostrarReglamentoSiPrimera(){
   card.className='reglamento-card';card.id='reg-card';
   card.innerHTML=`
     <div class="reg-tit">🔒 Política de seguridad PROVEED</div>
-    <div class="reg-sub">Por la seguridad de todos los usuarios y para prevenir extorsiones, fraudes y pérdidas comerciales, en PROVEED está prohibido compartir:</div>
+    <div class="reg-sub">Por la seguridad de todos y para prevenir extorsiones y fraudes, en PROVEED está prohibido compartir:</div>
     <div class="reg-item"><span>✕</span>Números de teléfono o celular</div>
     <div class="reg-item"><span>✕</span>Links de WhatsApp, Instagram o Facebook</div>
     <div class="reg-item"><span>✕</span>Links de pago externos (PayPal, Payphone, etc.)</div>
@@ -331,16 +345,30 @@ function mostrarReglamentoSiPrimera(){
 window.cerrarReglamento=function(){localStorage.setItem(REGLAMENTO_KEY,'1');const c=Q('reg-card');if(c)c.remove();};
 
 async function cargarMsgs(){
-  const {data}=await db.from('mensajes').select('*').eq('chat_id',chatAct.id).order('created_at',{ascending:true});
-  msgsArr=data||[];pintarMsgs();
+  if(!chatActId)return;
+  const {data,error}=await db.from('mensajes')
+    .select('*')
+    .eq('chat_id',chatActId)
+    .order('created_at',{ascending:true});
+  if(error){console.error('Error mensajes:',error);return;}
+  msgsArr=data||[];
+  pintarMsgs();
 }
 
 function pintarMsgs(){
   const w=Q('msgs');
+  const regCard=Q('reg-card');
   w.innerHTML='';
-  if(!msgsArr.length){w.innerHTML='<div style="text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;">Inicia la conversación 💬</div>';}
-  else{msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));}
-  setTimeout(()=>w.scrollTop=w.scrollHeight,60);
+  if(regCard)w.appendChild(regCard);
+  if(!msgsArr.length){
+    const vac=document.createElement('div');
+    vac.style.cssText='text-align:center;padding:50px 20px;color:#bbb;font-size:.84rem;';
+    vac.textContent='Inicia la conversación 💬';
+    w.appendChild(vac);
+  } else {
+    msgsArr.forEach(m=>w.appendChild(mkBurbuja(m)));
+  }
+  setTimeout(()=>w.scrollTop=w.scrollHeight,80);
 }
 
 function mkBurbuja(m){
@@ -348,18 +376,22 @@ function mkBurbuja(m){
   const hr=new Date(m.created_at).toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
   if(m.tipo==='negociacion')return mkOfertaBub(m,yo,hr);
   if(m.tipo==='producto_interes')return mkProdInteresBub(m,yo,hr);
-
   if(m.tipo==='imagen'){
     const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
     const wrap=document.createElement('div');wrap.className='msg-img-wrap';
-    wrap.innerHTML=`<img src="${m.url||''}" loading="lazy" onclick="verImg('${m.url||''}')">`;
-    if(yo){const btn=document.createElement('button');btn.className='msg-img-del';btn.innerHTML=`<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;btn.onclick=()=>borrarMsgId(m.id);wrap.appendChild(btn);}
+    wrap.innerHTML=`<img src="${m.url||''}" loading="lazy">`;
+    wrap.querySelector('img').onclick=()=>verImg(m.url||'');
+    if(yo){
+      const btn=document.createElement('button');btn.className='msg-img-del';
+      btn.innerHTML=`<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+      btn.onclick=e=>{e.stopPropagation();borrarMsgId(m.id);};
+      wrap.appendChild(btn);
+    }
     const h=document.createElement('div');h.className='mHora';h.textContent=hr+(yo?' ✓✓':'');
     d.appendChild(wrap);d.appendChild(h);return d;
   }
-
   const d=document.createElement('div');d.className=`msg ${yo?'yo':'el'}`;
-  if(!yo)d.innerHTML=`<div class="mAutor">${m.autor_nombre||'Proveedor'}</div>`;
+  if(!yo){const a=document.createElement('div');a.className='mAutor';a.textContent=m.autor_nombre||'Proveedor';d.appendChild(a);}
   const b=document.createElement('div');b.className='bub';b.textContent=m.texto||'';
   if(yo){
     let pt;
@@ -394,38 +426,55 @@ function mkOfertaBub(m,yo,hr){
   const tN=Number(dat.totalOfertado||0);
   const w=document.createElement('div');w.className='esp';
   const c=document.createElement('div');c.className='ofertaC';
-  let btns='';
+  let accion='';
   if(est==='pendiente'&&!yo){
-    btns=`<div class="ofertaBtns"><button class="btn-aceptar" onclick="responderOferta('${m.id}','aceptado',${JSON.stringify(dat).replace(/'/g,'\\'')})">✅ Aceptar</button><button class="btn-rechazar" onclick="responderOferta('${m.id}','rechazado',null)">❌ Rechazar</button></div>`;
+    accion=`<div class="ofertaBtns">
+      <button class="btn-aceptar" onclick="responderOferta('${m.id}','aceptado',this)">✅ Aceptar</button>
+      <button class="btn-rechazar" onclick="responderOferta('${m.id}','rechazado',this)">❌ Rechazar</button>
+    </div>`;
+  } else {
+    accion=`<div class="ofertaSt ${est}">${est==='aceptado'?'✅ Aceptaste esta oferta':est==='rechazado'?'❌ Rechazaste esta oferta':'⏳ Esperando tu respuesta...'}</div>`;
   }
-  c.innerHTML=`<div class="ofertaH">💰 ${yo?'Oferta recibida del proveedor':'Tu respuesta a la oferta'}</div>
+  c.innerHTML=`<div class="ofertaH">💰 Oferta del proveedor</div>
     ${items?`<div style="margin-bottom:4px;">${items}</div>`:''}
     <div class="ofertaTot"><span class="ofertaTotL">Total oferta</span><span class="ofertaTotV">$${tN.toFixed(2)}</span></div>
     ${dat.mensaje?`<div class="ofertaNota">"${dat.mensaje}"</div>`:''}
-    ${est==='pendiente'&&!yo?btns:`<div class="ofertaSt ${est}">${est==='aceptado'?'✅ Aceptaste esta oferta':est==='rechazado'?'❌ Rechazaste esta oferta':'⏳ Esperando tu respuesta...'}</div>`}
+    ${accion}
     <div class="ofertaHr">${hr}</div>`;
   w.appendChild(c);return w;
 }
 
-window.responderOferta=async function(msgId,resp,dat){
-  await db.from('mensajes').update({data:{...(dat||{}),estado:resp}}).eq('id',msgId);
-  if(resp==='aceptado'&&dat){
-    const items=(dat.items||[]).map(i=>({id:i.id,nombre:i.nombre,precio:i.precioOfertado,imagen:i.imagen,cantidad:i.cantidad,proveedor_id:chatAct.proveedor_id}));
-    const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
-    items.forEach(it=>{const idx=carrito.findIndex(c=>c.id===it.id);if(idx>=0)carrito[idx]=it;else carrito.push(it);});
-    localStorage.setItem('carrito_proveed',JSON.stringify(carrito));
-    await db.from('pedidos').insert({emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',proveedor_id:chatAct.proveedor_id,nombre_proveedor:chatAct.proveedor_nombre,items,total:dat.totalOfertado,estado:'confirmado',origen:'negociacion',created_at:new Date().toISOString()});
-    toast('✅ Oferta aceptada — pedido generado');
-  } else {toast('Oferta rechazada');}
+window.responderOferta=async function(msgId,resp,btn){
+  if(btn){btn.disabled=true;}
+  const msg=msgsArr.find(m=>m.id===msgId);
+  if(!msg)return;
+  const dat={...(msg.data||{}),estado:resp};
+  await db.from('mensajes').update({data:dat}).eq('id',msgId);
+  if(resp==='aceptado'&&msg.data?.items){
+    const items=(msg.data.items||[]).map(i=>({id:i.id,nombre:i.nombre,precio:i.precioOfertado,imagen:i.imagen,cantidad:i.cantidad,proveedor_id:chatActObj?.proveedor_id}));
+    const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+    items.forEach(it=>{const idx=c.findIndex(x=>x.id===it.id);if(idx>=0)c[idx]=it;else c.push(it);});
+    localStorage.setItem('carrito_proveed',JSON.stringify(c));
+    await db.from('pedidos').insert({
+      emprendedor_id:uid,emprendedor_nombre:me.nombre||'Emprendedor',
+      proveedor_id:chatActObj?.proveedor_id,nombre_proveedor:chatActObj?.proveedor_nombre,
+      items,total:msg.data.totalOfertado,estado:'confirmado',origen:'negociacion',
+      created_at:new Date().toISOString()
+    });
+    toast('✅ Oferta aceptada — pedido generado y agregado al carrito');
+  } else if(resp==='rechazado'){
+    toast('Oferta rechazada');
+  }
   await cargarMsgs();
 };
 
 window.enviarImagen=async function(input){
-  const file=input.files[0];if(!file)return;input.value='';toast('Subiendo imagen...');
+  const file=input.files[0];if(!file||!chatActId)return;input.value='';
+  toast('Subiendo imagen...');
   const reader=new FileReader();
   reader.onload=async e=>{
-    await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'',tipo:'imagen',url:e.target.result,created_at:new Date().toISOString()});
-    await db.from('chats').update({ultimo_mensaje:'📷 Imagen',no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
+    await db.from('mensajes').insert({chat_id:chatActId,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:'',tipo:'imagen',url:e.target.result,leido:false,created_at:new Date().toISOString()});
+    await db.from('chats').update({ultimo_mensaje:'📷 Imagen',no_leido_prov:(chatActObj?.no_leido_prov||0)+1,updated_at:new Date().toISOString()}).eq('id',chatActId);
     await cargarMsgs();toast('✓ Imagen enviada');
   };
   reader.readAsDataURL(file);
@@ -435,11 +484,12 @@ window.verImg=url=>{Q('lb-img').src=url;Q('lightbox').classList.add('on');};
 window.cerrarLightbox=()=>Q('lightbox').classList.remove('on');
 
 window.enviar=async function(){
-  const ta=Q('ta');const txt=ta.value.trim();if(!txt||!chatAct)return;
-  if(textoProhibido(txt)){toast('🚫 Mensaje bloqueado: no se permite compartir datos de contacto, links o pagos externos');return;}
+  const ta=Q('ta');const txt=ta.value.trim();
+  if(!txt||!chatActId)return;
+  if(textoProhibido(txt)){toast('🚫 Bloqueado: no se permite compartir teléfonos, links ni pagos externos');return;}
   ta.value='';crecer(ta);ta.focus();
-  await db.from('mensajes').insert({chat_id:chatAct.id,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:txt,tipo:'texto',created_at:new Date().toISOString()});
-  await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatAct.no_leido_prov||0)+1}).eq('id',chatAct.id);
+  await db.from('mensajes').insert({chat_id:chatActId,autor_id:uid,autor_nombre:me.nombre||'Emprendedor',texto:txt,tipo:'texto',leido:false,created_at:new Date().toISOString()});
+  await db.from('chats').update({ultimo_mensaje:txt.slice(0,60),no_leido_prov:(chatActObj?.no_leido_prov||0)+1,updated_at:new Date().toISOString()}).eq('id',chatActId);
   await cargarMsgs();
 };
 window.tecla=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
@@ -448,34 +498,40 @@ window.crecer=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeig
 function showMenu(id,x,y){
   const m=msgsArr.find(m=>m.id===id);
   if(m?.tipo==='negociacion'){toast('Las negociaciones no se pueden eliminar');return;}
-  menuId=id;const mn=Q('mMenu');mn.style.left=Math.min(x,window.innerWidth-170)+'px';mn.style.top=Math.min(y,window.innerHeight-80)+'px';mn.classList.add('on');Q('mOv').classList.add('on');
+  menuId=id;
+  const mn=Q('mMenu');
+  mn.style.left=Math.min(x,window.innerWidth-170)+'px';
+  mn.style.top=Math.min(y,window.innerHeight-80)+'px';
+  mn.classList.add('on');Q('mOv').classList.add('on');
 }
 window.cerrarMenu=()=>{Q('mMenu').classList.remove('on');Q('mOv').classList.remove('on');menuId=null;};
 window.borrar=async()=>{if(!menuId)return;cerrarMenu();await borrarMsgId(menuId);};
 async function borrarMsgId(id){
   const m=msgsArr.find(m=>m.id===id);
   if(m?.tipo==='negociacion'){toast('Las negociaciones no se pueden eliminar');return;}
-  await db.from('mensajes').delete().eq('id',id);await cargarMsgs();toast('Mensaje eliminado');
+  await db.from('mensajes').delete().eq('id',id);
+  await cargarMsgs();toast('Mensaje eliminado');
 }
 
 function suscribir(){
-  if(canal)db.removeChannel(canal);
-  canal=db.channel('chat-emp-'+chatAct.id)
-    .on('postgres_changes',{event:'INSERT',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
-    .on('postgres_changes',{event:'DELETE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
-    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatAct.id}`},async()=>{await cargarMsgs();})
+  if(canal){db.removeChannel(canal);canal=null;}
+  if(!chatActId)return;
+  canal=db.channel('chat-emp-'+chatActId)
+    .on('postgres_changes',{event:'*',schema:'public',table:'mensajes',filter:`chat_id=eq.${chatActId}`},async()=>{await cargarMsgs();})
     .subscribe();
 }
 
 function volver(){
-  if(canal)db.removeChannel(canal);chatAct=null;msgsArr=[];
-  Q('pChat').style.display='none';Q('pLista').style.display='flex';
+  if(canal){db.removeChannel(canal);canal=null;}
+  chatActId='';chatActObj=null;msgsArr=[];
+  Q('pChat').style.display='none';
+  Q('pLista').style.display='flex';
   cargarChats();
 }
 
 const pal=n=>{const c=['#FF8C00','#007AFF','#A8E63D','#A855F7','#FF4D4D','#F59E0B'];return c[Math.abs((n||'').charCodeAt(0)||0)%c.length];};
-const esc=t=>(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function toast(m){const t=Q('tst');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
 </script>
 </body>
 </html>
+    
