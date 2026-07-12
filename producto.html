@@ -11,29 +11,31 @@
 :root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;--B:#007AFF;}
 body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:100px;}
 
-/* GALERÍA */
-.galeria-wrap{position:relative;background:white;overflow:hidden;}
+/* GALERÍA — solo deslizamiento, sin flechas */
+.galeria-wrap{position:relative;background:white;overflow:hidden;touch-action:pan-y;}
 .galeria-slide{display:flex;transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);will-change:transform;}
-.galeria-img{min-width:100vw;height:300px;object-fit:contain;background:white;display:flex;align-items:center;justify-content:center;cursor:zoom-in;}
-.galeria-img img{width:100%;height:100%;object-fit:contain;}
+.galeria-img{min-width:100vw;height:300px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;user-select:none;}
+.galeria-img img{width:100%;height:100%;object-fit:contain;pointer-events:none;}
 .galeria-img-ph{font-size:5rem;}
-.galeria-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;}
+.galeria-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;pointer-events:none;}
 .gdot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.15);transition:0.2s;}
 .gdot.active{background:var(--G);width:18px;border-radius:4px;}
-.btn-back{position:absolute;top:48px;left:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:11px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+
+/* BOTONES HEADER — atrás, compartir, favorito */
+.btn-back{position:absolute;top:48px;left:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:11px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.1);z-index:10;}
 .btn-back svg{width:18px;height:18px;stroke:#333;fill:none;stroke-width:2.5;}
-.btn-fav{position:absolute;top:48px;right:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:11px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.top-right-btns{position:absolute;top:48px;right:12px;display:flex;gap:8px;z-index:10;}
+.btn-fav,.btn-share{width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:11px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
 .btn-fav svg{width:18px;height:18px;stroke:#ccc;fill:none;stroke-width:2;transition:0.2s;}
 .btn-fav.liked svg{stroke:var(--R);fill:var(--R);}
+.btn-share svg{width:18px;height:18px;stroke:#555;fill:none;stroke-width:2;}
 
 /* LIGHTBOX */
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:1000;display:none;align-items:center;justify-content:center;flex-direction:column;}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:1000;display:none;align-items:center;justify-content:center;}
 .lightbox.show{display:flex;}
-.lightbox-img{max-width:100vw;max-height:85vh;object-fit:contain;}
+.lightbox-img{max-width:100vw;max-height:90vh;object-fit:contain;}
 .lightbox-close{position:absolute;top:48px;right:16px;width:36px;height:36px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;}
 .lightbox-close svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2.5;}
-.lightbox-nav{position:absolute;bottom:30px;display:flex;gap:12px;}
-.lb-btn{padding:8px 20px;background:rgba(255,255,255,0.1);border:none;border-radius:20px;color:white;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
 
 /* BODY */
 .prod-body{background:white;border-radius:24px 24px 0 0;margin-top:-20px;padding:20px 16px;position:relative;}
@@ -92,7 +94,7 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
 .res-img{width:70px;height:70px;border-radius:10px;object-fit:cover;margin-top:8px;cursor:pointer;}
 .btn-resena{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--G);border:none;border-radius:20px;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:800;color:#111;cursor:pointer;margin-bottom:14px;}
 
-/* RECOMENDADOS — cuadritos */
+/* RECOMENDADOS */
 .recom-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
 .recom-card{background:white;border-radius:16px;overflow:hidden;border:1px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,0.05);cursor:pointer;transition:0.15s;}
 .recom-card:active{transform:scale(0.97);}
@@ -104,7 +106,7 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
 .recom-precio{font-size:0.9rem;font-weight:900;color:var(--O);}
 .recom-prov{font-size:0.62rem;color:#bbb;margin-top:2px;}
 
-/* BOTTOM BAR — botones verde lima */
+/* BOTTOM BAR */
 .bottom-bar{position:fixed;bottom:0;width:100%;background:white;padding:12px 16px;padding-bottom:max(12px,env(safe-area-inset-bottom));border-top:1px solid #eee;display:flex;gap:10px;box-shadow:0 -2px 12px rgba(0,0,0,0.06);z-index:200;}
 .btn-chat{flex:1;padding:14px;background:var(--G);color:#111;border:none;border-radius:13px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
 .btn-chat svg{width:18px;height:18px;stroke:#111;fill:none;stroke-width:2;}
@@ -126,7 +128,7 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
 .modal-body{overflow-y:auto;padding:16px 16px 32px;flex:1;}
 .field{margin-bottom:12px;}
 .field label{display:block;font-size:0.65rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
-.field textarea,.field input{width:100%;padding:12px 14px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;-webkit-appearance:none;resize:none;}
+.field textarea,.field input{width:100%;padding:12px 14px;background:var(--F);border:1.5px solid #eee;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.9rem;color:#111;outline:none;resize:none;}
 .field textarea:focus,.field input:focus{border-color:var(--G);}
 .stars-input{display:flex;gap:6px;margin-bottom:4px;}
 .star-btn{font-size:1.6rem;cursor:pointer;opacity:0.3;transition:0.15s;background:none;border:none;}
@@ -135,37 +137,38 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
 .btn-enviar-res:disabled{background:#e0e0e0;color:#aaa;}
 .msg-ok{display:none;background:rgba(168,230,61,0.1);border:1px solid rgba(168,230,61,0.25);border-radius:12px;padding:10px 14px;font-size:0.8rem;color:#3a7a00;margin-bottom:12px;}
 .msg-ok.show{display:block;}
-
-/* FOTO PREVIA RESEÑA */
-.foto-preview{display:none;margin-top:8px;}
-.foto-preview.show{display:block;}
+.foto-preview{display:none;margin-top:8px;align-items:center;gap:8px;}
+.foto-preview.show{display:flex;}
 .foto-preview img{width:80px;height:80px;border-radius:10px;object-fit:cover;}
-.foto-preview button{margin-left:8px;background:none;border:none;color:var(--R);font-size:0.76rem;font-weight:700;cursor:pointer;}
-
+.foto-preview button{background:none;border:none;color:var(--R);font-size:0.76rem;font-weight:700;cursor:pointer;}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:white;padding:10px 20px;border-radius:24px;font-size:0.8rem;font-weight:600;opacity:0;transition:0.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 
+<!-- GALERÍA — sin flechas, solo swipe -->
 <div class="galeria-wrap" id="galeria-wrap">
   <div class="galeria-slide" id="galeria-slide"></div>
   <div class="galeria-dots" id="galeria-dots"></div>
   <button class="btn-back" onclick="window.history.back()">
     <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
   </button>
-  <button class="btn-fav" id="btn-fav" onclick="toggleFav()">
-    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-  </button>
+  <!-- Botones compartir y favorito juntos en la esquina derecha -->
+  <div class="top-right-btns">
+    <button class="btn-share" onclick="compartirProducto()" title="Compartir">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
+    <button class="btn-fav" id="btn-fav" onclick="toggleFav()" title="Favorito">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </button>
+  </div>
 </div>
 
+<!-- LIGHTBOX — toca imagen para ampliar, toca fuera para cerrar -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="cerrarLightbox()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   <img class="lightbox-img" id="lightbox-img" src="" alt="">
-  <div class="lightbox-nav">
-    <button class="lb-btn" onclick="lightboxNav(-1)">← Anterior</button>
-    <button class="lb-btn" onclick="lightboxNav(1)">Siguiente →</button>
-  </div>
 </div>
 
 <div class="prod-body">
@@ -206,7 +209,7 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
 
   <div class="sec-title">Cantidad a pedir</div>
   <div class="cantidad-card">
-    <div class="cant-lbl">Cantidad a pedir</div>
+    <div class="cant-lbl">Cantidad</div>
     <div class="cant-row">
       <button class="cant-btn" onclick="cambiarCant(-1)">−</button>
       <div class="cant-num" id="cant-num">1</div>
@@ -215,7 +218,6 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
     </div>
   </div>
 
-  <!-- RESEÑAS -->
   <div class="sec-title" style="margin-top:20px;">Reseñas</div>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
     <div id="res-count" style="font-size:0.76rem;color:#aaa;font-weight:600;">0 reseñas</div>
@@ -226,12 +228,10 @@ body{background:#fff;font-family:'Inter',sans-serif;-webkit-font-smoothing:antia
   </div>
   <div id="resenas-lista"><div style="background:var(--F);border-radius:14px;padding:20px;text-align:center;color:#bbb;font-size:0.82rem;">Sin reseñas aún. ¡Sé el primero!</div></div>
 
-  <!-- RECOMENDADOS EN GRID -->
   <div class="sec-title" style="margin-top:24px;">Más productos</div>
   <div class="recom-grid" id="recom-grid"></div>
 </div>
 
-<!-- BOTTOM BAR — botones verde lima -->
 <div class="bottom-bar">
   <button class="btn-chat" onclick="irAlChat()">
     <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -290,12 +290,11 @@ const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable
 
 const params=new URLSearchParams(location.search);
 const prodId=params.get('id');
-let prod={},userId='',userData={},cantidad=1,estrellas=5;
+let prod={},userId='',userData={},cantidad=1,resEstrellasVal=5;
 let imgActual=0,todasImgs=[],fotoResenaBase64='';
 
 const colorCat=c=>{const m={'Ropa':'#FF8C00','Tecnolog':'#007AFF','Aliment':'#22C55E','Belleza':'#FF69B4','Deporte':'#A855F7','Hogar':'#F59E0B','Joya':'#EF4444'};for(const k in m){if((c||'').includes(k))return m[k];}return '#888';};
 const emojiCat=c=>{const m={'Ropa':'👗','Tecnolog':'📱','Aliment':'🛒','Belleza':'💄','Deporte':'⚽','Hogar':'🏠','Joya':'💍'};for(const k in m){if((c||'').includes(k))return m[k];}return '📦';};
-
 
 (async()=>{
   const {data:{session}}=await sb.auth.getSession();
@@ -319,6 +318,7 @@ function renderProducto(p){
   const slide=document.getElementById('galeria-slide');
   const dots=document.getElementById('galeria-dots');
   slide.innerHTML='';dots.innerHTML='';
+
   if(imgs.length){
     imgs.forEach((img,i)=>{
       const d=document.createElement('div');d.className='galeria-img';
@@ -335,10 +335,29 @@ function renderProducto(p){
     slide.appendChild(d);
   }
 
-  let startX=0;
+  // SWIPE TÁCTIL — sin flechas
   const gw=document.getElementById('galeria-wrap');
-  gw.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
-  gw.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>50)irSlide(dx<0?imgActual+1:imgActual-1);},{passive:true});
+  let startX=0,startY=0,isSwipe=false;
+
+  gw.addEventListener('touchstart',e=>{
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+    isSwipe=false;
+  },{passive:true});
+
+  gw.addEventListener('touchmove',e=>{
+    const dx=Math.abs(e.touches[0].clientX-startX);
+    const dy=Math.abs(e.touches[0].clientY-startY);
+    if(dx>dy&&dx>10)isSwipe=true;
+  },{passive:true});
+
+  gw.addEventListener('touchend',e=>{
+    if(!isSwipe)return;
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>40){
+      irSlide(dx<0?imgActual+1:imgActual-1);
+    }
+  },{passive:true});
 
   const color=colorCat(p.categoria||'');
   document.getElementById('cat-badge').textContent=p.categoria||'General';
@@ -389,10 +408,48 @@ function irSlide(n){
   document.querySelectorAll('.gdot').forEach((d,i)=>d.classList.toggle('active',i===imgActual));
 }
 
-function abrirLightbox(idx){imgActual=idx;const src=todasImgs[idx];if(!src)return;document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('show');}
+// LIGHTBOX — toca para cerrar
+function abrirLightbox(idx){
+  imgActual=idx;
+  const src=todasImgs[idx];if(!src)return;
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox').classList.add('show');
+}
 function cerrarLightbox(){document.getElementById('lightbox').classList.remove('show');}
-function lightboxNav(dir){const n=imgActual+dir;if(n<0||n>=todasImgs.length)return;imgActual=n;document.getElementById('lightbox-img').src=todasImgs[n];}
-document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)cerrarLightbox();});
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this||e.target===document.getElementById('lightbox-img'))cerrarLightbox();});
+
+// SWIPE DENTRO DEL LIGHTBOX también
+(()=>{
+  let lbStartX=0;
+  const lb=document.getElementById('lightbox');
+  lb.addEventListener('touchstart',e=>lbStartX=e.touches[0].clientX,{passive:true});
+  lb.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-lbStartX;
+    if(Math.abs(dx)>50){
+      const n=imgActual+(dx<0?1:-1);
+      if(n>=0&&n<todasImgs.length){
+        imgActual=n;
+        document.getElementById('lightbox-img').src=todasImgs[n];
+      }
+    }
+  },{passive:true});
+})();
+
+// COMPARTIR
+window.compartirProducto=async function(){
+  const url=location.href;
+  const titulo=prod.nombre||'Producto en PROVEED';
+  const texto=`${titulo} — $${Number(prod.precio||0).toFixed(2)} · PROVEED`;
+  if(navigator.share){
+    try{await navigator.share({title:titulo,text:texto,url});}
+    catch(e){if(e.name!=='AbortError')copiarAlPortapapeles(url);}
+  } else {
+    copiarAlPortapapeles(url);
+  }
+};
+function copiarAlPortapapeles(txt){
+  navigator.clipboard?.writeText(txt).then(()=>showToast('🔗 Link copiado al portapapeles')).catch(()=>showToast('No se pudo copiar el link'));
+}
 
 async function cargarProvStats(provId){
   if(!provId)return;
@@ -422,7 +479,6 @@ window.toggleDesc=function(){
   const open=dl.classList.toggle('show');btn.textContent=open?'Ver menos ↑':'Ver más →';
 };
 
-// CARRITO
 window.agregarAlCarrito=function(){
   const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
   const idx=carrito.findIndex(i=>i.id===prodId);
@@ -435,15 +491,13 @@ window.agregarAlCarrito=function(){
   showToast('✓ Agregado al carrito');
 };
 
-// CHAT — genera mensaje prehecho con el producto
 window.irAlChat=function(){
-  if(!prod.proveedor_id){showToast('Este producto no tiene proveedor asociado');return;}
+  if(!prod.proveedor_id){showToast('Sin proveedor asociado');return;}
   const img=encodeURIComponent(todasImgs[0]||'');
   const nom=encodeURIComponent(prod.nombre||'');
   location.href=`chat.html?proveedor_id=${prod.proveedor_id}&prod_id=${prodId}&prod_nombre=${nom}&prod_precio=${prod.precio||0}&prod_img=${img}`;
 };
 
-// FAVORITO
 function verificarFav(){
   const favs=JSON.parse(localStorage.getItem('favoritos_proveed')||'[]');
   if(favs.some(f=>f.id===prodId))document.getElementById('btn-fav').classList.add('liked');
@@ -456,7 +510,6 @@ window.toggleFav=function(){
   localStorage.setItem('favoritos_proveed',JSON.stringify(favs));
 };
 
-// RESEÑAS — con guardado de imagen en base64
 async function cargarResenas(){
   const {data}=await sb.from('reseñas').select('*').eq('producto_id',prodId).order('created_at',{ascending:false});
   const lista=data||[];
@@ -470,21 +523,13 @@ async function cargarResenas(){
     const stars='⭐'.repeat(r.estrellas||5);
     const fecha=new Date(r.created_at).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'});
     const card=document.createElement('div');card.className='resena-card';
-    card.innerHTML=`
-      <div class="res-header">
-        <div class="res-avatar" style="background:${bg};">${(r.usuario_nombre||'U')[0].toUpperCase()}</div>
-        <div><div class="res-nombre">${r.usuario_nombre||'Usuario'}</div><div class="res-fecha">${fecha}</div></div>
-      </div>
-      <div class="res-stars">${stars}</div>
-      <div class="res-txt">${r.texto||''}</div>
-      ${r.foto_url?`<img src="${r.foto_url}" class="res-img" alt="" onclick="abrirFotoResena('${r.foto_url}')">`:''}`;
+    card.innerHTML=`<div class="res-header"><div class="res-avatar" style="background:${bg};">${(r.usuario_nombre||'U')[0].toUpperCase()}</div><div><div class="res-nombre">${r.usuario_nombre||'Usuario'}</div><div class="res-fecha">${fecha}</div></div></div><div class="res-stars">${stars}</div><div class="res-txt">${r.texto||''}</div>${r.foto_url?`<img src="${r.foto_url}" class="res-img" alt="" onclick="abrirLightbox(-1,'${r.foto_url}')">`:''}`;
     cont.appendChild(card);
   });
 }
 
-let resEstrellasVal=5;
 window.abrirResena=()=>{
-  if(!userId){showToast('Debes iniciar sesión para opinar');return;}
+  if(!userId){showToast('Debes iniciar sesión');return;}
   document.getElementById('modal-resena').classList.add('show');
   document.getElementById('res-ok').classList.remove('show');
   document.getElementById('res-texto').value='';
@@ -502,19 +547,10 @@ window.selStar=function(n){
 window.previsualizarFoto=function(input){
   const file=input.files[0];if(!file)return;
   const reader=new FileReader();
-  reader.onload=e=>{
-    fotoResenaBase64=e.target.result;
-    document.getElementById('foto-preview-img').src=fotoResenaBase64;
-    document.getElementById('foto-preview').classList.add('show');
-  };
+  reader.onload=e=>{fotoResenaBase64=e.target.result;document.getElementById('foto-preview-img').src=fotoResenaBase64;document.getElementById('foto-preview').classList.add('show');};
   reader.readAsDataURL(file);
 };
-
-window.quitarFoto=function(){
-  fotoResenaBase64='';
-  document.getElementById('foto-preview').classList.remove('show');
-  document.getElementById('res-foto-inp').value='';
-};
+window.quitarFoto=function(){fotoResenaBase64='';document.getElementById('foto-preview').classList.remove('show');document.getElementById('res-foto-inp').value='';};
 
 window.enviarResena=async function(){
   if(!userId){showToast('Debes iniciar sesión');return;}
@@ -522,38 +558,20 @@ window.enviarResena=async function(){
   if(!texto){showToast('Escribe tu reseña');return;}
   const btn=document.getElementById('btn-enviar-res');
   btn.textContent='Publicando...';btn.disabled=true;
-
-  // Guardar imagen como base64 directamente en la tabla (sin storage)
-  const fotoUrl=fotoResenaBase64||'';
-
-  const {error}=await sb.from('reseñas').insert({
-    producto_id:prodId,
-    proveedor_id:prod.proveedor_id,
-    usuario_id:userId,
-    usuario_nombre:userData.nombre||'Usuario',
-    estrellas:resEstrellasVal,
-    texto,
-    foto_url:fotoUrl,
-    created_at:new Date().toISOString()
-  });
-
-  if(error){
-    btn.textContent='Publicar reseña';btn.disabled=false;
-    showToast('Error al publicar: '+error.message);
-    return;
-  }
-
+  const {error}=await sb.from('reseñas').insert({producto_id:prodId,proveedor_id:prod.proveedor_id,usuario_id:userId,usuario_nombre:userData.nombre||'Usuario',estrellas:resEstrellasVal,texto,foto_url:fotoResenaBase64||'',created_at:new Date().toISOString()});
+  if(error){btn.textContent='Publicar reseña';btn.disabled=false;showToast('Error: '+error.message);return;}
   document.getElementById('res-ok').classList.add('show');
   btn.textContent='Publicar reseña';btn.disabled=false;
   setTimeout(()=>{document.getElementById('modal-resena').classList.remove('show');cargarResenas();},1500);
 };
 
-window.abrirFotoResena=function(url){
-  document.getElementById('lightbox-img').src=url;
-  document.getElementById('lightbox').classList.add('show');
+// Foto de reseña en lightbox
+window.abrirLightbox=function(idx,urlDirecta){
+  if(urlDirecta){document.getElementById('lightbox-img').src=urlDirecta;document.getElementById('lightbox').classList.add('show');return;}
+  imgActual=idx;const src=todasImgs[idx];if(!src)return;
+  document.getElementById('lightbox-img').src=src;document.getElementById('lightbox').classList.add('show');
 };
 
-// RECOMENDADOS EN GRID 2 COLUMNAS
 async function cargarRecomendados(categoria,idActual){
   const {data}=await sb.from('productos').select('*').eq('activo',true).neq('id',idActual).order('created_at',{ascending:false}).limit(20);
   let lista=data||[];
@@ -568,16 +586,7 @@ async function cargarRecomendados(categoria,idActual){
     const color=colorCat(p.categoria||'');
     const card=document.createElement('div');card.className='recom-card';
     card.onclick=()=>location.href=`producto.html?id=${p.id}`;
-    card.innerHTML=`
-      <div class="recom-img" style="background:${color}15;">
-        ${img?`<img src="${img}" alt="" loading="lazy">`:`<span>${emojiCat(p.categoria||'')}</span>`}
-        <div class="recom-cat" style="background:${color};">${(p.categoria||'').slice(0,8).toUpperCase()}</div>
-      </div>
-      <div class="recom-body">
-        <div class="recom-nombre">${p.nombre||'Producto'}</div>
-        <div class="recom-precio">$${Number(p.precio||0).toFixed(2)}</div>
-        <div class="recom-prov">${p.nombre_proveedor||''}</div>
-      </div>`;
+    card.innerHTML=`<div class="recom-img" style="background:${color}15;">${img?`<img src="${img}" alt="" loading="lazy">`:`<span>${emojiCat(p.categoria||'')}</span>`}<div class="recom-cat" style="background:${color};">${(p.categoria||'').slice(0,8).toUpperCase()}</div></div><div class="recom-body"><div class="recom-nombre">${p.nombre||'Producto'}</div><div class="recom-precio">$${Number(p.precio||0).toFixed(2)}</div><div class="recom-prov">${p.nombre_proveedor||''}</div></div>`;
     grid.appendChild(card);
   });
 }
