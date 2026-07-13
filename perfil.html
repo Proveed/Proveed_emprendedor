@@ -17,6 +17,8 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .top-ico{width:34px;height:34px;background:rgba(168,230,61,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;border:none;cursor:pointer;}
 .top-ico svg{width:17px;height:17px;stroke:var(--G2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .logout-btn{padding:6px 14px;background:rgba(255,77,77,0.08);border:1.5px solid rgba(255,77,77,0.2);border-radius:20px;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;color:var(--R);cursor:pointer;}
+
+/* HERO */
 .hero{background:#fff;padding:20px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;border-bottom:1px solid #eee;margin-bottom:14px;}
 .avatar-wrap{position:relative;margin-bottom:12px;}
 .avatar{width:80px;height:80px;border-radius:22px;background:var(--G);display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;color:#111;overflow:hidden;border:3px solid rgba(168,230,61,.3);}
@@ -27,12 +29,39 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 .hero-email{font-size:0.74rem;color:#aaa;margin-bottom:4px;}
 .hero-tel{font-size:0.74rem;color:#888;margin-bottom:10px;}
 .hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(168,230,61,.15);border-radius:20px;padding:4px 12px;font-size:0.68rem;font-weight:700;color:var(--G2);}
+
+/* BANNER PROVEED START */
+.start-banner{margin:0 16px 16px;border-radius:20px;overflow:hidden;position:relative;cursor:pointer;min-height:130px;background:linear-gradient(135deg,#0A0A0A 0%,#1a1a1a 60%,#0f2010 100%);border:1.5px solid rgba(168,230,61,.25);}
+.start-banner:active{transform:scale(0.98);}
+.start-banner-bg{position:absolute;inset:0;overflow:hidden;}
+.start-banner-hex{position:absolute;opacity:0.07;}
+.start-banner-hex:nth-child(1){top:-20px;right:-20px;width:120px;height:120px;}
+.start-banner-hex:nth-child(2){bottom:-30px;left:30%;width:80px;height:80px;}
+.start-banner-hex:nth-child(3){top:10px;left:-10px;width:60px;height:60px;}
+.start-banner-content{position:relative;padding:16px;}
+.start-banner-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.start-logo{width:32px;height:32px;background:var(--G);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.start-logo svg{width:16px;height:16px;}
+.start-brand{font-size:0.78rem;font-weight:900;color:white;letter-spacing:-.2px;}
+.start-brand span{color:var(--G);}
+.start-badge{background:rgba(168,230,61,.15);border:1px solid rgba(168,230,61,.3);border-radius:20px;padding:2px 8px;font-size:0.58rem;font-weight:800;color:var(--G);margin-left:auto;}
+.start-titulo{font-size:0.96rem;font-weight:800;color:white;margin-bottom:4px;line-height:1.3;}
+.start-sub{font-size:0.72rem;color:rgba(255,255,255,.5);margin-bottom:12px;line-height:1.4;}
+.start-bottom{display:flex;align-items:center;justify-content:space-between;}
+.start-novedades{display:flex;gap:6px;align-items:center;}
+.start-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 9px;font-size:0.6rem;font-weight:700;color:rgba(255,255,255,.6);}
+.start-btn{background:var(--G);color:#111;border:none;border-radius:20px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.start-btn svg{width:12px;height:12px;stroke:#111;fill:none;stroke-width:2.5;}
+
+/* ACCESOS */
 .accesos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 16px;margin-bottom:14px;}
 .acc{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;text-decoration:none;}
 .acc-ico{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;}
 .acc-ico:active{transform:scale(0.93);}
 .acc-badge{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;background:var(--R);color:#fff;font-size:0.5rem;font-weight:800;border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;padding:0 3px;}
 .acc-lbl{font-size:0.62rem;font-weight:700;color:#555;text-align:center;}
+
+/* SECCIONES */
 .sec{padding:0 16px;margin-bottom:6px;}
 .sec-tit{font-size:0.65rem;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
 .info-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;margin-bottom:14px;}
@@ -120,12 +149,13 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 <div class="topbar">
   <span class="topbar-tit">PRO<b>VEED</b> · Perfil</span>
   <div class="topbar-btns">
-    <a href="explorar.html" class="top-ico" title="Tienda"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
-    <a href="servicio-cliente.html" class="top-ico" title="Soporte"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="12" cy="10" r="1"/><circle cx="8" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg></a>
+    <a href="explorar.html" class="top-ico"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+    <a href="servicio-cliente.html" class="top-ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="12" cy="10" r="1"/><circle cx="8" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg></a>
     <button class="logout-btn" onclick="cerrarSesion()">Cerrar sesión</button>
   </div>
 </div>
 
+<!-- HERO PERFIL -->
 <div class="hero">
   <div class="avatar-wrap">
     <div class="avatar" id="avatar">E</div>
@@ -140,6 +170,41 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 </div>
 <input type="file" id="foto-inp" accept="image/*" style="display:none;" onchange="subirFoto(this)">
 
+<!-- BANNER PROVEED START — visible, clickeable, encima de todo lo demás -->
+<div class="start-banner" onclick="location.href='proveed-start.html'">
+  <div class="start-banner-bg">
+    <svg class="start-banner-hex" style="top:-20px;right:-20px;width:120px;height:120px;" viewBox="0 0 100 100"><polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#A8E63D"/></svg>
+    <svg class="start-banner-hex" style="bottom:-30px;left:35%;width:80px;height:80px;" viewBox="0 0 100 100"><polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#A8E63D"/></svg>
+    <svg class="start-banner-hex" style="top:10px;left:-10px;width:60px;height:60px;" viewBox="0 0 100 100"><polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#A8E63D"/></svg>
+  </div>
+  <div class="start-banner-content">
+    <div class="start-banner-top">
+      <div class="start-logo">
+        <svg viewBox="0 0 100 100" width="18" height="18">
+          <polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#111"/>
+          <path d="M30 52 L44 66 L72 36" stroke="#A8E63D" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="start-brand">PROVEED<span>Start</span></span>
+      <span class="start-badge">NUEVO</span>
+    </div>
+    <div class="start-titulo" id="start-titulo">Cursos, eventos y recursos para crecer</div>
+    <div class="start-sub" id="start-sub">Tu sala de aprendizaje oficial. Accede a contenido exclusivo para emprendedores.</div>
+    <div class="start-bottom">
+      <div class="start-novedades" id="start-novedades">
+        <span class="start-pill">📹 Cursos</span>
+        <span class="start-pill">📢 Eventos</span>
+        <span class="start-pill">📄 Recursos</span>
+      </div>
+      <button class="start-btn">
+        Entrar
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ACCESOS RÁPIDOS -->
 <div class="accesos">
   <div class="acc" onclick="document.getElementById('sec-pedidos').scrollIntoView({behavior:'smooth'})">
     <div class="acc-ico" style="background:#FFF3E0;">📦<div class="acc-badge" id="badge-ped">0</div></div>
@@ -191,6 +256,7 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
   </div>
 </div>
 
+
 <!-- HUELLA -->
 <div class="sec" id="sec-huella">
   <div class="sec-tit">👆 Huella digital</div>
@@ -240,12 +306,12 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
   <button class="btn-save" onclick="guardarTodo()">💾 Guardar cambios</button>
 </div>
 
-<!-- MODAL DIRECCIÓN TEMPORAL -->
+<!-- MODAL DIRECCIÓN -->
 <div class="modOv" id="modDir" onclick="cmod('modDir',event)">
   <div class="modSh"><div class="drag"></div>
     <div class="modH"><span class="modT">📍 Dirección de entrega</span><button class="modX" onclick="cerrarMod('modDir')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
-      <div class="dir-nota">ℹ️ Al cambiar la dirección aquí, tu dirección principal NO se modifica. Solo aplica para la entrega actual.</div>
+      <div class="dir-nota">ℹ️ Al cambiar aquí, tu dirección principal NO se modifica. Solo aplica para la entrega actual.</div>
       <div class="inp-wrap"><label>Dirección principal guardada</label><input type="text" id="dir-principal-show" readonly style="color:#aaa;background:#f9f9f9;"></div>
       <div class="inp-wrap"><label>Dirección para esta entrega</label><input type="text" id="dir-temporal-inp" placeholder="Calle, número, sector, referencias..."></div>
       <div class="inp-wrap"><label>Nombre del destinatario</label><input type="text" id="dir-destinatario" placeholder="Nombre completo (si es otra persona)"></div>
@@ -255,20 +321,21 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
     </div>
   </div>
 </div>
-<!-- MODAL CAMBIAR EMAIL -->
+
+<!-- MODAL EMAIL -->
 <div class="modOv" id="modEmail" onclick="cmod('modEmail',event)">
   <div class="modSh"><div class="drag"></div>
     <div class="modH"><span class="modT">✉️ Cambiar correo</span><button class="modX" onclick="cerrarMod('modEmail')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="modB">
       <div class="inp-wrap"><label>Contraseña actual</label><input type="password" id="email-pass" placeholder="Tu contraseña actual"></div>
-      <div class="inp-wrap"><label>Nuevo correo electrónico</label><input type="email" id="email-nuevo" placeholder="nuevo@correo.com"></div>
+      <div class="inp-wrap"><label>Nuevo correo</label><input type="email" id="email-nuevo" placeholder="nuevo@correo.com"></div>
       <div class="inp-wrap"><label>Confirmar nuevo correo</label><input type="email" id="email-nuevo2" placeholder="nuevo@correo.com"></div>
       <button class="btn-mod" onclick="cambiarEmail()">✓ Cambiar correo</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL CAMBIAR CONTRASEÑA -->
+<!-- MODAL PASSWORD -->
 <div class="modOv" id="modPass" onclick="cmod('modPass',event)">
   <div class="modSh"><div class="drag"></div>
     <div class="modH"><span class="modT">🔒 Cambiar contraseña</span><button class="modX" onclick="cerrarMod('modPass')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
@@ -296,12 +363,35 @@ body{background:var(--F);font-family:'Inter',sans-serif;padding-bottom:90px;}
 <script>
 const {createClient}=supabase;
 const db=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const sbMkt=createClient('https://kgwvhgbywfwzkidamcru.supabase.co','sb_publishable_wp0_hOpq71-jCYKMEWMqVg_6fSL_h-C');
 const Q=id=>document.getElementById(id);
 let uid='',me={},pedidos=[],favoritos=[],huellaRegistrada=false,dirTemporal=null;
 
+// Badge carrito
 const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
 const cntC=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
 if(cntC>0){const b=Q('carrito-badge');b.style.display='flex';b.textContent=cntC>9?'9+':cntC;}
+
+// Cargar contenido reciente de Start para el banner
+(async()=>{
+  try{
+    const {data}=await sbMkt.from('mkt_contenido')
+      .select('titulo,tipo,created_at')
+      .contains('zonas',['start'])
+      .eq('activo',true)
+      .order('created_at',{ascending:false})
+      .limit(3);
+    if(data?.length){
+      const titulos=data.map(c=>c.titulo);
+      Q('start-titulo').textContent=titulos[0]||'Cursos, eventos y recursos para crecer';
+      const pills=data.slice(0,3).map(c=>{
+        const ico={video:'📹',audio:'🎵',imagen:'🖼️',comunicado:'📣',encuesta:'📊',link:'🔗',anuncio:'📢',start:'🚀'}[c.tipo]||'📄';
+        return `<span class="start-pill">${ico} ${c.titulo.slice(0,14)}${c.titulo.length>14?'…':''}</span>`;
+      }).join('');
+      Q('start-novedades').innerHTML=pills;
+    }
+  }catch(e){}
+})();
 
 (async()=>{
   const {data:{session}}=await db.auth.getSession();
@@ -341,7 +431,7 @@ function renderFavs(){
   const w=Q('favs-wrap');
   favoritos=JSON.parse(localStorage.getItem('favoritos_proveed')||'[]');
   Q('badge-favs').textContent=favoritos.length;
-  if(!favoritos.length){w.innerHTML='<div class="empty">Sin favoritos aún.<br>Toca ❤️ en un producto para guardarlo aquí.</div>';return;}
+  if(!favoritos.length){w.innerHTML='<div class="empty">Sin favoritos aún. Toca ❤️ en un producto.</div>';return;}
   w.innerHTML='';
   favoritos.forEach((f,i)=>{
     const d=document.createElement('div');d.className='fav-card';
@@ -384,7 +474,7 @@ window.registrarHuella=async function(){
 window.eliminarHuella=async function(){await db.from('usuarios').update({huella_registrada:false}).eq('id',uid);huellaRegistrada=false;actualizarHuella();toast('Huella eliminada');};
 
 window.abrirDirTemporal=function(){
-  Q('dir-principal-show').value=me.direccion||Q('f-direccion').value||'Sin dirección principal guardada';
+  Q('dir-principal-show').value=me.direccion||Q('f-direccion').value||'Sin dirección guardada';
   Q('dir-temporal-inp').value=dirTemporal?.direccion||'';
   Q('dir-destinatario').value=dirTemporal?.destinatario||'';
   Q('dir-telefono-temp').value=dirTemporal?.telefono||'';
@@ -393,7 +483,7 @@ window.abrirDirTemporal=function(){
 window.guardarDirTemporal=function(){
   const d={direccion:Q('dir-temporal-inp').value.trim(),destinatario:Q('dir-destinatario').value.trim(),telefono:Q('dir-telefono-temp').value.trim()};
   dirTemporal=d;localStorage.setItem('dir_temporal_proveed',JSON.stringify(d));
-  cerrarMod('modDir');toast('✓ Dirección de entrega actualizada para este pedido');
+  cerrarMod('modDir');toast('✓ Dirección de entrega actualizada');
 };
 window.usarDirPrincipal=function(){dirTemporal=null;localStorage.removeItem('dir_temporal_proveed');cerrarMod('modDir');toast('Usando tu dirección principal');};
 
@@ -446,7 +536,7 @@ window.subirFoto=async function(input){
     const {error}=await db.from('usuarios').update({foto:e.target.result}).eq('id',uid);
     if(error){toast('Error al guardar foto');return;}
     Q('avatar').innerHTML=`<img src="${e.target.result}">`;toast('✓ Foto actualizada');
-  };
+  }ñ
   reader.readAsDataURL(file);
 };
 
