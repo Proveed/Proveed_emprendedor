@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED Start</title>
+<meta name="theme-color" content="#0A0A0A">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--G:#A8E63D;--G2:#7BC234;--O:#FF8C00;--R:#FF4D4D;--B:#007AFF;--P:#AF52DE;--N:#0A0A0A;--S:#111;--B2:#1a1a1a;--BOR:#1e1e1e;}
+body{background:var(--N);font-family:'Inter',sans-serif;color:white;-webkit-font-smoothing:antialiased;padding-bottom:90px;}
+
+/* TOP BAR */
+.topbar{background:rgba(10,10,10,.95);backdrop-filter:blur(12px);padding:44px 16px 14px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--BOR);}
+.tl{display:flex;align-items:center;gap:10px;}
+.logo-hex{width:34px;height:34px;background:var(--G);border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.logo-hex svg{width:17px;height:17px;}
+.brand{font-size:1rem;font-weight:900;color:white;letter-spacing:-.3px;}
+.brand span{color:var(--G);}
+.tr{display:flex;gap:8px;}
+.tbtn{width:34px;height:34px;background:var(--B2);border-radius:10px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.tbtn svg{width:16px;height:16px;stroke:#666;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.back-btn{display:flex;align-items:center;gap:6px;background:var(--B2);border:none;border-radius:20px;padding:7px 14px;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:700;color:#666;cursor:pointer;}
+.back-btn svg{width:14px;height:14px;stroke:#666;fill:none;stroke-width:2.5;}
+
+/* HERO */
+.hero{padding:20px 16px 0;margin-bottom:0;}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--G);box-shadow:0 0 0 4px rgba(168,230,61,.15);}
+.hero-eyebrow span{font-size:0.7rem;font-weight:700;color:var(--G);text-transform:uppercase;letter-spacing:.8px;}
+.hero-tit{font-size:1.6rem;font-weight:900;line-height:1.1;margin-bottom:8px;letter-spacing:-.5px;}
+.hero-tit span{color:var(--G);}
+.hero-sub{font-size:0.82rem;color:#555;line-height:1.6;margin-bottom:16px;}
+.hero-stats{display:flex;gap:0;background:var(--S);border-radius:16px;border:1px solid var(--BOR);overflow:hidden;margin-bottom:20px;}
+.hero-stat{flex:1;padding:12px;text-align:center;border-right:1px solid var(--BOR);}
+.hero-stat:last-child{border:none;}
+.hero-stat b{display:block;font-size:1.1rem;font-weight:900;color:white;}
+.hero-stat span{font-size:0.58rem;color:#444;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+
+/* SEARCH */
+.search-bar{display:flex;align-items:center;gap:9px;background:var(--S);border:1px solid var(--BOR);border-radius:28px;padding:11px 16px;margin:0 16px 16px;}
+.search-bar svg{width:15px;height:15px;stroke:#444;fill:none;stroke-width:2.5;flex-shrink:0;}
+.search-bar input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:white;}
+.search-bar input::placeholder{color:#333;}
+
+/* TABS NAV */
+.tabs-nav{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 16px;gap:6px;margin-bottom:16px;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tnav-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--BOR);background:transparent;font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:700;color:#555;cursor:pointer;white-space:nowrap;transition:.15s;}
+.tnav-btn.active{background:var(--G);color:var(--N);border-color:var(--G);}
+
+/* GRILLA CARDS */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;margin-bottom:20px;}
+.card{background:var(--S);border:1px solid var(--BOR);border-radius:18px;overflow:hidden;cursor:pointer;transition:.15s;display:flex;flex-direction:column;}
+.card:active{transform:scale(0.97);}
+.card-thumb{aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.card-thumb-bg{position:absolute;inset:0;}
+.card-thumb-ico{position:relative;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.card-lock{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.card-lock-ico{width:32px;height:32px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.card-lock-ico svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2;}
+.card-lock-price{background:var(--G);color:var(--N);font-size:0.68rem;font-weight:800;padding:3px 10px;border-radius:20px;}
+.card-len{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,.7);color:white;font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:20px;}
+.card-badge{position:absolute;top:7px;left:7px;}
+.access-badge{display:inline-flex;align-items:center;gap:3px;font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:20px;}
+.access-badge.pub{background:rgba(168,230,61,.15);color:var(--G);}
+.access-badge.priv{background:rgba(255,255,255,.08);color:#666;border:1px solid var(--BOR);}
+.card-body{padding:11px 12px 13px;flex:1;display:flex;flex-direction:column;gap:5px;}
+.card-tit{font-size:0.78rem;font-weight:700;color:white;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-meta{font-size:0.62rem;color:#444;display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.card-stars{color:#E3A93B;font-size:0.62rem;}
+.card-progress{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:6px;}
+.progress-track{flex:1;height:4px;background:var(--BOR);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--G);border-radius:4px;}
+.card-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:6px;border-top:1px solid var(--BOR);}
+.card-price{font-size:0.84rem;font-weight:900;color:white;}
+.buy-chip{background:var(--N);color:var(--G);border:1.5px solid var(--G);border-radius:20px;padding:4px 10px;font-size:0.62rem;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;}
+.buy-chip.owned{background:rgba(168,230,61,.1);border-color:transparent;color:var(--G2);}
+.dl-btn-small{background:var(--B2);color:#666;border:1px solid var(--BOR);border-radius:20px;padding:4px 10px;font-size:0.62rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* TIENDA */
+.store-section{padding:0 16px;margin-bottom:20px;}
+.store-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.store-header h2{font-size:1rem;font-weight:800;color:white;}
+.store-header span{font-size:0.72rem;color:#444;}
+.store-card{background:var(--S);border:1px solid var(--BOR);border-radius:16px;padding:16px;margin-bottom:10px;}
+.store-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.store-card-tit{font-size:0.92rem;font-weight:800;color:white;margin-bottom:4px;}
+.store-card-cat{font-size:0.62rem;color:#444;font-weight:600;}
+.store-price{font-size:1.3rem;font-weight:900;color:var(--G);}
+.store-desc{font-size:0.76rem;color:#555;line-height:1.6;margin-bottom:12px;}
+.store-features{display:flex;flex-direction:column;gap:3px;margin-bottom:14px;}
+.store-feature{font-size:0.72rem;color:#444;display:flex;align-items:center;gap:6px;}
+.store-feature::before{content:'✓';color:var(--G);font-weight:800;font-size:0.7rem;}
+.store-buy-btn{width:100%;padding:12px;background:var(--G);color:var(--N);border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:800;cursor:pointer;}
+.store-buy-btn.owned{background:rgba(168,230,61,.1);color:var(--G2);}
+
+/* DETALLE */
+.detail-view{padding:0 16px;}
+.detail-player{aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-bottom:16px;display:flex;align-items:center;justify-content:center;position:relative;}
+.detail-player-ico{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+.detail-paywall{aspect-ratio:16/9;border-radius:16px;background:var(--S);border:1px solid var(--BOR);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;padding:20px;text-align:center;}
+.detail-paywall-ico{width:48px;height:48px;background:var(--B2);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.detail-paywall-ico svg{width:20px;height:20px;stroke:#555;fill:none;stroke-width:2;}
+.detail-paywall h3{font-size:0.96rem;font-weight:800;color:white;}
+.detail-paywall p{font-size:0.74rem;color:#444;max-width:26ch;line-height:1.5;}
+.detail-paywall-price{font-size:1.4rem;font-weight:900;color:var(--G);}
+.detail-paywall-btn{background:var(--G);color:var(--N);border:none;border-radius:20px;padding:10px 22px;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:800;cursor:pointer;}
+.detail-tit{font-size:1.2rem;font-weight:900;color:white;margin-bottom:6px;line-height:1.2;}
+.detail-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.detail-meta span{font-size:0.72rem;color:#444;}
+.action-row{display:flex;gap:8px;padding:12px 0;border-top:1px solid var(--BOR);border-bottom:1px solid var(--BOR);margin-bottom:16px;overflow-x:auto;scrollbar-width:none;}
+.action-row::-webkit-scrollbar{display:none;}
+.act-btn{display:flex;align-items:center;gap:5px;background:var(--B2);color:#555;border:1px solid var(--BOR);border-radius:20px;padding:7px 12px;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:.12s;}
+.act-btn.on{background:rgba(168,230,61,.1);color:var(--G);border-color:rgba(168,230,61,.25);}
+.act-btn.on-r{background:rgba(255,77,77,.1);color:var(--R);border-color:rgba(255,77,77,.2);}
+.rate-row{display:flex;gap:2px;margin-left:auto;}
+.star{font-size:1rem;background:none;border:none;color:#333;cursor:pointer;}
+.star.on{color:#E3A93B;}
+
+/* TABS DETALLE */
+.dtabs{display:flex;gap:0;border-bottom:1px solid var(--BOR);margin-bottom:16px;}
+.dtab{padding:10px 0;margin-right:20px;font-family:'Inter',sans-serif;font-weight:700;font-size:0.8rem;color:#444;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;}
+.dtab.active{color:var(--G);border-bottom-color:var(--G);}
+.dtab:disabled{opacity:.3;cursor:not-allowed;}
+
+/* TAB CONTENIDO */
+.desc-txt{font-size:0.82rem;color:#555;line-height:1.7;}
+.desc-txt h4{color:white;margin:14px 0 5px;font-size:0.82rem;}
+.dl-row-detail{display:flex;align-items:center;justify-content:space-between;background:var(--B2);border:1px solid var(--BOR);border-radius:12px;padding:12px 14px;margin-top:14px;}
+.ext-badge{background:rgba(168,230,61,.1);color:var(--G);border-radius:6px;padding:2px 7px;font-size:0.62rem;font-weight:800;}
+.dl-btn-det{background:var(--G);color:var(--N);border:none;border-radius:20px;padding:7px 14px;font-size:0.72rem;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;}
+.dl-btn-det.done{background:rgba(168,230,61,.1);color:var(--G2);}
+
+/* QUIZ */
+.quiz-box{background:var(--S);border:1px solid var(--BOR);border-radius:14px;padding:16px;}
+.quiz-q{font-size:0.88rem;font-weight:700;color:white;margin-bottom:14px;}
+.quiz-opt{display:block;width:100%;text-align:left;background:var(--B2);border:1px solid var(--BOR);color:#aaa;border-radius:10px;padding:10px 13px;margin-bottom:8px;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;transition:.12s;}
+.quiz-opt:hover{border-color:var(--G);color:white;}
+.quiz-opt.ok{border-color:var(--G);background:rgba(168,230,61,.08);color:var(--G);}
+.quiz-opt.wrong{border-color:var(--R);background:rgba(255,77,77,.08);color:var(--R);}
+.quiz-feedback{margin-top:10px;font-size:0.78rem;font-weight:700;}
+.quiz-feedback.ok{color:var(--G);}
+.quiz-feedback.bad{color:var(--R);}
+
+/* COMENTARIOS */
+.comment-box{background:var(--S);border:1px solid var(--BOR);border-radius:14px;padding:14px;margin-bottom:10px;}
+.comment-inp{width:100%;background:var(--B2);border:1px solid var(--BOR);border-radius:10px;padding:10px 13px;font-family:'Inter',sans-serif;font-size:0.84rem;color:white;outline:none;resize:none;min-height:60px;}
+.comment-inp:focus{border-color:var(--G);}
+.comment-submit{margin-top:8px;background:var(--G);color:var(--N);border:none;border-radius:20px;padding:8px 18px;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:800;cursor:pointer;}
+.comment{display:flex;gap:10px;padding:12px 0;border-top:1px solid var(--BOR);}
+.comment-av{width:32px;height:32px;border-radius:50%;background:rgba(168,230,61,.15);color:var(--G);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;flex-shrink:0;}
+.comment-body-nom{font-size:0.78rem;font-weight:700;color:white;}
+.comment-body-time{font-size:0.62rem;color:#444;margin-left:6px;}
+.comment-body-txt{font-size:0.78rem;color:#666;margin-top:3px;line-height:1.4;}
+
+/* SIGUIENTE */
+.side-titulo{font-size:0.62rem;font-weight:800;color:#444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;}
+.next-card{display:flex;gap:10px;padding:10px;background:var(--S);border:1px solid var(--BOR);border-radius:12px;margin-bottom:8px;cursor:pointer;}
+.next-card:active{transform:scale(0.98);}
+.next-thumb{width:72px;height:45px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.next-tit{font-size:0.76rem;font-weight:700;color:white;line-height:1.3;margin-bottom:3px;}
+.next-meta{font-size:0.62rem;color:#444;}
+
+/* CHECKOUT MODAL */
+.modOv{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:flex-end;z-index:500;}
+.modOv.on{display:flex;}
+.modSh{background:var(--S);width:100%;max-height:92vh;border-radius:24px 24px 0 0;transform:translateY(100%);transition:.4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--BOR);border-bottom:none;}
+.modOv.on .modSh{transform:translateY(0);}
+.drag{width:36px;height:4px;background:#333;border-radius:4px;margin:14px auto 0;flex-shrink:0;}
+.modH{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--BOR);flex-shrink:0;}
+.modT{font-size:0.95rem;font-weight:800;color:white;}
+.modX{width:28px;height:28px;background:var(--B2);border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modX svg{width:13px;height:13px;stroke:#666;fill:none;stroke-width:2.5;}
+.modB{overflow-y:auto;padding:16px 16px 32px;flex:1;}
+.order-line{display:flex;justify-content:space-between;align-items:center;background:var(--B2);border-radius:12px;border:1px solid var(--BOR);padding:12px 14px;margin-bottom:16px;}
+.order-line span{font-size:0.82rem;color:#aaa;}
+.order-line b{font-size:1rem;font-weight:900;color:var(--G);}
+.inp-wrap{margin-bottom:12px;}
+.inp-wrap label{display:block;font-size:0.62rem;font-weight:700;color:#444;text-transform:uppercase;margin-bottom:5px;}
+.inp-wrap input{width:100%;padding:11px 13px;background:var(--B2);border:1px solid var(--BOR);border-radius:11px;font-family:'Inter',sans-serif;font-size:0.88rem;color:white;outline:none;}
+.inp-wrap input:focus{border-color:var(--G);}
+.inp-wrap input::placeholder{color:#333;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pay-btn{width:100%;margin-top:16px;background:var(--G);color:var(--N);border:none;border-radius:13px;padding:14px;font-family:'Inter',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;}
+.pay-btn:disabled{background:#222;color:#444;}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:0.68rem;color:#333;margin-top:10px;}
+.success-box{text-align:center;padding:10px 0;}
+.success-ico{width:56px;height:56px;border-radius:50%;background:rgba(168,230,61,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.success-ico svg{width:24px;height:24px;stroke:var(--G);fill:none;stroke-width:2.5;}
+.success-box h3{font-size:1rem;font-weight:800;color:white;margin-bottom:6px;}
+.success-box p{font-size:0.78rem;color:#444;margin-bottom:16px;line-height:1.5;}
+
+/* MONETIZACIÓN */
+.monetize{padding:0 16px;margin-bottom:24px;}
+.monetize-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.m-card{background:var(--S);border:1px solid var(--BOR);border-radius:12px;padding:12px 14px;}
+.m-card b{display:block;font-size:0.78rem;color:white;margin-bottom:3px;font-weight:700;}
+.m-card p{font-size:0.68rem;color:#444;line-height:1.5;}
+
+/* TAB BAR */
+.tab-bar{position:fixed;bottom:0;width:100%;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-top:1px solid var(--BOR);display:flex;padding:10px 0;padding-bottom:max(10px,env(safe-area-inset-bottom));z-index:200;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;padding:4px 0;}
+.tab svg{width:20px;height:20px;stroke:#333;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tab span{font-size:0.52rem;font-weight:700;color:#333;text-transform:uppercase;}
+.tab.active svg{stroke:var(--G);}
+.tab.active span{color:var(--G);}
+
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--G);color:var(--N);padding:10px 20px;border-radius:24px;font-size:0.8rem;font-weight:700;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+.empty{text-align:center;padding:30px;font-size:0.8rem;color:#333;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tl">
+    <div class="logo-hex">
+      <svg viewBox="0 0 100 100" width="18" height="18">
+        <polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#111"/>
+        <path d="M30 52 L44 66 L72 36" stroke="#A8E63D" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="brand">PROVEED<span>Start</span></span>
+  </div>
+  <div class="tr">
+    <button class="tbtn back-btn" onclick="location.href='perfil-emprendedor.html'">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+  </div>
+</div>
+
+<main id="app"></main>
+<!-- MODAL CHECKOUT -->
+<div class="modOv" id="modCheckout" onclick="if(event.target===this)cerrarCheckout()">
+  <div class="modSh"><div class="drag"></div>
+    <div class="modH"><span class="modT" id="mod-tit">Pasarela de pago</span><button class="modX" onclick="cerrarCheckout()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modB" id="mod-body"></div>
+  </div>
+</div>
+
+<nav class="tab-bar">
+  <button class="tab active" onclick="cambiarVista('home')">
+    <svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Inicio</span>
+  </button>
+  <button class="tab" onclick="cambiarVista('tienda')">
+    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span>Tienda</span>
+  </button>
+  <button class="tab" onclick="cambiarVista('home');state.activeCat='Cursos';render()">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    <span>Cursos</span>
+  </button>
+  <button class="tab" onclick="cambiarVista('home');state.activeCat='Recursos';render()">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span>Recursos</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATOS ──────────────────────────────────────────────────────────
+const CATS=['Cursos','Eventos','Recursos','Materiales'];
+const CAT_COLOR={Cursos:'#A8E63D',Eventos:'#FF8C00',Recursos:'#007AFF',Materiales:'#AF52DE'};
+const CAT_EMOJI={Cursos:'🎓',Eventos:'📢',Recursos:'📄',Materiales:'📦'};
+
+const ITEMS=[
+  {id:1,cat:'Cursos',title:'Fundamentos de atención al proveedor',author:'Equipo ProveedStart',len:'18 min',progress:60,rating:4,likes:24,dislikes:1,views:'312',access:'public',price:null,desc:'Curso introductorio sobre los procesos base para nuevos proveedores: registro, documentación y primeros pasos dentro de la plataforma.',quiz:{q:'¿Cuál es el primer paso para activar tu cuenta de proveedor?',options:['Completar el registro de documentación','Subir un video','Invitar a un colega','Calificar un curso'],correct:0},comments:[{name:'Marielys R.',time:'hace 2 días',text:'Muy claro, justo lo que necesitaba.'}]},
+  {id:2,cat:'Cursos',title:'Manejo de inventario y reportes',author:'Ana Peña',len:'25 min',progress:30,rating:5,likes:41,dislikes:0,views:'587',access:'public',price:null,desc:'Aprende a registrar inventario, generar reportes mensuales y evitar errores comunes de conteo.',quiz:{q:'¿Cada cuánto se recomienda generar el reporte de inventario?',options:['Cada semana','Una vez al año','Cada mes','Nunca'],correct:2},comments:[]},
+  {id:3,cat:'Eventos',title:'Encuentro anual de proveedores 2026',author:'Dirección Comercial',len:'En vivo · 12 jul',progress:0,rating:5,likes:88,dislikes:2,views:'1.2k',access:'private',price:15,desc:'Transmisión en vivo del encuentro anual: novedades de la plataforma, reconocimientos y espacio de preguntas.',quiz:{q:'¿Qué necesitas para participar en las preguntas en vivo?',options:['Estar registrado en el evento','Nada, es abierto','Ser administrador','Enviar un correo previo'],correct:0},comments:[{name:'Julio T.',time:'hace 5 h',text:'¿Va a quedar grabado?'}]},
+  {id:4,cat:'Eventos',title:'Webinar: nuevas políticas de pago',len:'45 min',author:'Finanzas',progress:0,rating:4,likes:19,dislikes:1,views:'204',access:'private',price:10,desc:'Repaso de las políticas de pago actualizadas y respuestas a las dudas más frecuentes.',quiz:{q:'¿Cuál es el canal oficial para reportar un pago no recibido?',options:['Redes sociales','Formulario de soporte','Llamada informal','No hay canal'],correct:1},comments:[]},
+  {id:5,cat:'Recursos',title:'Guía rápida: formatos aceptados',author:'Soporte Técnico',len:'Lectura · 6 min',progress:0,rating:4,likes:33,dislikes:0,views:'455',access:'public',price:null,file:{ext:'PDF',size:'1.2 MB'},desc:'Lista de formatos de archivo aceptados en la plataforma y recomendaciones de tamaño y resolución.',quiz:{q:'¿Cuál formato NO está soportado?',options:['.pdf','.docx','.exe','.xlsx'],correct:2},comments:[]},
+  {id:6,cat:'Recursos',title:'Plantilla de cotización estándar',author:'Compras',len:'Descargable',progress:0,rating:5,likes:52,dislikes:0,views:'690',access:'public',price:null,file:{ext:'DOCX',size:'340 KB'},desc:'Plantilla oficial para enviar cotizaciones según los estándares de la empresa.',quiz:{q:'¿Quién debe aprobar la cotización antes de enviarla?',options:['Nadie','Tu supervisor directo','El cliente final','El área de marketing'],correct:1},comments:[]},
+  {id:7,cat:'Materiales',title:'Material de divulgación: campaña Q3',author:'Marketing',len:'Descargable',progress:0,rating:4,likes:15,dislikes:0,views:'128',access:'public',price:null,file:{ext:'ZIP',size:'8.4 MB'},desc:'Piezas gráficas y textos oficiales para compartir la campaña del tercer trimestre.',quiz:{q:'¿Qué debes revisar antes de publicar una pieza de divulgación?',options:['El clima','Que use el branding oficial','La hora del día','Nada en particular'],correct:1},comments:[]},
+  {id:8,cat:'Materiales',title:'Checklist de entrega de trabajo',author:'Operaciones',len:'Lectura · 4 min',progress:0,rating:5,likes:27,dislikes:1,views:'340',access:'public',price:null,file:{ext:'PDF',size:'220 KB'},desc:'Lista de verificación para asegurar que cada entrega cumpla con los requisitos mínimos.',quiz:{q:'¿Qué se hace si un ítem del checklist no se cumple?',options:['Se entrega igual','Se corrige antes de entregar','Se ignora','Se elimina el checklist'],correct:1},comments:[]},
+  {id:9,cat:'Cursos',title:'Buenas prácticas de comunicación',author:'RRHH',len:'14 min',progress:0,rating:4,likes:12,dislikes:0,views:'98',access:'public',price:null,desc:'Recomendaciones para mantener una comunicación clara y profesional.',quiz:{q:'¿Cuál es una buena práctica de comunicación?',options:['Responder con evasivas','Confirmar por escrito los acuerdos','Ignorar mensajes','Usar solo llamadas'],correct:1},comments:[]},
+  {id:10,cat:'Cursos',title:'Curso avanzado: negociación con proveedores',author:'Equipo ProveedStart',len:'1h 20 min',progress:0,rating:5,likes:9,dislikes:0,views:'64',access:'private',price:49,desc:'Curso premium con casos reales de negociación, plantillas de contrato y simulaciones prácticas.',quiz:{q:'¿Qué debes preparar antes de una negociación importante?',options:['Nada, se improvisa','Tu mejor y peor escenario aceptable','Solo el precio final','Una excusa'],correct:1},comments:[]},
+  {id:11,cat:'Cursos',title:'Certificación ProveedStart Pro',author:'Academia ProveedStart',len:'3h · Certificado',progress:0,rating:5,likes:6,dislikes:0,views:'41',access:'private',price:89,desc:'Ruta completa de certificación con evaluación final y certificado descargable con validez interna.',quiz:{q:'¿Qué obtienes al aprobar la evaluación final?',options:['Nada','Un certificado descargable','Un curso adicional gratis','Una multa'],correct:1},comments:[]},
+];
+
+// ── ESTADO ─────────────────────────────────────────────────────────
+let state={
+  view:'home',activeCat:'Todos',activeItem:null,
+  userLike:{},userDislike:{},userRating:{},
+  detailTab:'desc',quizAnswered:{},purchased:{},
+  checkout:null,cardStep:'form',busq:''
+};
+
+// ── HELPERS ────────────────────────────────────────────────────────
+const Q=id=>document.getElementById(id);
+function accessBadge(access){
+  return access==='public'
+    ?`<span class="access-badge pub">✓ Gratis</span>`
+    :`<span class="access-badge priv">🔒 Privado</span>`;
+}
+function starsStr(n){return '★'.repeat(n)+'☆'.repeat(5-n);}
+function priceStr(p){return p?`$${p.toFixed(2)}`:'Gratis';}
+function initials(n){return (n||'PS').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();}
+function toast(m){const t=Q('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
+
+// ── CARD HOME ──────────────────────────────────────────────────────
+function mkCard(item){
+  const locked=item.access==='private'&&!state.purchased[item.id];
+  const color=CAT_COLOR[item.cat]||'#A8E63D';
+  const emoji=CAT_EMOJI[item.cat]||'📄';
+  let footer='';
+  if(item.file){
+    footer=`<div class="card-price-row"><span style="font-size:.62rem;font-weight:700;background:rgba(168,230,61,.1);color:#7BC234;padding:2px 7px;border-radius:6px;">${item.file.ext}</span><button class="dl-btn-small" data-dl="${item.id}">⬇ Descargar</button></div>`;
+  } else if(item.access==='private'){
+    footer=`<div class="card-price-row"><span class="card-price">${priceStr(item.price)}</span><button class="buy-chip ${state.purchased[item.id]?'owned':''}" data-buy="${item.id}">${state.purchased[item.id]?'✓ Comprado':'Comprar'}</button></div>`;
+  } else {
+    footer=`<div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:${item.progress}%"></div></div><span style="font-size:.6rem;color:#444">${item.progress}%</span></div>`;
+  }
+  return `<div class="card" data-id="${item.id}">
+    <div class="card-thumb" style="background:${color}18;">
+      <span class="card-badge">${accessBadge(item.access)}</span>
+      <span class="card-len">${item.len}</span>
+      ${locked?`<div class="card-lock"><div class="card-lock-ico"><svg viewBox="0 0 24 24" width="14" height="14" stroke="white" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><span class="card-lock-price">${priceStr(item.price)}</span></div>`:`<div class="card-thumb-ico">${emoji}</div>`}
+    </div>
+    <div class="card-body">
+      <div class="card-tit">${item.title}</div>
+      <div class="card-meta"><span>${item.author||'ProveedStart'}</span> · <span>${item.views}</span></div>
+      <div class="card-stars">${starsStr(item.rating)}</div>
+      ${footer}
+    </div>
+  </div>`;
+}
+
+// ── RENDER HOME ────────────────────────────────────────────────────
+function renderHome(){
+  let lista=state.activeCat==='Todos'?ITEMS:ITEMS.filter(i=>i.cat===state.activeCat);
+  if(state.busq){const b=state.busq.toLowerCase();lista=lista.filter(i=>i.title.toLowerCase().includes(b)||i.author?.toLowerCase().includes(b));}
+  const totalAct=ITEMS.filter(i=>i.access==='public').length;
+
+  Q('app').innerHTML=`
+  <div class="hero">
+    <div class="hero-eyebrow"><div class="hero-dot"></div><span>Sala de contenido · Proveedores</span></div>
+    <div class="hero-tit">Tu aprendizaje, <span>sin límites</span></div>
+    <div class="hero-sub">Cursos, recursos y materiales gratis para todo proveedor. Eventos privados disponibles en la tienda.</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>${ITEMS.length}</b><span>Contenidos</span></div>
+      <div class="hero-stat"><b>${totalAct}</b><span>Gratis</span></div>
+      <div class="hero-stat"><b>4.6★</b><span>Promedio</span></div>
+    </div>
+  </div>
+
+  <div class="search-bar" style="margin-top:16px;">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" placeholder="Buscar cursos, eventos, recursos..." value="${state.busq}" oninput="state.busq=this.value;renderHome()">
+  </div>
+
+  <div class="tabs-nav">
+    ${['Todos',...CATS].map(c=>`<button class="tnav-btn ${state.activeCat===c?'active':''}" onclick="state.activeCat='${c}';state.busq='';render()">${c}</button>`).join('')}
+  </div>
+
+  <div style="padding:0 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-size:0.72rem;color:#444;font-weight:700;">${lista.length} contenidos</span>
+  </div>
+
+  <div class="grid" id="main-grid">
+    ${lista.length?lista.map(mkCard).join(''):'<div class="empty" style="grid-column:1/-1">Sin contenido en esta categoría</div>'}
+  </div>`;
+
+  bindCards();
+  bindDlBtns();
+  bindBuyBtns();
+}
+
+// ── RENDER TIENDA ──────────────────────────────────────────────────
+function renderTienda(){
+  const privados=ITEMS.filter(i=>i.access==='private');
+  Q('app').innerHTML=`
+  <div style="padding:20px 16px 16px;">
+    <div class="hero-eyebrow"><div class="hero-dot"></div><span>Tienda ProveedStart</span></div>
+    <div class="hero-tit">Acceso <span>premium</span></div>
+    <div class="hero-sub">Los cursos y recursos base son gratis. Aquí puedes comprar boletos para eventos privados y cursos premium.</div>
+  </div>
+
+  <div class="store-section">
+    <div class="store-header"><h2>Disponible</h2><span>${privados.length} elementos</span></div>
+    ${privados.map(i=>`
+      <div class="store-card">
+        <div class="store-card-top">
+          <div><div class="store-card-cat">${i.cat} · ${i.len}</div><div class="store-card-tit">${i.title}</div></div>
+          <div class="store-price">${priceStr(i.price)}</div>
+        </div>
+        <div class="store-desc">${i.desc}</div>
+        <div class="store-features">
+          <div class="store-feature">${i.cat}</div>
+          <div class="store-feature">${i.len}</div>
+          <div class="store-feature">Acceso permanente tras la compra</div>
+        </div>
+        <button class="store-buy-btn ${state.purchased[i.id]?'owned':''}" data-buy="${i.id}">${state.purchased[i.id]?'✓ Ya tienes acceso':'Comprar ahora'}</button>
+      </div>`).join('')}
+  </div>
+
+  <div class="monetize">
+    <div style="font-size:0.72rem;font-weight:800;color:#444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">Otras formas de acceso</div>
+    <div class="monetize-grid">
+      <div class="m-card"><b>Suscripción mensual</b><p>Acceso ilimitado a todos los eventos privados.</p></div>
+      <div class="m-card"><b>Certificados</b><p>Certificado descargable al completar una ruta.</p></div>
+      <div class="m-card"><b>Patrocinios</b><p>Marcas destacadas en transmisiones en vivo.</p></div>
+      <div class="m-card"><b>Paquetes</b><p>Varios cursos juntos con descuento especial.</p></div>
+      <div class="m-card"><b>Plan empresarial</b><p>Acceso para todo tu equipo en un solo plan.</p></div>
+      <div class="m-card"><b>Marketplace</b><p>Plantillas de otros proveedores con comisión.</p></div>
+    </div>
+  </div>`;
+
+  bindBuyBtns();
+}
+
+// ── RENDER DETALLE ─────────────────────────────────────────────────
+function renderDetalle(){
+  const item=ITEMS.find(i=>i.id===state.activeItem);
+  const locked=item.access==='private'&&!state.purchased[item.id];
+  const color=CAT_COLOR[item.cat]||'#A8E63D';
+  const emoji=CAT_EMOJI[item.cat]||'📄';
+  const otros=ITEMS.filter(i=>i.id!==item.id&&i.cat===item.cat).slice(0,4);
+  const liked=state.userLike[item.id];
+  const disliked=state.userDislike[item.id];
+  const myRating=state.userRating[item.id]||0;
+
+  Q('app').innerHTML=`
+  <div style="padding:14px 16px 0;"><button class="back-btn" onclick="state.view='home';render()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Volver</button></div>
+  <div class="detail-view">
+    ${locked?`
+      <div class="detail-paywall" style="background:${color}10;border-color:${color}22;">
+        <div class="detail-paywall-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Contenido privado</h3>
+        <p>Compra boleto para acceder a este contenido, el cuestionario y los comentarios.</p>
+        <div class="detail-paywall-price">${priceStr(item.price)}</div>
+        <button class="detail-paywall-btn" data-buy="${item.id}">Comprar acceso →</button>
+      </div>`:`
+      <div class="detail-player" style="background:${color}18;margin-top:14px;">
+        <div class="detail-player-ico">${emoji}</div>
+      </div>`}
+
+    <div class="detail-tit">${item.title}</div>
+    <div class="detail-meta">
+      ${accessBadge(item.access)}
+      <span>${item.author||'ProveedStart'}</span>
+      <span>·</span><span>${item.views} vistas</span>
+      <span>·</span><span>${item.cat}</span>
+    </div>
+
+    <div class="action-row">
+      <button class="act-btn ${liked?'on':''}" id="likeBtn">👍 <span id="likeCnt">${item.likes}</span></button>
+      <button class="act-btn ${disliked?'on-r':''}" id="dislikeBtn">👎 <span id="dislikeCnt">${item.dislikes}</span></button>
+      <button class="act-btn" id="shareBtn">↗ Compartir</button>
+      <div class="rate-row" id="rateRow">
+        ${[1,2,3,4,5].map(n=>`<button class="star ${n<=myRating?'on':''}" data-n="${n}">★</button>`).join('')}
+      </div>
+    </div>
+
+    <div class="dtabs">
+      <button class="dtab ${state.detailTab==='desc'?'active':''}" data-tab="desc">Descripción</button>
+      <button class="dtab ${state.detailTab==='quiz'?'active':''}" data-tab="quiz" ${locked?'disabled':''}>Cuestionario</button>
+      <button class="dtab ${state.detailTab==='comments'?'active':''}" data-tab="comments" ${locked?'disabled':''}>Comentarios (${item.comments.length})</button>
+    </div>
+    <div id="tab-content"></div>
+
+    ${otros.length?`
+      <div style="margin-top:20px;"><div class="side-titulo">Siguiente en ${item.cat}</div>
+        ${otros.map(o=>`<div class="next-card" data-id="${o.id}">
+          <div class="next-thumb" style="background:${CAT_COLOR[o.cat]||'#1a1a1a'}18;">${CAT_EMOJI[o.cat]||'📄'}</div>
+          <div><div class="next-tit">${o.title}</div><div class="next-meta">${o.len} · ${priceStr(o.price)}</div></div>
+        </div>`).join('')}
+      </div>`:''}
+  </div>`;
+
+  renderTabContent();
+  bindDlBtns();
+  bindBuyBtns();
+
+  Q('likeBtn')?.addEventListener('click',()=>{
+    const it=ITEMS.find(i=>i.id===state.activeItem);
+    if(state.userLike[it.id]){it.likes--;state.userLike[it.id]=false;}
+    else{it.likes++;state.userLike[it.id]=true;if(state.userDislike[it.id]){it.dislikes--;state.userDislike[it.id]=false;}}
+    render();
+  });
+  Q('dislikeBtn')?.addEventListener('click',()=>{
+    const it=ITEMS.find(i=>i.id===state.activeItem);
+    if(state.userDislike[it.id]){it.dislikes--;state.userDislike[it.id]=false;}
+    else{it.dislikes++;state.userDislike[it.id]=true;if(state.userLike[it.id]){it.likes--;state.userLike[it.id]=false;}}
+    render();
+  });
+  Q('shareBtn')?.addEventListener('click',()=>{
+    if(navigator.share)navigator.share({title:ITEMS.find(i=>i.id===state.activeItem)?.title,url:location.href}).catch(()=>{});
+    else{navigator.clipboard?.writeText(location.href);toast('✓ Link copiado');}
+  });
+  document.querySelectorAll('#rateRow .star').forEach(s=>{
+    s.addEventListener('click',()=>{state.userRating[state.activeItem]=parseInt(s.dataset.n);render();});
+  });
+  document.querySelectorAll('.dtab').forEach(t=>{
+    t.addEventListener('click',()=>{if(t.disabled)return;state.detailTab=t.dataset.tab;renderTabContent();});
+  });
+  document.querySelectorAll('.next-card').forEach(nc=>{
+    nc.addEventListener('click',()=>{state.activeItem=parseInt(nc.dataset.id);state.detailTab='desc';render();window.scrollTo(0,0);});
+  });
+}
+
+function renderTabContent(){
+  const item=ITEMS.find(i=>i.id===state.activeItem);
+  const box=Q('tab-content');if(!box)return;
+  const locked=item.access==='private'&&!state.purchased[item.id];
+
+  if(state.detailTab==='desc'){
+    box.innerHTML=`<div class="desc-txt">
+      <p>${item.desc}</p>
+      <h4>Categoría</h4><p>${item.cat}</p>
+      ${item.file?`<div class="dl-row-detail">
+        <div style="display:flex;align-items:center;gap:8px;"><span class="ext-badge">${item.file.ext}</span><span style="font-size:.76rem;color:#aaa;">${item.file.size}</span></div>
+        <button class="dl-btn-det" data-dl="${item.id}">⬇ Descargar</button>
+      </div>`:''}
+    </div>`;
+  } else if(state.detailTab==='quiz'){
+    if(locked){box.innerHTML='<p style="font-size:.82rem;color:#444;padding:8px 0;">Compra el acceso para responder el cuestionario.</p>';return;}
+    const answered=state.quizAnswered[item.id];
+    box.innerHTML=`<div class="quiz-box">
+      <div class="quiz-q">${item.quiz.q}</div>
+      ${item.quiz.options.map((op,idx)=>`<button class="quiz-opt ${answered!==undefined?(idx===item.quiz.correct?'ok':idx===answered?'wrong':''):''}" data-idx="${idx}" ${answered!==undefined?'disabled':''}>${op}</button>`).join('')}
+      ${answered!==undefined?`<div class="quiz-feedback ${answered===item.quiz.correct?'ok':'bad'}">${answered===item.quiz.correct?'¡Correcto! 🎉':'No es correcto. La respuesta correcta está resaltada.'}</div>`:''}
+    </div>`;
+    box.querySelectorAll('.quiz-opt').forEach(btn=>{
+      btn.addEventListener('click',()=>{state.quizAnswered[item.id]=parseInt(btn.dataset.idx);renderTabContent();});
+    });
+  } else {
+    if(locked){box.innerHTML='<p style="font-size:.82rem;color:#444;padding:8px 0;">Compra el acceso para comentar.</p>';return;}
+    box.innerHTML=`<div class="comment-box">
+      <textarea class="comment-inp" id="cmt-inp" placeholder="Escribe un comentario..."></textarea>
+      <button class="comment-submit" id="cmt-submit">Comentar</button>
+    </div>
+    ${item.comments.map(c=>`<div class="comment">
+      <div class="comment-av">${initials(c.name)}</div>
+      <div><span class="comment-body-nom">${c.name}</span><span class="comment-body-time">${c.time}</span><div class="comment-body-txt">${c.text}</div></div>
+    </div>`).join('')}`;
+    Q('cmt-submit')?.addEventListener('click',()=>{
+      const val=Q('cmt-inp').value.trim();if(!val)return;
+      item.comments.unshift({name:'Tú',time:'ahora',text:val});
+      renderTabContent();
+    });
+  }
+  bindDlBtns();
+}
+
+// ── CHECKOUT ───────────────────────────────────────────────────────
+function abrirCheckout(id){
+  state.checkout=ITEMS.find(i=>i.id===id);
+  state.cardStep='form';
+  renderModal();
+  Q('modCheckout').classList.add('on');
+}
+function cerrarCheckout(){Q('modCheckout').classList.remove('on');state.checkout=null;}
+function renderModal(){
+  const item=state.checkout;if(!item)return;
+  const body=Q('mod-body');
+  if(state.cardStep==='success'){
+    body.innerHTML=`<div class="success-box">
+      <div class="success-ico"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+      <h3>¡Compra exitosa!</h3>
+      <p>Ya tienes acceso a "${item.title}". Lo verás disponible en tu lista.</p>
+      <button class="pay-btn" onclick="cerrarCheckout();render()">Listo →</button>
+    </div>`;
+  } else {
+    body.innerHTML=`<div class="order-line"><span>${item.title}</span><b>${priceStr(item.price)}</b></div>
+      <div class="inp-wrap"><label>Nombre en la tarjeta</label><input type="text" id="ccName" placeholder="Nombre completo"></div>
+      <div class="inp-wrap"><label>Número de tarjeta</label><input type="text" id="ccNum" placeholder="4242 4242 4242 4242" maxlength="19"></div>
+      <div class="frow">
+        <div class="inp-wrap"><label>Vencimiento</label><input type="text" id="ccExp" placeholder="MM/AA" maxlength="5"></div>
+        <div class="inp-wrap"><label>CVV</label><input type="text" id="ccCvv" placeholder="123" maxlength="4"></div>
+      </div>
+      <button class="pay-btn" id="payBtn">Pagar ${priceStr(item.price)}</button>
+      <div class="secure-note">🔒 Simulación — sin cargos reales</div>`;
+    Q('payBtn').addEventListener('click',()=>{
+      const btn=Q('payBtn');btn.disabled=true;btn.textContent='Procesando...';
+      setTimeout(()=>{state.purchased[item.id]=true;state.cardStep='success';renderModal();},1100);
+    });
+  }
+}
+
+// ── BIND EVENTOS ───────────────────────────────────────────────────
+function bindCards(){
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('click',e=>{
+      if(e.target.closest('[data-dl]')||e.target.closest('[data-buy]'))return;
+      state.activeItem=parseInt(c.dataset.id);state.view='detail';state.detailTab='desc';
+      render();window.scrollTo(0,0);
+    });
+  });
+}
+function bindDlBtns(){
+  document.querySelectorAll('[data-dl]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      btn.textContent='✓ Descargado';btn.className=btn.className.replace('dl-btn-small','dl-btn-small done').replace('dl-btn-det','dl-btn-det done');
+      toast('Descarga iniciada');
+    });
+  });
+}
+function bindBuyBtns(){
+  document.querySelectorAll('[data-buy]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const id=parseInt(btn.dataset.buy);
+      if(state.purchased[id])return;
+      abrirCheckout(id);
+    });
+  });
+}
+
+// ── RENDER ROOT ────────────────────────────────────────────────────
+function render(){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.toggle('active',
+      (i===0&&state.view==='home'&&state.activeCat==='Todos')||
+      (i===1&&state.view==='tienda')||
+      (i===2&&state.view==='home'&&state.activeCat==='Cursos')||
+      (i===3&&state.view==='home'&&state.activeCat==='Recursos')
+    );
+  });
+  if(state.view==='tienda')renderTienda();
+  else if(state.view==='detail')renderDetalle();
+  else renderHome();
+}
+
+function cambiarVista(v){state.view=v;if(v==='home')state.activeCat='Todos';render();window.scrollTo(0,0);}
+
+render();
+</script>
+</body>
+</html>
