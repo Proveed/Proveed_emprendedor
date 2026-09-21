@@ -1,633 +1,290 @@
 <!DOCTYPE html>
-<html lang="es-EC">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PROVEED | Compra al Por Mayor a Proveedores Verificados en Ecuador</title>
-<meta name="description" content="PROVEED conecta a emprendedores con cientos de proveedores mayoristas verificados en Ecuador: ropa, tecnología, alimentos, hogar y más. Precios reales, sin estafas. Regístrate gratis.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.proveed.sbs/">
-<meta name="author" content="PROVEED">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.proveed.sbs/">
-<meta property="og:title" content="PROVEED | Compra al Por Mayor a Proveedores Verificados en Ecuador">
-<meta property="og:description" content="Cientos de proveedores mayoristas verificados en las 24 provincias del Ecuador. Precios reales, chat directo y compra protegida.">
-<meta property="og:image" content="https://www.proveed.sbs/og-image.jpg">
-<meta property="og:locale" content="es_EC">
-<meta property="og:site_name" content="PROVEED">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PROVEED | Compra al Por Mayor a Proveedores Verificados en Ecuador">
-<meta name="twitter:description" content="Encuentra proveedores mayoristas verificados en Ecuador y haz crecer tu negocio sin intermediarios.">
-
-<!-- Datos estructurados: Organización -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "url": "https://www.proveed.sbs",
-  "name": "PROVEED",
-  "description": "Marketplace B2B que conecta emprendedores con proveedores mayoristas verificados en Ecuador, en categorías como ropa, tecnología, alimentos, hogar, belleza y más.",
-  "logo": "https://www.proveed.sbs/logo-hexagonal.png",
-  "areaServed": { "@type": "Country", "name": "Ecuador" },
-  "sameAs": []
-}
-</script>
-
-<!-- Datos estructurados: Preguntas frecuentes -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type":"Question","name":"¿Cómo encuentro proveedores mayoristas confiables en Ecuador?","acceptedAnswer":{"@type":"Answer","text":"En PROVEED todos los proveedores pasan por un proceso de verificación con cédula, RUC y fotos reales de sus productos antes de poder publicar en el catálogo. Así evitas perder tiempo o dinero con vendedores que solo encuentras en redes sociales sin ninguna garantía."}},
-    {"@type":"Question","name":"¿PROVEED es gratis o tiene algún costo de registro?","acceptedAnswer":{"@type":"Answer","text":"Registrarte, explorar el catálogo y contactar proveedores es completamente gratis, sin tarjeta de crédito ni pagos ocultos. Puedes empezar a comprar o vender al por mayor desde el primer día."}},
-    {"@type":"Question","name":"¿Qué categorías de productos al por mayor puedo encontrar?","acceptedAnswer":{"@type":"Answer","text":"Ropa y textiles, calzado, tecnología y electrónica, electrodomésticos, alimentos y abarrotes, belleza y cosméticos, ferretería, juguetes y bazar, papelería, mascotas, hogar y decoración, repuestos automotrices, agroindustria y muchas categorías más."}},
-    {"@type":"Question","name":"¿Cómo verifican a los proveedores mayoristas?","acceptedAnswer":{"@type":"Answer","text":"Cada proveedor presenta cédula, RUC activo y fotos reales de sus productos, y el equipo de PROVEED revisa manualmente cada cuenta antes de activarla. Además, las compras generan reseñas con evidencia fotográfica de otros emprendedores."}},
-    {"@type":"Question","name":"¿En qué ciudades de Ecuador hay proveedores disponibles?","acceptedAnswer":{"@type":"Answer","text":"PROVEED tiene proveedores mayoristas en las 24 provincias del Ecuador, con fuerte presencia en Guayaquil, Quito, Cuenca, Manta, Ambato y Machala, y cobertura de envíos a nivel nacional."}},
-    {"@type":"Question","name":"¿Puedo vender mis productos al por mayor como proveedor?","acceptedAnswer":{"@type":"Answer","text":"Sí. Con la misma cuenta puedes activar un perfil de proveedor, publicar tu catálogo mayorista y llegar a cientos de emprendedores que buscan comprar sin pagar publicidad adicional."}},
-    {"@type":"Question","name":"¿Qué pasa si un proveedor no entrega o el producto llega diferente?","acceptedAnswer":{"@type":"Answer","text":"PROVEED procesa los pagos con un sistema de protección al comprador. Si el proveedor no cumple lo pactado, puedes abrir una disputa y el equipo de soporte interviene para resolverla."}},
-    {"@type":"Question","name":"¿Por qué es difícil encontrar proveedores mayoristas buscando en Google o redes sociales?","acceptedAnswer":{"@type":"Answer","text":"Porque la información está dispersa entre publicaciones de TikTok, grupos de Facebook y WhatsApp sin verificar, con precios ocultos y sin forma de comprobar si el proveedor es real. PROVEED centraliza todo ese catálogo en un solo lugar, verificado."}},
-    {"@type":"Question","name":"¿Necesito instalar una aplicación para usar PROVEED?","acceptedAnswer":{"@type":"Answer","text":"No. PROVEED funciona directamente desde el navegador de tu celular o computadora, sin descargas ni instalaciones."}},
-    {"@type":"Question","name":"¿Los precios que veo ya son precios al por mayor?","acceptedAnswer":{"@type":"Answer","text":"Sí, los precios mostrados en PROVEED son precios mayoristas reales publicados por cada proveedor, sin necesidad de negociar un descuento oculto ni pedir cotización aparte."}}
-  ]
-}
-</script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PROVEED — Categoría</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--verde:#A8E63D;--verde2:#7BC234;--negro:#0A0A0A;--gris:#F5F6F2;--naranja:#FF8C00;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:white;color:#111;overflow-x:hidden;padding-bottom:64px;}
-nav{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #eee;}
-.nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-brand{font-size:1.1rem;font-weight:900;color:#111;}
-.nav-brand span{color:var(--verde2);}
-.nav-links{display:flex;gap:20px;align-items:center;}
-.nav-links a{font-size:0.82rem;font-weight:600;color:#555;text-decoration:none;}
-.nav-cta{background:#111;color:white;padding:9px 20px;border-radius:24px;font-size:0.8rem;font-weight:800;text-decoration:none;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--G:#A8E63D;--G2:#7BC234;--F:#F5F6F2;--O:#FF8C00;--R:#FF4D4D;}
+body{background:var(--F);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:80px;}
 
-/* Barra flotante de conversión (móvil) */
-.floating-cta{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--negro);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -6px 24px rgba(0,0,0,0.25);}
-.floating-cta-text{color:white;font-size:0.78rem;font-weight:700;}
-.floating-cta-text span{display:block;color:rgba(255,255,255,0.5);font-weight:500;font-size:0.68rem;}
-.floating-cta a{background:var(--verde);color:#111;padding:11px 22px;border-radius:12px;font-size:0.82rem;font-weight:800;text-decoration:none;white-space:nowrap;}
+.header{background:#fff;padding:44px 14px 10px;position:sticky;top:0;z-index:100;border-bottom:1px solid #eee;}
+.hRow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.back-btn{width:36px;height:36px;background:var(--F);border-radius:11px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.back-btn svg{width:18px;height:18px;stroke:#555;fill:none;stroke-width:2.5;}
+.search-box{flex:1;display:flex;align-items:center;gap:8px;background:var(--F);border-radius:24px;padding:10px 14px;border:1.5px solid #eee;}
+.search-box svg{width:14px;height:14px;stroke:#bbb;fill:none;stroke-width:2.5;flex-shrink:0;}
+.search-box input{flex:1;background:transparent;border:none;outline:none;font-family:'Inter',sans-serif;font-size:0.86rem;color:#111;}
+.search-box input::placeholder{color:#ccc;}
+.cat-tit{font-size:1rem;font-weight:900;color:#111;}
+.cat-count{font-size:0.7rem;color:#aaa;font-weight:600;margin-top:1px;}
 
-.hero{padding:72px 24px 48px;text-align:center;background:linear-gradient(180deg,var(--gris) 0%,white 100%);position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(168,230,61,0.18) 0%,transparent 65%);pointer-events:none;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(168,230,61,0.1);border:1px solid rgba(123,194,52,0.3);padding:7px 18px;border-radius:50px;font-size:0.75rem;font-weight:800;color:var(--verde2);margin-bottom:24px;}
-.hero-h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-2px;line-height:1.05;max-width:820px;margin:0 auto 20px;color:#111;}
-.hero-h1 .hl{background:linear-gradient(135deg,var(--verde),var(--verde2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-p{font-size:1.1rem;color:#666;max-width:580px;margin:0 auto 32px;line-height:1.7;}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;}
-.hero-microcopy{font-size:0.76rem;color:#999;font-weight:600;margin-bottom:40px;}
-.btn-primary{background:#111;color:white;padding:14px 28px;border-radius:14px;font-size:0.9rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
-.btn-secondary{background:white;color:#111;border:2px solid #eee;padding:14px 28px;border-radius:14px;font-size:0.9rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-verde{background:var(--verde);color:#111;}
+/* SUBCATEGORÍAS CHIPS */
+.subcats-scroll{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.subcats-scroll::-webkit-scrollbar{display:none;}
+.subcat-chip{padding:7px 14px;border-radius:20px;border:1.5px solid #eee;background:#fff;font-family:'Inter',sans-serif;font-size:0.74rem;font-weight:700;color:#666;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.subcat-chip.active{border-color:var(--G);color:var(--G2);background:rgba(168,230,61,0.08);}
 
-/* Barra de estadísticas de impacto */
-.stats-bar{max-width:900px;margin:0 auto 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--negro);border-radius:22px;overflow:hidden;}
-.stat-item{padding:26px 12px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
-.stat-item:last-child{border-right:none;}
-.stat-num{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--verde);letter-spacing:-1px;}
-.stat-label{font-size:0.68rem;color:rgba(255,255,255,0.5);font-weight:700;margin-top:4px;text-transform:uppercase;letter-spacing:0.3px;}
+/* FILTROS RÁPIDOS */
+.filtros-row{display:flex;gap:7px;padding:10px 14px;overflow-x:auto;scrollbar-width:none;background:#fff;border-bottom:1px solid #eee;}
+.filtros-row::-webkit-scrollbar{display:none;}
+.filtro-chip{padding:6px 13px;border-radius:20px;border:1.5px solid #eee;background:var(--F);font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:700;color:#666;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:4px;}
+.filtro-chip.active{border-color:var(--O);color:var(--O);background:rgba(255,140,0,0.06);}
 
-.hero-visual{max-width:700px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
-.vis-card{background:white;border-radius:20px;padding:20px;box-shadow:0 4px 24px rgba(0,0,0,0.07);border:1px solid #f0f0f0;text-align:center;}
-.vis-emoji{font-size:2.2rem;margin-bottom:10px;display:block;}
-.vis-title{font-size:0.78rem;font-weight:800;color:#111;margin-bottom:4px;}
-.vis-sub{font-size:0.68rem;color:#aaa;}
-.vis-price{font-size:1rem;font-weight:900;color:var(--verde2);margin-top:8px;}
-.vis-badge{display:inline-block;font-size:0.58rem;font-weight:800;padding:2px 8px;border-radius:20px;margin-top:6px;}
+/* GRID PRODUCTOS — 2 columnas estilo catálogo */
+.content{padding:10px 12px;}
+.prods-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.prod-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eee;box-shadow:0 1px 6px rgba(0,0,0,0.04);cursor:pointer;}
+.prod-card:active{transform:scale(0.97);}
+.prod-img{width:100%;height:140px;background:var(--F);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.prod-img img{width:100%;height:100%;object-fit:cover;}
+.prod-img-ico{font-size:2.2rem;}
+.prod-badge{position:absolute;top:6px;left:6px;font-size:0.5rem;font-weight:800;padding:2px 6px;border-radius:20px;color:#fff;text-transform:uppercase;}
+.prod-verif{position:absolute;top:6px;right:6px;background:rgba(0,122,255,0.9);color:#fff;font-size:0.5rem;font-weight:800;padding:2px 6px;border-radius:20px;display:flex;align-items:center;gap:2px;}
+.prod-body{padding:10px;}
+.prod-nombre{font-size:0.76rem;font-weight:600;color:#111;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3;min-height:2.6em;}
+.prod-precio-row{display:flex;align-items:baseline;gap:4px;margin-bottom:3px;}
+.prod-precio{font-size:0.96rem;font-weight:900;color:var(--O);}
+.prod-min{font-size:0.62rem;color:#aaa;margin-bottom:6px;}
+.prod-prov-row{display:flex;align-items:center;gap:4px;margin-bottom:6px;}
+.prod-prov{font-size:0.62rem;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;}
+.prod-vendidos{font-size:0.6rem;color:#bbb;}
+.prod-add{width:24px;height:24px;background:var(--G);border-radius:8px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;flex-shrink:0;}
+.prod-add svg{width:11px;height:11px;stroke:#111;fill:none;stroke-width:2.5;}
 
-.section{padding:76px 24px;}
-.section-inner{max-width:1100px;margin:0 auto;}
-.section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(168,230,61,0.1);border:1px solid rgba(123,194,52,0.25);padding:6px 16px;border-radius:50px;font-size:0.72rem;font-weight:800;color:var(--verde2);margin-bottom:16px;}
-.section-h{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-1px;color:#111;margin-bottom:14px;line-height:1.15;}
-.section-p{font-size:1rem;color:#666;max-width:580px;line-height:1.7;margin-bottom:44px;}
-.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
-.card-feat{background:var(--gris);border-radius:20px;padding:28px;border:1px solid #eee;transition:0.3s;}
-.card-feat:hover{background:white;box-shadow:0 8px 30px rgba(0,0,0,0.08);transform:translateY(-3px);}
-.cf-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:16px;}
-.cf-title{font-size:0.98rem;font-weight:800;color:#111;margin-bottom:8px;}
-.cf-desc{font-size:0.82rem;color:#666;line-height:1.6;}
-.cf-tag{display:inline-block;font-size:0.62rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:12px;background:rgba(123,194,52,0.1);color:var(--verde2);}
+.empty-cat{text-align:center;padding:60px 20px;color:#bbb;}
+.empty-cat p{font-size:0.82rem;font-weight:600;}
 
-/* Categorías */
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
-.cat-item{background:white;border:1px solid #eee;border-radius:16px;padding:22px 14px;text-align:center;transition:0.25s;cursor:default;}
-.cat-item:hover{border-color:var(--verde);box-shadow:0 6px 20px rgba(123,194,52,0.12);transform:translateY(-2px);}
-.cat-emoji{font-size:1.7rem;display:block;margin-bottom:10px;}
-.cat-name{font-size:0.78rem;font-weight:800;color:#111;}
-.cat-sub{font-size:0.66rem;color:#999;margin-top:2px;}
+.load-more{width:100%;padding:13px;background:#fff;border:1.5px solid #eee;border-radius:14px;font-family:'Inter',sans-serif;font-size:0.84rem;font-weight:700;color:#666;cursor:pointer;margin-top:6px;}
+.load-more:disabled{opacity:0.5;}
 
-/* Problema -> Solución */
-.ps-guide{display:flex;flex-direction:column;gap:14px;}
-.ps-row{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;background:var(--gris);border-radius:18px;padding:22px 24px;border:1px solid #eee;}
-.ps-col{display:flex;gap:12px;align-items:flex-start;}
-.ps-col-icon{font-size:1.3rem;flex-shrink:0;}
-.ps-col-label{font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
-.ps-problema .ps-col-label{color:#FF4D4D;}
-.ps-solucion .ps-col-label{color:var(--verde2);}
-.ps-col-text{font-size:0.85rem;color:#333;line-height:1.5;font-weight:600;}
-.ps-arrow{font-size:1.2rem;color:#ccc;font-weight:900;}
-@media(max-width:700px){.ps-row{grid-template-columns:1fr;}.ps-arrow{display:none;}}
-
-.proceso{background:var(--negro);border-radius:28px;padding:52px 40px;margin-top:48px;color:white;}
-.proceso-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;margin-top:40px;}
-.ps{text-align:center;}
-.ps-num{width:48px;height:48px;border-radius:50%;background:var(--verde);color:#111;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.ps-icon{font-size:1.8rem;margin-bottom:10px;}
-.ps-title{font-size:0.9rem;font-weight:800;margin-bottom:6px;}
-.ps-desc{font-size:0.76rem;color:rgba(255,255,255,0.45);line-height:1.5;}
-
-.ecuador-section{background:linear-gradient(135deg,#f0fde4,#e8f5d4);border-radius:28px;padding:52px 40px;position:relative;overflow:hidden;}
-.ecuador-section::before{content:'🇪🇨';position:absolute;right:20px;top:20px;font-size:4rem;opacity:0.15;}
-.ecuador-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:36px;}
-.ec-item{background:white;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
-.ec-icon{font-size:1.5rem;margin-bottom:10px;}
-.ec-title{font-size:0.88rem;font-weight:800;color:#111;margin-bottom:6px;}
-.ec-desc{font-size:0.76rem;color:#666;line-height:1.5;}
-
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.testi-card{background:var(--gris);border-radius:20px;padding:24px;border:1px solid #eee;}
-.testi-stars{color:var(--verde2);font-size:0.9rem;margin-bottom:12px;}
-.testi-text{font-size:0.85rem;color:#333;line-height:1.6;margin-bottom:16px;font-style:italic;}
-.testi-author{display:flex;align-items:center;gap:10px;}
-.testi-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:800;color:white;flex-shrink:0;}
-.testi-name{font-size:0.82rem;font-weight:700;color:#111;}
-.testi-role{font-size:0.7rem;color:#aaa;}
-
-.faq-list{max-width:720px;margin:0 auto;}
-.faq-item{border-bottom:1px solid #eee;padding:20px 0;cursor:pointer;}
-.faq-q{display:flex;align-items:center;justify-content:space-between;font-size:0.95rem;font-weight:700;color:#111;gap:12px;text-align:left;}
-.faq-a{font-size:0.85rem;color:#666;line-height:1.6;margin-top:12px;display:none;text-align:left;}
-.faq-item.open .faq-a{display:block;}
-.faq-item.open .faq-arrow{transform:rotate(180deg);}
-.faq-arrow{transition:0.3s;font-size:0.8rem;color:#aaa;flex-shrink:0;}
-
-.cta-final{padding:96px 24px;text-align:center;background:var(--negro);color:white;position:relative;overflow:hidden;}
-.cta-final::before{content:'';position:absolute;top:-140px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(168,230,61,0.14) 0%,transparent 65%);pointer-events:none;}
-.cta-h{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-1.5px;max-width:640px;margin:0 auto 16px;line-height:1.15;position:relative;}
-.cta-h .hl{color:var(--verde);}
-.cta-p{font-size:1rem;color:rgba(255,255,255,0.45);max-width:480px;margin:0 auto 36px;line-height:1.7;position:relative;}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
-.cta-trust{margin-top:28px;font-size:0.74rem;color:rgba(255,255,255,0.35);position:relative;}
-
-/* Catálogo en vivo (productos reales desde la base de datos) */
-.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;}
-.live-card{background:white;border-radius:20px;overflow:hidden;border:1px solid #eee;box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:0.25s;}
-.live-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,0.08);}
-.live-img{width:100%;height:160px;background:var(--gris);display:flex;align-items:center;justify-content:center;font-size:2.4rem;position:relative;overflow:hidden;}
-.live-img img{width:100%;height:100%;object-fit:cover;}
-.live-badge{position:absolute;top:8px;left:8px;background:rgba(0,122,255,0.9);color:#fff;font-size:0.58rem;font-weight:800;padding:3px 8px;border-radius:20px;}
-.live-body{padding:14px;}
-.live-name{font-size:0.82rem;font-weight:700;color:#111;margin-bottom:6px;line-height:1.35;min-height:2.2em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.live-price{font-size:1.05rem;font-weight:900;color:var(--verde2);}
-.live-prov{font-size:0.68rem;color:#999;margin-top:2px;}
-.live-card.locked{cursor:pointer;}
-.live-card.locked .live-img img,.live-card.locked .live-img span{filter:blur(6px);opacity:0.5;}
-.live-lock-overlay{position:absolute;inset:0;background:rgba(10,10,10,0.25);display:flex;align-items:center;justify-content:center;}
-.live-lock-overlay span{width:40px;height:40px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
-.live-card.locked .live-name,.live-card.locked .live-price{filter:blur(4px);opacity:0.55;user-select:none;}
-.live-locked-cta{font-size:0.68rem;font-weight:800;color:var(--verde2);margin-top:6px;}
-.live-gate{grid-column:1/-1;background:var(--gris);border:1.5px dashed #ddd;border-radius:18px;padding:30px 20px;text-align:center;}
-.live-gate-ico{font-size:1.9rem;margin-bottom:8px;}
-.live-gate-title{font-size:0.92rem;font-weight:800;color:#111;margin-bottom:5px;}
-.live-gate-sub{font-size:0.76rem;color:#999;margin-bottom:16px;line-height:1.5;max-width:360px;margin-left:auto;margin-right:auto;}
-.live-gate-btn{background:var(--verde);color:#111;border:none;padding:13px 26px;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block;}
-.live-loading{grid-column:1/-1;text-align:center;padding:40px;color:#bbb;font-size:0.85rem;}
-
-footer{padding:32px 24px;background:var(--negro);border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
-.footer-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;}
-.footer-links{display:flex;gap:20px;justify-content:center;margin-bottom:12px;flex-wrap:wrap;}
-.footer-links a{font-size:0.76rem;color:rgba(255,255,255,0.3);text-decoration:none;}
-.footer-copy{font-size:0.74rem;color:rgba(255,255,255,0.2);}
-
-@media(max-width:600px){
-  .hero-visual{grid-template-columns:1fr;max-width:280px;margin-top:36px;}
-  .stats-bar{grid-template-columns:repeat(2,1fr);border-radius:18px;}
-  .stat-item{border-bottom:1px solid rgba(255,255,255,0.08);}
-  .stat-item:nth-child(2n){border-right:none;}
-  .proceso{padding:32px 20px;}
-  .ecuador-section{padding:32px 20px;}
-  .nav-links{display:none;}
-  .cta-btns{flex-direction:column;align-items:center;}
-  body{padding-bottom:74px;}
-}
+.tab-bar{position:fixed;bottom:0;width:100%;background:#fff;border-top:1px solid #eee;display:flex;padding:8px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:200;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:4px 0;}
+.tab svg{width:22px;height:22px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tab span{font-size:.55rem;font-weight:700;color:#ccc;text-transform:uppercase;}
+.tab.active svg{stroke:var(--G2);}
+.tab.active span{color:var(--G2);}
+.tab-rel{position:relative;}
+.tab-badge{position:absolute;top:-2px;right:6px;background:var(--R);color:#fff;font-size:.5rem;font-weight:800;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:24px;font-size:.8rem;font-weight:600;opacity:0;transition:.3s;pointer-events:none;z-index:2000;white-space:nowrap;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">
-    <svg width="26" height="26" viewBox="0 0 28 28" fill="none" role="img" aria-label="Logo de PROVEED">
-      <polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/>
-      <polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span class="nav-brand">PRO<span>VEED</span></span>
-  </div>
-  <div class="nav-links">
-    <a href="#categorias">Categorías</a>
-    <a href="#como-funciona">Cómo funciona</a>
-    <a href="#ventajas">Ventajas</a>
-    <a href="#faq">Preguntas frecuentes</a>
-  </div>
-  <a href="https://www.proveed.sbs/login" class="nav-cta">Registrarme gratis →</a>
-</nav>
-
-<section class="hero" id="que-es">
-  <div class="hero-eyebrow">🇪🇨 La plataforma B2B de proveedores mayoristas de Ecuador</div>
-  <h1 class="hero-h1">Deja de buscar proveedores<br>a ciegas. Encuéntralos<br><span class="hl">verificados en PROVEED</span></h1>
-  <p class="hero-p">Miles de productos al por mayor y cientos de proveedores verificados de todo Ecuador, organizados en un solo catálogo. Compra más barato, sin intermediarios, sin estafas y sin perder horas buscando en TikTok o grupos de WhatsApp.</p>
-  <div class="hero-btns">
-    <a href="https://www.proveed.sbs/login" class="btn-primary btn-verde">🚀 Regístrate gratis ahora</a>
-    <a href="#categorias" class="btn-secondary">Ver categorías →</a>
-  </div>
-  <p class="hero-microcopy">Sin tarjeta de crédito · Acceso inmediato al catálogo · 100% en español</p>
-
-  <div class="stats-bar">
-    <div class="stat-item"><div class="stat-num">+500</div><div class="stat-label">Proveedores verificados</div></div>
-    <div class="stat-item"><div class="stat-num">+20</div><div class="stat-label">Categorías de productos</div></div>
-    <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">Provincias con cobertura</div></div>
-    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Proveedores con RUC y cédula</div></div>
-  </div>
-
-  <div class="hero-visual">
-    <div class="vis-card">
-      <span class="vis-emoji">👗</span>
-      <div class="vis-title">Ropa y textiles</div>
-      <div class="vis-sub">Desde Guayaquil y Quito</div>
-      <div class="vis-price">desde $3.50/und</div>
-      <div class="vis-badge" style="background:rgba(255,140,0,0.1);color:#FF8C00;">Verificado ✓</div>
-    </div>
-    <div class="vis-card" style="border:2px solid var(--verde);transform:scale(1.04);">
-      <span class="vis-emoji">📱</span>
-      <div class="vis-title">Tecnología y celulares</div>
-      <div class="vis-sub">Importadores directos</div>
-      <div class="vis-price">desde $8.00/und</div>
-      <div class="vis-badge" style="background:rgba(168,230,61,0.1);color:var(--verde2);">🔥 Más buscado</div>
-    </div>
-    <div class="vis-card">
-      <span class="vis-emoji">🛒</span>
-      <div class="vis-title">Alimentos y abarrotes</div>
-      <div class="vis-sub">Distribuidores locales</div>
-      <div class="vis-price">desde $15.00/caja</div>
-      <div class="vis-badge" style="background:rgba(0,200,100,0.1);color:#00C864;">Verificado ✓</div>
+<div class="header">
+  <div class="hRow">
+    <button class="back-btn" onclick="history.back()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+    <div style="flex:1;">
+      <div class="cat-tit" id="cat-tit">Cargando...</div>
+      <div class="cat-count" id="cat-count">—</div>
     </div>
   </div>
-</section>
-
-<section class="section" id="catalogo-en-vivo">
-  <div class="section-inner">
-    <div class="section-tag">🛒 Catálogo en vivo</div>
-    <h2 class="section-h">Estos son productos reales que ya<br>están publicados en PROVEED</h2>
-    <p class="section-p">No son ejemplos: son productos de proveedores verificados tal como aparecen hoy en el catálogo. Regístrate gratis para ver todos los precios y comprar directo.</p>
-    <div class="live-grid" id="preview-grid">
-      <div class="live-loading">Cargando catálogo...</div>
-    </div>
+  <div class="search-box">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" id="search-input" placeholder="Buscar en esta categoría..." oninput="filtrarBusqueda(this.value)">
   </div>
-</section>
-
-<section class="section" style="background:var(--gris);">
-  <div class="section-inner">
-    <div class="section-tag">💡 Por qué nace PROVEED</div>
-    <h2 class="section-h">Buscar proveedores en Google<br>o redes sociales no funciona</h2>
-    <p class="section-p">Cuando buscas "proveedores al por mayor" en Google, TikTok o Facebook, te encuentras con información dispersa, sin verificar y muchas veces desactualizada. PROVEED nació para ordenar ese caos y ponerlo en un solo lugar, seguro y siempre disponible.</p>
-    <div class="grid3">
-      <div class="card-feat">
-        <div class="cf-icon" style="background:#FEE2E2;">😤</div>
-        <div class="cf-title">Antes de PROVEED</div>
-        <div class="cf-desc">Horas buscando proveedores en TikTok, Facebook y grupos de WhatsApp. Precios escondidos, cuentas falsas y ningún respaldo si algo sale mal.</div>
-        <div class="cf-tag" style="background:rgba(255,77,77,0.08);color:#FF4D4D;">Problema real</div>
-      </div>
-      <div class="card-feat">
-        <div class="cf-icon" style="background:rgba(168,230,61,0.1);">✅</div>
-        <div class="cf-title">Con PROVEED</div>
-        <div class="cf-desc">Un catálogo mayorista organizado, proveedores con RUC y cédula verificados, precios claros desde el primer clic y chat directo para negociar.</div>
-        <div class="cf-tag">Solución real</div>
-      </div>
-      <div class="card-feat">
-        <div class="cf-icon" style="background:#FFF3E0;">📈</div>
-        <div class="cf-title">El resultado</div>
-        <div class="cf-desc">Emprendedores que compran más rápido, ahorran en cada pedido y reinvierten ese tiempo y dinero en hacer crecer su propio negocio.</div>
-        <div class="cf-tag">Crecimiento real</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="categorias">
-  <div class="section-inner">
-    <div class="section-tag">🗂️ Catálogo mayorista</div>
-    <h2 class="section-h">Proveedores al por mayor<br>para cualquier tipo de negocio</h2>
-    <p class="section-p">Sin importar a qué te dediques, en PROVEED encuentras proveedores mayoristas listos para surtir tu negocio.</p>
-    <div class="cat-grid">
-      <div class="cat-item"><span class="cat-emoji">👕</span><div class="cat-name">Ropa y textiles</div><div class="cat-sub">Al por mayor</div></div>
-      <div class="cat-item"><span class="cat-emoji">👟</span><div class="cat-name">Calzado</div><div class="cat-sub">Mayoristas</div></div>
-      <div class="cat-item"><span class="cat-emoji">📱</span><div class="cat-name">Tecnología</div><div class="cat-sub">Importadores</div></div>
-      <div class="cat-item"><span class="cat-emoji">🔌</span><div class="cat-name">Electrodomésticos</div><div class="cat-sub">Distribuidores</div></div>
-      <div class="cat-item"><span class="cat-emoji">🛒</span><div class="cat-name">Alimentos y abarrotes</div><div class="cat-sub">Al por mayor</div></div>
-      <div class="cat-item"><span class="cat-emoji">💄</span><div class="cat-name">Belleza y cosméticos</div><div class="cat-sub">Mayoristas</div></div>
-      <div class="cat-item"><span class="cat-emoji">🧰</span><div class="cat-name">Ferretería</div><div class="cat-sub">y construcción</div></div>
-      <div class="cat-item"><span class="cat-emoji">🧸</span><div class="cat-name">Juguetes y bazar</div><div class="cat-sub">Mayoristas</div></div>
-      <div class="cat-item"><span class="cat-emoji">🖊️</span><div class="cat-name">Papelería</div><div class="cat-sub">y oficina</div></div>
-      <div class="cat-item"><span class="cat-emoji">🐾</span><div class="cat-name">Mascotas</div><div class="cat-sub">Alimento y accesorios</div></div>
-      <div class="cat-item"><span class="cat-emoji">🛋️</span><div class="cat-name">Hogar y decoración</div><div class="cat-sub">Mayoristas</div></div>
-      <div class="cat-item"><span class="cat-emoji">🚗</span><div class="cat-name">Repuestos</div><div class="cat-sub">Automotrices</div></div>
-      <div class="cat-item"><span class="cat-emoji">🌾</span><div class="cat-name">Agroindustria</div><div class="cat-sub">Insumos y productos</div></div>
-      <div class="cat-item"><span class="cat-emoji">💍</span><div class="cat-name">Bisutería</div><div class="cat-sub">y accesorios</div></div>
-      <div class="cat-item"><span class="cat-emoji">🪑</span><div class="cat-name">Muebles</div><div class="cat-sub">Mayoristas</div></div>
-      <div class="cat-item"><span class="cat-emoji">➕</span><div class="cat-name">Y muchas más</div><div class="cat-sub">Explora el catálogo</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="background:var(--gris);">
-  <div class="section-inner">
-    <div class="section-tag">🧭 Guía rápida</div>
-    <h2 class="section-h">Problemas comunes al comprar<br>al por mayor, y cómo los resolvemos</h2>
-    <p class="section-p">Estas son las dudas más frecuentes de emprendedores antes de encontrar PROVEED, y cómo la plataforma las resuelve.</p>
-    <div class="ps-guide">
-      <div class="ps-row">
-        <div class="ps-col ps-problema"><span class="ps-col-icon">❓</span><div><div class="ps-col-label">Problema</div><div class="ps-col-text">"No sé si el proveedor es real o me va a estafar"</div></div></div>
-        <div class="ps-arrow">→</div>
-        <div class="ps-col ps-solucion"><span class="ps-col-icon">🔒</span><div><div class="ps-col-label">Con PROVEED</div><div class="ps-col-text">Verificación obligatoria con cédula y RUC antes de publicar</div></div></div>
-      </div>
-      <div class="ps-row">
-        <div class="ps-col ps-problema"><span class="ps-col-icon">❓</span><div><div class="ps-col-label">Problema</div><div class="ps-col-text">"Los precios al por mayor nunca son claros"</div></div></div>
-        <div class="ps-arrow">→</div>
-        <div class="ps-col ps-solucion"><span class="ps-col-icon">💰</span><div><div class="ps-col-label">Con PROVEED</div><div class="ps-col-text">Precio mayorista visible desde el primer momento, sin cotizar aparte</div></div></div>
-      </div>
-      <div class="ps-row">
-        <div class="ps-col ps-problema"><span class="ps-col-icon">❓</span><div><div class="ps-col-label">Problema</div><div class="ps-col-text">"Busco proveedores horas en TikTok y WhatsApp"</div></div></div>
-        <div class="ps-arrow">→</div>
-        <div class="ps-col ps-solucion"><span class="ps-col-icon">🔍</span><div><div class="ps-col-label">Con PROVEED</div><div class="ps-col-text">Catálogo centralizado con búsqueda por foto usando IA</div></div></div>
-      </div>
-      <div class="ps-row">
-        <div class="ps-col ps-problema"><span class="ps-col-icon">❓</span><div><div class="ps-col-label">Problema</div><div class="ps-col-text">"Tengo miedo de pagar y no recibir mi pedido"</div></div></div>
-        <div class="ps-arrow">→</div>
-        <div class="ps-col ps-solucion"><span class="ps-col-icon">🛡️</span><div><div class="ps-col-label">Con PROVEED</div><div class="ps-col-text">Pago protegido y sistema de disputas si algo sale mal</div></div></div>
-      </div>
-      <div class="ps-row">
-        <div class="ps-col ps-problema"><span class="ps-col-icon">❓</span><div><div class="ps-col-label">Problema</div><div class="ps-col-text">"No sé cómo justificar mis compras al SRI"</div></div></div>
-        <div class="ps-arrow">→</div>
-        <div class="ps-col ps-solucion"><span class="ps-col-icon">🧾</span><div><div class="ps-col-label">Con PROVEED</div><div class="ps-col-text">Facturación automática en PDF con un clic</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="como-funciona">
-  <div class="section-inner">
-    <div class="section-tag">⚙️ Cómo funciona</div>
-    <h2 class="section-h">De cero a tu primer pedido<br>mayorista, en 5 pasos</h2>
-    <p class="section-p">En menos de 5 minutos puedes estar comprándole directo a un proveedor mayorista verificado.</p>
-    <div class="proceso">
-      <div class="proceso-steps">
-        <div class="ps"><div class="ps-num">1</div><div class="ps-icon">📝</div><div class="ps-title">Crea tu cuenta gratis</div><div class="ps-desc">Nombre, correo y teléfono. En 2 minutos estás adentro, sin burocracia.</div></div>
-        <div class="ps"><div class="ps-num">2</div><div class="ps-icon">🔍</div><div class="ps-title">Explora el catálogo</div><div class="ps-desc">Busca por categoría, imagen o nombre entre proveedores verificados.</div></div>
-        <div class="ps"><div class="ps-num">3</div><div class="ps-icon">💬</div><div class="ps-title">Habla con el proveedor</div><div class="ps-desc">Chat directo, precios mayoristas claros, sin rodeos.</div></div>
-        <div class="ps"><div class="ps-num">4</div><div class="ps-icon">🛒</div><div class="ps-title">Haz tu pedido</div><div class="ps-desc">Compra protegida, procesada por PROVEED.</div></div>
-        <div class="ps"><div class="ps-num">5</div><div class="ps-icon">📦</div><div class="ps-title">Recibe y vende</div><div class="ps-desc">Seguimiento en tiempo real. Recibe y empieza a vender.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="ventajas" style="background:var(--gris);">
-  <div class="section-inner">
-    <div class="section-tag">⭐ Ventajas exclusivas</div>
-    <h2 class="section-h">Por qué cientos de emprendedores<br>ya eligen PROVEED</h2>
-    <p class="section-p">No somos otra app más. Somos la infraestructura que le faltaba al comercio mayorista del Ecuador.</p>
-    <div class="grid3">
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">🔒</div><div class="cf-title">Proveedores verificados</div><div class="cf-desc">Verificación de identidad con cédula y RUC antes de publicar. Nunca más te van a estafar comprando al por mayor.</div><div class="cf-tag">Seguridad total</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">💰</div><div class="cf-title">Precios mayoristas reales</div><div class="cf-desc">Sin precios ocultos. Hasta 60% más barato que al detal en muchas categorías.</div><div class="cf-tag">Ahorro garantizado</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">🤖</div><div class="cf-title">Búsqueda con IA</div><div class="cf-desc">Saca una foto a cualquier producto y encuentra proveedores similares en todo el catálogo.</div><div class="cf-tag">Tecnología avanzada</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">📱</div><div class="cf-title">Desde el celular</div><div class="cf-desc">Sin instalar nada. Funciona desde el navegador, rápido y siempre disponible.</div><div class="cf-tag">Acceso universal</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">🧾</div><div class="cf-title">Facturación automática</div><div class="cf-desc">Genera facturas PDF con un clic para justificar tus compras.</div><div class="cf-tag">Ahorra tiempo</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">🌎</div><div class="cf-title">Las 24 provincias</div><div class="cf-desc">Red de proveedores en toda la Costa, Sierra, Oriente e Islas Galápagos.</div><div class="cf-tag">Cobertura nacional</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">⭐</div><div class="cf-title">Reseñas con evidencia</div><div class="cf-desc">Fotos reales del producto recibido, subidas por otros compradores.</div><div class="cf-tag">Transparencia real</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">🎬</div><div class="cf-title">Tips y contenido</div><div class="cf-desc">Estrategias de venta y tendencias del mercado ecuatoriano.</div><div class="cf-tag">Comunidad activa</div></div>
-      <div class="card-feat"><div class="cf-icon" style="background:rgba(168,230,61,0.1);">🆓</div><div class="cf-title">Registro 100% gratis</div><div class="cf-desc">Crear tu cuenta y explorar el catálogo no cuesta nada, nunca.</div><div class="cf-tag">Sin costo inicial</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-inner">
-    <div class="section-tag">🇪🇨 Hecho para Ecuador</div>
-    <h2 class="section-h">Pensado 100% para el<br>emprendedor ecuatoriano</h2>
-    <div class="ecuador-section">
-      <div class="ecuador-grid">
-        <div class="ec-item"><div class="ec-icon">🏙️</div><div class="ec-title">Costa, Sierra y Oriente</div><div class="ec-desc">Proveedores mayoristas en las 24 provincias: Guayaquil, Quito, Cuenca, Manta y más.</div></div>
-        <div class="ec-item"><div class="ec-icon">💵</div><div class="ec-title">Precios en dólares</div><div class="ec-desc">Todo en USD, la moneda que usamos todos en Ecuador. Sin conversiones ni sorpresas.</div></div>
-        <div class="ec-item"><div class="ec-icon">🤝</div><div class="ec-title">Chat en español</div><div class="ec-desc">Plataforma completamente en español ecuatoriano, con soporte local.</div></div>
-        <div class="ec-item"><div class="ec-icon">📦</div><div class="ec-title">Envíos nacionales</div><div class="ec-desc">Conectado con las principales transportadoras del Ecuador.</div></div>
-        <div class="ec-item"><div class="ec-icon">🧾</div><div class="ec-title">RUC y cédula</div><div class="ec-desc">Verificación con documentos ecuatorianos. Compatible con el SRI.</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="background:var(--gris);">
-  <div class="section-inner">
-    <div class="section-tag">💬 Lo que dicen nuestros usuarios</div>
-    <h2 class="section-h">Emprendedores y proveedores<br>que ya hacen crecer su negocio</h2>
-    <p class="section-p" style="margin-bottom:40px;">Cientos de proveedores publicando y miles de productos disponibles: la comunidad PROVEED sigue creciendo en todo Ecuador.</p>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div class="testi-text">"Ya no más buscando proveedores en TikTok y esperando que estafadores respondan. Esto es lo que el Ecuador necesitaba hace años."</div>
-        <div class="testi-author"><div class="testi-avatar" style="background:var(--verde2);">M</div><div><div class="testi-name">María José T.</div><div class="testi-role">Emprendedora · Guayaquil</div></div></div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div class="testi-text">"Como proveedor mayorista, esto me permite llegar a cientos de revendedores sin pagar publicidad. Mi catálogo está siempre visible."</div>
-        <div class="testi-author"><div class="testi-avatar" style="background:var(--naranja);">C</div><div><div class="testi-name">Carlos R.</div><div class="testi-role">Importador textil · Quito</div></div></div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div class="testi-text">"Llevo 3 años revendiendo y siempre fue un dolor encontrar buenos proveedores al por mayor. PROVEED lo cambió todo."</div>
-        <div class="testi-author"><div class="testi-avatar" style="background:#007AFF;">A</div><div><div class="testi-name">Adriana M.</div><div class="testi-role">Revendedora · Cuenca</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="faq">
-  <div class="section-inner" style="text-align:center;">
-    <div class="section-tag" style="margin:0 auto 16px;">❓ Preguntas frecuentes</div>
-    <h2 class="section-h">Todo lo que necesitas saber<br>antes de registrarte</h2>
-    <p class="section-p" style="margin:0 auto 48px;">Resolvemos las dudas más comunes de emprendedores y proveedores en Ecuador.</p>
-    <div class="faq-list">
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Cómo encuentro proveedores mayoristas confiables en Ecuador? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">En PROVEED todos los proveedores pasan por un proceso de verificación con cédula, RUC y fotos reales de sus productos antes de poder publicar en el catálogo. Así evitas perder tiempo o dinero con vendedores que solo encuentras en redes sociales sin ninguna garantía.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿PROVEED es gratis o tiene algún costo de registro? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Registrarte, explorar el catálogo y contactar proveedores es completamente gratis, sin tarjeta de crédito ni pagos ocultos. Puedes empezar a comprar o vender al por mayor desde el primer día.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Qué categorías de productos al por mayor puedo encontrar? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Ropa y textiles, calzado, tecnología y electrónica, electrodomésticos, alimentos y abarrotes, belleza y cosméticos, ferretería, juguetes y bazar, papelería, mascotas, hogar y decoración, repuestos automotrices, agroindustria y muchas categorías más.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Cómo verifican a los proveedores mayoristas? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Cada proveedor presenta cédula, RUC activo y fotos reales de sus productos, y el equipo de PROVEED revisa manualmente cada cuenta antes de activarla. Además, las compras generan reseñas con evidencia fotográfica de otros emprendedores.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿En qué ciudades de Ecuador hay proveedores disponibles? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">PROVEED tiene proveedores mayoristas en las 24 provincias del Ecuador, con fuerte presencia en Guayaquil, Quito, Cuenca, Manta, Ambato y Machala, y cobertura de envíos a nivel nacional.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Puedo vender mis productos al por mayor como proveedor? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Sí. Con la misma cuenta puedes activar un perfil de proveedor, publicar tu catálogo mayorista y llegar a cientos de emprendedores que buscan comprar, sin pagar publicidad adicional.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Qué pasa si un proveedor no entrega o el producto llega diferente? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">PROVEED procesa los pagos con un sistema de protección al comprador. Si el proveedor no cumple lo pactado, puedes abrir una disputa y el equipo de soporte interviene para resolverla.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Por qué es tan difícil encontrar proveedores buscando en Google o redes sociales? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Porque la información está dispersa entre publicaciones de TikTok, grupos de Facebook y WhatsApp sin verificar, con precios ocultos y sin forma de comprobar si el proveedor es real. PROVEED centraliza todo ese catálogo en un solo lugar, verificado.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Necesito instalar una aplicación para usar PROVEED? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">No. PROVEED funciona directamente desde el navegador de tu celular o computadora, sin descargas ni instalaciones. Solo guarda el enlace en tu pantalla de inicio para acceder rápido.</div>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <div class="faq-q">¿Los precios que veo ya son precios al por mayor? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a">Sí, los precios mostrados en PROVEED son precios mayoristas reales publicados por cada proveedor, sin necesidad de negociar un descuento oculto ni pedir cotización aparte.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="cta-final">
-  <div class="section-tag" style="margin:0 auto 20px;background:rgba(168,230,61,0.1);border-color:rgba(168,230,61,0.2);">🚀 Únete a la comunidad PROVEED</div>
-  <h2 class="cta-h">Tu próximo proveedor<br><span class="hl">mayorista te está esperando</span></h2>
-  <p class="cta-p">Cientos de proveedores y miles de productos al por mayor ya están disponibles en Ecuador. Regístrate gratis y haz tu primer pedido hoy mismo.</p>
-  <div class="cta-btns">
-    <a href="https://www.proveed.sbs/login" class="btn-primary" style="background:var(--verde);color:#111;padding:16px 32px;font-size:1rem;">🎯 Quiero mi acceso gratis</a>
-    <a href="https://www.proveed.sbs/login" class="btn-primary" style="background:rgba(255,255,255,0.08);padding:16px 32px;font-size:1rem;border:1px solid rgba(255,255,255,0.1);">Ver el registro →</a>
-  </div>
-  <div class="cta-trust">🔒 Registro gratis · Proveedores verificados · Compra protegida</div>
-</section>
-
-<footer>
-  <div class="footer-logo">
-    <svg width="22" height="22" viewBox="0 0 28 28" fill="none" role="img" aria-label="Logo de PROVEED">
-      <polygon points="14,1.5 25,7.5 25,20.5 14,26.5 3,20.5 3,7.5" fill="#A8E63D"/>
-      <polyline points="8,14 12,18 20,10" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span style="font-size:1rem;font-weight:900;color:white;">PRO<span style="color:var(--verde);">VEED</span></span>
-  </div>
-  <div class="footer-links">
-    <a href="#">Términos y condiciones</a>
-    <a href="#">Política de privacidad</a>
-    <a href="#">Contacto</a>
-    <a href="https://www.proveed.sbs/login">Registro</a>
-  </div>
-  <div class="footer-copy">© 2026 PROVEED · El marketplace B2B del Ecuador · Todos los derechos reservados</div>
-</footer>
-
-<div class="floating-cta">
-  <div class="floating-cta-text">Regístrate gratis<span>Proveedores verificados en Ecuador</span></div>
-  <a href="https://www.proveed.sbs/login">Empezar →</a>
 </div>
 
-<script>
-function toggleFaq(el){ el.classList.toggle('open'); }
-</script>
+<div class="subcats-scroll" id="subcats-wrap" style="background:#fff;padding:10px 14px;border-bottom:1px solid #eee;"></div>
 
-<!-- Catálogo en vivo: trae productos reales de la base de datos y bloquea la mayoría hasta registrarse -->
+<div class="filtros-row">
+  <div class="filtro-chip" id="f-precio" onclick="toggleFiltro('precio',this)">💲 Precio</div>
+  <div class="filtro-chip" id="f-nuevo" onclick="toggleFiltro('nuevo',this)">✨ Más recientes</div>
+  <div class="filtro-chip" id="f-vendidos" onclick="toggleFiltro('vendidos',this)">🔥 Más vendidos</div>
+</div>
+
+<div class="content">
+  <div class="prods-grid" id="prods-grid">
+    <div style="grid-column:1/-1;text-align:center;padding:40px;color:#bbb;font-size:0.82rem;">Cargando productos...</div>
+  </div>
+  <button class="load-more" id="btn-mas" onclick="cargarMas()" style="display:none;">Ver más productos</button>
+</div>
+
+<nav class="tab-bar">
+  <a class="tab" href="dashboard.html"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+  <a class="tab active"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Explorar</span></a>
+  <a class="tab" href="chat.html"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Chat</span></a>
+  <a class="tab tab-rel" href="carrito.html"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span>Carrito</span><div class="tab-badge" id="carrito-badge" style="display:none;">0</div></a>
+  <a class="tab" href="perfil-emprendedor.html"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Perfil</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-(function(){
-  const {createClient}=supabase;
-  const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
-  const URL_REGISTRO='https://www.proveed.sbs/login';
-  const FREE_LIMIT=2;      // cuántos precios reales se muestran sin registrarse
-  const MAX_MOSTRADOS=8;   // cuántos productos se traen en total para la vista previa
+const {createClient}=supabase;
+const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
+const QS=new URLSearchParams(location.search);
 
-  const emojiCat=c=>{
-    const m={'Ropa':'👗','Textil':'👗','Tecnolog':'📱','Alimento':'🛒','Belleza':'💄','Deporte':'⚽','Hogar':'🛋️','Joya':'💍','Ferret':'🧰','Juguet':'🧸','Papeler':'🖊️','Mascota':'🐾','Repuest':'🚗','Calzado':'👟','Mueble':'🪑'};
-    for(const k in m){ if((c||'').toLowerCase().includes(k.toLowerCase())) return m[k]; }
-    return '📦';
-  };
+const catNombre=decodeURIComponent(QS.get('cat')||'');
+const subcatInicial=decodeURIComponent(QS.get('subcat')||'');
 
-  function crearCardDesbloqueada(p){
-    const img=(p.imagenes&&p.imagenes[0])||p.imagen||'';
-    const d=document.createElement('div');
-    d.className='live-card';
-    d.innerHTML=`
-      <div class="live-img">
-        ${img?`<img src="${img}" loading="lazy" alt="${(p.nombre||'Producto mayorista').replace(/"/g,'')}">`:`<span>${emojiCat(p.categoria)}</span>`}
-        ${p.verificado?'<div class="live-badge">✓ Verificado</div>':''}
-      </div>
-      <div class="live-body">
-        <div class="live-name">${p.nombre||'Producto mayorista'}</div>
-        <div class="live-price">$${Number(p.precio||0).toFixed(2)}</div>
-        <div class="live-prov">${p.nombre_proveedor||'Proveedor verificado'}</div>
-      </div>`;
-    return d;
+let todosProductos=[],filtrados=[],subcatActiva='Todas',mostrarHasta=12,filtroActivo=null;
+
+const colorCat=c=>{const m={'Ropa':'#FF8C00','Tecnolog':'#007AFF','Alimento':'#22C55E','Belleza':'#FF69B4','Deporte':'#A855F7','Hogar':'#F59E0B'};for(const k in m){if((c||'').includes(k))return m[k];}return '#888';};
+const emojiCat=c=>{const m={'Ropa':'👗','Tecnolog':'📱','Alimento':'🛒','Belleza':'💄','Deporte':'⚽','Hogar':'🏠','Joya':'💍'};for(const k in m){if((c||'').includes(k))return m[k];}return '📦';};
+
+// Badge carrito
+const carrito=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+const cnt=carrito.reduce((s,i)=>s+(i.cantidad||1),0);
+if(cnt>0){const b=document.getElementById('carrito-badge');b.style.display='flex';b.textContent=cnt>9?'9+':cnt;}
+
+(async()=>{
+  if(!catNombre){
+    document.getElementById('cat-tit').textContent='Categoría no especificada';
+    return;
+  }
+  document.getElementById('cat-tit').textContent=catNombre;
+
+  // Traer TODOS los productos activos de esta categoría
+  const {data,error}=await sb.from('productos').select('*').eq('activo',true).eq('categoria',catNombre).order('created_at',{ascending:false});
+
+  if(error){
+    document.getElementById('prods-grid').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px;color:#bbb;">Error: ${error.message}</div>`;
+    return;
   }
 
-  function crearCardBloqueada(p){
-    const img=(p.imagenes&&p.imagenes[0])||p.imagen||'';
-    const d=document.createElement('div');
-    d.className='live-card locked';
-    d.onclick=()=>{ location.href=URL_REGISTRO; };
-    d.innerHTML=`
-      <div class="live-img">
-        ${img?`<img src="${img}" loading="lazy" alt="Producto bloqueado">`:`<span>${emojiCat(p.categoria)}</span>`}
-        <div class="live-lock-overlay"><span>🔒</span></div>
-      </div>
-      <div class="live-body">
-        <div class="live-name">${p.nombre||'Producto mayorista'}</div>
-        <div class="live-price">$••.••</div>
-        <div class="live-locked-cta">Regístrate para ver el precio</div>
-      </div>`;
-    return d;
-  }
+  todosProductos=data||[];
+  document.getElementById('cat-count').textContent=`${todosProductos.length} producto${todosProductos.length!==1?'s':''} disponible${todosProductos.length!==1?'s':''}`;
 
-  async function cargarCatalogoEnVivo(){
-    const grid=document.getElementById('preview-grid');
-    if(!grid) return;
-    try{
-      const {data,error}=await sb.from('productos').select('*').eq('activo',true).order('created_at',{ascending:false}).limit(MAX_MOSTRADOS);
-      if(error||!data||!data.length){
-        document.getElementById('catalogo-en-vivo').style.display='none';
-        return;
-      }
-      grid.innerHTML='';
-      data.forEach((p,i)=>{
-        grid.appendChild(i<FREE_LIMIT?crearCardDesbloqueada(p):crearCardBloqueada(p));
-      });
-      const restantes=data.length-FREE_LIMIT;
-      if(restantes>0){
-        const gate=document.createElement('div');
-        gate.className='live-gate';
-        gate.innerHTML=`
-          <div class="live-gate-ico">🔒</div>
-          <div class="live-gate-title">Hay muchos más productos esperándote</div>
-          <div class="live-gate-sub">Regístrate gratis para ver todos los precios, hablar con los proveedores y hacer tu primer pedido al por mayor.</div>
-          <a class="live-gate-btn" href="${URL_REGISTRO}">Registrarme gratis</a>`;
-        grid.appendChild(gate);
-      }
-    }catch(e){
-      document.getElementById('catalogo-en-vivo').style.display='none';
-    }
+  renderSubcats();
+  if(subcatInicial){
+    seleccionarSubcat(subcatInicial);
+  } else {
+    aplicarFiltros();
   }
-
-  cargarCatalogoEnVivo();
 })();
+
+function renderSubcats(){
+  const subSet=new Set();
+  todosProductos.forEach(p=>{if(p.subcategoria&&p.subcategoria.trim())subSet.add(p.subcategoria.trim());});
+  const subs=['Todas',...Array.from(subSet).sort()];
+  const w=document.getElementById('subcats-wrap');
+  w.innerHTML='';
+  subs.forEach(s=>{
+    const chip=document.createElement('div');
+    chip.className='subcat-chip'+(s===subcatActiva?' active':'');
+    chip.dataset.sub=s;
+    chip.textContent=s;
+    chip.onclick=()=>seleccionarSubcat(s);
+    w.appendChild(chip);
+  });
+}
+
+function seleccionarSubcat(sub){
+  subcatActiva=sub;
+  document.querySelectorAll('.subcat-chip').forEach(c=>c.classList.toggle('active',c.dataset.sub===sub));
+  mostrarHasta=12;
+  aplicarFiltros();
+}
+
+window.toggleFiltro=function(tipo,el){
+  if(filtroActivo===tipo){
+    filtroActivo=null;
+    el.classList.remove('active');
+  } else {
+    document.querySelectorAll('.filtro-chip').forEach(c=>c.classList.remove('active'));
+    filtroActivo=tipo;
+    el.classList.add('active');
+  }
+  mostrarHasta=12;
+  aplicarFiltros();
+};
+
+function aplicarFiltros(){
+  let lista=subcatActiva==='Todas'?[...todosProductos]:todosProductos.filter(p=>(p.subcategoria||'').trim()===subcatActiva);
+
+  if(filtroActivo==='precio'){
+    lista.sort((a,b)=>(a.precio||0)-(b.precio||0));
+  } else if(filtroActivo==='nuevo'){
+    lista.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+  } else if(filtroActivo==='vendidos'){
+    lista.sort((a,b)=>(b.vendidos||0)-(a.vendidos||0));
+  }
+
+  filtrados=lista;
+  renderGrid();
+}
+
+window.filtrarBusqueda=function(q){
+  if(!q.trim()){aplicarFiltros();return;}
+  const ql=q.toLowerCase();
+  filtrados=todosProductos.filter(p=>(p.nombre||'').toLowerCase().includes(ql)||(p.subcategoria||'').toLowerCase().includes(ql)||(p.nombre_proveedor||'').toLowerCase().includes(ql));
+  mostrarHasta=12;
+  renderGrid();
+};
+
+function renderGrid(){
+  const grid=document.getElementById('prods-grid');
+  const btnMas=document.getElementById('btn-mas');
+
+  if(!filtrados.length){
+    grid.innerHTML=`<div class="empty-cat" style="grid-column:1/-1;"><p>Sin productos en esta categoría</p></div>`;
+    btnMas.style.display='none';
+    return;
+  }
+
+  const visibles=filtrados.slice(0,mostrarHasta);
+  grid.innerHTML='';
+  const color=colorCat(catNombre);
+
+  visibles.forEach(p=>{
+    const img=p.imagenes?.[0]||p.imagen||'';
+    const d=document.createElement('div');
+    d.className='prod-card';
+    d.onclick=()=>irProducto(p.id);
+    d.innerHTML=`
+      <div class="prod-img" style="background:${color}10;">
+        ${img?`<img src="${img}" loading="lazy">`:`<div class="prod-img-ico">${emojiCat(p.subcategoria||catNombre)}</div>`}
+        <div class="prod-badge" style="background:${color};">${(p.subcategoria||p.categoria||'General').slice(0,10).toUpperCase()}</div>
+        ${p.verificado?`<div class="prod-verif">✓ Verif.</div>`:''}
+      </div>
+      <div class="prod-body">
+        <div class="prod-nombre">${p.nombre||'Producto'}</div>
+        <div class="prod-precio-row"><span class="prod-precio">$${Number(p.precio||0).toFixed(2)}</span></div>
+        <div class="prod-min">Pedido mín: ${p.minimo||1} ${p.unidad||'unidad'}</div>
+        <div class="prod-prov-row"><span class="prod-prov">${p.nombre_proveedor||'Proveedor'}</span></div>
+        <div class="prod-footer">
+          <span class="prod-vendidos">${p.vendidos?p.vendidos+' vendidos':'Nuevo'}</span>
+          <button class="prod-add" onclick="addCarrito(event,'${p.id}','${(p.nombre||'').replace(/'/g,'')}',${p.precio||0},'${img}','${p.proveedor_id||''}')">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>`;
+    grid.appendChild(d);
+  });
+
+  btnMas.style.display=mostrarHasta<filtrados.length?'block':'none';
+}
+
+window.cargarMas=function(){
+  mostrarHasta+=12;
+  renderGrid();
+};
+
+// Solo aquí, al tocar un producto específico, se abre producto.html
+function irProducto(id){
+  location.href=`producto.html?id=${id}`;
+}
+
+window.addCarrito=function(e,id,nombre,precio,imagen,provId){
+  e.stopPropagation();
+  const c=JSON.parse(localStorage.getItem('carrito_proveed')||'[]');
+  const idx=c.findIndex(i=>i.id===id);
+  if(idx>=0)c[idx].cantidad=(c[idx].cantidad||1)+1;
+  else c.push({id,nombre,precio,imagen,cantidad:1,proveedor_id:provId});
+  localStorage.setItem('carrito_proveed',JSON.stringify(c));
+  const n=c.reduce((s,i)=>s+(i.cantidad||1),0);
+  const b=document.getElementById('carrito-badge');
+  b.style.display='flex';b.textContent=n>9?'9+':n;
+  showToast('✓ Agregado al carrito');
+};
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
 </script>
 </body>
 </html>
