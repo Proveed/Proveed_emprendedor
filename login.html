@@ -3,124 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PROVEED — Acceso Emprendedor</title>
+<title>SURTIFY — Acceso Emprendedor</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#A8E63D">
+<meta name="theme-color" content="#93EC21">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--G:#A8E63D;--G2:#7BC234;--O:#FF8C00;--R:#FF4D4D;--B:#007AFF;--N:#0A0A0A;--F:#F5F6F2;}
+:root{
+  --G:#93EC21;--G2:#7BC234;--O:#FF8C00;--R:#FF4D4D;--B:#007AFF;
+  --N:#0E0E0E;--S:#1C1C1C;--B2:#2A2A2A;--T:#F0F0EC;--T2:#999;
+}
 body{background:var(--N);font-family:'Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(147,236,33,.07) 0%,transparent 65%);}
 
 /* TOP */
-.top-bar{background:var(--N);padding:52px 20px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1a1a1a;}
-.top-logo{width:40px;height:40px;background:var(--G);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.top-logo svg{width:20px;height:20px;}
-.top-text{}
-.top-brand{font-size:1.1rem;font-weight:900;color:white;letter-spacing:-.3px;}
+.top-bar{background:var(--N);padding:52px 20px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #222;}
+.top-logo{width:42px;height:42px;flex-shrink:0;}
+.top-brand{font-size:1.15rem;font-weight:900;color:var(--T);letter-spacing:-.5px;}
 .top-brand span{color:var(--G);}
-.top-sub{font-size:0.6rem;color:#444;text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;}
+.top-sub{font-size:0.6rem;color:#555;text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;}
 
 /* TABS */
-.tabs{display:flex;background:#111;border-bottom:1px solid #1e1e1e;}
-.tab-btn{flex:1;padding:14px;border:none;background:transparent;font-family:'Inter',sans-serif;font-size:0.86rem;font-weight:700;color:#444;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;}
+.tabs{display:flex;background:var(--S);border-bottom:1px solid #222;}
+.tab-btn{flex:1;padding:14px;border:none;background:transparent;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;color:#555;cursor:pointer;border-bottom:2px solid transparent;transition:.15s;}
 .tab-btn.active{color:var(--G);border-bottom-color:var(--G);}
 
 /* FORM */
-.form-wrap{padding:20px 16px 40px;max-width:480px;margin:0 auto;}
+.form-wrap{padding:22px 18px 50px;max-width:480px;margin:0 auto;}
 
-/* ERROR / INFO */
-.msg-box{display:none;border-radius:12px;padding:11px 14px;font-size:0.82rem;margin-bottom:16px;line-height:1.5;}
-.msg-box.error{background:rgba(255,77,77,.08);border:1px solid rgba(255,77,77,.25);color:var(--R);}
-.msg-box.warn{background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.2);color:var(--O);}
+/* MENSAJE ERROR */
+.msg-box{display:none;border-radius:12px;padding:12px 15px;font-size:0.84rem;margin-bottom:16px;line-height:1.5;font-weight:500;}
+.msg-box.error{background:rgba(255,77,77,.1);border:1.5px solid rgba(255,77,77,.3);color:#FF7070;}
 .msg-box.visible{display:block;}
 
 /* BLOQUEO DISPOSITIVOS */
-.block-screen{display:none;flex-direction:column;align-items:center;text-align:center;padding:40px 20px;}
+.block-screen{display:none;flex-direction:column;align-items:center;text-align:center;padding:30px 10px;}
 .block-ico{width:72px;height:72px;background:rgba(255,77,77,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:2rem;}
-.block-tit{font-size:1.1rem;font-weight:900;color:white;margin-bottom:8px;}
-.block-sub{font-size:0.82rem;color:#555;line-height:1.6;margin-bottom:20px;max-width:30ch;}
-.block-devs{width:100%;background:#111;border:1px solid #1e1e1e;border-radius:14px;margin-bottom:16px;overflow:hidden;}
-.block-dev{padding:12px 14px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:10px;}
+.block-tit{font-size:1.1rem;font-weight:900;color:var(--T);margin-bottom:8px;}
+.block-sub{font-size:0.82rem;color:#666;line-height:1.6;margin-bottom:20px;max-width:30ch;}
+.block-devs{width:100%;background:var(--S);border:1px solid #222;border-radius:14px;margin-bottom:16px;overflow:hidden;}
+.block-dev{padding:12px 14px;border-bottom:1px solid #222;display:flex;align-items:center;gap:10px;}
 .block-dev:last-child{border:none;}
-.block-dev-ico{width:36px;height:36px;border-radius:10px;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.block-dev-ico{width:36px;height:36px;border-radius:10px;background:var(--B2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
 .block-dev-info{flex:1;text-align:left;}
-.block-dev-nom{font-size:0.8rem;font-weight:700;color:white;}
-.block-dev-sub{font-size:0.66rem;color:#444;margin-top:2px;}
-.block-dev-this{font-size:0.6rem;font-weight:800;color:var(--G);margin-top:2px;}
-.btn-remove-dev{padding:5px 10px;background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.2);border-radius:8px;font-family:'Inter',sans-serif;font-size:0.64rem;font-weight:700;color:var(--R);cursor:pointer;}
+.block-dev-nom{font-size:0.82rem;font-weight:700;color:var(--T);}
+.block-dev-sub{font-size:0.67rem;color:#555;margin-top:2px;}
+.block-dev-this{font-size:0.62rem;font-weight:800;color:var(--G);margin-top:2px;}
+.btn-remove-dev{padding:6px 11px;background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.25);border-radius:8px;font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;color:var(--R);cursor:pointer;}
 
-.field{margin-bottom:14px;}
-.field label{display:block;font-size:0.68rem;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
-.field input,.field select{width:100%;padding:13px 15px;background:#111;border:1.5px solid #1e1e1e;border-radius:13px;font-family:'Inter',sans-serif;font-size:0.9rem;color:white;outline:none;-webkit-appearance:none;transition:border-color .2s;}
-.field input:focus,.field select:focus{border-color:var(--G);}
-.field input::placeholder{color:#333;}
-.field select option{background:#111;}
+/* CAMPOS */
+.field{margin-bottom:15px;}
+.field label{display:block;font-size:0.7rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px;}
+.field input{
+  width:100%;padding:14px 16px;
+  background:var(--S);
+  border:1.5px solid #2E2E2E;
+  border-radius:13px;
+  font-family:'Inter',sans-serif;font-size:0.95rem;
+  color:var(--T);
+  outline:none;-webkit-appearance:none;
+  transition:border-color .2s, background .2s;
+}
+.field input:focus{border-color:var(--G);background:#202020;}
+.field input::placeholder{color:#444;}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.sec-div{font-size:0.68rem;font-weight:700;color:#333;text-transform:uppercase;letter-spacing:1px;padding:14px 0 8px;display:flex;align-items:center;gap:8px;}
-.sec-div::after{content:'';flex:1;height:1px;background:#1a1a1a;}
+
+.sec-div{font-size:0.68rem;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1px;padding:16px 0 10px;display:flex;align-items:center;gap:8px;}
+.sec-div::after{content:'';flex:1;height:1px;background:#222;}
+
+/* SECTOR CHIPS */
+.sector-intro{font-size:0.78rem;color:#666;margin-bottom:12px;line-height:1.5;}
+.sectores-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.sector-chip{background:var(--S);border:1.5px solid #2A2A2A;border-radius:13px;padding:11px 8px;text-align:center;cursor:pointer;transition:.15s;}
+.sector-chip:active{transform:scale(.97);}
+.sector-chip.selected{border-color:var(--G);background:rgba(147,236,33,.07);}
+.sector-chip-emoji{font-size:1.4rem;margin-bottom:4px;}
+.sector-chip-nom{font-size:0.62rem;font-weight:700;color:#888;line-height:1.3;}
+.sector-chip.selected .sector-chip-nom{color:var(--G);}
+.sector-sel-label{background:rgba(147,236,33,.08);border:1.5px solid rgba(147,236,33,.2);border-radius:11px;padding:9px 13px;font-size:0.76rem;color:var(--G);font-weight:700;margin-bottom:10px;display:none;}
 
 /* FOTOS */
-.foto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.foto-slot{border:2px dashed #222;border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;position:relative;overflow:hidden;background:#111;transition:.2s;}
+.foto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0;}
+.foto-slot{border:2px dashed #2A2A2A;border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;position:relative;overflow:hidden;background:var(--S);transition:.2s;}
 .foto-slot.filled{border-color:var(--G);border-style:solid;}
 .foto-slot img{width:100%;height:100px;object-fit:cover;border-radius:10px;display:none;}
 .foto-slot.filled img{display:block;}
 .foto-ph{display:flex;flex-direction:column;align-items:center;gap:6px;}
 .foto-slot.filled .foto-ph{display:none;}
-.foto-ph svg{width:26px;height:26px;stroke:#333;fill:none;stroke-width:1.5;}
-.foto-ph span{font-size:0.7rem;color:#444;font-weight:600;line-height:1.4;}
+.foto-ph svg{width:26px;height:26px;stroke:#3A3A3A;fill:none;stroke-width:1.5;}
+.foto-ph span{font-size:0.7rem;color:#555;font-weight:600;line-height:1.4;}
 .foto-inp{position:absolute;inset:0;opacity:0;cursor:pointer;}
 .foto-check{position:absolute;top:7px;right:7px;width:20px;height:20px;background:var(--G);border-radius:50%;display:none;align-items:center;justify-content:center;}
 .foto-slot.filled .foto-check{display:flex;}
 .foto-check svg{width:10px;height:10px;stroke:#111;fill:none;stroke-width:3;}
-.selfie-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:14px;}
-.selfie-circle{width:90px;height:90px;border-radius:50%;border:2.5px dashed #222;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;background:#111;transition:.2s;}
+
+.selfie-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:0;}
+.selfie-circle{width:90px;height:90px;border-radius:50%;border:2.5px dashed #2A2A2A;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;background:var(--S);transition:.2s;}
 .selfie-circle.filled{border-color:var(--G);border-style:solid;}
 .selfie-circle img{width:100%;height:100%;object-fit:cover;display:none;}
 .selfie-circle.filled img{display:block;}
 .selfie-ph{display:flex;flex-direction:column;align-items:center;gap:3px;}
 .selfie-circle.filled .selfie-ph{display:none;}
-.selfie-ph svg{width:26px;height:26px;stroke:#333;fill:none;stroke-width:1.5;}
-.selfie-ph span{font-size:0.62rem;color:#444;font-weight:600;}
+.selfie-ph svg{width:26px;height:26px;stroke:#3A3A3A;fill:none;stroke-width:1.5;}
+.selfie-ph span{font-size:0.62rem;color:#555;font-weight:600;}
 .selfie-inp{position:absolute;inset:0;opacity:0;cursor:pointer;}
-.selfie-lbl{font-size:0.72rem;color:#444;text-align:center;line-height:1.4;}
+.selfie-lbl{font-size:0.74rem;color:#666;text-align:center;line-height:1.5;}
 
-.btn-main{width:100%;padding:15px;border:none;border-radius:14px;background:var(--G);color:var(--N);font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;margin-top:8px;transition:.15s;}
-.btn-main:disabled{opacity:.5;cursor:not-allowed;}
-.btn-main.dark{background:#1a1a1a;color:#666;}
+/* CARD para agrupar campos */
+.field-card{background:var(--S);border:1px solid #222;border-radius:18px;padding:16px;margin-bottom:12px;}
 
-.switch-portal{text-align:center;margin-top:20px;font-size:0.78rem;color:#444;padding-bottom:20px;}
+/* NOTA CÁMARA */
+.camara-nota{background:rgba(147,236,33,.06);border:1.5px solid rgba(147,236,33,.15);border-radius:11px;padding:10px 13px;font-size:0.74rem;color:var(--G);font-weight:600;margin-bottom:12px;line-height:1.5;}
+
+/* BOTONES */
+.btn-main{width:100%;padding:15px;border:none;border-radius:14px;background:var(--G);color:#111;font-family:'Inter',sans-serif;font-size:0.96rem;font-weight:800;cursor:pointer;margin-top:8px;transition:.15s;letter-spacing:.2px;}
+.btn-main:active{transform:scale(.98);background:var(--G2);}
+.btn-main:disabled{opacity:.45;cursor:not-allowed;}
+.btn-main.dark{background:var(--S);color:#666;border:1px solid #333;}
+
+.switch-portal{text-align:center;margin-top:18px;font-size:0.8rem;color:#555;padding-bottom:20px;}
 .switch-portal a{color:var(--O);font-weight:700;text-decoration:none;}
+.switch-link{text-align:center;margin-top:14px;font-size:0.8rem;color:#555;}
+.switch-link a{color:var(--G);font-weight:700;text-decoration:none;}
+
+/* FORGOT */
+.forgot-link{text-align:center;margin-top:12px;}
+.forgot-link span{font-size:0.78rem;color:#555;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
 
 /* UPLOAD OVERLAY */
-.upload-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:1000;}
+.upload-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(6px);}
 .upload-overlay.show{display:flex;}
-.upload-box{background:#111;border:1px solid #222;border-radius:20px;padding:28px 24px;width:82%;max-width:300px;text-align:center;}
-.upload-box h3{font-size:0.96rem;font-weight:800;color:white;margin-bottom:6px;}
-.upload-box p{font-size:0.78rem;color:#444;margin-bottom:16px;}
-.upload-track{height:6px;background:#1e1e1e;border-radius:6px;overflow:hidden;}
+.upload-box{background:var(--S);border:1px solid #333;border-radius:22px;padding:30px 26px;width:82%;max-width:300px;text-align:center;}
+.upload-box h3{font-size:0.96rem;font-weight:800;color:var(--T);margin-bottom:6px;}
+.upload-box p{font-size:0.78rem;color:#555;margin-bottom:18px;}
+.upload-track{height:6px;background:#222;border-radius:6px;overflow:hidden;}
 .upload-bar{height:100%;background:var(--G);border-radius:6px;width:0%;transition:width .3s;}
 .upload-pct{font-size:1.2rem;font-weight:900;color:var(--G);margin-top:10px;}
-
-/* BADGE DISPOSITIVOS */
-.dev-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(168,230,61,.08);border:1px solid rgba(168,230,61,.15);border-radius:20px;padding:4px 10px;font-size:0.64rem;font-weight:700;color:var(--G);margin-bottom:16px;}
 </style>
 </head>
 <body>
 
+<!-- TOP BAR -->
 <div class="top-bar">
   <div class="top-logo">
-    <svg viewBox="0 0 100 100"><polygon points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5" fill="#111"/><path d="M30 52 L44 66 L72 36" stroke="#A8E63D" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg viewBox="0 0 726 896" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#93EC21" d="M363 0 L726 143 L726 754 L363 896 L0 754 L0 143 Z"/>
+      <path fill="#FFFFFF" d="M379 149 L455 219 L350 322 L517 598 L347 747 L271 677 L376 574 L209 298 Z"/>
+    </svg>
   </div>
-  <div class="top-text">
-    <div class="top-brand">PRO<span>VEED</span></div>
+  <div>
+    <div class="top-brand">SURT<span>IFY</span></div>
     <div class="top-sub">Portal Emprendedor</div>
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs">
   <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
   <button class="tab-btn" id="tab-reg" onclick="switchTab('reg')">Crear cuenta</button>
@@ -129,69 +168,122 @@ body{background:var(--N);font-family:'Inter',sans-serif;min-height:100vh;-webkit
 <div class="form-wrap">
   <div id="msg-error" class="msg-box error"></div>
 
-  <!-- PANTALLA BLOQUEO DISPOSITIVOS -->
+  <!-- BLOQUEO DISPOSITIVOS -->
   <div id="block-screen" class="block-screen">
     <div class="block-ico">🔒</div>
     <div class="block-tit">Límite de dispositivos alcanzado</div>
     <div class="block-sub">Tu cuenta ya está activa en 3 dispositivos. Elimina uno para continuar en este.</div>
     <div class="block-devs" id="block-devs-list"></div>
-    <button class="btn-main dark" onclick="cancelarBloqueo()">Cancelar</button>
+    <button class="btn-main dark" onclick="cancelarBloqueo()">← Volver</button>
   </div>
 
   <!-- LOGIN -->
   <div id="form-login">
-    <div class="field"><label>Correo electrónico</label><input type="email" id="l-email" placeholder="tucorreo@ejemplo.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
-    <div class="field"><label>Contraseña</label><input type="password" id="l-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="field-card">
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" id="l-email" placeholder="tucorreo@ejemplo.com" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label>Contraseña</label>
+        <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+    </div>
     <button class="btn-main" id="btn-login" onclick="doLogin()">ENTRAR →</button>
+    <div class="forgot-link"><span onclick="doForgot()">¿Olvidaste tu contraseña?</span></div>
+    <div class="switch-link" style="margin-top:14px;">¿No tienes cuenta? <a href="#" onclick="switchTab('reg');return false;">Crear cuenta gratis →</a></div>
     <div class="switch-portal">¿Eres proveedor? <a href="https://proveed-proveedor.vercel.app">Entra aquí →</a></div>
   </div>
 
   <!-- REGISTRO -->
   <div id="form-reg" style="display:none;">
+
     <div class="sec-div">Datos personales</div>
-    <div class="field"><label>Nombre completo *</label><input type="text" id="r-nombre" placeholder="Juan Torres"></div>
-    <div class="field-row">
-      <div class="field"><label>Cédula *</label><input type="text" id="r-cedula" placeholder="1712345678" maxlength="10"></div>
-      <div class="field"><label>Teléfono *</label><input type="tel" id="r-telefono" placeholder="0991234567" maxlength="10"></div>
+    <div class="field-card">
+      <div class="field"><label>Nombre completo *</label><input type="text" id="r-nombre" placeholder="Juan Torres" autocomplete="name"></div>
+      <div class="field-row">
+        <div class="field"><label>Cédula *</label><input type="text" id="r-cedula" placeholder="1712345678" maxlength="10" inputmode="numeric"></div>
+        <div class="field"><label>Teléfono *</label><input type="tel" id="r-telefono" placeholder="0991234567" maxlength="10"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Ciudad *</label><input type="text" id="r-ciudad" placeholder="Quito"></div>
+        <div class="field" style="margin-bottom:0;"><label>Fecha nacimiento</label><input type="date" id="r-fecha"></div>
+      </div>
     </div>
-    <div class="field-row">
-      <div class="field"><label>Ciudad *</label><input type="text" id="r-ciudad" placeholder="Quito"></div>
-      <div class="field"><label>Fecha nacimiento</label><input type="date" id="r-fecha"></div>
+
+    <div class="sec-div">Tu sector de negocio</div>
+    <div class="field-card">
+      <p class="sector-intro">Selecciona tu sector principal para personalizar tu experiencia en SURTIFY.</p>
+      <div class="sectores-grid">
+        <div class="sector-chip" onclick="selSector(this,'tec','💻','Tecnología')"><div class="sector-chip-emoji">💻</div><div class="sector-chip-nom">Tecnología y Electrónica</div></div>
+        <div class="sector-chip" onclick="selSector(this,'moda','👗','Moda y Calzado')"><div class="sector-chip-emoji">👗</div><div class="sector-chip-nom">Moda y Calzado</div></div>
+        <div class="sector-chip" onclick="selSector(this,'hogar','🏠','Cocina y Hogar')"><div class="sector-chip-emoji">🏠</div><div class="sector-chip-nom">Cocina y Hogar</div></div>
+        <div class="sector-chip" onclick="selSector(this,'belle','💄','Belleza y Salud')"><div class="sector-chip-emoji">💄</div><div class="sector-chip-nom">Belleza y Salud</div></div>
+        <div class="sector-chip" onclick="selSector(this,'ferre','🔧','Ferretería')"><div class="sector-chip-emoji">🔧</div><div class="sector-chip-nom">Ferretería e Industria</div></div>
+        <div class="sector-chip" onclick="selSector(this,'dep','⚽','Deporte')"><div class="sector-chip-emoji">⚽</div><div class="sector-chip-nom">Deporte y Fitness</div></div>
+        <div class="sector-chip" onclick="selSector(this,'auto','🚗','Automotriz')"><div class="sector-chip-emoji">🚗</div><div class="sector-chip-nom">Automotriz</div></div>
+        <div class="sector-chip" onclick="selSector(this,'ninos','🧸','Juguetes')"><div class="sector-chip-emoji">🧸</div><div class="sector-chip-nom">Juguetes y Bebés</div></div>
+        <div class="sector-chip" onclick="selSector(this,'alim','🥗','Alimentación')"><div class="sector-chip-emoji">🥗</div><div class="sector-chip-nom">Alimentación</div></div>
+        <div class="sector-chip" onclick="selSector(this,'agro','🌾','Agropecuario')"><div class="sector-chip-emoji">🌾</div><div class="sector-chip-nom">Agropecuario</div></div>
+      </div>
+      <div class="sector-sel-label" id="sector-sel-label"></div>
     </div>
 
     <div class="sec-div">Foto de verificación</div>
-    <div class="selfie-wrap">
-      <div class="selfie-circle" id="selfie-circle">
-        <img id="selfie-preview" src="" alt="">
-        <div class="selfie-ph"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Tu foto</span></div>
-        <input type="file" accept="image/*" capture="user" class="selfie-inp" onchange="cargarSelfie(this)">
+    <div class="field-card">
+      <div class="selfie-wrap">
+        <div class="selfie-circle" id="selfie-circle">
+          <img id="selfie-preview" src="" alt="">
+          <div class="selfie-ph">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Tu foto</span>
+          </div>
+          <!-- capture="user" → cámara FRONTAL para selfie -->
+          <input type="file" accept="image/*" capture="user" class="selfie-inp" onchange="cargarSelfie(this)">
+        </div>
+        <div class="selfie-lbl">Foto clara de tu rostro<br>para verificar tu identidad</div>
       </div>
-      <div class="selfie-lbl">Foto de tu rostro claramente visible<br>para verificar tu identidad</div>
     </div>
 
     <div class="sec-div">Fotos de cédula</div>
-    <div class="foto-grid">
-      <div class="foto-slot" id="cedula-front-slot">
-        <img id="cedula-front-preview" src="" alt="">
-        <div class="foto-ph"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span>Cédula frontal</span></div>
-        <div class="foto-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <input type="file" accept="image/*" capture="environment" class="foto-inp" onchange="cargarFoto(this,'cedula-front')">
-      </div>
-      <div class="foto-slot" id="cedula-back-slot">
-        <img id="cedula-back-preview" src="" alt="">
-        <div class="foto-ph"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg><span>Cédula trasera</span></div>
-        <div class="foto-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <input type="file" accept="image/*" capture="environment" class="foto-inp" onchange="cargarFoto(this,'cedula-back')">
+    <div class="field-card">
+      <div class="camara-nota">📷 Se abrirá la cámara trasera de tu teléfono directamente. No se permite subir desde la galería.</div>
+      <div class="foto-grid">
+        <div class="foto-slot" id="cedula-front-slot">
+          <img id="cedula-front-preview" src="" alt="">
+          <div class="foto-ph">
+            <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <span>📷 Frente de cédula</span>
+          </div>
+          <div class="foto-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <!-- capture="environment" → SOLO cámara trasera, sin opción de galería -->
+          <input type="file" accept="image/*" capture="environment" class="foto-inp" onchange="cargarFoto(this,'cedula-front')">
+        </div>
+        <div class="foto-slot" id="cedula-back-slot">
+          <img id="cedula-back-preview" src="" alt="">
+          <div class="foto-ph">
+            <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            <span>📷 Reverso cédula</span>
+          </div>
+          <div class="foto-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <!-- capture="environment" → SOLO cámara trasera, sin opción de galería -->
+          <input type="file" accept="image/*" capture="environment" class="foto-inp" onchange="cargarFoto(this,'cedula-back')">
+        </div>
       </div>
     </div>
 
-    <div class="sec-div">Acceso</div>
-    <div class="field"><label>Correo electrónico *</label><input type="email" id="r-email" placeholder="tucorreo@ejemplo.com"></div>
-    <div class="field"><label>Contraseña *</label><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres"></div>
-    <button class="btn-main" id="btn-reg" onclick="doRegistro()">CREAR CUENTA →</button>
+    <div class="sec-div">Acceso a tu cuenta</div>
+    <div class="field-card">
+      <div class="field"><label>Correo electrónico *</label><input type="email" id="r-email" placeholder="tucorreo@ejemplo.com" autocomplete="email"></div>
+      <div class="field" style="margin-bottom:0;"><label>Contraseña *</label><input type="password" id="r-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password"></div>
+    </div>
+
+    <button class="btn-main" id="btn-reg" onclick="doRegistro()">CREAR MI CUENTA →</button>
+    <div class="switch-link">¿Ya tienes cuenta? <a href="#" onclick="switchTab('login');return false;">Iniciar sesión →</a></div>
   </div>
 </div>
 
+<!-- UPLOAD OVERLAY -->
 <div class="upload-overlay" id="upload-overlay">
   <div class="upload-box">
     <h3>Creando tu cuenta</h3>
@@ -206,107 +298,80 @@ body{background:var(--N);font-family:'Inter',sans-serif;min-height:100vh;-webkit
 const {createClient}=supabase;
 const sb=createClient('https://hfmsyrmkewscnvwynzfq.supabase.co','sb_publishable_d1oLsq70a6ZV33vW3XkRgw_nYcN2Z9v');
 
-const LIMITE_DISP=3; // Emprendedor: 3 dispositivos
+const LIMITE_DISP=3;
 let fotoFiles={'cedula-front':null,'cedula-back':null,selfie:null};
-let usuarioLogueado=null; // guardamos datos del usuario tras auth para gestionar dispositivos
+let sectorSeleccionado=null;
 
-// ── DEVICE ID — identificador único y persistente por navegador/dispositivo
-function getDeviceId(){
-  let id=localStorage.getItem('proveed_device_id');
-  if(!id){
-    id='dev_'+ Date.now()+'_'+Math.random().toString(36).slice(2,10);
-    localStorage.setItem('proveed_device_id',id);
-  }
-  return id;
-}
+// ── AUTO-LOGIN: si ya hay sesión activa, ir directo al dashboard
+(async()=>{
+  try{
+    const{data:{session}}=await sb.auth.getSession();
+    if(session) window.location.href='dashboard.html';
+  }catch(e){}
+  // Detectar parámetros de URL
+  const p=new URLSearchParams(location.search);
+  if(p.get('tab')==='reg') switchTab('reg');
+})();
 
-function getDeviceInfo(){
-  const ua=navigator.userAgent;
-  let tipo='💻 Computadora';
-  if(/Android/i.test(ua))tipo='📱 Android';
-  else if(/iPhone|iPad/i.test(ua))tipo='📱 iPhone/iPad';
-  else if(/Windows/i.test(ua))tipo='💻 Windows';
-  else if(/Mac/i.test(ua))tipo='💻 Mac';
-  const nav=navigator.userAgent.includes('Chrome')?'Chrome':navigator.userAgent.includes('Firefox')?'Firefox':navigator.userAgent.includes('Safari')?'Safari':'Navegador';
-  return tipo+' · '+nav;
-}
-
-// ── VERIFICAR Y REGISTRAR DISPOSITIVO
-async function verificarDispositivo(userId, rol){
-  const deviceId=getDeviceId();
-  const deviceInfo=getDeviceInfo();
-
-  // Obtener dispositivos actuales
-  const {data:dispositivos}=await sb.from('dispositivos_sesion')
-    .select('*')
-    .eq('usuario_id',userId)
-    .order('ultimo_acceso',{ascending:false});
-
-  const lista=dispositivos||[];
-  const yaRegistrado=lista.find(d=>d.device_id===deviceId);
-
-  if(yaRegistrado){
-    // Actualizar último acceso
-    await sb.from('dispositivos_sesion')
-      .update({ultimo_acceso:new Date().toISOString(),device_info:deviceInfo})
-      .eq('id',yaRegistrado.id);
-    return {ok:true};
-  }
-
-  // Dispositivo nuevo — verificar límite
-  if(lista.length>=LIMITE_DISP){
-    // Límite alcanzado — mostrar pantalla de gestión
-    return {ok:false,dispositivos:lista,deviceId,deviceInfo,userId};
-  }
-
-  // Registrar nuevo dispositivo
-  await sb.from('dispositivos_sesion').insert({
-    usuario_id:userId,
-    device_id:deviceId,
-    device_info:deviceInfo,
-    rol,
-    ultimo_acceso:new Date().toISOString()
-  });
-  return {ok:true};
-}
-
-// ── MOSTRAR PANTALLA BLOQUEO
-function mostrarBloqueo(resultado){
-  usuarioLogueado=resultado;
-  document.getElementById('form-login').style.display='none';
-  document.getElementById('block-screen').style.display='flex';
-
-  const lista=document.getElementById('block-devs-list');
-  lista.innerHTML='';
-  resultado.dispositivos.forEach(d=>{
-    const esEste=d.device_id===resultado.deviceId;
-    const fecha=new Date(d.ultimo_acceso).toLocaleDateString('es-EC',{day:'2-digit',month:'short',year:'numeric'});
-    const div=document.createElement('div');div.className='block-dev';
-    div.innerHTML=`
-      <div class="block-dev-ico">${d.device_info?.startsWith('📱')?'📱':'💻'}</div>
-      <div class="block-dev-info">
-        <div class="block-dev-nom">${d.device_info||'Dispositivo'}</div>
-        <div class="block-dev-sub">Último acceso: ${fecha}</div>
-        ${esEste?'<div class="block-dev-this">← Este dispositivo</div>':''}
-      </div>
-      ${!esEste?`<button class="btn-remove-dev" onclick="eliminarDispositivo('${d.id}','${resultado.userId}','${resultado.deviceId}','${resultado.deviceInfo}')">Eliminar</button>`:''}`;
-    lista.appendChild(div);
-  });
-}
-
-window.eliminarDispositivo=async function(id,userId,deviceId,deviceInfo){
-  await sb.from('dispositivos_sesion').delete().eq('id',id);
-  // Registrar este dispositivo
-  await sb.from('dispositivos_sesion').insert({
-    usuario_id:userId,
-    device_id:deviceId,
-    device_info:deviceInfo,
-    rol:'emprendedor',
-    ultimo_acceso:new Date().toISOString()
-  });
-  window.location.href='dashboard.html';
+// ── SECTOR
+window.selSector=function(el,codigo,emoji,nombre){
+  sectorSeleccionado=codigo;
+  document.querySelectorAll('.sector-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  const lbl=document.getElementById('sector-sel-label');
+  lbl.textContent=emoji+' '+nombre+' seleccionado ✓';
+  lbl.style.display='block';
 };
 
+// ── DEVICE ID
+function getDeviceId(){
+  let id=localStorage.getItem('surtify_device_id');
+  if(!id){id='dev_'+Date.now()+'_'+Math.random().toString(36).slice(2,10);localStorage.setItem('surtify_device_id',id);}
+  return id;
+}
+function getDeviceInfo(){
+  const ua=navigator.userAgent;
+  let t='💻 Computadora';
+  if(/Android/i.test(ua))t='📱 Android';
+  else if(/iPhone|iPad/i.test(ua))t='📱 iPhone';
+  else if(/Windows/i.test(ua))t='💻 Windows';
+  else if(/Mac/i.test(ua))t='💻 Mac';
+  return t+' · '+(ua.includes('Chrome')?'Chrome':ua.includes('Firefox')?'Firefox':'Safari');
+}
+
+// ── VERIFICAR DISPOSITIVO
+async function verificarDispositivo(userId,rol){
+  const deviceId=getDeviceId(),deviceInfo=getDeviceInfo();
+  const{data:lista}=await sb.from('dispositivos_sesion').select('*').eq('usuario_id',userId).order('ultimo_acceso',{ascending:false});
+  const devs=lista||[];
+  const ya=devs.find(d=>d.device_id===deviceId);
+  if(ya){
+    await sb.from('dispositivos_sesion').update({ultimo_acceso:new Date().toISOString(),device_info:deviceInfo}).eq('id',ya.id);
+    return{ok:true};
+  }
+  if(devs.length>=LIMITE_DISP)return{ok:false,dispositivos:devs,deviceId,deviceInfo,userId};
+  await sb.from('dispositivos_sesion').insert({usuario_id:userId,device_id:deviceId,device_info:deviceInfo,rol,ultimo_acceso:new Date().toISOString()});
+  return{ok:true};
+}
+
+// ── BLOQUEO
+function mostrarBloqueo(res){
+  document.getElementById('form-login').style.display='none';
+  document.getElementById('block-screen').style.display='flex';
+  const cont=document.getElementById('block-devs-list');cont.innerHTML='';
+  res.dispositivos.forEach(d=>{
+    const esEste=d.device_id===res.deviceId;
+    const fecha=new Date(d.ultimo_acceso).toLocaleDateString('es-EC',{day:'2-digit',month:'short'});
+    const div=document.createElement('div');div.className='block-dev';
+    div.innerHTML=`<div class="block-dev-ico">${d.device_info?.startsWith('📱')?'📱':'💻'}</div><div class="block-dev-info"><div class="block-dev-nom">${d.device_info||'Dispositivo'}</div><div class="block-dev-sub">Acceso: ${fecha}</div>${esEste?'<div class="block-dev-this">← Este dispositivo</div>':''}</div>${!esEste?`<button class="btn-remove-dev" onclick="eliminarDispositivo('${d.id}','${res.userId}','${res.deviceId}','${res.deviceInfo}')">Eliminar</button>`:''}`;
+    cont.appendChild(div);
+  });
+}
+window.eliminarDispositivo=async function(id,userId,deviceId,deviceInfo){
+  await sb.from('dispositivos_sesion').delete().eq('id',id);
+  await sb.from('dispositivos_sesion').insert({usuario_id:userId,device_id:deviceId,device_info:deviceInfo,rol:'emprendedor',ultimo_acceso:new Date().toISOString()});
+  window.location.href='dashboard.html';
+};
 window.cancelarBloqueo=async function(){
   await sb.auth.signOut();
   document.getElementById('block-screen').style.display='none';
@@ -317,25 +382,35 @@ window.cancelarBloqueo=async function(){
 window.doLogin=async function(){
   const email=document.getElementById('l-email').value.trim();
   const pass=document.getElementById('l-pass').value;
-  if(!email||!pass){showError('Completa todos los campos');return;}
+  if(!email||!pass){showError('Completa el correo y la contraseña');return;}
   const btn=document.getElementById('btn-login');
-  btn.disabled=true;btn.textContent='Verificando...';
+  btn.disabled=true;btn.textContent='Verificando...';clearError();
+  try{
+    const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
+    if(error){
+      showError(error.message.includes('Invalid')||error.message.includes('invalid')?'Correo o contraseña incorrectos':error.message.includes('confirmed')?'Confirma tu correo primero. Revisa tu bandeja de entrada.':'Error: '+error.message);
+      btn.disabled=false;btn.textContent='ENTRAR →';return;
+    }
+    const{data:u}=await sb.from('usuarios').select('rol,activo').eq('id',data.user.id).maybeSingle();
+    if(u?.rol==='proveedor'){await sb.auth.signOut();showError('Esta cuenta es de proveedor. Usa el portal proveedor.');btn.disabled=false;btn.textContent='ENTRAR →';return;}
+    if(u?.activo===false){await sb.auth.signOut();showError('Tu cuenta está suspendida. Contacta al soporte.');btn.disabled=false;btn.textContent='ENTRAR →';return;}
+    btn.textContent='Entrando...';
+    const res=await verificarDispositivo(data.user.id,'emprendedor');
+    if(res.ok){window.location.href='dashboard.html';}
+    else{btn.disabled=false;btn.textContent='ENTRAR →';mostrarBloqueo(res);}
+  }catch(e){showError('Error de conexión. Verifica tu internet.');btn.disabled=false;btn.textContent='ENTRAR →';}
+};
 
-  const {data,error}=await sb.auth.signInWithPassword({email,password:pass});
-  if(error){showError('Correo o contraseña incorrectos');btn.disabled=false;btn.textContent='ENTRAR →';return;}
-
-  const {data:usuario}=await sb.from('usuarios').select('rol').eq('id',data.user.id).single();
-  if(usuario?.rol==='proveedor'){await sb.auth.signOut();showError('Esta cuenta es de proveedor. Usa el portal proveedor.');btn.disabled=false;btn.textContent='ENTRAR →';return;}
-
-  btn.textContent='Verificando dispositivo...';
-
-  const resultado=await verificarDispositivo(data.user.id,'emprendedor');
-  if(resultado.ok){
-    window.location.href='dashboard.html';
-  } else {
-    btn.disabled=false;btn.textContent='ENTRAR →';
-    mostrarBloqueo(resultado);
-  }
+// ── RECUPERAR CONTRASEÑA
+window.doForgot=async function(){
+  const email=document.getElementById('l-email').value.trim();
+  if(!email){showError('Escribe tu correo arriba primero');return;}
+  try{
+    await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+'/login.html'});
+    const e=document.getElementById('msg-error');
+    e.textContent='✅ Te enviamos un correo para restablecer tu contraseña.';
+    e.style.cssText='display:block;background:rgba(147,236,33,.08);border:1.5px solid rgba(147,236,33,.2);color:#93EC21;border-radius:12px;padding:12px 15px;font-size:.84rem;margin-bottom:16px;';
+  }catch(err){showError('No encontramos esa cuenta.');}
 };
 
 // ── REGISTRO
@@ -347,35 +422,41 @@ window.doRegistro=async function(){
   const fecha=document.getElementById('r-fecha').value;
   const email=document.getElementById('r-email').value.trim();
   const pass=document.getElementById('r-pass').value;
-  if(!nombre||!cedula||!telefono||!ciudad||!email||!pass){showError('Completa todos los campos obligatorios');return;}
-  if(pass.length<6){showError('Contraseña mínimo 6 caracteres');return;}
-  if(!fotoFiles.selfie){showError('Sube tu foto de perfil para verificación');return;}
-  if(!fotoFiles['cedula-front']){showError('Sube la foto frontal de tu cédula');return;}
-  if(!fotoFiles['cedula-back']){showError('Sube la foto trasera de tu cédula');return;}
+  clearError();
+  if(!nombre||!cedula||!telefono||!ciudad||!email||!pass){showError('Completa todos los campos obligatorios *');return;}
+  if(cedula.length<10){showError('La cédula debe tener 10 dígitos');return;}
+  if(pass.length<6){showError('La contraseña debe tener mínimo 6 caracteres');return;}
+  if(!fotoFiles.selfie){showError('Toma tu foto de perfil para verificación');return;}
+  if(!fotoFiles['cedula-front']){showError('Toma la foto del frente de tu cédula con la cámara trasera');return;}
+  if(!fotoFiles['cedula-back']){showError('Toma la foto del reverso de tu cédula con la cámara trasera');return;}
   const btn=document.getElementById('btn-reg');
   btn.disabled=true;
   document.getElementById('upload-overlay').classList.add('show');
   try{
     setProgress(10);
-    const {data,error}=await sb.auth.signUp({email,password:pass});
-    if(error)throw error;
+    const{data,error}=await sb.auth.signUp({email,password:pass});
+    if(error){
+      document.getElementById('upload-overlay').classList.remove('show');
+      showError(error.message.includes('already')?'Este correo ya está registrado. Intenta iniciar sesión.':'Error: '+error.message);
+      btn.disabled=false;return;
+    }
     const uid=data.user.id;
     setProgress(30);
     const selfieUrl=await subirFoto(fotoFiles.selfie,`verificacion/${uid}/selfie`);
     setProgress(55);
-    const cedulaFrontUrl=await subirFoto(fotoFiles['cedula-front'],`verificacion/${uid}/cedula-front`);
+    const frontUrl=await subirFoto(fotoFiles['cedula-front'],`verificacion/${uid}/cedula-front`);
     setProgress(75);
-    const cedulaBackUrl=await subirFoto(fotoFiles['cedula-back'],`verificacion/${uid}/cedula-back`);
+    const backUrl=await subirFoto(fotoFiles['cedula-back'],`verificacion/${uid}/cedula-back`);
     setProgress(90);
     await sb.from('usuarios').insert({
       id:uid,nombre,email,cedula,telefono,ciudad,
       fecha_nacimiento:fecha||null,
       foto_perfil:selfieUrl,
-      cedula_frontal:cedulaFrontUrl,
-      cedula_trasera:cedulaBackUrl,
+      cedula_frontal:frontUrl,
+      cedula_trasera:backUrl,
+      sector_codigo:sectorSeleccionado||null,
       rol:'emprendedor',activo:true,verificado:false
     });
-      // Registrar dispositivo al crear cuenta
     await sb.from('dispositivos_sesion').insert({
       usuario_id:uid,device_id:getDeviceId(),
       device_info:getDeviceInfo(),rol:'emprendedor',
@@ -385,7 +466,8 @@ window.doRegistro=async function(){
     setTimeout(()=>{document.getElementById('upload-overlay').classList.remove('show');window.location.href='bienvenida.html';},800);
   }catch(e){
     document.getElementById('upload-overlay').classList.remove('show');
-    showError('Error: '+e.message);btn.disabled=false;
+    showError('Error: '+(e.message||'Intenta de nuevo'));
+    btn.disabled=false;
   }
 };
 
@@ -395,23 +477,15 @@ window.switchTab=function(tab){
   document.getElementById('tab-reg').classList.toggle('active',tab==='reg');
   document.getElementById('form-login').style.display=tab==='login'?'block':'none';
   document.getElementById('form-reg').style.display=tab==='reg'?'block':'none';
-  document.getElementById('msg-error').classList.remove('visible');
+  document.getElementById('block-screen').style.display='none';
+  document.getElementById('form-login').style.display=tab==='login'?'block':'none';
+  clearError();window.scrollTo(0,0);
 };
-function showError(msg){const e=document.getElementById('msg-error');e.textContent=msg;e.classList.add('visible');window.scrollTo(0,0);}
-window.cargarSelfie=function(input){
-  const file=input.files[0];if(!file)return;fotoFiles.selfie=file;
-  const r=new FileReader();r.onload=e=>{document.getElementById('selfie-preview').src=e.target.result;document.getElementById('selfie-circle').classList.add('filled');};r.readAsDataURL(file);
-};
-window.cargarFoto=function(input,tipo){
-  const file=input.files[0];if(!file)return;fotoFiles[tipo]=file;
-  const r=new FileReader();r.onload=e=>{document.getElementById(tipo+'-preview').src=e.target.result;document.getElementById(tipo+'-slot').classList.add('filled');};r.readAsDataURL(file);
-};
-async function subirFoto(file,path){
-  const {error}=await sb.storage.from('proveed-media').upload(path,file,{upsert:true});
-  if(error)throw error;
-  const {data}=sb.storage.from('proveed-media').getPublicUrl(path);
-  return data.publicUrl;
-}
+function showError(msg){const e=document.getElementById('msg-error');e.textContent=msg;e.classList.add('visible');window.scrollTo({top:0,behavior:'smooth'});}
+function clearError(){const e=document.getElementById('msg-error');e.className='msg-box error';e.style.cssText='';}
+window.cargarSelfie=function(input){const f=input.files[0];if(!f)return;fotoFiles.selfie=f;const r=new FileReader();r.onload=e=>{document.getElementById('selfie-preview').src=e.target.result;document.getElementById('selfie-circle').classList.add('filled');};r.readAsDataURL(f);};
+window.cargarFoto=function(input,tipo){const f=input.files[0];if(!f)return;fotoFiles[tipo]=f;const r=new FileReader();r.onload=e=>{document.getElementById(tipo+'-preview').src=e.target.result;document.getElementById(tipo+'-slot').classList.add('filled');};r.readAsDataURL(f);};
+async function subirFoto(file,path){const{error}=await sb.storage.from('surtify-media').upload(path,file,{upsert:true});if(error)throw error;const{data}=sb.storage.from('surtify-media').getPublicUrl(path);return data.publicUrl;}
 function setProgress(pct){document.getElementById('upload-bar').style.width=pct+'%';document.getElementById('upload-pct').textContent=pct+'%';}
 </script>
 </body>
